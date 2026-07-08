@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.07'>
+<GlobalParameters wDirLoc='0' dataDirRead='C:/' dataDirWrite=':/'>
+<Parameters>
+<Par name='P_DFE_DATA'>20230725</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAACkfwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACkQAAAHgA////AAAAAwAAB4AAAAEL/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAASzAAACkQD////8AAAEtwAAAskAAAGUAP////oAAAABAgAAAAL7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAAAeQD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAA2sAAACOAAAAeQD///8AAAZ8AAACkQAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<RunToFinishLine idx='11' x='-756' y='-504' nPinIn='3'/>
+<Calculator module='MathParser' idx='18' x='-2208' y='-504'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' label='a' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='b' isNumber='0'/>
+    <InputVar column='FE_CREA_AUDI' label='f' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='llave' meta='U'>a//"-"//b</OutputVar>
+    <OutputVar name='V_DFE_DATA' meta='U'>substr(f,0,8)</OutputVar>
+    <OutputVar name='P_CIN_IST'>1</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='20' x='-2076' y='-504' keep='1'>
+ <c>llave</c>
+ <c>V_DFE_DATA</c>
+ <c>P_CIN_IST</c>
+</SelectColumns>
+<writeColumnarGel module='MathParser' idx='23' x='-1416' y='-504' createDir='1' file=':/LDFU_FE_RECE_PROC1.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='271' x='-1056' y='-504' createDir='1' file=':/../Gel_DataLake/DM3/LDFU_FE_RECE_PROC1.cgel_anatella'/>
+<ColumnRename module='DefaultActions' idx='277' x='-1224' y='-504'><before>
+<c>llave</c><c>V_DFE_DATA</c><c>P_CIN_IST</c></before><after>
+<c>fkey</c><c>FE_CREA_AUDI_smax</c><c>P_CIN_IST</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<RowCounter idx='306' x='-924' y='-502' label='CounterID_307' compact='0'/>
+<FilterRows forceHDBuffering='1' module='MathParser' idx='16' x='-2340' y='-504'>
+ <Expression>x=5 || x=6</Expression>
+ <InputVars>
+    <InputVar column='ES_FINAL' label='x'/>
+ </InputVars>
+</FilterRows>
+<RowCounter idx='230' x='-1572' y='-502' label='CounterID_231' compact='0'/>
+<sort idx='282' v='3.06' x='-1932' y='-504' action='S'>
+  <field type='A'>llave</field>
+  <field type='Z'>V_DFE_DATA</field>
+</sort>
+<NaiveDeduplicate module='DefaultActions' idx='295' x='-1788' y='-504'>
+<c>llave</c>
+</NaiveDeduplicate>
+<ReadColumnarGel module='MathParser' idx='314' x='-2484' y='-504' columnSelection='1' fileName=':/../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.PRTX_ESTACION_TRAMITE.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c><c>NU_SEC_ESTACION</c><c>US_CREA_AUDI</c><c>FE_CREA_AUDI</c><c>ES_INICIAL</c><c>ES_FINAL</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='18' idxDest='20'/>
+<Connection idxSrc='277' idxDest='271'/>
+<Connection idxSrc='23' idxDest='277'/>
+<Connection idxSrc='271' idxDest='306'/>
+<Connection idxSrc='16' idxDest='18'/>
+<Connection idxSrc='295' idxDest='230'/>
+<Connection idxSrc='282' idxDest='295'/>
+<Connection idxSrc='230' idxDest='23'/>
+<Connection idxSrc='20' idxDest='282'/>
+<Connection idxSrc='306' idxDest='11'/>
+<Connection idxSrc='314' idxDest='16'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-2532' y='-552' size='10' bold='1' color='#228b22'>PRTX_ESTACION_TRAMITE</Annotation>
+  <Annotation x='-2352' y='-540' size='10' anchor='16'>ES_FINAL = (&apos;5&apos;,&apos;6&apos;)</Annotation>
+  <Annotation x='-1560' y='-456' size='10' anchor='23'>LDFU_FE_RECE_PROC 1</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

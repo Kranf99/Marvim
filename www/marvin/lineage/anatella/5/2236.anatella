@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.07'>
+<GlobalParameters wDirLoc='0' dataDirRead='D:/ProdAnatella/DM3' dataDirWrite=':/'>
+<Parameters>
+<Par name='C_CO_PROCESO'>04</Par>
+<Par name='P_DFE_DATA'>20230727</Par>
+<Par name='C_TIPO_CLIENTE'>01</Par>
+<Par name='C_IN_ENVIO_AGENCIA'>D</Par>
+<Par name='C_TIPO_WEB'>02</Par>
+<Par name='C_TIPO_BN'>05</Par>
+<Par name='C_TIPO_PVM'>04</Par>
+<Par name='C_TIPO_MOVIL'>03</Par>
+</Parameters>
+<ODBCConnections>
+<odbc name='' link='' hasPass='0'/>
+<odbc name='DNI185' type='1' ep='1' cstring='3AAAAOkBAADWAwAAo9fmtJM/zQuN+oE8xXymdO81VB46pF1dTKZ6oOtsHBxF0ouD/8aeiICTRxIql3VZPwMD5l1ztAYgttRCPErsMLulHXwOS/Zh6lpIVX4evOFHs6fRmSZwIASNkZBM8aIWcGfICxyJZ9gv8lvkQF+RfLOrP9rPc077kIezTW010hB3FkyY40zyLaZH+UwrPqhqMfVSZv/7YyBY66cuZcM+l7A76rCv/BniWMedFLkoYG0YuoBBDwENnDf5PslSxE2BHVcTVF5iF0AOLcC7dud15A=='/>
+</ODBCConnections>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAACMvwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACMgAAAHgA////AAAAAwAAB4AAAAFq/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAM+AAAAZwD////8AAADQgAABD4AAAGUAP////oAAAAAAgAAAAL7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAeQD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAwwAAADtAAAAeQD///8AAAZ8AAACMgAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<RunToFinishLine idx='53' x='-2976' y='-444' nPinIn='10'/>
+<ReadColumnarGel keyHD='169055710409884743' module='MathParser' idx='80' x='-4500' y='-192' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOIMPRESION.IMTC_LOTE_IMPRESION_DNIE.cgel_anatella'>
+ <ColumnsToRead>
+  <c>CO_DEST_IMPR</c><c>NU_LOTE</c><c>ES_LOTE_IMPR</c><c>TI_GRUP_TRAM</c><c>FE_CREA_AUDI</c><c>IN_PRIO</c><c>US_PRE_PRENSA</c><c>FE_FIN_PRE_PRENSA</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel keyHD='169055710709884567' forceHDBuffering='1' module='MathParser' idx='89' x='-4500' y='-72' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOIMPRESION.IMTM_DESTINO_IMPRESION.cgel_anatella'>
+ <ColumnsToRead>
+  <c>CO_DEST_IMPR</c><c>CO_LOCAL</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<sort idx='137' v='3.06' x='-3648' y='-192' action='S'>
+  <field type='0'>NU_LOTE</field>
+</sort>
+<sort idx='138' v='3.06' x='-3984' y='-192' action='S'>
+  <field type='A'>CO_DEST_IMPR</field>
+</sort>
+<sort idx='139' v='3.06' x='-3984' y='-72' action='S'>
+  <field type='A'>CO_DEST_IMPR</field>
+</sort>
+<Join module='DefaultActions' idx='140' x='-3828' y='-192' joinMode='1' keyA='CO_DEST_IMPR'>
+<SlaveKeys><c>CO_DEST_IMPR</c></SlaveKeys>
+<Prefixes><c></c><c>M_</c></Prefixes>
+</Join>
+<sort idx='145' v='3.06' x='-4260' y='-144' action='S'>
+  <field type='0'>NU_LOTE</field>
+</sort>
+<ReadColumnarGel module='MathParser' idx='157' x='-4920' y='-444' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOIMPRESION.IMTC_DESPACHO_IMPRESION_DNIE.cgel_anatella'>
+ <ColumnsToRead>
+  <c>ES_LOTE</c><c>TI_DOC_REG</c><c>NU_FICHA_REG</c><c>NU_LOTE</c><c>FE_CREA_AUDI</c><c>CO_PROCESO</c><c>CO_PROCESO_IMPR</c><c>NU_ANIO_IMPR</c><c>NU_ENVI_IMPR</c><c>CO_LOCAL_ORI_IMPR</c><c>CO_AREA_ORI_IMPR</c><c>NU_DNI</c><c>US_CREA_AUDI</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='158' x='-4764' y='-444'>
+ <Expression>substr(f,0,8)&lt;=itoa(P_DFE_DATA)</Expression>
+ <InputVars>
+    <InputVar column='FE_CREA_AUDI' label='f' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<sort keyHD='169055708709884536' idx='159' v='3.06' x='-4188' y='-444' action='S'>
+  <field type='0'>NU_LOTE</field>
+</sort>
+<Join module='DefaultActions' idx='160' x='-3900' y='-444' joinMode='1' keyA='NU_LOTE'>
+<SlaveKeys><c>NU_LOTE</c></SlaveKeys>
+<Prefixes><c></c><c>C_</c></Prefixes>
+</Join>
+<writeColumnarGel module='MathParser' idx='161' x='-3252' y='-444' file=':/IMTC_DNIE_CL_INV.cgel_anatella'/>
+<ReadColumnarGel module='MathParser' idx='162' x='-4920' y='-324' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOIMPRESION.IMTD_LOTE_IMPRESION_DNIE.cgel_anatella'>
+ <ColumnsToRead>
+  <c>ES_LOTE</c><c>TI_DOC_REG</c><c>NU_FICHA_REG</c><c>NU_LOTE</c><c>FE_CREA_AUDI</c><c>CO_PROCESO</c><c>CO_PROCESO_IMPR</c><c>NU_ANIO_IMPR</c><c>NU_ENVI_IMPR</c><c>CO_LOCAL_ORI_IMPR</c><c>CO_AREA_ORI_IMPR</c><c>NU_DNI</c><c>US_CREA_AUDI</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='163' x='-4764' y='-324'>
+ <Expression>ES_DNI_LOTE=1 || ES_DNI_LOTE=9</Expression>
+ <InputVars>
+    <InputVar column='ES_DNI_LOTE'/>
+ </InputVars>
+</FilterRows>
+<sort idx='164' v='3.06' x='-4500' y='-444' action='S'>
+  <field type='A'>llaveL</field>
+</sort>
+<Join module='DefaultActions' idx='166' x='-4356' y='-444' joinMode='1' keyA='llaveL'>
+<SlaveKeys><c>llaveL</c></SlaveKeys>
+<Prefixes><c></c><c>L_</c></Prefixes>
+</Join>
+<Calculator module='MathParser' idx='167' x='-4620' y='-444'>
+  <InputVars>
+    <InputVar column='NU_LOTE' isNumber='0' meta='F'/>
+    <InputVar column='NU_DNI' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='llaveL' meta='U'>NU_LOTE//"-"//NU_DNI</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='168' x='-4632' y='-324'>
+  <InputVars>
+    <InputVar column='NU_LOTE' isNumber='0' meta='F'/>
+    <InputVar column='NU_DNI' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='llaveL' meta='U'>NU_LOTE//"-"//NU_DNI</OutputVar>
+  </OutputVars>
+</Calculator>
+<sort idx='169' v='3.06' x='-4512' y='-324' action='S'>
+  <field type='A'>llaveL</field>
+</sort>
+<Join module='DefaultActions' idx='170' x='-3396' y='-348' joinMode='1' keyA='NU_LOTE'>
+<SlaveKeys><c>NU_LOTE</c></SlaveKeys>
+<Prefixes><c></c><c>C_</c></Prefixes>
+</Join>
+<writeColumnarGel module='MathParser' idx='171' x='-3252' y='-348' file=':/IMTC_DNIE_CLM_INV.cgel_anatella'/>
+<RowCounter idx='195' x='-3132' y='-442' label='CounterID_196' compact='0'/>
+<RowCounter idx='196' x='-3132' y='-358' label='CounterID_197' compact='0'/>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='80' idxDest='138'/>
+<Connection idxSrc='89' idxDest='139'/>
+<Connection idxSrc='138' idxDest='140'/>
+<Connection idxSrc='139' idxDest='140' idxPinIn='1'/>
+<Connection idxSrc='140' idxDest='137'/>
+<Connection idxSrc='80' idxDest='145'/>
+<Connection idxSrc='157' idxDest='158'/>
+<Connection idxSrc='159' idxDest='160'/>
+<Connection idxSrc='160' idxDest='161'/>
+<Connection idxSrc='162' idxDest='163'/>
+<Connection idxSrc='164' idxDest='166'/>
+<Connection idxSrc='166' idxDest='159'/>
+<Connection idxSrc='158' idxDest='167'/>
+<Connection idxSrc='167' idxDest='164'/>
+<Connection idxSrc='163' idxDest='168'/>
+<Connection idxSrc='168' idxDest='169'/>
+<Connection idxSrc='169' idxDest='166' idxPinIn='1'/>
+<Connection idxSrc='170' idxDest='171'/>
+<Connection idxSrc='145' idxDest='160' idxPinIn='1'/>
+<Connection idxSrc='137' idxDest='170' idxPinIn='1'/>
+<Connection idxSrc='159' idxDest='170'>
+  <Point x='-3976.76' y='-332.576'/>
+</Connection>
+<Connection idxSrc='161' idxDest='195'/>
+<Connection idxSrc='171' idxDest='196'/>
+<Connection idxSrc='195' idxDest='53'/>
+<Connection idxSrc='196' idxDest='53' idxPinIn='7'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-4800' y='-168' size='10' bold='1' color='#228b22' anchor='80'>IDOIMPRESION.IMTC_LOTE_IMPRESION C</Annotation>
+  <Annotation x='-4824' y='-36' size='10' bold='1' color='#228b22' anchor='89'>IDOIMPRESION.IMTM_DESTINO_IMPRESION M</Annotation>
+  <Annotation x='-5244' y='-420' size='10' bold='1' color='#228b22' anchor='157'>IDOIMPRESION.IMTC_DESPACHO_IMPRESION I</Annotation>
+  <Annotation x='-5352' y='-300' size='14' anchor='162'>IDOIMPRESION.IMTD_LOTE_IMPRESION L</Annotation>
+  <Annotation x='-3420' y='-492' size='14' anchor='161'>:/IMTC_DNIE_CL_INV.cgel_anatella</Annotation>
+  <Annotation x='-3360' y='-228' size='14' anchor='171'>:/IMTC_DNIE_CLM_INV.cgel_anatella</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

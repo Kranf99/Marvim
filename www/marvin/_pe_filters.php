@@ -73,7 +73,7 @@ if ($f3!='')
 }
 //$sql=$sql." order by a.$sortcol a.$sortdirection";
 $sql=$sql.' ORDER BY a.'.$sortcol.' '.$sortdirection;
-$sql=$sql.' LIMIT 81 OFFSET '.$offset;
+$sql=$sql.' LIMIT 101 OFFSET '.$offset;
 // for debug:
 //echo $sql."<br>\n";
 //$results = $db->query($sql);
@@ -129,6 +129,7 @@ echo getPaginationUrl(20);
 echo getPaginationUrl(40);
 echo getPaginationUrl(60);
 echo getPaginationUrl(80);
+if ($lastoffset>$offset+100) echo '...';
 
 function echoSortUrl($col,$nameofcolumn) 
 {

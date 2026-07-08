@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.04'>
+<GlobalParameters wDirLoc='1' dataDirRead='D:/ProdAnatella/DM8/DataLake' dataDirWrite=':/../DataLake/DM8'>
+<ODBCConnections>
+<odbc name='MP' link='MP' login='IDU_DATA_BI' ep='1' password='LAAAAPIBAADyAQAAbRrXfdSk7I6zPwv+gMl4LYCzwDXXxancb3OFHVxv9W0='/>
+<odbc name='BI' link='BI' login='IDODATAMART' ep='1' password='LAAAAPIBAADyAQAAC3K85N7gCGQLz4EvDOAL6cmj3yON+PJThPNZQy/Am5E='/>
+</ODBCConnections>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAADqAAACSvwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACSgAAAHgA////AAAAAwAAB4AAAAFS/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAPoAAAAZwD////8AAAD7AAAA5QAAAGUAP////oAAAABAQAAAAL7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAA4oAAAIoAAAAYAD///8AAAaSAAACSgAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<ReadColumnarGel module='MathParser' idx='42' x='-1596' y='684' columnSelection='1' fileName=':/../Extraccion/DM8/CARPETA.cgel_anatella'>
+ <ColumnsToRead>
+  <c>ID_CARPETA</c><c>NUMERO</c><c>ID_TIPO_CARPETA</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='47' x='-1452' y='336' columnSelection='1' fileName=':/../Extraccion/DM8/PARAMETRO.cgel_anatella'>
+ <ColumnsToRead>
+  <c>DESCRIPCION</c><c>ID_PARAMETRO</c><c>TIPO</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<writeGel idx='319' x='-216' y='336' createDir='1' file=':/../DataLake/DM8/MPDS_CANAL.gel_anatella'/>
+<ColumnRename module='DefaultActions' idx='320' x='-1164' y='336'><before>
+<c>DESCRIPCION</c><c>ID_PARAMETRO</c></before><after>
+<c>DE_CANAL</c><c>CO_CANAL</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<FilterRows module='MathParser' idx='321' x='-1296' y='336'>
+ <Expression>x="tipo_origen_expediente"</Expression>
+ <InputVars>
+    <InputVar column='TIPO' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='322' x='-504' y='336' addNowS='1' dateFormat='yyyyMMdd hh:mm:ss'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='FE_MODI_AUDI' meta='U'>_nowS</OutputVar>
+  </OutputVars>
+</Calculator>
+<MultiJoin module='DefaultActions' idx='323' x='-1272' y='684'>
+  <Join pin='1' mainKey='ID_TIPO_CARPETA' slaveKey='ID_PARAMETRO' prefix='' copyAll='0'>
+  <c>DESCRIPCION</c>
+  </Join>
+</MultiJoin>
+<ColumnRename module='DefaultActions' idx='324' x='-384' y='684'><before>
+<c>ID_CARPETA</c><c>NUMERO</c><c>ID_TIPO_CARPETA</c><c>DESCRIPCION</c></before><after>
+<c>CO_CARPETA</c><c>NU_CARPETA</c><c>CO_TIPOCARPETA</c><c>DE_TIPOCARPETA</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<writeGel idx='325' x='-204' y='684' createDir='1' file=':/../DataLake/DM8/MPDS_CARPETA.gel_anatella'/>
+<SelectColumns module='DefaultActions' idx='331' x='-372' y='336' keep='0'>
+ <c>TIPO</c>
+</SelectColumns>
+<FilterRows module='MathParser' idx='381' x='-1452' y='816'>
+ <Expression>x="tipo_carpeta"</Expression>
+ <InputVars>
+    <InputVar column='TIPO' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<ChangeDataType idx='406' x='-1128' y='684'>
+<toStringFromFloat><c>ID_CARPETA</c><c>ID_TIPO_CARPETA</c></toStringFromFloat>
+</ChangeDataType>
+<Calculator module='MathParser' idx='537' x='-516' y='684' addNowS='1' dateFormat='yyyyMMdd hh:mm:ss'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='FE_MODI_AUDI' meta='U'>_nowS</OutputVar>
+  </OutputVars>
+</Calculator>
+<ReadColumnarGel module='MathParser' idx='580' x='-1596' y='816' columnSelection='1' fileName=':/../Extraccion/DM8/PARAMETRO.cgel_anatella'>
+ <ColumnsToRead>
+  <c>DESCRIPCION</c><c>ID_PARAMETRO</c><c>TIPO</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<RunToFinishLine idx='614' x='96' y='336' nPinIn='51'/>
+<readGel idx='615' x='-204' y='552' fileName=':/../DataLake/DM8/MPDS_CANAL.gel_anatella'/>
+<readGel idx='617' x='-204' y='912' fileName=':/../DataLake/DM8/MPDS_CARPETA.gel_anatella'/>
+<OracleOCI module='Oracle' idx='618' v='3.02' x='-60' y='456' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 151.101.180.50)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec2)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAPIBAABuAAAAZdyOBXYikqm391PZLtMDlo4x3B6rwqe6dLgelIhBdpU=' rowBuffer='1' isSelect='0'>
+<SQL>
+truncate table IDODATAMART.MPDS_CANAL
+</SQL>
+</OracleOCI>
+<upsertOCI module='Oracle' idx='620' v='3.01' x='-60' y='552' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 151.101.180.50)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec2)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAPIBAADyAQAAC3K85N7gCGQLz4EvDOAL6cmj3yON+PJThPNZQy/Am5E=' dateFormat='YYYYMMDD HH24:MI:SS' operation='0' table='IDODATAMART.MPDS_CANAL'>
+  <keyCols></keyCols>
+  <updateCols></updateCols>
+</upsertOCI>
+<OracleOCI module='Oracle' idx='621' v='3.02' x='-48' y='756' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 151.101.180.50)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec2)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAPIBAADyAQAAC3K85N7gCGQLz4EvDOAL6cmj3yON+PJThPNZQy/Am5E=' rowBuffer='1' isSelect='0'>
+<SQL>
+truncate table IDODATAMART.MPDS_CARPETA
+</SQL>
+</OracleOCI>
+<upsertOCI module='Oracle' idx='622' v='3.01' x='-48' y='912' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 151.101.180.50)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec2)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAPIBAADyAQAAC3K85N7gCGQLz4EvDOAL6cmj3yON+PJThPNZQy/Am5E=' dateFormat='YYYYMMDD HH24:MI:SS' operation='0' table='IDODATAMART.MPDS_CARPETA'>
+  <keyCols></keyCols>
+  <updateCols></updateCols>
+</upsertOCI>
+<Generic idx='623' x='-1008' y='360' id='get_meta-data'
+  longName='Get meta-data'
+  le='1444654687384'
+  keywords='meta data extract get'
+  image='/getMetaData.svg'
+  author='Frank Vanden Berghen'
+  revision='0.03'
+  tags='150_Standard'
+  pdfDestination='5_5_14_get_meta_data'>
+<Description>
+Get meta-data: column name &amp; type + sort meta-data.&lt;br/&gt;&lt;br/&gt;
+Do not enable the option &quot;pump all rows from input&quot; unless you know what you are doing
+</Description>
+<Parameters>
+  <Parameter id='readAll' text='pump all rows from input' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+var rIn,rOut,i,ak,at;
+function init()
+{
+    rIn=rowDeepCopy(getCurrentRow());
+    setOutputRowSize(0,5);
+    i=0;
+    rOut=new Row(5);
+    rowSetColumnName(rOut,0,"Before");
+    rowSetColumnName(rOut,1,"After");
+    rowSetColumnName(rOut,2,"Type");
+    rowSetColumnName(rOut,3,"SortPriority");
+    rowSetColumnName(rOut,4,"SortType");
+    
+    var j=rIn.nColumn,k=0;
+    ak=new Array(j); at=new Array(j);
+    while(j--) { ak[j]=null; at[j]=null; }
+    for(;;)
+    {
+        var j=rowGetSortColumnIdx(rIn,k);
+        if (j&lt;0) break;
+        ak[j]=k;
+        at[j]=rowGetSortType(rIn,k);
+        k++;
+    }
+    return 0;
+}
+
+function run()
+{
+    if (i==rIn.nColumn) 
+    {
+        if (readAll)
+        {
+            var r;
+            for(;;)
+            {
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                r=getNextRow();
+                if (r.isNull||userAskedAbort()) return 1;
+            }
+        }
+        return 1;
+    }
+    var cn=rowGetColumnName(rIn,i);
+    rOut.setColumn(0,cn);
+    rOut.setColumn(1,cn);
+    rOut.setColumn(2,rowGetMetaType(rIn,i));
+    rOut.setColumn(3,ak[i]);
+    rOut.setColumn(4,at[i]);
+    i++;
+    rOut.write(); 
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<Calculator module='MathParser' idx='624' x='-756' y='360'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='After' meta='U' update='1'>"string"</OutputVar>
+  </OutputVars>
+</Calculator>
+<FilterRows module='MathParser' idx='625' x='-876' y='360'>
+ <Expression>Type !="U"</Expression>
+ <InputVars>
+    <InputVar column='Type' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<ChangeDataType idx='626' x='-624' y='336'>
+</ChangeDataType>
+<Generic idx='627' x='-1008' y='720' id='get_meta-data'
+  longName='Get meta-data'
+  le='1444654687384'
+  keywords='meta data extract get'
+  image='/getMetaData.svg'
+  author='Frank Vanden Berghen'
+  revision='0.03'
+  tags='150_Standard'
+  pdfDestination='5_5_14_get_meta_data'>
+<Description>
+Get meta-data: column name &amp; type + sort meta-data.&lt;br/&gt;&lt;br/&gt;
+Do not enable the option &quot;pump all rows from input&quot; unless you know what you are doing
+</Description>
+<Parameters>
+  <Parameter id='readAll' text='pump all rows from input' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+var rIn,rOut,i,ak,at;
+function init()
+{
+    rIn=rowDeepCopy(getCurrentRow());
+    setOutputRowSize(0,5);
+    i=0;
+    rOut=new Row(5);
+    rowSetColumnName(rOut,0,"Before");
+    rowSetColumnName(rOut,1,"After");
+    rowSetColumnName(rOut,2,"Type");
+    rowSetColumnName(rOut,3,"SortPriority");
+    rowSetColumnName(rOut,4,"SortType");
+    
+    var j=rIn.nColumn,k=0;
+    ak=new Array(j); at=new Array(j);
+    while(j--) { ak[j]=null; at[j]=null; }
+    for(;;)
+    {
+        var j=rowGetSortColumnIdx(rIn,k);
+        if (j&lt;0) break;
+        ak[j]=k;
+        at[j]=rowGetSortType(rIn,k);
+        k++;
+    }
+    return 0;
+}
+
+function run()
+{
+    if (i==rIn.nColumn) 
+    {
+        if (readAll)
+        {
+            var r;
+            for(;;)
+            {
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                r=getNextRow();
+                if (r.isNull||userAskedAbort()) return 1;
+            }
+        }
+        return 1;
+    }
+    var cn=rowGetColumnName(rIn,i);
+    rOut.setColumn(0,cn);
+    rOut.setColumn(1,cn);
+    rOut.setColumn(2,rowGetMetaType(rIn,i));
+    rOut.setColumn(3,ak[i]);
+    rOut.setColumn(4,at[i]);
+    i++;
+    rOut.write(); 
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<FilterRows module='MathParser' idx='628' x='-876' y='720'>
+ <Expression>Type !="U"</Expression>
+ <InputVars>
+    <InputVar column='Type' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='629' x='-756' y='720'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='After' meta='U' update='1'>"string"</OutputVar>
+  </OutputVars>
+</Calculator>
+<ChangeDataType idx='630' x='-636' y='684'>
+</ChangeDataType>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='47' idxDest='321'/>
+<Connection idxSrc='321' idxDest='320'/>
+<Connection idxSrc='42' idxDest='323'/>
+<Connection idxSrc='322' idxDest='331'/>
+<Connection idxSrc='331' idxDest='319'/>
+<Connection idxSrc='381' idxDest='323' idxPinIn='1'/>
+<Connection idxSrc='324' idxDest='325'/>
+<Connection idxSrc='323' idxDest='406'/>
+<Connection idxSrc='537' idxDest='324'/>
+<Connection idxSrc='580' idxDest='381'/>
+<Connection idxSrc='319' idxDest='614'/>
+<Connection idxSrc='325' idxDest='614' idxPinIn='29'/>
+<Connection idxSrc='615' idxDest='620'/>
+<Connection idxSrc='620' idxDest='614' idxPinIn='18'/>
+<Connection idxSrc='618' idxDest='614' idxPinIn='10'/>
+<Connection idxSrc='621' idxDest='614' idxPinIn='35'/>
+<Connection idxSrc='617' idxDest='622'/>
+<Connection idxSrc='622' idxDest='614' idxPinIn='48'/>
+<Connection idxSrc='320' idxDest='623'/>
+<Connection idxSrc='623' idxDest='625'/>
+<Connection idxSrc='625' idxDest='624'/>
+<Connection idxSrc='320' idxDest='626'/>
+<Connection idxSrc='626' idxDest='322'/>
+<Connection idxSrc='624' idxDest='626' idxPinIn='1'/>
+<Connection idxSrc='406' idxDest='627'/>
+<Connection idxSrc='627' idxDest='628'/>
+<Connection idxSrc='628' idxDest='629'/>
+<Connection idxSrc='406' idxDest='630'/>
+<Connection idxSrc='630' idxDest='537'/>
+<Connection idxSrc='629' idxDest='630' idxPinIn='1'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-1584' y='768' size='14' anchor='42'>CARPETA</Annotation>
+  <Annotation x='-1584' y='360' size='14' anchor='47'>PARAMETRO</Annotation>
+  <Annotation x='-204' y='420' size='14' anchor='319'>MPDS_CANAL</Annotation>
+  <Annotation x='-240' y='648' size='14' anchor='325'>MPDS_CARPETA</Annotation>
+  <Annotation x='-1428' y='288' size='14' anchor='321'>WHERE TIPO=&apos;TIPO_ORIGEN_EXPEDIENTE&apos;</Annotation>
+  <Annotation x='-1356' y='912' size='14' anchor='381'>WHERE TIPO=&apos;TIPO_CARPETA&apos;</Annotation>
+  <Annotation x='-1596' y='912' size='14' anchor='580'>PARAMETRO</Annotation>
+  <Annotation x='-528' y='300' size='14'>FE_MODI_AUDI = _nowS</Annotation>
+  <Annotation x='-1296' y='768' size='14'>on ID_PARAMETRO
+Solo DESCRIPCION</Annotation>
+  <Annotation x='-1140' y='780' size='14' anchor='406'>toString
+ID_CARPETA
+ID_TIPO_CARPETA</Annotation>
+  <Annotation x='-564' y='624' size='14'>FE_MODI_AUDI = _nowS</Annotation>
+  <Annotation x='-444' y='804' size='14' anchor='324'>ID_CARPETA	CO_CARPETA
+NUMERO		NU_CARPETA
+ID_TIPO_CARPETA	CO_TIPOCARPETA
+DESCRIPCION	DE_TIPOCARPETA</Annotation>
+  <Annotation x='-1464' y='456' size='14'>DESCRIPCION
+ID_PARAMETRO
+TIPO</Annotation>
+  <Annotation x='-1236' y='432' size='14' anchor='320'>DESCRIPCION	DE_CANAL
+ID_PARAMETRO	CO_CANAL</Annotation>
+  <Annotation x='-1608' y='936' size='14'>DESCRIPCION
+ID_PARAMETRO
+TIPO</Annotation>
+  <Annotation x='-1464' y='708' size='14' anchor='42'>ID_CARPETA
+NUMERO
+ID_TIPO_CARPETA</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

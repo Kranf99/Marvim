@@ -1,22 +1,13 @@
 <?php
-session_start();
-if (!isset($_SESSION['id'])) {
-    header("Location: ./index.html");
-    exit;
-}
-$myid = (int)$_SESSION['id'];
+require '_pe_apiAuth.php';
+
+// ── init ─────────────────────────────────────────────────────────
 
 date_default_timezone_set('Europe/Brussels');
 require_once '_pe_startCRON.php';
 require_once '_pe_addEvent.php';
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
-
-// ── superAdmin check ─────────────────────────────────────────────────────────
-$dbUsers = new SQLite3('../../db/MarvinUsers.sqlite', SQLITE3_OPEN_READONLY);
-$dbUsers->busyTimeout(5000);
-$isSuperAdmin = (bool)$dbUsers->querySingle('SELECT superadmin FROM users WHERE id=' . $myid);
-$dbUsers->close();
 
 // ── whitelists ───────────────────────────────────────────────────────────────
 $checkCN= array(

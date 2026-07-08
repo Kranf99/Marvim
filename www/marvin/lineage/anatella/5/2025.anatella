@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.20'>
+<GlobalParameters wDirLoc='0' otherDir='D:/ProdAnatella/DM3_EnEvaluacion/LDPK_PROCESO_DESPACHO'>
+<Parameters>
+<Par name='P_DFE_DATA'>20230824</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAABUPwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAABUAAAAHgA////AAAAAwAABEEAAAEL/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAKQAAACYAD////8AAAClAAAAa0AAAGUAP////oAAAAAAQAAAAL7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAYAD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD///8AAAM9AAABUAAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAAA/L/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<parallelRun idx='20' x='-408' y='-624' maxConcurrentRun='6' abort='1'>
+<RunData><anatellaGraph>:/02_DESPACHO_01.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/02_DESPACHO_02.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/02_DESPACHO_03.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/02_DESPACHO_04.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/02_DESPACHO_05.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/02_DESPACHO_06.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/02_DESPACHO_07.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/02_DESPACHO_08.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/02_DESPACHO_09.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/02_DESPACHO_10.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/02_DESPACHO_11.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/02_DESPACHO_12.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<RunToFinishLine idx='21' x='-228' y='-924' nPinIn='30'/>
+<parallelRun idx='22' x='-408' y='-720' maxConcurrentRun='5' abort='1'>
+<RunData><anatellaGraph>:/Cruze0.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/Cruze1.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/Cruze2.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/Cruze3.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/Cruze4.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/Cruze5.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<parallelRun idx='24' x='-408' y='-816' maxConcurrentRun='1' abort='1'>
+<RunData><anatellaGraph>:/PR_H.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<ListFiles module='DefaultActions' idx='25' v='2.37' x='-564' y='-924' filter='*.*_anatella'/>
+<Generic idx='26' x='-408' y='-924' id='simpleFileOps'
+  longName='Simple File Operations'
+  le='1648063873179'
+  abortOnMissingColumn='0'
+  shape='3'
+  keywords='file copy move rename delete'
+  image='/fileOps.svg'
+  author='Frank Vanden Berghen'
+  revision='0.09'
+  tags='600_System Tools'>
+<Description>
+</Description>
+<Parameters>
+  <Parameter id='idMode' text='Mode' type='combobox'><meta>&lt;i&gt;Copy Files&lt;/i&gt;&lt;i&gt;Move (or Rename) Files&lt;/i&gt;&lt;i&gt;Delete Files&lt;/i&gt;&lt;i&gt;Create Dir&lt;/i&gt;</meta><data>2</data></Parameter>
+  <Parameter id='idSource' text='Source File' type='onecolumn'><meta>0</meta><data>fileName</data></Parameter>
+  <Parameter id='idDestination' text='Destination File' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='idNAttempts' text='Maximum number of attempts' type='double'>2</Parameter>
+  <Parameter id='msToSleep' text='Wait for X milliseconds between each attempt. X=?' type='double'>5000</Parameter>
+  <Parameter id='idAbort' text='Abort if this still fails after all the attempts' type='bool'>1</Parameter>
+  <Parameter id='idOverwrite' text='Overwrite destination File (for copy/move ops.)' type='bool'>1</Parameter>
+</Parameters>
+<Script>
+var mr,attemptNumber,attemptLeft;
+function parallelRun(v) { return true; }
+function init()
+{
+    var r=getCurrentRow();
+    if (r.isNull) return 0;
+    setOutputRowSize(0,r.nColumn+1);
+    idNAttempts--;
+    if (!(idNAttempts>=0)) idNAttempts=0;
+    mr=new Row(1);
+    rowSetColumnName(mr,0,"Op_Status");
+    rowSetMetaType(mr,0,'K');
+    switch(idMode)
+    {
+    case 0:
+    case 1:
+        if (idSource&lt;0) throw "SimpleFileOps: no source?";
+        if (idDestination&lt;0) throw "SimpleFileOps: no destination?";
+        break;
+    case 2:
+    case 3:
+        if (idSource&lt;0) throw "SimpleFileOps: no source?";
+        break;
+    }
+    return 0;
+}
+function doWait(s)
+{
+    attemptLeft--;
+    print(s+" Failed: Waiting "+msToSleep+"ms before next attempt...");
+    sleep(msToSleep);
+    attemptNumber++;
+    print("Sleep finished: Attempting "+s+" again ("+attemptNumber+")...");
+}
+function overwrite(s)
+{
+    if (!idOverwrite) return 0;
+    for(;;)
+    {
+        a=fileDelete(s,true);
+        if (a&amp;&amp;(!fileExist(s))) break;
+        if (!attemptLeft)
+        {
+            if (idAbort)  throw "Error Overwriting File "+s;
+            break;
+        }
+        doWait("Overwrite");
+        if (userAskedAbort()) return 1;
+    }
+    return 0;
+}
+function run()
+{
+    var r=getNextRow();
+    if (r.isNull) return 1;
+    var a;
+    attemptNumber=1;
+    attemptLeft=idNAttempts;
+    switch(idMode)
+    {
+    case 0:
+        {
+            var s=r.col(idSource),d=r.col(idDestination);
+            if (overwrite(d)) return 1;
+            for(;;)
+            {
+                a=fileCopy(s,d,true);
+                if (a) break;
+                if (!attemptLeft)
+                {
+                    if (idAbort)  throw "Error Copying File "+s;
+                    break;
+                }
+                doWait("Copy");
+                if (userAskedAbort()) return 1;
+            }
+            break;
+        }
+    case 1:
+        {
+            var s=r.col(idSource),d=r.col(idDestination);
+            if (overwrite(d)) return 1;
+            for(;;)
+            {
+                a=fileMove(s,d,true);
+                if (a) break;
+                if (!attemptLeft)
+                {
+                    if (idAbort)  throw "Error Moving File "+s;
+                    break;
+                }
+                doWait("Move");
+                if (userAskedAbort()) return 1;
+            }
+            break;
+        }
+    case 2:
+        {
+            var s=r.col(idSource);
+            for(;;)
+            {
+                a=fileDelete(s,true);
+                if (a&amp;&amp;(!fileExist(s))) break;
+                if (!attemptLeft)
+                {
+                    if (idAbort)  throw "Error Deleting File "+s;
+                    break;
+                }
+                doWait("Delete");
+                if (userAskedAbort()) return 1;
+            }
+            break;
+        }
+    case 3:
+        {
+            var s=r.col(idSource);
+            mkDir(s);
+            a=fileExist(s);
+            break;
+        }
+    }
+    r.write(); 
+    mr.setColumn(0,a?1:0);
+    mr.write();
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='25' idxDest='26'/>
+<Connection idxSrc='26' idxDest='21'/>
+<Connection idxSrc='24' idxDest='21' idxPinIn='9'/>
+<Connection idxSrc='22' idxDest='21' idxPinIn='17'/>
+<Connection idxSrc='20' idxDest='21' idxPinIn='25'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-612' y='-612' size='10' anchor='20'>02_DESPACHO_01.anatella
+02_DESPACHO_02.anatella
+02_DESPACHO_03.anatella
+02_DESPACHO_04.anatella
+02_DESPACHO_05.anatella
+02_DESPACHO_06.anatella
+02_DESPACHO_07.anatella
+02_DESPACHO_08.anatella
+02_DESPACHO_09.anatella
+02_DESPACHO_10.anatella
+02_DESPACHO_11.anatella
+02_DESPACHO_12.anatella</Annotation>
+  <Annotation x='-576' y='-720' size='10' anchor='22'>:/Cruze0.anatella
+:/Cruze1.anatella
+:/Cruze2.anatella
+:/Cruze3.anatella
+:/Cruze4.anatella</Annotation>
+  <Annotation x='-552' y='-792' size='10' anchor='24'>PR_H.anatella</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

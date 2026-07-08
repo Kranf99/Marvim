@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.07'>
+<GlobalParameters wDirLoc='0' dataDirRead='D:/ProdAnatella/Gel_DataLake/Extraccion/DNI' dataDirWrite=':/'>
+<Parameters>
+<Par name='P_DFE_DATA'>20230725</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAACkfwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACkQAAAHgA////AAAAAwAAB4AAAAEL/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAARHAAAAZwD////8AAAESwAAAzUAAAGUAP////oAAAABAgAAAAL7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAAAeQD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAA2sAAACOAAAAeQD///8AAAZ8AAACkQAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<RunToFinishLine idx='11' x='-696' y='-684' nPinIn='23'/>
+<ReadColumnarGel module='MathParser' idx='24' x='-1788' y='-684' columnSelection='1' fileName=':/../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.CTTR_SECUENCIA_FICHA_DECA.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_FICHA_INI</c><c>NU_FICHA_FIN</c><c>TI_FICHA</c><c>ES_RANGO_FICHA</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<RowCounter idx='218' x='-1116' y='-682' label='CounterID_219' compact='0'/>
+<FilterRows module='MathParser' idx='25' x='-1644' y='-684'>
+ <Expression>x=1</Expression>
+ <InputVars>
+    <InputVar column='ES_RANGO_FICHA' label='x'/>
+ </InputVars>
+</FilterRows>
+<writeColumnarGel module='MathParser' idx='26' x='-948' y='-684' createDir='1' file=':/LDFU_IN_DECA.cgel_anatella'/>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='218' idxDest='26'/>
+<Connection idxSrc='25' idxDest='218'/>
+<Connection idxSrc='24' idxDest='25'/>
+<Connection idxSrc='26' idxDest='11'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-1056' y='-636' size='10' anchor='26'>LDFU_IN_DECA</Annotation>
+  <Annotation x='-2004' y='-660' size='10' bold='1' color='#228b22' anchor='24'>CTTR_SECUENCIA_FICHA_DECA</Annotation>
+  <Annotation x='-1656' y='-588' size='10' anchor='25'>ES_RANGO_FICHA = &apos;1&apos;</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

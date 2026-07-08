@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.07'>
+<GlobalParameters wDirLoc='0' dataDirRead='D:/ProdAnatella/Gel_DataLake/DM3' otherDir='D:/ProdAnatella/DM3_EnEvaluacion/LDPK_PROCESO_CAPTURA'>
+<Parameters>
+<Par name='P_DFE_DATA'>20230830</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAACkvwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACkgAAAHgA////AAAAAwAAB4AAAAEK/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAARqAAACYAD////8AAAEbgAAAxIAAAGUAP////oAAAAAAQAAAAL7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAYAD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD///8AAAZ8AAACkgAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<parallelRun idx='1' x='-816' y='-312' maxConcurrentRun='4' abort='1'>
+<RunData><anatellaGraph>:/LDSP_INVENTARIOFINAL.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INVENTARIOFINALWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_Courier.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCIONWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_RECEPCION.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_RECEPCIONWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<parallelRun idx='4' x='-816' y='-216' maxConcurrentRun='1' abort='1'>
+<RunData><anatellaGraph>:/LDSP_CAPTURACONSOLIDADO.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<RunToFinishLine idx='5' x='-660' y='-312' nPinIn='10'/>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='1' idxDest='5'/>
+<Connection idxSrc='4' idxDest='5' idxPinIn='8'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-948' y='-324' size='14' anchor='1'>Inventario
+Produccion
+Recepcion
+Courier</Annotation>
+  <Annotation x='-948' y='-192' size='14' anchor='4'>Consolidado</Annotation>
+  <Annotation x='-768' y='-372' size='14'>Main Captura</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

@@ -16,7 +16,7 @@ $idserver=0;
 $filter='';
 if (isset($_REQUEST['idserver'])) $idserver=$_REQUEST['idserver'];
 
-if ($idserver!=0) $filter.=" and idserver=".$idserver;
+if ($idserver!=0) $filter.=" and a.idserver=".(int)$idserver;
 ?>
 <!-- Content -->
 <div class="content">

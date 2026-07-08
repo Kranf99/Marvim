@@ -1,4 +1,15 @@
-<?php require '../_pe_checkSession.php'; ?>
+<?php
+// _pe_checkSession.php redirects to "./index.html" on no session, relative to
+// marvin/*.php; this page lives one level deeper (marvin/lineage/), so that
+// resolves to a non-existent marvin/lineage/index.html. Redirect ourselves
+// to the real login page before handing off to the shared session check.
+if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+if (!isset($_SESSION['id'])) {
+    header('Location: ../index.html');
+    exit;
+}
+require '../_pe_checkSession.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +18,6 @@
   <title>Marvin - Lineage</title>
   <link rel="stylesheet" href="../ressources/style.css">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
-<?php require "../_pe_headerScripts.php"; ?>
   <style>
     .lineage-wrap {
       flex: 1;

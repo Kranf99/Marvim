@@ -33,7 +33,7 @@ if ($iddept!=0) {
     $filter.=" AND a.idDepartment=".$iddept;
 }
 
-if ($idserver!=0) $filter.=" AND idserver=".$idserver;
+if ($idserver!=0) $filter.=" AND a.idserver=".(int)$idserver;
 ?>
 <!-- Content -->
 <div class="content">

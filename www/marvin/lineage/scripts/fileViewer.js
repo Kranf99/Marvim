@@ -31,9 +31,126 @@ const ANATELLA_NODE_COLORS = {
   inlineTable:         {fill:'#f0fdf4', stroke:'#4d7c0f', text:'#365314', label:'Inline'},
 };
 
+// ── AI Description helpers ────────────────────────────────────────────────
+// Describe the .anatella file from its pipeline operations (the nodes we already
+// parse for the graph) — not from column lineage. This is both the right focus
+// ("what does this pipeline do") and small, so CPU prefill stays fast.
+function buildDescPrompt(scriptPath, xmlStr) {
+  const nodes = (parseAnatellaXML(xmlStr || '').nodes) || [];
+  function label(tag) { return (ANATELLA_NODE_COLORS[tag] && ANATELLA_NODE_COLORS[tag].label) || tag; }
+  const name = (scriptPath || '').split(/[\\/]/).pop().replace(/\.anatella$/i, '');
+
+  const readTags  = { ReadColumnarGel: 1, readGel: 1, readCSV: 1, ReadOCI: 1 };
+  const writeTags = { writeColumnarGel: 1, writeGel: 1, writeCSV: 1 };
+  const reads  = nodes.filter(function(n){ return readTags[n.tag];  }).map(function(n){ return n.detail; }).filter(Boolean);
+  const writes = nodes.filter(function(n){ return writeTags[n.tag]; }).map(function(n){ return n.detail; }).filter(Boolean);
+
+  // Count operations by friendly label (e.g. "3× Filter rows, 2× Aggregate").
+  const counts = {};
+  nodes.forEach(function(n){ const l = label(n.tag); counts[l] = (counts[l] || 0) + 1; });
+  const opSummary = Object.keys(counts).map(function(k){ return counts[k] + '× ' + k; }).join(', ');
+
+  // The steps that carry business meaning, with their parsed detail.
+  const transformTags = { FilterRows: 1, aggregate: 1, Calculator: 1, CalculatorVectorized: 1, Join: 1, MultiJoin: 1, sort: 1, SelectColumns: 1 };
+  const notable = [];
+  nodes.forEach(function(n){
+    if (n.detail && transformTags[n.tag]) notable.push(label(n.tag) + ': ' + n.detail.replace(/\n/g, '; '));
+  });
+
+  var parts = ['Pipeline: ' + name, 'Total steps: ' + nodes.length];
+  if (opSummary) parts.push('Operations: ' + opSummary);
+  parts.push(reads.length  ? 'Reads:\n'  + reads.slice(0, 25).map(function(f){ return '  - ' + f; }).join('\n')  : 'Reads: none');
+  parts.push(writes.length ? 'Writes:\n' + writes.slice(0, 25).map(function(f){ return '  - ' + f; }).join('\n') : 'Writes: none');
+  if (notable.length) parts.push('Key transformations:\n' + notable.slice(0, 20).map(function(t){ return '  - ' + t; }).join('\n'));
+
+  return 'You are a data engineering assistant. Based on the Anatella pipeline metadata below, write a concise one-paragraph description of what this data pipeline does: what it reads, the main transformations it applies, and what it produces. Be factual and avoid speculation.\n\n' +
+    parts.join('\n\n') + '\n\nDescription:';
+}
+
+async function callLocalLLM(prompt, onToken) {
+  const res = await fetch('http://localhost:8080/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model: 'local', messages: [{ role: 'user', content: prompt }], temperature: 0.3, max_tokens: 8000, stream: true }),
+  });
+  if (!res.ok) {
+    let detail = '';
+    try { detail = ' — ' + JSON.stringify(await res.json()); } catch (_) {}
+    throw new Error('LLM ' + res.status + detail);
+  }
+  const reader  = res.body.getReader();
+  const decoder = new TextDecoder();
+  let full = '';
+  let buf  = '';
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buf += decoder.decode(value, { stream: true });
+    const lines = buf.split('\n');
+    buf = lines.pop();
+    for (const line of lines) {
+      const t = line.trim();
+      if (!t || t === 'data: [DONE]') continue;
+      if (t.startsWith('data: ')) {
+        try {
+          const chunk = JSON.parse(t.slice(6));
+          const token = chunk.choices[0].delta.content || '';
+          if (token) { full += token; onToken(full); }
+        } catch (_) {}
+      }
+    }
+  }
+  return full;
+}
+
+// Fire a tiny request to load model weights into RAM / OS page cache so the
+// user's first real "Ask" doesn't pay the cold-start penalty. Runs at most once.
+let _llmWarmed = false;
+function warmupLLM() {
+  if (_llmWarmed) return;
+  _llmWarmed = true;
+  fetch('http://localhost:8080/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model: 'local', messages: [{ role: 'user', content: 'hi' }], max_tokens: 1, stream: false }),
+  }).catch(function () { _llmWarmed = false; });  // allow a retry if the server was down
+}
+
+// Per-script prefill warmup.
+// The slow part of an "Ask" is the server prefilling the (script-specific)
+// prompt on CPU. By sending that exact prompt ahead of time with max_tokens:1,
+// llama.cpp caches its KV state, so the user's real click becomes a cache hit
+// (prefill skipped). Dwell-gated: only fires if the user stays on a script,
+// so we don't prefill scripts they're merely clicking past.
+let _prewarmTimer  = null;
+let _prewarmedPath = null;   // path whose prompt is already primed
+
+function schedulePrewarm(path) {
+  if (_prewarmTimer) { clearTimeout(_prewarmTimer); _prewarmTimer = null; }
+  if (!path || path === _prewarmedPath) return;
+  _prewarmTimer = setTimeout(function () {
+    _prewarmTimer = null;
+    prewarmDescription(path);
+  }, 1500);  // dwell window
+}
+
+async function prewarmDescription(path) {
+  try {
+    if (path !== _anatellaRequestedPath || !_anatellaXmlCache) return;  // navigated away
+    const prompt = buildDescPrompt(path, _anatellaXmlCache);
+    const r = await fetch('http://localhost:8080/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'local', messages: [{ role: 'user', content: prompt }], temperature: 0.3, max_tokens: 1, stream: false }),
+    });
+    if (r.ok) _prewarmedPath = path;   // mark primed only if the server accepted it
+  } catch (e) { /* server down/busy — leave unprimed; the real Ask will prefill */ }
+}
+
 // ── State ─────────────────────────────────────────────────────────────────
-let _anatellaCurrentPath = null;
-let _anatellaXmlCache    = null;
+let _anatellaCurrentPath   = null;
+let _anatellaRequestedPath = null;
+let _anatellaXmlCache      = null;
 let _anatellaOpen        = true;
 let _anatellaZoom        = null;
 let _anatellaFitTx       = null;
@@ -331,8 +448,8 @@ function renderAnatellaPipeline(xml, svgEl, propsEl) {
     }
   }
 
-  const W = svgEl.parentElement.clientWidth  || 800;
-  const H = svgEl.parentElement.clientHeight || 260;
+  const W = svgEl.clientWidth  || svgEl.parentElement.clientWidth  || 800;
+  const H = svgEl.clientHeight || svgEl.parentElement.clientHeight || 260;
   const sc = Math.min((W - 20) / maxX, (H - 20) / maxY, 1.4);
   const tx = (W - maxX * sc) / 2;
   const ty = (H - maxY * sc) / 2;
@@ -548,6 +665,7 @@ async function loadAnatellaPanelFromDB(scriptPath) {
   }
   panel.style.display = '';
   panel.style.height  = (typeof _anatellaH !== 'undefined' ? _anatellaH : 260) + 'px';
+  warmupLLM();   // panel (and AI strip) now visible — preheat the local model
   const rh = document.getElementById('an-resize-handle');
   if (rh) rh.style.display = '';
   nameEl.textContent       = basename(scriptPath) + ' — DB snapshot';
@@ -566,8 +684,10 @@ async function loadAnatellaPanelFromDB(scriptPath) {
       statusEl.className   = 'anatella-status err';
       return;
     }
-    _anatellaCurrentPath = null;   // file path unknown / unavailable
-    _anatellaXmlCache    = data.pipeline_xml;
+    _anatellaCurrentPath   = null;   // file path unknown / unavailable
+    _anatellaRequestedPath = scriptPath;
+    schedulePrewarm(scriptPath);     // prime the LLM prompt cache for this script
+    _anatellaXmlCache      = data.pipeline_xml;
     statusEl.style.display = 'none';
     const result = renderAnatellaPipeline(data.pipeline_xml, svgEl, document.getElementById('an-props'));
     if (result) {
@@ -598,6 +718,7 @@ async function loadAnatellaPanel(scriptPath) {
   }
   panel.style.display  = '';
   panel.style.height   = (typeof _anatellaH !== 'undefined' ? _anatellaH : 260) + 'px';
+  warmupLLM();   // panel (and AI strip) now visible — preheat the local model
   const rh = document.getElementById('an-resize-handle');
   if (rh) rh.style.display = '';
   nameEl.textContent  = basename(scriptPath);
@@ -616,8 +737,10 @@ async function loadAnatellaPanel(scriptPath) {
       statusEl.textContent = data.error + ' · trying database snapshot…';
       return loadAnatellaPanelFromDB(scriptPath);
     }
-    _anatellaCurrentPath = data.path;
-    _anatellaXmlCache    = data.xml;
+    _anatellaCurrentPath   = data.path;
+    _anatellaRequestedPath = scriptPath;
+    schedulePrewarm(scriptPath);     // prime the LLM prompt cache for this script
+    _anatellaXmlCache      = data.xml;
     statusEl.style.display = 'none';
     const result = renderAnatellaPipeline(data.xml, svgEl, document.getElementById('an-props'));
     if (result) {
@@ -727,6 +850,40 @@ function initAnatellaViewer() {
     }
     btn.disabled = false;
     btn.textContent = '▶ Open in Anatella';
+  });
+
+  // Vertical strip — click to expand the AI panel
+  document.getElementById('ai-desc-strip').addEventListener('click', () => {
+    document.getElementById('ai-desc-panel').classList.remove('collapsed');
+  });
+
+  // Generate AI description (button inside the panel header)
+  document.getElementById('ai-desc-gen-btn').addEventListener('click', async () => {
+    const path   = _anatellaRequestedPath;
+    if (!path) return;
+    // The real call prefills (and caches) this prompt itself, so cancel any
+    // pending dwell-prewarm and mark it primed to avoid a redundant request.
+    if (_prewarmTimer) { clearTimeout(_prewarmTimer); _prewarmTimer = null; }
+    _prewarmedPath = path;
+    const btn    = document.getElementById('ai-desc-gen-btn');
+    const textEl = document.getElementById('ai-desc-text');
+    btn.disabled    = true;
+    btn.textContent = '…';
+    textEl.classList.remove('ai-desc-empty');
+    textEl.textContent = 'Generating…';
+    try {
+      const prompt = buildDescPrompt(path, _anatellaXmlCache);
+      await callLocalLLM(prompt, function(text) { textEl.textContent = text; });
+    } catch (e) {
+      textEl.textContent = '✗ ' + e.message;
+    }
+    btn.disabled  = false;
+    btn.innerHTML = '&#9654; Ask';
+  });
+
+  // Collapse button — returns AI panel to vertical strip
+  document.getElementById('ai-desc-close').addEventListener('click', () => {
+    document.getElementById('ai-desc-panel').classList.add('collapsed');
   });
 
   // Panel zoom controls

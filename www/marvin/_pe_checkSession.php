@@ -1,11 +1,11 @@
 <?php
 // Always start this first
-session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 if ( !isset( $_SESSION['id'] ) ) {
 	header("Location: ./index.html");
     exit;
 }
-$myid= $_SESSION['id'];
+$myid= (int) $_SESSION['id'];
 
 $servertime = $_SERVER['REQUEST_TIME'];
 $timeout_duration = 120*60; // for a 2 hours timeout, specified in seconds

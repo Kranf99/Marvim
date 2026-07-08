@@ -146,7 +146,13 @@ echo '<div class="status-buttons" data-columnname="status" data-tablename="Asset
     </div>
             
     <div class="edit-field edit-field--stacked">
-        <label>Long Description</label>
+   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;"><label>Long Description</label>
+ <button id="llm-autocomplete-btn" onclick="llmAutoComplete()"
+        style="display:none;padding:3px 12px;border:1px solid #10B981;border-radius:5px;
+            background:#D1FAE5;color:#065F46;font-size:12px;font-weight:600;cursor:pointer;
+            white-space:nowrap;line-height:1.6;">&#10024; Auto Complete</button>
+            <span id="llm-autocomplete-status" style="font-size:12px;color:#64748b;"></span>
+</div>
 <?php
 echo '<textarea id="editorMain" rows="1" data-columnname="longDescription" data-tablename="Assets" data-id="'.
     $idAsset.'">'.$rowAsset['longDescription_new'].'</textarea></div>';
@@ -243,7 +249,27 @@ $sql='SELECT a.category as datatype, a.id as id, a.name as name, a.shortDescript
      'LEFT JOIN Assets a ON a.id=wf.idIO '.
      ' where wf.isInput=0 and wf.idWorkflow='.$_REQUEST['idasset'].' ';
 displayIO($sql,'Output');
+
+// Full script path for the lineage viewer/API: schema holds the directory only,
+// the file name lives in name (schema may still be a full path on old rows).
+$scriptFull = (string)$rowAsset['schema_new'];
+if ($scriptFull !== '' && $rowAsset['name'] !== ''
+    && strtolower(substr($scriptFull, -strlen($rowAsset['name']))) !== strtolower($rowAsset['name'])) {
+    $scriptFull = rtrim($scriptFull, '/') . '/' . $rowAsset['name'];
+}
 ?>
+</div>
+
+<!-- Lineage graph embed ──────────────────────────────────────────────── -->
+<div class="history-section" id="lineage-embed-section">
+<h2>Lineage Graph</h2>
+<div style="border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
+  <iframe id="lineage-iframe"
+    src="lineage/lineage_viewer.html?context=workflow&script=<?php echo urlencode($scriptFull); ?>"
+    style="width:100%;height:600px;border:none;display:block;"
+    allow="same-origin">
+  </iframe>
+</div>
 </div>
 </div>
 </div>
@@ -296,6 +322,7 @@ if ((isset($_REQUEST['advEdit']))||($newAsset))
   echo 'enableDisableEdit(document.getElementById("enableDisableButton")); '.
        'enableAdvEdit(document.getElementById("advEditButton"));';
 }
+require 'lineage/lineageScript.js'; 
 ?>
 </script>
 </body>

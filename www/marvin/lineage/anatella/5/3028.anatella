@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.04'>
+<GlobalParameters wDirLoc='1' dataDirRead='D:/ProdAnatella/Extraccion/DM8' dataDirWrite=':/'>
+<Parameters>
+<Par name='TableName'>EXPEDIENTE</Par>
+<Par name='pDate'>20230315</Par>
+</Parameters>
+<ODBCConnections>
+<odbc name='MP' link='MP' login='IDU_DATA_BI' ep='1' password='LAAAAPcAAACVAQAA1BoJ96eR3oZBak11iDO+kr8ST9thO3OEfnJeRiLt+hs='/>
+</ODBCConnections>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAAB8/wCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAAB8wAAAHgA////AAAAAwAAB4AAAAGp/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAANiAAAAZwD////8AAADZgAABBoAAAGUAP////oAAAABAQAAAAL7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAYAD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD///8AAAZ8AAAB8wAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<OracleOCI keyHD='168139506918944903' module='Oracle' idx='3' v='2.54' x='-936' y='-192' connString=' (DESCRIPTION =
+(ADDRESS = (PROTOCOL = TCP)(HOST = bdsigedqa.reniec.gob.pe)(PORT = 1521))
+
+    (CONNECT_DATA =
+
+      (SERVER = DEDICATED)
+
+      (SERVICE_NAME = qsigedpdb.reniec.gob.pe)
+
+    )
+
+  )
+
+ ' user='IDU_DATA_BI' passwordc='LAAAAPcAAAB4AwAAUDUJfrWk9XvEgPmYhTgAtUfnzGMJxc7zHWU7Bg5fNv0=' newMode='0'>
+<SQL>
+&gt;&quot;select * from IDOSIGED.&quot;+ TableName
+</SQL>
+</OracleOCI>
+<writeColumnarGel module='MathParser' idx='19' x='-528' y='-192' createDir='1' file='&gt;&quot;:/../Extraccion/DM8/&quot; + TableName + &quot;.cgel_anatella&quot;'/>
+<RunToFinishLine idx='33' x='-36' y='-192' nPinIn='26'/>
+<ReadColumnarGel module='MathParser' idx='304' x='-948' y='72' fileName='&gt;&quot;:/../Extraccion/DM8/&quot; + TableName +&quot;.cgel_anatella&quot;'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<Generic idx='312' x='-792' y='-24' id='get_meta-data'
+  longName='Get meta-data'
+  le='1444654687384'
+  keywords='meta data extract get'
+  image='/getMetaData.svg'
+  author='Frank Vanden Berghen'
+  revision='0.03'
+  tags='150_Standard'
+  pdfDestination='5_5_14_get_meta_data'>
+<Description>
+Get meta-data: column name &amp; type + sort meta-data.&lt;br/&gt;&lt;br/&gt;
+Do not enable the option &quot;pump all rows from input&quot; unless you know what you are doing
+</Description>
+<Parameters>
+  <Parameter id='readAll' text='pump all rows from input' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+var rIn,rOut,i,ak,at;
+function init()
+{
+    rIn=rowDeepCopy(getCurrentRow());
+    setOutputRowSize(0,5);
+    i=0;
+    rOut=new Row(5);
+    rowSetColumnName(rOut,0,"Before");
+    rowSetColumnName(rOut,1,"After");
+    rowSetColumnName(rOut,2,"Type");
+    rowSetColumnName(rOut,3,"SortPriority");
+    rowSetColumnName(rOut,4,"SortType");
+    
+    var j=rIn.nColumn,k=0;
+    ak=new Array(j); at=new Array(j);
+    while(j--) { ak[j]=null; at[j]=null; }
+    for(;;)
+    {
+        var j=rowGetSortColumnIdx(rIn,k);
+        if (j&lt;0) break;
+        ak[j]=k;
+        at[j]=rowGetSortType(rIn,k);
+        k++;
+    }
+    return 0;
+}
+
+function run()
+{
+    if (i==rIn.nColumn) 
+    {
+        if (readAll)
+        {
+            var r;
+            for(;;)
+            {
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                r=getNextRow();
+                if (r.isNull||userAskedAbort()) return 1;
+            }
+        }
+        return 1;
+    }
+    var cn=rowGetColumnName(rIn,i);
+    rOut.setColumn(0,cn);
+    rOut.setColumn(1,cn);
+    rOut.setColumn(2,rowGetMetaType(rIn,i));
+    rOut.setColumn(3,ak[i]);
+    rOut.setColumn(4,at[i]);
+    i++;
+    rOut.write(); 
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<Generic idx='313' x='-792' y='72' id='get_meta-data'
+  longName='Get meta-data'
+  le='1444654687384'
+  keywords='meta data extract get'
+  image='/getMetaData.svg'
+  author='Frank Vanden Berghen'
+  revision='0.03'
+  tags='150_Standard'
+  pdfDestination='5_5_14_get_meta_data'>
+<Description>
+Get meta-data: column name &amp; type + sort meta-data.&lt;br/&gt;&lt;br/&gt;
+Do not enable the option &quot;pump all rows from input&quot; unless you know what you are doing
+</Description>
+<Parameters>
+  <Parameter id='readAll' text='pump all rows from input' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+var rIn,rOut,i,ak,at;
+function init()
+{
+    rIn=rowDeepCopy(getCurrentRow());
+    setOutputRowSize(0,5);
+    i=0;
+    rOut=new Row(5);
+    rowSetColumnName(rOut,0,"Before");
+    rowSetColumnName(rOut,1,"After");
+    rowSetColumnName(rOut,2,"Type");
+    rowSetColumnName(rOut,3,"SortPriority");
+    rowSetColumnName(rOut,4,"SortType");
+    
+    var j=rIn.nColumn,k=0;
+    ak=new Array(j); at=new Array(j);
+    while(j--) { ak[j]=null; at[j]=null; }
+    for(;;)
+    {
+        var j=rowGetSortColumnIdx(rIn,k);
+        if (j&lt;0) break;
+        ak[j]=k;
+        at[j]=rowGetSortType(rIn,k);
+        k++;
+    }
+    return 0;
+}
+
+function run()
+{
+    if (i==rIn.nColumn) 
+    {
+        if (readAll)
+        {
+            var r;
+            for(;;)
+            {
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                r=getNextRow();
+                if (r.isNull||userAskedAbort()) return 1;
+            }
+        }
+        return 1;
+    }
+    var cn=rowGetColumnName(rIn,i);
+    rOut.setColumn(0,cn);
+    rOut.setColumn(1,cn);
+    rOut.setColumn(2,rowGetMetaType(rIn,i));
+    rOut.setColumn(3,ak[i]);
+    rOut.setColumn(4,at[i]);
+    i++;
+    rOut.write(); 
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<SelectColumns module='DefaultActions' idx='314' x='-648' y='-24' keep='1'>
+ <c>After</c>
+ <c>Type</c>
+</SelectColumns>
+<SelectColumns module='DefaultActions' idx='316' x='-648' y='72' keep='1'>
+ <c>Before</c>
+ <c>Type</c>
+</SelectColumns>
+<Generic idx='317' x='-492' y='72' id='collate'
+ deprecated='1'
+  longName='collate several tables'
+  nPinIn='2'
+  isVariableNPinIn='1'
+  nPinInMax='7'
+  keywords='collate table deprecated'
+  image='collate.png'
+  author='Frank Vanden Berghen'
+  revision='0.25'
+  tags='100_Join Tables, 450_Time Series'
+  pdfDestination='5_4_5_collate'>
+<Description>
+&lt;HTML&gt;
+  This operator merges several tables.
+  The different tables will be glued together side by side.
+  Some empty rows can optionally be inserted at the beginning of the tables.
+  For example, if we have:
+  &lt;ul&gt;&lt;li&gt;
+   the &quot;delays&quot;:
+    &lt;ul&gt;&lt;li&gt;PIN 1= 1 delay&lt;/li&gt;
+        &lt;li&gt;PIN 2= 3 delay&lt;/li&gt;
+        &lt;li&gt;PIN 3= 0 delay&lt;br/&gt;&lt;/li&gt;&lt;/ul&gt;
+        &lt;/li&gt;
+   &lt;li&gt;these input tables:
+&lt;PRE&gt;
+     +-------------+   +-------------+   +-------------+
+     |   TABLE 1   |   |   TABLE 2   |   |    TABLE 3  |
+     +------+------+   +------+------+   +------+------+
+     |Field1|field2|   |Field1|field2|   |Field1|field2|
+     +------+------+   +------+------+   +------+------+
+     |     A|     B|   |     C|     D|   |     E|     F|
+     |    AA|    BB|   |    CC|    DD|   |    EE|    FF|
+     |   AAA|   BBB|   +------+------+   |   EEE|   FFF|
+     |  AAAA|  BBBB|                     |  EEEE|  FFFF|
+     +------+------+                     | EEEEE| FFFFF|
+                                         |EEEEEE|FFFFFF|
+                                         +------+------+
+&lt;/PRE&gt;
+&lt;/li&gt;&lt;/ul&gt;
+    ...we obtain:
+&lt;PRE&gt;
+     +---------------------------------------------------------+
+     |                      OUTPUT TABLE                       |
+     +------+------+----------+----------+----------+----------+
+     |Field1|field2|T01.Field1|T01.field2|T02.Field1|T02.field2|
+     +------+------+----------+----------+----------+----------+
+     |      |      |          |          |         E|         F|
+     |     A|     B|          |          |        EE|        FF|
+     |    AA|    BB|          |          |       EEE|       FFF|
+     |   AAA|   BBB|         C|         D|      EEEE|      FFFF|
+     |  AAAA|  BBBB|        CC|        DD|     EEEEE|     FFFFF|
+     |      |      |          |          |    EEEEEE|    FFFFFF|
+     +------+------+----------+----------+----------+----------+
+&lt;/PRE&gt;
+   NOTE:
+   &lt;ul&gt;&lt;li&gt;You don&apos;t need any primary key at all.&lt;/li&gt;
+     &lt;li&gt;The rows are placed in the order in which they arrive.&lt;/li&gt;&lt;/ul&gt;
+&lt;/HTML&gt;
+</Description>
+<Parameters>
+  <Parameter id='nRowToDrop' text='drop the first X output rows. X=?' type='double'>0</Parameter>
+  <Parameter id='delay0' text='The delay on the PIN 0' type='double'>0</Parameter>
+  <Parameter id='delay1' text='The delay on the PIN 1' type='double'>0</Parameter>
+  <Parameter id='delay2' text='The delay on the PIN 2' type='double'>0</Parameter>
+  <Parameter id='delay3' text='The delay on the PIN 3' type='double'>0</Parameter>
+  <Parameter id='delay4' text='The delay on the PIN 4' type='double'>0</Parameter>
+  <Parameter id='delay5' text='The delay on the PIN 5' type='double'>0</Parameter>
+  <Parameter id='delay6' text='The delay on the PIN 6' type='double'>0</Parameter>
+  <Parameter id='prefixT0' text='Prefix Table 0' type='string'></Parameter>
+  <Parameter id='prefixT1' text='Prefix Table 1' type='string'>T1.</Parameter>
+  <Parameter id='prefixT2' text='Prefix Table 2' type='string'>T2.</Parameter>
+  <Parameter id='prefixT3' text='Prefix Table 3' type='string'>T3.</Parameter>
+  <Parameter id='prefixT4' text='Prefix Table 4' type='string'>T4.</Parameter>
+  <Parameter id='prefixT5' text='Prefix Table 5' type='string'>T5.</Parameter>
+  <Parameter id='prefixT6' text='Prefix Table 5' type='string'>T6.</Parameter>
+</Parameters>
+<Script>
+var firstRow;
+var delays;
+var allRows;
+function init()
+{
+   firstRow=true;
+   delays=new Array(nPinIn);
+   allRows=new Array(nPinIn);
+   var k=0;
+   for(i=0;i&lt;nPinIn;i++)
+   {
+      var r=getCurrentRow(i);
+      if (!r.isNull)
+      {
+          k+=r.nColumn;
+          delays[i]=eval("delay"+i);
+      } else throw("ERROR: No input row on pin "+i+"???");
+
+   }
+   setOutputRowSize(0,k);
+   return 0;
+}
+
+function run()
+{
+   var r,j=0;
+   // check if end of table
+   for(i=0;i&lt;nPinIn;i++)
+   {
+         if (delays[i]&lt;=0)
+         {
+            r=getNextRow(i);
+             if (r.isNull) j++;
+        } else
+       {
+           r=getCurrentRow(i);
+        }
+        allRows[i]=r;
+   }
+   if (j==nPinIn) return 1;
+   if (nRowToDrop>0) 
+   {
+        nRowToDrop--;
+       for(i=0;i&lt;nPinIn;i++) delays[i]--;
+   } else
+   {
+       for(i=0;i&lt;nPinIn;i++)
+       {
+          r=allRows[i];
+          if (firstRow)
+          {
+             var p=eval("prefixT"+i);
+             for (j=0;j&lt;r.nColumn;j++)
+      	 rowSetColumnName(r,j,p+rowGetColumnName(r,j));
+          }
+          j=delays[i];
+          if ((j&lt;=0)&amp;&amp;(!r.isNull)) r.write();
+          else
+          { 
+              delays[i]--;
+              rowWriteNull(r);
+          }
+       }
+       firstRow=false;
+       writeEOL();
+   }
+   return 0;
+}
+</Script>
+</Generic>
+<Calculator module='MathParser' idx='319' x='-372' y='72'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='NewVar' meta='U'>TableName</OutputVar>
+  </OutputVars>
+</Calculator>
+<writeExcel module='WriteReport' idx='320' v='2.58' x='-252' y='72' mode='2' fileNameDestination=':/Test a Prod.xlsx' sheetName='Tablas' startRow='0'/>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='19' idxDest='33'/>
+<Connection idxSrc='3' idxDest='312'/>
+<Connection idxSrc='304' idxDest='313'/>
+<Connection idxSrc='3' idxDest='19'/>
+<Connection idxSrc='312' idxDest='314'/>
+<Connection idxSrc='313' idxDest='316'/>
+<Connection idxSrc='316' idxDest='317'/>
+<Connection idxSrc='314' idxDest='317' idxPinIn='1'/>
+<Connection idxSrc='317' idxDest='319'/>
+<Connection idxSrc='319' idxDest='320'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-1200' y='-48' size='14'>Esta porcion del codigo no esta documentada.
+Se corre manualmente para validar que los 
+datos correspondan cuando se cambia de 
+entorno producccion / test
+Al no estar connectada a la bandera, 
+no corre en produccion</Annotation>
+</TEXTANNOTATIONS>
+<GROUPBOXANNOTATIONS>
+  <Groupbox x='-1212' y='-60' w='1092' h='228' color='#afeeee'/>
+</GROUPBOXANNOTATIONS>
+</ANATELLA>

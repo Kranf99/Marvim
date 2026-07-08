@@ -1,0 +1,1688 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.20'>
+<GlobalParameters wDirLoc='0' dataDirRead='D:/ProdAnatella/DM3' dataDirWrite=':/../../Gel_DataLake/DM3'>
+<Parameters>
+<Par name='C_NU_MAX_TRANS'>5000</Par>
+<Par name='C_TIPO_MANUAL'>00</Par>
+<Par name='C_TIPO_CLIENTE'>01</Par>
+<Par name='C_TIPO_WEB'>02</Par>
+<Par name='C_TIPO_MOVIL'>03</Par>
+<Par name='C_TIPO_PVM'>04</Par>
+<Par name='C_TIPO_BN'>05</Par>
+<Par name='C_CO_ETP_INV_INI'>01</Par>
+<Par name='C_CO_ETP_RECEPCION'>02</Par>
+<Par name='C_CO_ETP_PRODUCCION'>03</Par>
+<Par name='C_CO_ETP_INV_FIN'>04</Par>
+<Par name='C_CO_CORE'>01</Par>
+<Par name='C_IN_DESAP_ANALISTA'>0</Par>
+<Par name='C_IN_APROB_ANALISTA'>1</Par>
+<Par name='C_IN_DESAP_PERITO'>2</Par>
+<Par name='C_IN_APROB_PERITO'>3</Par>
+<Par name='C_IN_PENDIENTE'>4</Par>
+<Par name='C_IN_DESAP_ABIS'>5</Par>
+<Par name='C_IN_APROB_ABIS'>6</Par>
+<Par name='C_IN_DERIV_PERITO'>7</Par>
+<Par name='C_IN_ACTUALIZADO_ANI'>8</Par>
+<Par name='C_IN_OBS_CCALIDAD'>9</Par>
+<Par name='C_IN_APROB_CCALIDAD'>A</Par>
+<Par name='C_IN_POR_RECIBIR_DESP'>B</Par>
+<Par name='C_IN_RECIBIDO_DESP'>C</Par>
+<Par name='C_IN_ENVIO_AGENCIA'>D</Par>
+<Par name='C_IN_TRANSFERIDO'>E</Par>
+<Par name='C_IN_ENVIO_REIMPR'>F</Par>
+<Par name='C_IN_ENVIO_REPROC'>G</Par>
+<Par name='C_IN_ENTREGA'>H</Par>
+<Par name='C_IN_PEND_ENTREGA'>I</Par>
+<Par name='C_IN_RECEP_CAPTURA'>J</Par>
+<Par name='C_IN_ANULADO'>K</Par>
+<Par name='C_IN_ENVIO_PROC'>L</Par>
+<Par name='C_IN_MARCA_ENTREGA'>M</Par>
+<Par name='C_IN_MARCA_TRANSFER'>N</Par>
+<Par name='C_IN_MARCA_REIMP'>O</Par>
+<Par name='C_IN_MARCA_REPROC'>P</Par>
+<Par name='C_IN_RECH_FALTANTE'>Q</Par>
+<Par name='C_IN_ENVIO_DESTRUC'>R</Par>
+<Par name='C_IN_ENTREGA_ERROR'>S</Par>
+<Par name='C_DE_GRUPO_CAPT'>01</Par>
+<Par name='C_DE_GRUPO_PROC'>02</Par>
+<Par name='C_DE_GRUPO_GTI'>03</Par>
+<Par name='C_DE_GRUPO_IMPR'>04</Par>
+<Par name='C_DE_GRUPO_DESP'>05</Par>
+<Par name='C_IN_OBS_IMPR'>9</Par>
+<Par name='C_IN_RECI_AGENCIA'>J</Par>
+<Par name='P_DDE_GRUPO'>01</Par>
+<Par name='P_DFE_DATA'>20230830</Par>
+<Par name='SELECTED_GRAPH'>0</Par>
+<Par name='C_CO_PROCESO'>01</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAAA2PwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAAA2AAAAHgA////AAAAAwAABVIAAAGB/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAALlAAACqAD////8AAAC6QAAAmkAAAGUAP////oAAAABAQAAAAL7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAYAD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAA6sAAAPVAAABlAD///8AAAROAAAA2AAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABQP/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<MultiJoin module='DefaultActions' idx='77' x='984' y='264'>
+  <Join pin='1' mainKey='fkey' slaveKey='fkey' prefix=''>
+    </Join>
+</MultiJoin>
+<Append module='DefaultActions' idx='139' x='2052' y='1128' output='2' nPinIn='5'>
+  </Append>
+<RunToFinishLine idx='140' x='2448' y='1140'/>
+<writeColumnarGel module='MathParser' idx='141' v='3.19' x='2172' y='1140' file=':/../../Gel_DataLake/DM3/IDO_DATA_BI.LDTT_PROCESO_DNI_CAPT_PRODUCCION.cgel_anatella'/>
+<Calculator module='MathParser' idx='144' x='-384' y='264' addNowS='1' elapsedTimeUnit='3' dateFormat='yyyyMMdd hh:mm:ss'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_CORE'>C_CO_CORE</OutputVar>
+    <OutputVar name='CO_PROCESO'>C_CO_PROCESO</OutputVar>
+    <OutputVar name='CO_ETAPA'>C_CO_ETP_PRODUCCION</OutputVar>
+    <OutputVar name='IN_RECTIFICACION' meta='U'>"SI"</OutputVar>
+    <OutputVar name='IN_CANAL' meta='U'>C_TIPO_CLIENTE</OutputVar>
+    <OutputVar name='SYSDATE' meta='U'>_nowS</OutputVar>
+    <OutputVar name='FE_DATA' meta='U'>itoa(P_DFE_DATA)//" 00:00:00"</OutputVar>
+    <OutputVar name='FE_ENVIO_PROC' meta='U'>itoa(P_DFE_DATA)//" 00:00:00"</OutputVar>
+    <OutputVar name='IN_APROBADO' meta='U'>C_IN_ENVIO_PROC</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='145' x='-264' y='264'>
+  <InputVars>
+    <InputVar column='IN_DNIE' isNumber='0'/>
+    <InputVar column='FE_REGI' isNumber='0'/>
+    <InputVar column='D.IM_DOC_ADJ' label='D_IM_DOC_ADJ' meta='F'/>
+    <InputVar column='U.FE_CADUCIDAD' label='U_FE_CADUCIDAD'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_DNIE' meta='U' update='1'>nvl(IN_DNIE,0)</OutputVar>
+    <OutputVar name='FE_REGI' meta='U' update='1'>substr(FE_REGI,0,8)</OutputVar>
+    <OutputVar name='IM_RECIBO'>nvl(D_IM_DOC_ADJ, 0)</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='146' x='-120' y='264'>
+  <InputVars>
+    <InputVar column='CO_CONTINENTE_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_CONTINENTE_DOMICILIO' label='U_CO_CONTINENTE_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_TIPO_TRAMITE' isNumber='0'/>
+    <InputVar column='CO_PAIS_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_PAIS_DOMICILIO' label='U_CO_PAIS_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_DEPARTAMENTO_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_DEPARTAMENTO_DOMICILIO' label='U_CO_DEPARTAMENTO_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_PROVINCIA_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_PROVINCIA_DOMICILIO' label='U_CO_PROVINCIA_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_DISTRITO_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_DISTRITO_DOMICILIO' label='U_CO_DISTRITO_DOMICILIO' isNumber='0'/>
+    <InputVar column='FE_NACI' isNumber='0'/>
+    <InputVar column='U.FE_NACIMIENTO' label='U_FE_NACIMIENTO' isNumber='0'/>
+    <InputVar column='CO_ESTADO_CIVIL' isNumber='0'/>
+    <InputVar column='U.CO_ESTADO_CIVIL' label='U_CO_ESTADO_CIVIL' isNumber='0'/>
+    <InputVar column='CO_NIVEL_EDUCA' isNumber='0'/>
+    <InputVar column='U.CO_NIVEL_EDUCA' label='U_CO_NIVEL_EDUCA' isNumber='0'/>
+    <InputVar column='IN_DON_ORG' isNumber='0'/>
+    <InputVar column='U.IN_DONA_ORGANO' label='U_IN_DONA_ORGANO' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_CONTINENTE_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_CONTINENTE_DOMICILIO:U_CO_CONTINENTE_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_PAIS_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_PAIS_DOMICILIO:U_CO_PAIS_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_DEPARTAMENTO_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_DEPARTAMENTO_DOMICILIO:U_CO_DEPARTAMENTO_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_PROVINCIA_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_PROVINCIA_DOMICILIO:U_CO_PROVINCIA_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_DISTRITO_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_DISTRITO_DOMICILIO:U_CO_DISTRITO_DOMICILIO)</OutputVar>
+    <OutputVar name='FE_NACI' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?FE_NACI:U_FE_NACIMIENTO)</OutputVar>
+    <OutputVar name='CO_ESTADO_CIVIL' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_ESTADO_CIVIL:U_CO_ESTADO_CIVIL)</OutputVar>
+    <OutputVar name='CO_GRADO_INSTRUCCION' meta='U'>(CO_TIPO_TRAMITE = "I"?CO_NIVEL_EDUCA:U_CO_NIVEL_EDUCA)</OutputVar>
+    <OutputVar name='IN_DONA_ORGANO' meta='U'>(CO_TIPO_TRAMITE = "I"?IN_DON_ORG:U_IN_DONA_ORGANO)</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='147' x='12' y='264'>
+  <InputVars>
+    <InputVar column='CO_RUTA' label='P_VCO_RUTA' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='P_VTI_DOC_REG_FICHA' isNumber='0'/>
+    <InputVar column='IN_ABIS' label='P_VIN_ABIS' isNumber='0'/>
+    <InputVar column='CO_TIPO_CAPTURA' label='P_VCO_TIPO_CAPTURA' isNumber='0'/>
+    <InputVar column='CO_TIPO_TRAMITE' label='P_VCO_TIPO_TRAMITE' isNumber='0'/>
+    <InputVar column='CO_SUBTIPO_TRAMITE' label='P_VCO_SUBTIPO_TRAMITE' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_ABIS' meta='U' update='1'>(P_VCO_RUTA="1" &amp;&amp; (P_VTI_DOC_REG_FICHA ="F" ||P_VTI_DOC_REG_FICHA="W" || P_VTI_DOC_REG_FICHA= "Z" ) ? "1":
+( P_VCO_RUTA="1" &amp;&amp; nvl(P_VIN_ABIS, "0") = "1" &amp;&amp; (P_VTI_DOC_REG_FICHA="E" || P_VTI_DOC_REG_FICHA="X")? "1":
+( P_VCO_RUTA = "2" &amp;&amp; nvl(P_VIN_ABIS, "0") = "1" &amp;&amp; P_VCO_TIPO_CAPTURA = "4"? "1":
+( P_VCO_RUTA = "2" &amp;&amp; nvl(P_VIN_ABIS, "0") = "0" &amp;&amp; (P_VTI_DOC_REG_FICHA ="F" ||P_VTI_DOC_REG_FICHA="W" || P_VTI_DOC_REG_FICHA= "Z" ) &amp;&amp;P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "I" ?"1":
+( P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "D" &amp;&amp; P_VCO_SUBTIPO_TRAMITE = "A" ?"1":
+( P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "R" &amp;&amp; P_VCO_SUBTIPO_TRAMITE = "R" &amp;&amp; (P_VCO_SUBTIPO_TRAMITE="C" || P_VCO_SUBTIPO_TRAMITE="D") ?"1":
+"0"))))))</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='67' x='312' y='384' keep='1'>
+ <c>NU_FICHA_REG</c>
+ <c>TI_DOC_REG_FICHA</c>
+ <c>fkey</c>
+</SelectColumns>
+<sort idx='73' x='432' y='384' action='S' allowEmpty='0'>
+  <field type='A'>TI_DOC_REG_FICHA</field>
+</sort>
+<Calculator module='MathParser' idx='75' x='696' y='444'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG'/>
+    <InputVar column='NU_FICHA_INI'/>
+    <InputVar column='NU_FICHA_FIN'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_DECA' meta='U'>(NU_FICHA_REG>=NU_FICHA_INI &amp;&amp;
+NU_FICHA_REG&lt;=NU_FICHA_FIN?"1":"0")</OutputVar>
+  </OutputVars>
+</Calculator>
+<Join module='DefaultActions' idx='72' x='564' y='444' joinMode='7' keyA='TI_DOC_REG_FICHA'>
+<SlaveKeys><c>TI_FICHA</c></SlaveKeys>
+<Prefixes><c></c><c></c></Prefixes>
+</Join>
+<sort idx='74' x='444' y='492' action='S' allowEmpty='0'>
+  <field type='A'>TI_FICHA</field>
+</sort>
+<FilterRows module='MathParser' idx='66' x='312' y='492'>
+ <Expression>ES_RANGO_FICHA = 1</Expression>
+ <InputVars>
+    <InputVar column='ES_RANGO_FICHA'/>
+ </InputVars>
+</FilterRows>
+<ReadColumnarGel module='MathParser' idx='65' x='180' y='492' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.CTTR_SECUENCIA_FICHA_DECA.cgel_anatella'>
+ <ColumnsToRead>
+  <c>TI_FICHA</c><c>ES_RANGO_FICHA</c><c>NU_FICHA_INI</c><c>NU_FICHA_FIN</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<aggregate idx='76' x='840' y='444' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='fkey'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='IN_DECA' smax='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<SelectColumns module='DefaultActions' idx='156' x='1296' y='264' keep='1'>
+ <c>CO_CORE</c>
+ <c>CO_PROCESO</c>
+ <c>CO_ETAPA</c>
+ <c>NU_FICHA_REG</c>
+ <c>TI_DOC_REG_FICHA</c>
+ <c>CO_RUTA</c>
+ <c>CO_LOCAL_CAPTURA</c>
+ <c>CO_LOCAL_ENTREGA</c>
+ <c>CO_TIPO_TRAMITE</c>
+ <c>CO_SUBTIPO_TRAMITE</c>
+ <c>CO_TIPO_CAPTURA</c>
+ <c>IN_RECTIFICACION</c>
+ <c>CO_TIPO_PAGO</c>
+ <c>CO_TIPO_DNI</c>
+ <c>CO_GENERO</c>
+ <c>IN_ABIS</c>
+ <c>CO_CONTINENTE_DOMICILIO</c>
+ <c>CO_PAIS_DOMICILIO</c>
+ <c>CO_DEPARTAMENTO_DOMICILIO</c>
+ <c>CO_PROVINCIA_DOMICILIO</c>
+ <c>CO_DISTRITO_DOMICILIO</c>
+ <c>FE_NACIMIENTO</c>
+ <c>CO_SERV_CAPTURA</c>
+ <c>IN_CANAL</c>
+ <c>FE_CAPTURA</c>
+ <c>NU_HORA</c>
+ <c>IM_RECIBO</c>
+ <c>FE_CARGA_BI</c>
+ <c>FE_DATA</c>
+ <c>FE_ENVIO_PROC</c>
+ <c>CO_SERVIDOR</c>
+ <c>IN_RECUPERADO</c>
+ <c>IN_DECA</c>
+ <c>IN_APROBADO</c>
+ <c>CO_ESTADO_CIVIL</c>
+ <c>CO_GRADO_INSTRUCCION</c>
+ <c>CO_RESTRICCION</c>
+ <c>IN_DONA_ORGANO</c>
+ <c>FE_CADUCIDAD</c>
+</SelectColumns>
+<ColumnRename module='DefaultActions' idx='157' x='1140' y='264'><before>
+<c>IN_DNIE</c><c>DE_GENERO</c><c>FE_NACI</c><c>US_CREA_AUDI</c><c>FE_REGI</c><c>E.HORA</c><c>SYSDATE</c><c>E.US_CREA_AUDI</c><c>IN_DECA_smax</c><c>U.CO_RESTRI</c><c>U.FE_CADUCIDAD</c></before><after>
+<c>CO_TIPO_DNI</c><c>CO_GENERO</c><c>FE_NACIMIENTO</c><c>CO_SERV_CAPTURA</c><c>FE_CAPTURA</c><c>NU_HORA</c><c>FE_CARGA_BI</c><c>CO_SERVIDOR</c><c>IN_DECA</c><c>CO_RESTRICCION</c><c>FE_CADUCIDAD</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<Calculator module='MathParser' idx='158' x='-252' y='732' addNowS='1' elapsedTimeUnit='3' dateFormat='yyyyMMdd hh:mm:ss'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_CORE'>C_CO_CORE</OutputVar>
+    <OutputVar name='CO_PROCESO'>C_CO_PROCESO</OutputVar>
+    <OutputVar name='CO_ETAPA'>C_CO_ETP_PRODUCCION</OutputVar>
+    <OutputVar name='IN_RECTIFICACION' meta='U'>"SI"</OutputVar>
+    <OutputVar name='IN_CANAL' meta='U'>C_TIPO_CLIENTE</OutputVar>
+    <OutputVar name='SYSDATE' meta='U'>_nowS</OutputVar>
+    <OutputVar name='FE_DATA' meta='U'>itoa(P_DFE_DATA)//" 00:00:00"</OutputVar>
+    <OutputVar name='FE_ENVIO_PROC' meta='U'>itoa(P_DFE_DATA)//" 00:00:00"</OutputVar>
+    <OutputVar name='IN_APROBADO' meta='U'>C_IN_ENVIO_PROC</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='159' x='-120' y='732'>
+  <InputVars>
+    <InputVar column='IN_DNIE' isNumber='0'/>
+    <InputVar column='FE_REGI' isNumber='0'/>
+    <InputVar column='D.IM_DOC_ADJ' label='D_IM_DOC_ADJ' meta='F'/>
+    <InputVar column='U.FE_CADUCIDAD' label='U_FE_CADUCIDAD'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_DNIE' meta='U' update='1'>nvl(IN_DNIE,0)</OutputVar>
+    <OutputVar name='FE_REGI' meta='U' update='1'>substr(FE_REGI,0,8)</OutputVar>
+    <OutputVar name='IM_RECIBO'>nvl(D_IM_DOC_ADJ, 0)</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='160' x='12' y='732'>
+  <InputVars>
+    <InputVar column='CO_CONTINENTE_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_CONTINENTE_DOMICILIO' label='U_CO_CONTINENTE_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_TIPO_TRAMITE' isNumber='0'/>
+    <InputVar column='CO_PAIS_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_PAIS_DOMICILIO' label='U_CO_PAIS_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_DEPARTAMENTO_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_DEPARTAMENTO_DOMICILIO' label='U_CO_DEPARTAMENTO_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_PROVINCIA_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_PROVINCIA_DOMICILIO' label='U_CO_PROVINCIA_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_DISTRITO_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_DISTRITO_DOMICILIO' label='U_CO_DISTRITO_DOMICILIO' isNumber='0'/>
+    <InputVar column='FE_NACI' isNumber='0'/>
+    <InputVar column='U.FE_NACIMIENTO' label='U_FE_NACIMIENTO' isNumber='0'/>
+    <InputVar column='CO_ESTADO_CIVIL' isNumber='0'/>
+    <InputVar column='U.CO_ESTADO_CIVIL' label='U_CO_ESTADO_CIVIL' isNumber='0'/>
+    <InputVar column='CO_NIVEL_EDUCA' isNumber='0'/>
+    <InputVar column='U.CO_NIVEL_EDUCA' label='U_CO_NIVEL_EDUCA' isNumber='0'/>
+    <InputVar column='IN_DON_ORG' isNumber='0'/>
+    <InputVar column='U.IN_DONA_ORGANO' label='U_IN_DONA_ORGANO' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_CONTINENTE_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_CONTINENTE_DOMICILIO:U_CO_CONTINENTE_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_PAIS_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_PAIS_DOMICILIO:U_CO_PAIS_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_DEPARTAMENTO_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_DEPARTAMENTO_DOMICILIO:U_CO_DEPARTAMENTO_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_PROVINCIA_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_PROVINCIA_DOMICILIO:U_CO_PROVINCIA_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_DISTRITO_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_DISTRITO_DOMICILIO:U_CO_DISTRITO_DOMICILIO)</OutputVar>
+    <OutputVar name='FE_NACI' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?FE_NACI:U_FE_NACIMIENTO)</OutputVar>
+    <OutputVar name='CO_ESTADO_CIVIL' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_ESTADO_CIVIL:U_CO_ESTADO_CIVIL)</OutputVar>
+    <OutputVar name='CO_GRADO_INSTRUCCION' meta='U'>(CO_TIPO_TRAMITE = "I"?CO_NIVEL_EDUCA:U_CO_NIVEL_EDUCA)</OutputVar>
+    <OutputVar name='IN_DONA_ORGANO' meta='U'>(CO_TIPO_TRAMITE = "I"?IN_DON_ORG:U_IN_DONA_ORGANO)</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='161' x='144' y='732'>
+  <InputVars>
+    <InputVar column='CO_RUTA' label='P_VCO_RUTA' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='P_VTI_DOC_REG_FICHA' isNumber='0'/>
+    <InputVar column='IN_ABIS' label='P_VIN_ABIS' isNumber='0'/>
+    <InputVar column='CO_TIPO_CAPTURA' label='P_VCO_TIPO_CAPTURA' isNumber='0'/>
+    <InputVar column='CO_TIPO_TRAMITE' label='P_VCO_TIPO_TRAMITE' isNumber='0'/>
+    <InputVar column='CO_SUBTIPO_TRAMITE' label='P_VCO_SUBTIPO_TRAMITE' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_ABIS' meta='U' update='1'>(P_VCO_RUTA="1" &amp;&amp; (P_VTI_DOC_REG_FICHA ="F" ||P_VTI_DOC_REG_FICHA="W" || P_VTI_DOC_REG_FICHA= "Z" ) ? "1":
+( P_VCO_RUTA="1" &amp;&amp; nvl(P_VIN_ABIS, "0") = "1" &amp;&amp; (P_VTI_DOC_REG_FICHA="E" || P_VTI_DOC_REG_FICHA="X")? "1":
+( P_VCO_RUTA = "2" &amp;&amp; nvl(P_VIN_ABIS, "0") = "1" &amp;&amp; P_VCO_TIPO_CAPTURA = "4"? "1":
+( P_VCO_RUTA = "2" &amp;&amp; nvl(P_VIN_ABIS, "0") = "0" &amp;&amp; (P_VTI_DOC_REG_FICHA ="F" ||P_VTI_DOC_REG_FICHA="W" || P_VTI_DOC_REG_FICHA= "Z" ) &amp;&amp;P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "I" ?"1":
+( P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "D" &amp;&amp; P_VCO_SUBTIPO_TRAMITE = "A" ?"1":
+( P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "R" &amp;&amp; P_VCO_SUBTIPO_TRAMITE = "R" &amp;&amp; (P_VCO_SUBTIPO_TRAMITE="C" || P_VCO_SUBTIPO_TRAMITE="D") ?"1":
+"0"))))))</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='162' x='312' y='828' keep='1'>
+ <c>NU_FICHA_REG</c>
+ <c>TI_DOC_REG_FICHA</c>
+ <c>fkey</c>
+</SelectColumns>
+<sort idx='163' x='444' y='828' action='S' allowEmpty='0'>
+  <field type='A'>TI_DOC_REG_FICHA</field>
+</sort>
+<ReadColumnarGel module='MathParser' idx='164' x='228' y='936' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.CTTR_SECUENCIA_FICHA_DECA.cgel_anatella'>
+ <ColumnsToRead>
+  <c>TI_FICHA</c><c>ES_RANGO_FICHA</c><c>NU_FICHA_INI</c><c>NU_FICHA_FIN</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='165' x='348' y='936'>
+ <Expression>ES_RANGO_FICHA = 1</Expression>
+ <InputVars>
+    <InputVar column='ES_RANGO_FICHA'/>
+ </InputVars>
+</FilterRows>
+<sort idx='166' x='468' y='936' action='S' allowEmpty='0'>
+  <field type='A'>TI_FICHA</field>
+</sort>
+<Join module='DefaultActions' idx='167' x='576' y='828' joinMode='7' keyA='TI_DOC_REG_FICHA'>
+<SlaveKeys><c>TI_FICHA</c></SlaveKeys>
+<Prefixes><c></c><c></c></Prefixes>
+</Join>
+<Calculator module='MathParser' idx='168' x='708' y='828'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG'/>
+    <InputVar column='NU_FICHA_INI'/>
+    <InputVar column='NU_FICHA_FIN'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_DECA' meta='U'>(NU_FICHA_REG>=NU_FICHA_INI &amp;&amp;
+NU_FICHA_REG&lt;=NU_FICHA_FIN?"1":"0")</OutputVar>
+  </OutputVars>
+</Calculator>
+<aggregate idx='169' x='864' y='828' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='fkey'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='IN_DECA' smax='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<MultiJoin module='DefaultActions' idx='170' x='1032' y='732'>
+  <Join pin='1' mainKey='fkey' slaveKey='fkey' prefix=''>
+    </Join>
+</MultiJoin>
+<ColumnRename module='DefaultActions' idx='171' x='1176' y='732'><before>
+<c>IN_DNIE</c><c>DE_GENERO</c><c>FE_NACI</c><c>US_CREA_AUDI</c><c>FE_REGI</c><c>E.HORA</c><c>SYSDATE</c><c>E.US_CREA_AUDI</c><c>IN_DECA_smax</c><c>U.CO_RESTRI</c><c>U.FE_CADUCIDAD</c></before><after>
+<c>CO_TIPO_DNI</c><c>CO_GENERO</c><c>FE_NACIMIENTO</c><c>CO_SERV_CAPTURA</c><c>FE_CAPTURA</c><c>NU_HORA</c><c>FE_CARGA_BI</c><c>CO_SERVIDOR</c><c>IN_DECA</c><c>CO_RESTRICCION</c><c>FE_CADUCIDAD</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<SelectColumns module='DefaultActions' idx='172' x='1320' y='732' keep='1'>
+ <c>CO_CORE</c>
+ <c>CO_PROCESO</c>
+ <c>CO_ETAPA</c>
+ <c>NU_FICHA_REG</c>
+ <c>TI_DOC_REG_FICHA</c>
+ <c>CO_RUTA</c>
+ <c>CO_LOCAL_CAPTURA</c>
+ <c>CO_LOCAL_ENTREGA</c>
+ <c>CO_TIPO_TRAMITE</c>
+ <c>CO_SUBTIPO_TRAMITE</c>
+ <c>CO_TIPO_CAPTURA</c>
+ <c>IN_RECTIFICACION</c>
+ <c>CO_TIPO_PAGO</c>
+ <c>CO_TIPO_DNI</c>
+ <c>CO_GENERO</c>
+ <c>IN_ABIS</c>
+ <c>CO_CONTINENTE_DOMICILIO</c>
+ <c>CO_PAIS_DOMICILIO</c>
+ <c>CO_DEPARTAMENTO_DOMICILIO</c>
+ <c>CO_PROVINCIA_DOMICILIO</c>
+ <c>CO_DISTRITO_DOMICILIO</c>
+ <c>FE_NACIMIENTO</c>
+ <c>CO_SERV_CAPTURA</c>
+ <c>IN_CANAL</c>
+ <c>FE_CAPTURA</c>
+ <c>NU_HORA</c>
+ <c>IM_RECIBO</c>
+ <c>FE_CARGA_BI</c>
+ <c>FE_DATA</c>
+ <c>FE_ENVIO_PROC</c>
+ <c>CO_SERVIDOR</c>
+ <c>IN_RECUPERADO</c>
+ <c>IN_DECA</c>
+ <c>IN_APROBADO</c>
+ <c>CO_ESTADO_CIVIL</c>
+ <c>CO_GRADO_INSTRUCCION</c>
+ <c>CO_RESTRICCION</c>
+ <c>IN_DONA_ORGANO</c>
+ <c>FE_CADUCIDAD</c>
+</SelectColumns>
+<Calculator module='MathParser' idx='197' x='-204' y='1152' addNowS='1' elapsedTimeUnit='3' dateFormat='yyyyMMdd hh:mm:ss'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_CORE'>C_CO_CORE</OutputVar>
+    <OutputVar name='CO_PROCESO'>C_CO_PROCESO</OutputVar>
+    <OutputVar name='CO_ETAPA'>C_CO_ETP_PRODUCCION</OutputVar>
+    <OutputVar name='IN_RECTIFICACION' meta='U'>"NN"</OutputVar>
+    <OutputVar name='IN_CANAL' meta='U'>C_TIPO_MANUAL</OutputVar>
+    <OutputVar name='SYSDATE' meta='U'>_nowS</OutputVar>
+    <OutputVar name='FE_DATA' meta='U'>itoa(P_DFE_DATA)//" 00:00:00"</OutputVar>
+    <OutputVar name='FE_ENVIO_PROC' meta='U'>itoa(P_DFE_DATA)//" 00:00:00"</OutputVar>
+    <OutputVar name='IN_APROBADO' meta='U'>C_IN_ENVIO_PROC</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='198' x='-48' y='1152'>
+  <InputVars>
+    <InputVar column='IN_DNIE' isNumber='0'/>
+    <InputVar column='FE_REGI' isNumber='0'/>
+    <InputVar column='D.IM_DOC_ADJ' label='D_IM_DOC_ADJ' meta='F'/>
+    <InputVar column='U.FE_CADUCIDAD' label='U_FE_CADUCIDAD'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_DNIE' meta='U' update='1'>nvl(IN_DNIE,0)</OutputVar>
+    <OutputVar name='FE_REGI' meta='U' update='1'>substr(FE_REGI,0,8)</OutputVar>
+    <OutputVar name='IM_RECIBO'>nvl(D_IM_DOC_ADJ, 0)</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='200' x='84' y='1152'>
+  <InputVars>
+    <InputVar column='CO_CONTINENTE_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_CONTINENTE_DOMICILIO' label='U_CO_CONTINENTE_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_TIPO_TRAMITE' isNumber='0'/>
+    <InputVar column='CO_PAIS_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_PAIS_DOMICILIO' label='U_CO_PAIS_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_DEPARTAMENTO_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_DEPARTAMENTO_DOMICILIO' label='U_CO_DEPARTAMENTO_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_PROVINCIA_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_PROVINCIA_DOMICILIO' label='U_CO_PROVINCIA_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_DISTRITO_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_DISTRITO_DOMICILIO' label='U_CO_DISTRITO_DOMICILIO' isNumber='0'/>
+    <InputVar column='FE_NACI' isNumber='0'/>
+    <InputVar column='U.FE_NACIMIENTO' label='U_FE_NACIMIENTO' isNumber='0'/>
+    <InputVar column='CO_ESTADO_CIVIL' isNumber='0'/>
+    <InputVar column='U.CO_ESTADO_CIVIL' label='U_CO_ESTADO_CIVIL' isNumber='0'/>
+    <InputVar column='CO_NIVEL_EDUCA' isNumber='0'/>
+    <InputVar column='U.CO_NIVEL_EDUCA' label='U_CO_NIVEL_EDUCA' isNumber='0'/>
+    <InputVar column='IN_DON_ORG' isNumber='0'/>
+    <InputVar column='U.IN_DONA_ORGANO' label='U_IN_DONA_ORGANO' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_CONTINENTE_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_CONTINENTE_DOMICILIO:U_CO_CONTINENTE_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_PAIS_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_PAIS_DOMICILIO:U_CO_PAIS_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_DEPARTAMENTO_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_DEPARTAMENTO_DOMICILIO:U_CO_DEPARTAMENTO_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_PROVINCIA_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_PROVINCIA_DOMICILIO:U_CO_PROVINCIA_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_DISTRITO_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_DISTRITO_DOMICILIO:U_CO_DISTRITO_DOMICILIO)</OutputVar>
+    <OutputVar name='FE_NACI' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?FE_NACI:U_FE_NACIMIENTO)</OutputVar>
+    <OutputVar name='CO_ESTADO_CIVIL' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_ESTADO_CIVIL:U_CO_ESTADO_CIVIL)</OutputVar>
+    <OutputVar name='CO_GRADO_INSTRUCCION' meta='U'>(CO_TIPO_TRAMITE = "I"?CO_NIVEL_EDUCA:U_CO_NIVEL_EDUCA)</OutputVar>
+    <OutputVar name='IN_DONA_ORGANO' meta='U'>(CO_TIPO_TRAMITE = "I"?IN_DON_ORG:U_IN_DONA_ORGANO)</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='201' x='216' y='1152'>
+  <InputVars>
+    <InputVar column='CO_RUTA' label='P_VCO_RUTA' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='P_VTI_DOC_REG_FICHA' isNumber='0'/>
+    <InputVar column='IN_ABIS' label='P_VIN_ABIS' isNumber='0'/>
+    <InputVar column='CO_TIPO_CAPTURA' label='P_VCO_TIPO_CAPTURA' isNumber='0'/>
+    <InputVar column='CO_TIPO_TRAMITE' label='P_VCO_TIPO_TRAMITE' isNumber='0'/>
+    <InputVar column='CO_SUBTIPO_TRAMITE' label='P_VCO_SUBTIPO_TRAMITE' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_ABIS' meta='U' update='1'>(P_VCO_RUTA="1" &amp;&amp; (P_VTI_DOC_REG_FICHA ="F" ||P_VTI_DOC_REG_FICHA="W" || P_VTI_DOC_REG_FICHA= "Z" ) ? "1":
+( P_VCO_RUTA="1" &amp;&amp; nvl(P_VIN_ABIS, "0") = "1" &amp;&amp; (P_VTI_DOC_REG_FICHA="E" || P_VTI_DOC_REG_FICHA="X")? "1":
+( P_VCO_RUTA = "2" &amp;&amp; nvl(P_VIN_ABIS, "0") = "1" &amp;&amp; P_VCO_TIPO_CAPTURA = "4"? "1":
+( P_VCO_RUTA = "2" &amp;&amp; nvl(P_VIN_ABIS, "0") = "0" &amp;&amp; (P_VTI_DOC_REG_FICHA ="F" ||P_VTI_DOC_REG_FICHA="W" || P_VTI_DOC_REG_FICHA= "Z" ) &amp;&amp;P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "I" ?"1":
+( P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "D" &amp;&amp; P_VCO_SUBTIPO_TRAMITE = "A" ?"1":
+( P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "R" &amp;&amp; P_VCO_SUBTIPO_TRAMITE = "R" &amp;&amp; (P_VCO_SUBTIPO_TRAMITE="C" || P_VCO_SUBTIPO_TRAMITE="D") ?"1":
+"0"))))))</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='202' x='336' y='1260' keep='1'>
+ <c>NU_FICHA_REG</c>
+ <c>TI_DOC_REG_FICHA</c>
+ <c>fkey</c>
+</SelectColumns>
+<sort idx='203' x='468' y='1260' action='S' allowEmpty='0'>
+  <field type='A'>TI_DOC_REG_FICHA</field>
+</sort>
+<Join module='DefaultActions' idx='204' x='624' y='1284' joinMode='7' keyA='TI_DOC_REG_FICHA'>
+<SlaveKeys><c>TI_FICHA</c></SlaveKeys>
+<Prefixes><c></c><c></c></Prefixes>
+</Join>
+<ReadColumnarGel module='MathParser' idx='205' x='240' y='1392' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.CTTR_SECUENCIA_FICHA_DECA.cgel_anatella'>
+ <ColumnsToRead>
+  <c>TI_FICHA</c><c>ES_RANGO_FICHA</c><c>NU_FICHA_INI</c><c>NU_FICHA_FIN</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='206' x='372' y='1392'>
+ <Expression>ES_RANGO_FICHA = 1</Expression>
+ <InputVars>
+    <InputVar column='ES_RANGO_FICHA'/>
+ </InputVars>
+</FilterRows>
+<sort idx='207' x='504' y='1392' action='S' allowEmpty='0'>
+  <field type='A'>TI_FICHA</field>
+</sort>
+<Calculator module='MathParser' idx='208' x='792' y='1284'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG'/>
+    <InputVar column='NU_FICHA_INI'/>
+    <InputVar column='NU_FICHA_FIN'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_DECA' meta='U'>(NU_FICHA_REG>=NU_FICHA_INI &amp;&amp;
+NU_FICHA_REG&lt;=NU_FICHA_FIN?"1":"0")</OutputVar>
+  </OutputVars>
+</Calculator>
+<aggregate idx='210' x='924' y='1284' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='fkey'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='IN_DECA' smax='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<MultiJoin module='DefaultActions' idx='211' x='1044' y='1152'>
+  <Join pin='1' mainKey='fkey' slaveKey='fkey' prefix=''>
+    </Join>
+</MultiJoin>
+<ColumnRename module='DefaultActions' idx='212' x='1236' y='1152'><before>
+<c>IN_DNIE</c><c>DE_GENERO</c><c>FE_NACI</c><c>US_CREA_AUDI</c><c>FE_REGI</c><c>E.HORA</c><c>SYSDATE</c><c>E.US_CREA_AUDI</c><c>IN_DECA_smax</c><c>U.CO_RESTRI</c><c>U.FE_CADUCIDAD</c></before><after>
+<c>CO_TIPO_DNI</c><c>CO_GENERO</c><c>FE_NACIMIENTO</c><c>CO_SERV_CAPTURA</c><c>FE_CAPTURA</c><c>NU_HORA</c><c>FE_CARGA_BI</c><c>CO_SERVIDOR</c><c>IN_DECA</c><c>CO_RESTRICCION</c><c>FE_CADUCIDAD</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<SelectColumns module='DefaultActions' idx='213' x='1452' y='1152' keep='1'>
+ <c>CO_CORE</c>
+ <c>CO_PROCESO</c>
+ <c>CO_ETAPA</c>
+ <c>NU_FICHA_REG</c>
+ <c>TI_DOC_REG_FICHA</c>
+ <c>CO_RUTA</c>
+ <c>CO_LOCAL_CAPTURA</c>
+ <c>CO_LOCAL_ENTREGA</c>
+ <c>CO_TIPO_TRAMITE</c>
+ <c>CO_SUBTIPO_TRAMITE</c>
+ <c>CO_TIPO_CAPTURA</c>
+ <c>IN_RECTIFICACION</c>
+ <c>CO_TIPO_PAGO</c>
+ <c>CO_TIPO_DNI</c>
+ <c>CO_GENERO</c>
+ <c>IN_ABIS</c>
+ <c>CO_CONTINENTE_DOMICILIO</c>
+ <c>CO_PAIS_DOMICILIO</c>
+ <c>CO_DEPARTAMENTO_DOMICILIO</c>
+ <c>CO_PROVINCIA_DOMICILIO</c>
+ <c>CO_DISTRITO_DOMICILIO</c>
+ <c>FE_NACIMIENTO</c>
+ <c>CO_SERV_CAPTURA</c>
+ <c>IN_CANAL</c>
+ <c>FE_CAPTURA</c>
+ <c>NU_HORA</c>
+ <c>IM_RECIBO</c>
+ <c>FE_CARGA_BI</c>
+ <c>FE_DATA</c>
+ <c>FE_ENVIO_PROC</c>
+ <c>CO_SERVIDOR</c>
+ <c>IN_RECUPERADO</c>
+ <c>IN_DECA</c>
+ <c>IN_APROBADO</c>
+ <c>CO_ESTADO_CIVIL</c>
+ <c>CO_GRADO_INSTRUCCION</c>
+ <c>CO_RESTRICCION</c>
+ <c>IN_DONA_ORGANO</c>
+ <c>FE_CADUCIDAD</c>
+</SelectColumns>
+<Calculator module='MathParser' idx='246' x='-204' y='1704' addNowS='1' elapsedTimeUnit='3' dateFormat='yyyyMMdd hh:mm:ss'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_CORE'>C_CO_CORE</OutputVar>
+    <OutputVar name='CO_PROCESO'>C_CO_PROCESO</OutputVar>
+    <OutputVar name='CO_ETAPA'>C_CO_ETP_PRODUCCION</OutputVar>
+    <OutputVar name='IN_RECTIFICACION' meta='U'>"NN"</OutputVar>
+    <OutputVar name='IN_CANAL' meta='U'>C_TIPO_MANUAL</OutputVar>
+    <OutputVar name='SYSDATE' meta='U'>_nowS</OutputVar>
+    <OutputVar name='FE_DATA' meta='U'>P_DFE_DATA</OutputVar>
+    <OutputVar name='FE_ENVIO_PROC' meta='U'>P_DFE_DATA</OutputVar>
+    <OutputVar name='IN_APROBADO' meta='U'>C_IN_ENVIO_PROC</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='247' x='-72' y='1704'>
+  <InputVars>
+    <InputVar column='IN_DNIE' isNumber='0'/>
+    <InputVar column='FE_REGI' isNumber='0'/>
+    <InputVar column='D.IM_DOC_ADJ' label='D_IM_DOC_ADJ' meta='F'/>
+    <InputVar column='U.FE_CADUCIDAD' label='U_FE_CADUCIDAD'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_DNIE' meta='U' update='1'>nvl(IN_DNIE,0)</OutputVar>
+    <OutputVar name='FE_REGI' meta='U' update='1'>substr(FE_REGI,0,8)</OutputVar>
+    <OutputVar name='IM_RECIBO'>nvl(D_IM_DOC_ADJ, 0)</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='249' x='60' y='1704'>
+  <InputVars>
+    <InputVar column='CO_CONTINENTE_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_CONTINENTE_DOMICILIO' label='U_CO_CONTINENTE_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_TIPO_TRAMITE' isNumber='0'/>
+    <InputVar column='CO_PAIS_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_PAIS_DOMICILIO' label='U_CO_PAIS_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_DEPARTAMENTO_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_DEPARTAMENTO_DOMICILIO' label='U_CO_DEPARTAMENTO_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_PROVINCIA_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_PROVINCIA_DOMICILIO' label='U_CO_PROVINCIA_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_DISTRITO_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_DISTRITO_DOMICILIO' label='U_CO_DISTRITO_DOMICILIO' isNumber='0'/>
+    <InputVar column='FE_NACI' isNumber='0'/>
+    <InputVar column='U.FE_NACIMIENTO' label='U_FE_NACIMIENTO' isNumber='0'/>
+    <InputVar column='CO_ESTADO_CIVIL' isNumber='0'/>
+    <InputVar column='U.CO_ESTADO_CIVIL' label='U_CO_ESTADO_CIVIL' isNumber='0'/>
+    <InputVar column='CO_NIVEL_EDUCA' isNumber='0'/>
+    <InputVar column='U.CO_NIVEL_EDUCA' label='U_CO_NIVEL_EDUCA' isNumber='0'/>
+    <InputVar column='IN_DON_ORG' isNumber='0'/>
+    <InputVar column='U.IN_DONA_ORGANO' label='U_IN_DONA_ORGANO' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_CONTINENTE_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_CONTINENTE_DOMICILIO:U_CO_CONTINENTE_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_PAIS_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_PAIS_DOMICILIO:U_CO_PAIS_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_DEPARTAMENTO_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_DEPARTAMENTO_DOMICILIO:U_CO_DEPARTAMENTO_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_PROVINCIA_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_PROVINCIA_DOMICILIO:U_CO_PROVINCIA_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_DISTRITO_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_DISTRITO_DOMICILIO:U_CO_DISTRITO_DOMICILIO)</OutputVar>
+    <OutputVar name='FE_NACI' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?FE_NACI:U_FE_NACIMIENTO)</OutputVar>
+    <OutputVar name='CO_ESTADO_CIVIL' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_ESTADO_CIVIL:U_CO_ESTADO_CIVIL)</OutputVar>
+    <OutputVar name='CO_GRADO_INSTRUCCION' meta='U'>(CO_TIPO_TRAMITE = "I"?CO_NIVEL_EDUCA:U_CO_NIVEL_EDUCA)</OutputVar>
+    <OutputVar name='IN_DONA_ORGANO' meta='U'>(CO_TIPO_TRAMITE = "I"?IN_DON_ORG:U_IN_DONA_ORGANO)</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='250' x='192' y='1704'>
+  <InputVars>
+    <InputVar column='CO_RUTA' label='P_VCO_RUTA' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='P_VTI_DOC_REG_FICHA' isNumber='0'/>
+    <InputVar column='IN_ABIS' label='P_VIN_ABIS' isNumber='0'/>
+    <InputVar column='CO_TIPO_CAPTURA' label='P_VCO_TIPO_CAPTURA' isNumber='0'/>
+    <InputVar column='CO_TIPO_TRAMITE' label='P_VCO_TIPO_TRAMITE' isNumber='0'/>
+    <InputVar column='CO_SUBTIPO_TRAMITE' label='P_VCO_SUBTIPO_TRAMITE' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_ABIS' meta='U' update='1'>(P_VCO_RUTA="1" &amp;&amp; (P_VTI_DOC_REG_FICHA ="F" ||P_VTI_DOC_REG_FICHA="W" || P_VTI_DOC_REG_FICHA= "Z" ) ? "1":
+( P_VCO_RUTA="1" &amp;&amp; nvl(P_VIN_ABIS, "0") = "1" &amp;&amp; (P_VTI_DOC_REG_FICHA="E" || P_VTI_DOC_REG_FICHA="X")? "1":
+( P_VCO_RUTA = "2" &amp;&amp; nvl(P_VIN_ABIS, "0") = "1" &amp;&amp; P_VCO_TIPO_CAPTURA = "4"? "1":
+( P_VCO_RUTA = "2" &amp;&amp; nvl(P_VIN_ABIS, "0") = "0" &amp;&amp; (P_VTI_DOC_REG_FICHA ="F" ||P_VTI_DOC_REG_FICHA="W" || P_VTI_DOC_REG_FICHA= "Z" ) &amp;&amp;P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "I" ?"1":
+( P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "D" &amp;&amp; P_VCO_SUBTIPO_TRAMITE = "A" ?"1":
+( P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "R" &amp;&amp; P_VCO_SUBTIPO_TRAMITE = "R" &amp;&amp; (P_VCO_SUBTIPO_TRAMITE="C" || P_VCO_SUBTIPO_TRAMITE="D") ?"1":
+"0"))))))</OutputVar>
+  </OutputVars>
+</Calculator>
+<MultiJoin module='DefaultActions' idx='251' x='1080' y='1692'>
+  <Join pin='1' mainKey='fkey' slaveKey='fkey' prefix=''>
+    </Join>
+</MultiJoin>
+<SelectColumns module='DefaultActions' idx='254' x='288' y='1800' keep='1'>
+ <c>NU_FICHA_REG</c>
+ <c>TI_DOC_REG_FICHA</c>
+ <c>fkey</c>
+</SelectColumns>
+<sort idx='255' x='432' y='1800' action='S' allowEmpty='0'>
+  <field type='A'>TI_DOC_REG_FICHA</field>
+</sort>
+<Join module='DefaultActions' idx='257' x='648' y='1824' joinMode='7' keyA='TI_DOC_REG_FICHA'>
+<SlaveKeys><c>TI_FICHA</c></SlaveKeys>
+<Prefixes><c></c><c></c></Prefixes>
+</Join>
+<ReadColumnarGel module='MathParser' idx='258' x='240' y='1908' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.CTTR_SECUENCIA_FICHA_DECA.cgel_anatella'>
+ <ColumnsToRead>
+  <c>TI_FICHA</c><c>ES_RANGO_FICHA</c><c>NU_FICHA_INI</c><c>NU_FICHA_FIN</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='259' x='372' y='1908'>
+ <Expression>ES_RANGO_FICHA = 1</Expression>
+ <InputVars>
+    <InputVar column='ES_RANGO_FICHA'/>
+ </InputVars>
+</FilterRows>
+<sort idx='260' x='504' y='1908' action='S' allowEmpty='0'>
+  <field type='A'>TI_FICHA</field>
+</sort>
+<Calculator module='MathParser' idx='261' x='792' y='1824'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG'/>
+    <InputVar column='NU_FICHA_INI'/>
+    <InputVar column='NU_FICHA_FIN'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_DECA' meta='U'>(NU_FICHA_REG>=NU_FICHA_INI &amp;&amp;
+NU_FICHA_REG&lt;=NU_FICHA_FIN?"1":"0")</OutputVar>
+  </OutputVars>
+</Calculator>
+<aggregate idx='262' x='936' y='1824' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='fkey'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='IN_DECA' smax='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<ColumnRename module='DefaultActions' idx='263' x='1224' y='1692'><before>
+<c>IN_DNIE</c><c>DE_GENERO</c><c>FE_NACI</c><c>US_CREA_AUDI</c><c>FE_REGI</c><c>E.HORA</c><c>SYSDATE</c><c>E.US_CREA_AUDI</c><c>IN_DECA_smax</c><c>U.CO_RESTRI</c><c>U.FE_CADUCIDAD</c></before><after>
+<c>CO_TIPO_DNI</c><c>CO_GENERO</c><c>FE_NACIMIENTO</c><c>CO_SERV_CAPTURA</c><c>FE_CAPTURA</c><c>NU_HORA</c><c>FE_CARGA_BI</c><c>CO_SERVIDOR</c><c>IN_DECA</c><c>CO_RESTRICCION</c><c>FE_CADUCIDAD</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<SelectColumns module='DefaultActions' idx='264' x='1356' y='1692' keep='1'>
+ <c>CO_CORE</c>
+ <c>CO_PROCESO</c>
+ <c>CO_ETAPA</c>
+ <c>NU_FICHA_REG</c>
+ <c>TI_DOC_REG_FICHA</c>
+ <c>CO_RUTA</c>
+ <c>CO_LOCAL_CAPTURA</c>
+ <c>CO_LOCAL_ENTREGA</c>
+ <c>CO_TIPO_TRAMITE</c>
+ <c>CO_SUBTIPO_TRAMITE</c>
+ <c>CO_TIPO_CAPTURA</c>
+ <c>IN_RECTIFICACION</c>
+ <c>CO_TIPO_PAGO</c>
+ <c>CO_TIPO_DNI</c>
+ <c>CO_GENERO</c>
+ <c>IN_ABIS</c>
+ <c>CO_CONTINENTE_DOMICILIO</c>
+ <c>CO_PAIS_DOMICILIO</c>
+ <c>CO_DEPARTAMENTO_DOMICILIO</c>
+ <c>CO_PROVINCIA_DOMICILIO</c>
+ <c>CO_DISTRITO_DOMICILIO</c>
+ <c>FE_NACIMIENTO</c>
+ <c>CO_SERV_CAPTURA</c>
+ <c>IN_CANAL</c>
+ <c>FE_CAPTURA</c>
+ <c>NU_HORA</c>
+ <c>IM_RECIBO</c>
+ <c>FE_CARGA_BI</c>
+ <c>FE_DATA</c>
+ <c>FE_ENVIO_PROC</c>
+ <c>CO_SERVIDOR</c>
+ <c>IN_RECUPERADO</c>
+ <c>IN_DECA</c>
+ <c>IN_APROBADO</c>
+ <c>CO_ESTADO_CIVIL</c>
+ <c>CO_GRADO_INSTRUCCION</c>
+ <c>CO_RESTRICCION</c>
+ <c>IN_DONA_ORGANO</c>
+ <c>FE_CADUCIDAD</c>
+</SelectColumns>
+<Calculator module='MathParser' idx='288' x='-72' y='2148' addNowS='1' elapsedTimeUnit='3' dateFormat='yyyyMMdd hh:mm:ss'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_CORE'>C_CO_CORE</OutputVar>
+    <OutputVar name='CO_PROCESO'>C_CO_PROCESO</OutputVar>
+    <OutputVar name='CO_ETAPA'>C_CO_ETP_PRODUCCION</OutputVar>
+    <OutputVar name='IN_RECTIFICACION' meta='U'>"SI"</OutputVar>
+    <OutputVar name='IN_CANAL' meta='U'>C_TIPO_CLIENTE</OutputVar>
+    <OutputVar name='SYSDATE' meta='U'>_nowS</OutputVar>
+    <OutputVar name='FE_DATA' meta='U'>itoa(P_DFE_DATA)//" 00:00:00"</OutputVar>
+    <OutputVar name='FE_ENVIO_PROC' meta='U'>itoa(P_DFE_DATA)//" 00:00:00"</OutputVar>
+    <OutputVar name='IN_APROBADO' meta='U'>C_IN_ANULADO</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='289' x='48' y='2148'>
+  <InputVars>
+    <InputVar column='IN_DNIE' isNumber='0'/>
+    <InputVar column='FE_REGI' isNumber='0'/>
+    <InputVar column='D.IM_DOC_ADJ' label='D_IM_DOC_ADJ' meta='F'/>
+    <InputVar column='U.FE_CADUCIDAD' label='U_FE_CADUCIDAD'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_DNIE' meta='U' update='1'>nvl(IN_DNIE,0)</OutputVar>
+    <OutputVar name='FE_REGI' meta='U' update='1'>substr(FE_REGI,0,8)</OutputVar>
+    <OutputVar name='IM_RECIBO'>nvl(D_IM_DOC_ADJ, 0)</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='290' x='180' y='2148'>
+  <InputVars>
+    <InputVar column='CO_CONTINENTE_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_CONTINENTE_DOMICILIO' label='U_CO_CONTINENTE_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_TIPO_TRAMITE' isNumber='0'/>
+    <InputVar column='CO_PAIS_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_PAIS_DOMICILIO' label='U_CO_PAIS_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_DEPARTAMENTO_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_DEPARTAMENTO_DOMICILIO' label='U_CO_DEPARTAMENTO_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_PROVINCIA_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_PROVINCIA_DOMICILIO' label='U_CO_PROVINCIA_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_DISTRITO_DOMICILIO' isNumber='0'/>
+    <InputVar column='U.CO_DISTRITO_DOMICILIO' label='U_CO_DISTRITO_DOMICILIO' isNumber='0'/>
+    <InputVar column='FE_NACI' isNumber='0'/>
+    <InputVar column='U.FE_NACIMIENTO' label='U_FE_NACIMIENTO' isNumber='0'/>
+    <InputVar column='CO_ESTADO_CIVIL' isNumber='0'/>
+    <InputVar column='U.CO_ESTADO_CIVIL' label='U_CO_ESTADO_CIVIL' isNumber='0'/>
+    <InputVar column='CO_NIVEL_EDUCA' isNumber='0'/>
+    <InputVar column='U.CO_NIVEL_EDUCA' label='U_CO_NIVEL_EDUCA' isNumber='0'/>
+    <InputVar column='IN_DON_ORG' isNumber='0'/>
+    <InputVar column='U.IN_DONA_ORGANO' label='U_IN_DONA_ORGANO' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_CONTINENTE_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_CONTINENTE_DOMICILIO:U_CO_CONTINENTE_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_PAIS_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_PAIS_DOMICILIO:U_CO_PAIS_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_DEPARTAMENTO_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_DEPARTAMENTO_DOMICILIO:U_CO_DEPARTAMENTO_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_PROVINCIA_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_PROVINCIA_DOMICILIO:U_CO_PROVINCIA_DOMICILIO)</OutputVar>
+    <OutputVar name='CO_DISTRITO_DOMICILIO' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_DISTRITO_DOMICILIO:U_CO_DISTRITO_DOMICILIO)</OutputVar>
+    <OutputVar name='FE_NACI' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?FE_NACI:U_FE_NACIMIENTO)</OutputVar>
+    <OutputVar name='CO_ESTADO_CIVIL' meta='U' update='1'>(CO_TIPO_TRAMITE = "I"?CO_ESTADO_CIVIL:U_CO_ESTADO_CIVIL)</OutputVar>
+    <OutputVar name='CO_GRADO_INSTRUCCION' meta='U'>(CO_TIPO_TRAMITE = "I"?CO_NIVEL_EDUCA:U_CO_NIVEL_EDUCA)</OutputVar>
+    <OutputVar name='IN_DONA_ORGANO' meta='U'>(CO_TIPO_TRAMITE = "I"?IN_DON_ORG:U_IN_DONA_ORGANO)</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='291' x='300' y='2148'>
+  <InputVars>
+    <InputVar column='CO_RUTA' label='P_VCO_RUTA' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='P_VTI_DOC_REG_FICHA' isNumber='0'/>
+    <InputVar column='IN_ABIS' label='P_VIN_ABIS' isNumber='0'/>
+    <InputVar column='CO_TIPO_CAPTURA' label='P_VCO_TIPO_CAPTURA' isNumber='0'/>
+    <InputVar column='CO_TIPO_TRAMITE' label='P_VCO_TIPO_TRAMITE' isNumber='0'/>
+    <InputVar column='CO_SUBTIPO_TRAMITE' label='P_VCO_SUBTIPO_TRAMITE' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_ABIS' meta='U' update='1'>(P_VCO_RUTA="1" &amp;&amp; (P_VTI_DOC_REG_FICHA ="F" ||P_VTI_DOC_REG_FICHA="W" || P_VTI_DOC_REG_FICHA= "Z" ) ? "1":
+( P_VCO_RUTA="1" &amp;&amp; nvl(P_VIN_ABIS, "0") = "1" &amp;&amp; (P_VTI_DOC_REG_FICHA="E" || P_VTI_DOC_REG_FICHA="X")? "1":
+( P_VCO_RUTA = "2" &amp;&amp; nvl(P_VIN_ABIS, "0") = "1" &amp;&amp; P_VCO_TIPO_CAPTURA = "4"? "1":
+( P_VCO_RUTA = "2" &amp;&amp; nvl(P_VIN_ABIS, "0") = "0" &amp;&amp; (P_VTI_DOC_REG_FICHA ="F" ||P_VTI_DOC_REG_FICHA="W" || P_VTI_DOC_REG_FICHA= "Z" ) &amp;&amp;P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "I" ?"1":
+( P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "D" &amp;&amp; P_VCO_SUBTIPO_TRAMITE = "A" ?"1":
+( P_VCO_TIPO_CAPTURA = "4" &amp;&amp; P_VCO_TIPO_TRAMITE = "R" &amp;&amp; P_VCO_SUBTIPO_TRAMITE = "R" &amp;&amp; (P_VCO_SUBTIPO_TRAMITE="C" || P_VCO_SUBTIPO_TRAMITE="D") ?"1":
+"0"))))))</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='293' x='420' y='2244' keep='1'>
+ <c>NU_FICHA_REG</c>
+ <c>TI_DOC_REG_FICHA</c>
+ <c>fkey</c>
+</SelectColumns>
+<sort idx='294' x='552' y='2244' action='S' allowEmpty='0'>
+  <field type='A'>TI_DOC_REG_FICHA</field>
+</sort>
+<Join module='DefaultActions' idx='295' x='708' y='2256' joinMode='7' keyA='TI_DOC_REG_FICHA'>
+<SlaveKeys><c>TI_FICHA</c></SlaveKeys>
+<Prefixes><c></c><c></c></Prefixes>
+</Join>
+<ReadColumnarGel module='MathParser' idx='296' x='384' y='2376' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.CTTR_SECUENCIA_FICHA_DECA.cgel_anatella'>
+ <ColumnsToRead>
+  <c>TI_FICHA</c><c>ES_RANGO_FICHA</c><c>NU_FICHA_INI</c><c>NU_FICHA_FIN</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='297' x='516' y='2376'>
+ <Expression>ES_RANGO_FICHA = 1</Expression>
+ <InputVars>
+    <InputVar column='ES_RANGO_FICHA'/>
+ </InputVars>
+</FilterRows>
+<sort idx='298' x='648' y='2376' action='S' allowEmpty='0'>
+  <field type='A'>TI_FICHA</field>
+</sort>
+<Calculator module='MathParser' idx='299' x='840' y='2256'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG'/>
+    <InputVar column='NU_FICHA_INI'/>
+    <InputVar column='NU_FICHA_FIN'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_DECA' meta='U'>(NU_FICHA_REG>=NU_FICHA_INI &amp;&amp;
+NU_FICHA_REG&lt;=NU_FICHA_FIN?"1":"0")</OutputVar>
+  </OutputVars>
+</Calculator>
+<aggregate idx='300' x='984' y='2256' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='fkey'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='IN_DECA' smax='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<MultiJoin module='DefaultActions' idx='301' x='1104' y='2148'>
+  <Join pin='1' mainKey='fkey' slaveKey='fkey' prefix=''>
+    </Join>
+</MultiJoin>
+<ColumnRename module='DefaultActions' idx='302' x='1236' y='2148'><before>
+<c>IN_DNIE</c><c>DE_GENERO</c><c>FE_NACI</c><c>US_CREA_AUDI</c><c>FE_REGI</c><c>E.HORA</c><c>SYSDATE</c><c>E.US_CREA_AUDI</c><c>IN_DECA_smax</c><c>U.CO_RESTRI</c><c>U.FE_CADUCIDAD</c></before><after>
+<c>CO_TIPO_DNI</c><c>CO_GENERO</c><c>FE_NACIMIENTO</c><c>CO_SERV_CAPTURA</c><c>FE_CAPTURA</c><c>NU_HORA</c><c>FE_CARGA_BI</c><c>CO_SERVIDOR</c><c>IN_DECA</c><c>CO_RESTRICCION</c><c>FE_CADUCIDAD</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<SelectColumns module='DefaultActions' idx='303' x='1380' y='2148' keep='1'>
+ <c>CO_CORE</c>
+ <c>CO_PROCESO</c>
+ <c>CO_ETAPA</c>
+ <c>NU_FICHA_REG</c>
+ <c>TI_DOC_REG_FICHA</c>
+ <c>CO_RUTA</c>
+ <c>CO_LOCAL_CAPTURA</c>
+ <c>CO_LOCAL_ENTREGA</c>
+ <c>CO_TIPO_TRAMITE</c>
+ <c>CO_SUBTIPO_TRAMITE</c>
+ <c>CO_TIPO_CAPTURA</c>
+ <c>IN_RECTIFICACION</c>
+ <c>CO_TIPO_PAGO</c>
+ <c>CO_TIPO_DNI</c>
+ <c>CO_GENERO</c>
+ <c>IN_ABIS</c>
+ <c>CO_CONTINENTE_DOMICILIO</c>
+ <c>CO_PAIS_DOMICILIO</c>
+ <c>CO_DEPARTAMENTO_DOMICILIO</c>
+ <c>CO_PROVINCIA_DOMICILIO</c>
+ <c>CO_DISTRITO_DOMICILIO</c>
+ <c>FE_NACIMIENTO</c>
+ <c>CO_SERV_CAPTURA</c>
+ <c>IN_CANAL</c>
+ <c>FE_CAPTURA</c>
+ <c>NU_HORA</c>
+ <c>IM_RECIBO</c>
+ <c>FE_CARGA_BI</c>
+ <c>FE_DATA</c>
+ <c>FE_ENVIO_PROC</c>
+ <c>CO_SERVIDOR</c>
+ <c>IN_RECUPERADO</c>
+ <c>IN_DECA</c>
+ <c>IN_APROBADO</c>
+ <c>CO_ESTADO_CIVIL</c>
+ <c>CO_GRADO_INSTRUCCION</c>
+ <c>CO_RESTRICCION</c>
+ <c>IN_DONA_ORGANO</c>
+ <c>FE_CADUCIDAD</c>
+</SelectColumns>
+<RowCounter idx='304' x='2292' y='1142' label='CounterID_305' compact='0'/>
+<ReadColumnarGel module='MathParser' idx='305' x='-1212' y='264' fileName=':/../CRUCE_FICHA_ESTACION_CTTX_hoy.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='306' x='-1080' y='264'>
+ <Expression>E_ES_FINAL="4" &amp;&amp;
+(CO_TIPO_CAPTURA = "2" || CO_TIPO_CAPTURA= "4") &amp;&amp; 
+(ES_FICHA_REG="1" || ES_FICHA_REG="4")</Expression>
+ <InputVars>
+    <InputVar column='E_ES_FINAL' isNumber='0'/>
+    <InputVar column='CO_RUTA' isNumber='0'/>
+    <InputVar column='ES_FICHA_REG' isNumber='0'/>
+    <InputVar column='CO_TIPO_CAPTURA' isNumber='0'/>
+    <InputVar column='IN_EVALUACION_FOTO' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<sort idx='307' v='3.06' x='-948' y='264' action='S'>
+  <field type='A'>NU_DNI_TITULAR</field>
+</sort>
+<Join module='DefaultActions' idx='308' x='-816' y='264' joinMode='0' keyA='NU_DNI_TITULAR'>
+<SlaveKeys><c>NU_DNI</c></SlaveKeys>
+<Prefixes><c></c><c>U_</c></Prefixes>
+</Join>
+<ReadColumnarGel forceHDBuffering='1' module='MathParser' idx='309' x='-1212' y='408' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOTABMAESTRA.GETM_ANI.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_DNI</c><c>CO_CONTINENTE_DOMICILIO</c><c>CO_PAIS_DOMICILIO</c><c>CO_DEPARTAMENTO_DOMICILIO</c><c>CO_PROVINCIA_DOMICILIO</c><c>CO_DISTRITO_DOMICILIO</c><c>FE_NACIMIENTO</c><c>CO_ESTADO_CIVIL</c><c>CO_NIVEL_EDUCA</c><c>IN_DONA_ORGANO</c><c>FE_CADUCIDAD</c><c>CO_RESTRI</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<sort idx='310' v='3.06' x='-950.005' y='401.985' action='S'>
+  <field type='A'>NU_DNI</field>
+</sort>
+<Calculator module='MathParser' idx='311' x='-684' y='264' addNowS='1' isUTC='0' referenceTime='hh24' dateFormat='hh24'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' isNumber='0'/>
+    <InputVar column='E_FE_CREA_AUDI' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='fkey' meta='U'>NU_FICHA_REG//"-"//TI_DOC_REG_FICHA</OutputVar>
+    <OutputVar name='E.HORA' meta='U'>substr(E_FE_CREA_AUDI,9,2)</OutputVar>
+    <OutputVar name='FE_REGI' meta='U' update='1'>E_FE_CREA_AUDI</OutputVar>
+  </OutputVars>
+</Calculator>
+<ColumnRename module='DefaultActions' idx='316' x='-528' y='264'><before>
+<c>U_FE_NACIMIENTO</c><c>U_IN_DONA_ORGANO</c><c>U_FE_CADUCIDAD</c><c>U_CO_DISTRITO_DOMICILIO</c><c>U_CO_DEPARTAMENTO_DOMICILIO</c><c>U_CO_PROVINCIA_DOMICILIO</c><c>U_CO_RESTRI</c><c>U_CO_NIVEL_EDUCA</c><c>U_CO_ESTADO_CIVIL</c><c>U_CO_CONTINENTE_DOMICILIO</c><c>U_CO_PAIS_DOMICILIO</c><c>D_CO_DOC_ADJ</c><c>D_IM_DOC_ADJ</c><c>E_US_CREA_AUDI</c></before><after>
+<c>U.FE_NACIMIENTO</c><c>U.IN_DONA_ORGANO</c><c>U.FE_CADUCIDAD</c><c>U.CO_DISTRITO_DOMICILIO</c><c>U.CO_DEPARTAMENTO_DOMICILIO</c><c>U.CO_PROVINCIA_DOMICILIO</c><c>U.CO_RESTRI</c><c>U.CO_NIVEL_EDUCA</c><c>U.CO_ESTADO_CIVIL</c><c>U.CO_CONTINENTE_DOMICILIO</c><c>U.CO_PAIS_DOMICILIO</c><c>D.CO_DOC_ADJ</c><c>D.IM_DOC_ADJ</c><c>E.US_CREA_AUDI</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<ReadColumnarGel module='MathParser' idx='317' x='-1092' y='732' fileName=':/../CRUCE_FICHA_ESTACION_PRTX_Hoy.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='318' x='-960' y='732'>
+ <Expression>E_ES_FINAL="4" &amp;&amp;
+(CO_TIPO_CAPTURA = "2" || CO_TIPO_CAPTURA= "4") &amp;&amp; 
+(ES_FICHA_REG="1")</Expression>
+ <InputVars>
+    <InputVar column='E_ES_FINAL' isNumber='0'/>
+    <InputVar column='CO_RUTA' isNumber='0'/>
+    <InputVar column='ES_FICHA_REG' isNumber='0'/>
+    <InputVar column='CO_TIPO_CAPTURA' isNumber='0'/>
+    <InputVar column='IN_EVALUACION_FOTO' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<sort idx='319' v='3.06' x='-828' y='732' action='S'>
+  <field type='A'>NU_DNI_TITULAR</field>
+</sort>
+<Join module='DefaultActions' idx='320' x='-696' y='732' joinMode='0' keyA='NU_DNI_TITULAR'>
+<SlaveKeys><c>NU_DNI</c></SlaveKeys>
+<Prefixes><c></c><c>U_</c></Prefixes>
+</Join>
+<Calculator module='MathParser' idx='321' x='-564' y='732'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' isNumber='0'/>
+    <InputVar column='E_FE_CREA_AUDI' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='fkey' meta='U'>NU_FICHA_REG//"-"//TI_DOC_REG_FICHA</OutputVar>
+    <OutputVar name='E.HORA' meta='U'>substr(E_FE_CREA_AUDI,9,2)</OutputVar>
+    <OutputVar name='FE_REGI' meta='U' update='1'>E_FE_CREA_AUDI</OutputVar>
+  </OutputVars>
+</Calculator>
+<ReadColumnarGel forceHDBuffering='1' module='MathParser' idx='322' x='-1092' y='840' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOTABMAESTRA.GETM_ANI.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_DNI</c><c>CO_CONTINENTE_DOMICILIO</c><c>CO_PAIS_DOMICILIO</c><c>CO_DEPARTAMENTO_DOMICILIO</c><c>CO_PROVINCIA_DOMICILIO</c><c>CO_DISTRITO_DOMICILIO</c><c>FE_NACIMIENTO</c><c>CO_ESTADO_CIVIL</c><c>CO_NIVEL_EDUCA</c><c>IN_DONA_ORGANO</c><c>FE_CADUCIDAD</c><c>CO_RESTRI</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<sort idx='323' v='3.06' x='-828' y='840' action='S'>
+  <field type='A'>NU_DNI</field>
+</sort>
+<ColumnRename module='DefaultActions' idx='324' x='-420' y='732'><before>
+<c>U_FE_NACIMIENTO</c><c>U_IN_DONA_ORGANO</c><c>U_FE_CADUCIDAD</c><c>U_CO_DISTRITO_DOMICILIO</c><c>U_CO_DEPARTAMENTO_DOMICILIO</c><c>U_CO_PROVINCIA_DOMICILIO</c><c>U_CO_RESTRI</c><c>U_CO_NIVEL_EDUCA</c><c>U_CO_ESTADO_CIVIL</c><c>U_CO_CONTINENTE_DOMICILIO</c><c>U_CO_PAIS_DOMICILIO</c><c>D_CO_DOC_ADJ</c><c>D_IM_DOC_ADJ</c><c>E_US_CREA_AUDI</c></before><after>
+<c>U.FE_NACIMIENTO</c><c>U.IN_DONA_ORGANO</c><c>U.FE_CADUCIDAD</c><c>U.CO_DISTRITO_DOMICILIO</c><c>U.CO_DEPARTAMENTO_DOMICILIO</c><c>U.CO_PROVINCIA_DOMICILIO</c><c>U.CO_RESTRI</c><c>U.CO_NIVEL_EDUCA</c><c>U.CO_ESTADO_CIVIL</c><c>U.CO_CONTINENTE_DOMICILIO</c><c>U.CO_PAIS_DOMICILIO</c><c>D.CO_DOC_ADJ</c><c>D.IM_DOC_ADJ</c><c>E.US_CREA_AUDI</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<ReadColumnarGel module='MathParser' idx='325' x='-1164' y='1152' fileName=':/../CRUCE_FICHA_ESTACION_CTTX_hoy.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='327' x='-1032' y='1152'>
+ <Expression>E_ES_FINAL="4" &amp;&amp;
+(CO_TIPO_CAPTURA = "1") &amp;&amp; 
+(ES_FICHA_REG="1" || ES_FICHA_REG="4")</Expression>
+ <InputVars>
+    <InputVar column='E_ES_FINAL' isNumber='0'/>
+    <InputVar column='CO_RUTA' isNumber='0'/>
+    <InputVar column='ES_FICHA_REG' isNumber='0'/>
+    <InputVar column='CO_TIPO_CAPTURA' isNumber='0'/>
+    <InputVar column='IN_EVALUACION_FOTO' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<sort idx='328' v='3.06' x='-888' y='1152' action='S'>
+  <field type='A'>NU_DNI_TITULAR</field>
+</sort>
+<Join module='DefaultActions' idx='329' x='-744' y='1152' joinMode='0' keyA='NU_DNI_TITULAR'>
+<SlaveKeys><c>NU_DNI</c></SlaveKeys>
+<Prefixes><c></c><c>U_</c></Prefixes>
+</Join>
+<Calculator module='MathParser' idx='330' x='-612' y='1152'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' isNumber='0'/>
+    <InputVar column='E_FE_CREA_AUDI' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='fkey' meta='U'>NU_FICHA_REG//"-"//TI_DOC_REG_FICHA</OutputVar>
+    <OutputVar name='E.HORA' meta='U'>substr(E_FE_CREA_AUDI,9,2)</OutputVar>
+    <OutputVar name='FE_REGI' meta='U' update='1'>E_FE_CREA_AUDI</OutputVar>
+  </OutputVars>
+</Calculator>
+<ColumnRename module='DefaultActions' idx='331' x='-480' y='1152'><before>
+<c>U_FE_NACIMIENTO</c><c>U_IN_DONA_ORGANO</c><c>U_FE_CADUCIDAD</c><c>U_CO_DISTRITO_DOMICILIO</c><c>U_CO_DEPARTAMENTO_DOMICILIO</c><c>U_CO_PROVINCIA_DOMICILIO</c><c>U_CO_RESTRI</c><c>U_CO_NIVEL_EDUCA</c><c>U_CO_ESTADO_CIVIL</c><c>U_CO_CONTINENTE_DOMICILIO</c><c>U_CO_PAIS_DOMICILIO</c><c>D_CO_DOC_ADJ</c><c>D_IM_DOC_ADJ</c><c>E_US_CREA_AUDI</c></before><after>
+<c>U.FE_NACIMIENTO</c><c>U.IN_DONA_ORGANO</c><c>U.FE_CADUCIDAD</c><c>U.CO_DISTRITO_DOMICILIO</c><c>U.CO_DEPARTAMENTO_DOMICILIO</c><c>U.CO_PROVINCIA_DOMICILIO</c><c>U.CO_RESTRI</c><c>U.CO_NIVEL_EDUCA</c><c>U.CO_ESTADO_CIVIL</c><c>U.CO_CONTINENTE_DOMICILIO</c><c>U.CO_PAIS_DOMICILIO</c><c>D.CO_DOC_ADJ</c><c>D.IM_DOC_ADJ</c><c>E.US_CREA_AUDI</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<ReadColumnarGel forceHDBuffering='1' module='MathParser' idx='332' x='-1164' y='1284' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOTABMAESTRA.GETM_ANI.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_DNI</c><c>CO_CONTINENTE_DOMICILIO</c><c>CO_PAIS_DOMICILIO</c><c>CO_DEPARTAMENTO_DOMICILIO</c><c>CO_PROVINCIA_DOMICILIO</c><c>CO_DISTRITO_DOMICILIO</c><c>FE_NACIMIENTO</c><c>CO_ESTADO_CIVIL</c><c>CO_NIVEL_EDUCA</c><c>IN_DONA_ORGANO</c><c>FE_CADUCIDAD</c><c>CO_RESTRI</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<sort idx='333' v='3.06' x='-888' y='1284' action='S'>
+  <field type='A'>NU_DNI</field>
+</sort>
+<NaiveDeduplicate module='DefaultActions' idx='335' x='-516' y='1380'>
+<c>fkey</c>
+</NaiveDeduplicate>
+<Calculator module='MathParser' idx='337' x='-888' y='1380'>
+  <InputVars>
+    <InputVar column='NU_FICHA' label='NU_FICHA_REG' isNumber='0'/>
+    <InputVar column='TI_FICHA' label='TI_DOC_REG_FICHA' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='fkey' meta='U'>NU_FICHA_REG//"_"//TI_DOC_REG_FICHA</OutputVar>
+  </OutputVars>
+</Calculator>
+<FilterOnKey module='DefaultActions' idx='339' x='-348' y='1152' slaveKey='fkey'>
+  <c>fkey</c></FilterOnKey>
+<ReadColumnarGel module='MathParser' idx='340' x='-1296' y='1704' fileName=':/../CRUCE_FICHA_ESTACION_PRTX_Hoy.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='341' x='-1164' y='1704'>
+ <Expression>E_ES_FINAL="4" &amp;&amp;
+(CO_TIPO_CAPTURA = "1") &amp;&amp; 
+(ES_FICHA_REG="1")</Expression>
+ <InputVars>
+    <InputVar column='E_ES_FINAL' isNumber='0'/>
+    <InputVar column='D_CO_DOC_ADJ' isNumber='0'/>
+    <InputVar column='CO_RUTA' isNumber='0'/>
+    <InputVar column='ES_FICHA_REG' isNumber='0'/>
+    <InputVar column='CO_TIPO_CAPTURA' isNumber='0'/>
+    <InputVar column='IN_EVALUACION_FOTO' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<sort idx='342' v='3.06' x='-1008' y='1704' action='S'>
+  <field type='A'>NU_DNI_TITULAR</field>
+</sort>
+<Join module='DefaultActions' idx='343' x='-876' y='1704' joinMode='0' keyA='NU_DNI_TITULAR'>
+<SlaveKeys><c>NU_DNI</c></SlaveKeys>
+<Prefixes><c></c><c>U_</c></Prefixes>
+</Join>
+<Calculator module='MathParser' idx='344' x='-744' y='1704'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' isNumber='0'/>
+    <InputVar column='E_FE_CREA_AUDI' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='fkey' meta='U'>NU_FICHA_REG//"-"//TI_DOC_REG_FICHA</OutputVar>
+    <OutputVar name='E.HORA' meta='U'>substr(E_FE_CREA_AUDI,9,2)</OutputVar>
+    <OutputVar name='FE_REGI' meta='U' update='1'>E_FE_CREA_AUDI</OutputVar>
+  </OutputVars>
+</Calculator>
+<ColumnRename module='DefaultActions' idx='345' x='-612' y='1704'><before>
+<c>U_FE_NACIMIENTO</c><c>U_IN_DONA_ORGANO</c><c>U_FE_CADUCIDAD</c><c>U_CO_DISTRITO_DOMICILIO</c><c>U_CO_DEPARTAMENTO_DOMICILIO</c><c>U_CO_PROVINCIA_DOMICILIO</c><c>U_CO_RESTRI</c><c>U_CO_NIVEL_EDUCA</c><c>U_CO_ESTADO_CIVIL</c><c>U_CO_CONTINENTE_DOMICILIO</c><c>U_CO_PAIS_DOMICILIO</c><c>D_CO_DOC_ADJ</c><c>D_IM_DOC_ADJ</c><c>E_US_CREA_AUDI</c></before><after>
+<c>U.FE_NACIMIENTO</c><c>U.IN_DONA_ORGANO</c><c>U.FE_CADUCIDAD</c><c>U.CO_DISTRITO_DOMICILIO</c><c>U.CO_DEPARTAMENTO_DOMICILIO</c><c>U.CO_PROVINCIA_DOMICILIO</c><c>U.CO_RESTRI</c><c>U.CO_NIVEL_EDUCA</c><c>U.CO_ESTADO_CIVIL</c><c>U.CO_CONTINENTE_DOMICILIO</c><c>U.CO_PAIS_DOMICILIO</c><c>D.CO_DOC_ADJ</c><c>D.IM_DOC_ADJ</c><c>E.US_CREA_AUDI</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<FilterOnKey module='DefaultActions' idx='346' x='-480' y='1704' slaveKey='fkey'>
+  <c>fkey</c></FilterOnKey>
+<Calculator module='MathParser' idx='347' x='-348' y='1704' addNowS='1' elapsedTimeUnit='3' dateFormat='yyyyMMdd hh:mm:ss'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_CORE'>C_CO_CORE</OutputVar>
+    <OutputVar name='CO_PROCESO'>C_CO_PROCESO</OutputVar>
+    <OutputVar name='CO_ETAPA'>C_CO_ETP_PRODUCCION</OutputVar>
+    <OutputVar name='IN_RECTIFICACION' meta='U'>"NN"</OutputVar>
+    <OutputVar name='IN_CANAL' meta='U'>C_TIPO_MANUAL</OutputVar>
+    <OutputVar name='SYSDATE' meta='U'>_nowS</OutputVar>
+    <OutputVar name='FE_DATA' meta='U'>itoa(P_DFE_DATA)//" 00:00:00"</OutputVar>
+    <OutputVar name='FE_ENVIO_PROC' meta='U'>itoa(P_DFE_DATA)//" 00:00:00"</OutputVar>
+    <OutputVar name='IN_APROBADO' meta='U'>C_IN_ENVIO_PROC</OutputVar>
+  </OutputVars>
+</Calculator>
+<ReadColumnarGel forceHDBuffering='1' module='MathParser' idx='348' x='-1296' y='1800' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOTABMAESTRA.GETM_ANI.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_DNI</c><c>CO_CONTINENTE_DOMICILIO</c><c>CO_PAIS_DOMICILIO</c><c>CO_DEPARTAMENTO_DOMICILIO</c><c>CO_PROVINCIA_DOMICILIO</c><c>CO_DISTRITO_DOMICILIO</c><c>FE_NACIMIENTO</c><c>CO_ESTADO_CIVIL</c><c>CO_NIVEL_EDUCA</c><c>IN_DONA_ORGANO</c><c>FE_CADUCIDAD</c><c>CO_RESTRI</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<sort idx='349' v='3.06' x='-1008' y='1800' action='S'>
+  <field type='A'>NU_DNI</field>
+</sort>
+<ReadColumnarGel module='MathParser' idx='350' x='-1296' y='1896' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.PRTV_TRAMITES_MPV.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_FICHA</c><c>TI_FICHA</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<Calculator module='MathParser' idx='352' x='-876' y='1896'>
+  <InputVars>
+    <InputVar column='NU_FICHA' label='NU_FICHA_REG' isNumber='0'/>
+    <InputVar column='TI_FICHA' label='TI_DOC_REG_FICHA' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='fkey' meta='U'>NU_FICHA_REG//"_"//TI_DOC_REG_FICHA</OutputVar>
+  </OutputVars>
+</Calculator>
+<NaiveDeduplicate module='DefaultActions' idx='353' x='-612' y='1896'>
+<c>fkey</c>
+</NaiveDeduplicate>
+<ReadColumnarGel module='MathParser' idx='354' x='-912' y='2148' fileName=':/../CRUCE_FICHA_ESTACION_CTTX_hoy.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='355' x='-768' y='2148'>
+ <Expression>E_ES_FINAL="0" &amp;&amp;
+(CO_TIPO_CAPTURA = "2" || CO_TIPO_CAPTURA= "4") &amp;&amp; 
+ES_FICHA_REG="0"</Expression>
+ <InputVars>
+    <InputVar column='E_ES_FINAL' isNumber='0'/>
+    <InputVar column='D_CO_DOC_ADJ' isNumber='0'/>
+    <InputVar column='CO_RUTA' isNumber='0'/>
+    <InputVar column='ES_FICHA_REG' isNumber='0'/>
+    <InputVar column='CO_TIPO_CAPTURA' isNumber='0'/>
+    <InputVar column='IN_EVALUACION_FOTO' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<sort idx='356' v='3.06' x='-636' y='2148' action='S'>
+  <field type='A'>NU_DNI_TITULAR</field>
+</sort>
+<Join module='DefaultActions' idx='357' x='-504' y='2148' joinMode='0' keyA='NU_DNI_TITULAR'>
+<SlaveKeys><c>NU_DNI</c></SlaveKeys>
+<Prefixes><c></c><c>U_</c></Prefixes>
+</Join>
+<ReadColumnarGel forceHDBuffering='1' module='MathParser' idx='358' x='-912' y='2304' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOTABMAESTRA.GETM_ANI.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_DNI</c><c>CO_CONTINENTE_DOMICILIO</c><c>CO_PAIS_DOMICILIO</c><c>CO_DEPARTAMENTO_DOMICILIO</c><c>CO_PROVINCIA_DOMICILIO</c><c>CO_DISTRITO_DOMICILIO</c><c>FE_NACIMIENTO</c><c>CO_ESTADO_CIVIL</c><c>CO_NIVEL_EDUCA</c><c>IN_DONA_ORGANO</c><c>FE_CADUCIDAD</c><c>CO_RESTRI</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<sort idx='359' v='3.06' x='-636' y='2304' action='S'>
+  <field type='A'>NU_DNI</field>
+</sort>
+<Calculator module='MathParser' idx='360' x='-360' y='2148'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' isNumber='0'/>
+    <InputVar column='E_FE_CREA_AUDI' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='fkey' meta='U'>NU_FICHA_REG//"-"//TI_DOC_REG_FICHA</OutputVar>
+    <OutputVar name='E.HORA' meta='U'>substr(E_FE_CREA_AUDI,9,2)</OutputVar>
+    <OutputVar name='FE_REGI' meta='U' update='1'>E_FE_CREA_AUDI</OutputVar>
+  </OutputVars>
+</Calculator>
+<ColumnRename module='DefaultActions' idx='361' x='-228' y='2148'><before>
+<c>U_FE_NACIMIENTO</c><c>U_IN_DONA_ORGANO</c><c>U_FE_CADUCIDAD</c><c>U_CO_DISTRITO_DOMICILIO</c><c>U_CO_DEPARTAMENTO_DOMICILIO</c><c>U_CO_PROVINCIA_DOMICILIO</c><c>U_CO_RESTRI</c><c>U_CO_NIVEL_EDUCA</c><c>U_CO_ESTADO_CIVIL</c><c>U_CO_CONTINENTE_DOMICILIO</c><c>U_CO_PAIS_DOMICILIO</c><c>D_CO_DOC_ADJ</c><c>D_IM_DOC_ADJ</c><c>E_US_CREA_AUDI</c></before><after>
+<c>U.FE_NACIMIENTO</c><c>U.IN_DONA_ORGANO</c><c>U.FE_CADUCIDAD</c><c>U.CO_DISTRITO_DOMICILIO</c><c>U.CO_DEPARTAMENTO_DOMICILIO</c><c>U.CO_PROVINCIA_DOMICILIO</c><c>U.CO_RESTRI</c><c>U.CO_NIVEL_EDUCA</c><c>U.CO_ESTADO_CIVIL</c><c>U.CO_CONTINENTE_DOMICILIO</c><c>U.CO_PAIS_DOMICILIO</c><c>D.CO_DOC_ADJ</c><c>D.IM_DOC_ADJ</c><c>E.US_CREA_AUDI</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<Append module='DefaultActions' idx='363' x='-1020' y='1380' output='0' check='0' nPinIn='3'>
+  </Append>
+<sort idx='364' x='-756' y='1380' action='S' allowEmpty='0'>
+  <field type='A'>fkey</field>
+</sort>
+<ReadColumnarGel module='MathParser' idx='338' x='-1164' y='1476' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.PRTV_TRAMITES_MPV.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_FICHA</c><c>TI_FICHA</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<inlineTable idx='362' x='-1164' y='1380'>
+<ColumnNames><c>NU_FICHA</c><c>TI_FICHA</c></ColumnNames>
+<Rows>
+ <r><c>1</c><c>a</c></r>
+</Rows>
+</inlineTable>
+<sort idx='365' x='-732' y='1896' action='S' allowEmpty='0'>
+  <field type='A'>fkey</field>
+</sort>
+<inlineTable idx='366' x='-1128' y='1920'>
+<ColumnNames><c>NU_FICHA</c><c>TI_FICHA</c></ColumnNames>
+<Rows>
+ <r><c>1</c><c>a</c></r>
+</Rows>
+</inlineTable>
+<Append module='DefaultActions' idx='367' x='-996' y='1920' output='0' check='0' nPinIn='3'>
+  </Append>
+<FilterRows module='MathParser' idx='373' x='1596' y='2148'>
+ <Expression>NU_FICHA_REG=28003159</Expression>
+ <InputVars>
+    <InputVar column='NU_FICHA_REG'/>
+ </InputVars>
+</FilterRows>
+<ReadColumnarGel module='MathParser' idx='374' x='-1092' y='528' fileName=':/../CRUCE_FICHA_ESTACION_CTTX_hoy.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='375' x='-804' y='528'>
+ <Expression>FE_REGI>=20231101</Expression>
+ <InputVars>
+    <InputVar column='FE_CREA_AUDI'/>
+    <InputVar column='FE_REGI'/>
+ </InputVars>
+</FilterRows>
+<aggregate idx='376' x='-540' y='528' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='FE_CREA_AUDI'/>
+   <v name='FE_REGI'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<sort idx='377' v='3.06' x='-348' y='552' action='S'>
+  <field type='A'>FE_REGI</field>
+</sort>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='139' idxDest='141'/>
+<Connection idxSrc='144' idxDest='145'/>
+<Connection idxSrc='145' idxDest='146'/>
+<Connection idxSrc='146' idxDest='147'/>
+<Connection idxSrc='67' idxDest='73'/>
+<Connection idxSrc='75' idxDest='76'/>
+<Connection idxSrc='72' idxDest='75'/>
+<Connection idxSrc='74' idxDest='72' idxPinIn='1'/>
+<Connection idxSrc='66' idxDest='74'/>
+<Connection idxSrc='65' idxDest='66'/>
+<Connection idxSrc='76' idxDest='77' idxPinIn='1'/>
+<Connection idxSrc='73' idxDest='72'/>
+<Connection idxSrc='147' idxDest='67'/>
+<Connection idxSrc='147' idxDest='77'/>
+<Connection idxSrc='77' idxDest='157'/>
+<Connection idxSrc='157' idxDest='156'/>
+<Connection idxSrc='158' idxDest='159'/>
+<Connection idxSrc='159' idxDest='160'/>
+<Connection idxSrc='160' idxDest='161'/>
+<Connection idxSrc='161' idxDest='162'/>
+<Connection idxSrc='162' idxDest='163'/>
+<Connection idxSrc='164' idxDest='165'/>
+<Connection idxSrc='165' idxDest='166'/>
+<Connection idxSrc='163' idxDest='167'/>
+<Connection idxSrc='166' idxDest='167' idxPinIn='1'/>
+<Connection idxSrc='167' idxDest='168'/>
+<Connection idxSrc='168' idxDest='169'/>
+<Connection idxSrc='170' idxDest='171'/>
+<Connection idxSrc='161' idxDest='170'/>
+<Connection idxSrc='169' idxDest='170' idxPinIn='1'/>
+<Connection idxSrc='171' idxDest='172'/>
+<Connection idxSrc='197' idxDest='198'/>
+<Connection idxSrc='198' idxDest='200'/>
+<Connection idxSrc='200' idxDest='201'/>
+<Connection idxSrc='201' idxDest='202'/>
+<Connection idxSrc='202' idxDest='203'/>
+<Connection idxSrc='203' idxDest='204'/>
+<Connection idxSrc='205' idxDest='206'/>
+<Connection idxSrc='206' idxDest='207'/>
+<Connection idxSrc='207' idxDest='204' idxPinIn='1'/>
+<Connection idxSrc='204' idxDest='208'/>
+<Connection idxSrc='208' idxDest='210'/>
+<Connection idxSrc='201' idxDest='211'/>
+<Connection idxSrc='210' idxDest='211' idxPinIn='1'/>
+<Connection idxSrc='212' idxDest='213'/>
+<Connection idxSrc='246' idxDest='247'/>
+<Connection idxSrc='247' idxDest='249'/>
+<Connection idxSrc='249' idxDest='250'/>
+<Connection idxSrc='250' idxDest='251'/>
+<Connection idxSrc='250' idxDest='254'/>
+<Connection idxSrc='254' idxDest='255'/>
+<Connection idxSrc='255' idxDest='257'/>
+<Connection idxSrc='258' idxDest='259'/>
+<Connection idxSrc='259' idxDest='260'/>
+<Connection idxSrc='260' idxDest='257' idxPinIn='1'/>
+<Connection idxSrc='257' idxDest='261'/>
+<Connection idxSrc='261' idxDest='262'/>
+<Connection idxSrc='262' idxDest='251' idxPinIn='1'/>
+<Connection idxSrc='251' idxDest='263'/>
+<Connection idxSrc='263' idxDest='264'/>
+<Connection idxSrc='288' idxDest='289'/>
+<Connection idxSrc='289' idxDest='290'/>
+<Connection idxSrc='290' idxDest='291'/>
+<Connection idxSrc='291' idxDest='293'/>
+<Connection idxSrc='293' idxDest='294'/>
+<Connection idxSrc='294' idxDest='295'/>
+<Connection idxSrc='296' idxDest='297'/>
+<Connection idxSrc='297' idxDest='298'/>
+<Connection idxSrc='298' idxDest='295' idxPinIn='1'/>
+<Connection idxSrc='295' idxDest='299'/>
+<Connection idxSrc='299' idxDest='300'/>
+<Connection idxSrc='291' idxDest='301'/>
+<Connection idxSrc='300' idxDest='301' idxPinIn='1'/>
+<Connection idxSrc='301' idxDest='302'/>
+<Connection idxSrc='302' idxDest='303'/>
+<Connection idxSrc='303' idxDest='139' idxPinIn='4'/>
+<Connection idxSrc='141' idxDest='304'/>
+<Connection idxSrc='304' idxDest='140'/>
+<Connection idxSrc='305' idxDest='306'/>
+<Connection idxSrc='306' idxDest='307'/>
+<Connection idxSrc='307' idxDest='308'/>
+<Connection idxSrc='309' idxDest='310'/>
+<Connection idxSrc='310' idxDest='308' idxPinIn='1'/>
+<Connection idxSrc='308' idxDest='311'/>
+<Connection idxSrc='311' idxDest='316'/>
+<Connection idxSrc='316' idxDest='144'/>
+<Connection idxSrc='317' idxDest='318'/>
+<Connection idxSrc='318' idxDest='319'/>
+<Connection idxSrc='319' idxDest='320'/>
+<Connection idxSrc='320' idxDest='321'/>
+<Connection idxSrc='323' idxDest='320' idxPinIn='1'/>
+<Connection idxSrc='322' idxDest='323'/>
+<Connection idxSrc='321' idxDest='324'/>
+<Connection idxSrc='324' idxDest='158'/>
+<Connection idxSrc='327' idxDest='328'/>
+<Connection idxSrc='325' idxDest='327'/>
+<Connection idxSrc='328' idxDest='329'/>
+<Connection idxSrc='330' idxDest='331'/>
+<Connection idxSrc='333' idxDest='329' idxPinIn='1'/>
+<Connection idxSrc='332' idxDest='333'/>
+<Connection idxSrc='331' idxDest='339'/>
+<Connection idxSrc='335' idxDest='339' idxPinIn='1'/>
+<Connection idxSrc='329' idxDest='330'/>
+<Connection idxSrc='339' idxDest='197' idxPinOut='2'/>
+<Connection idxSrc='341' idxDest='342'/>
+<Connection idxSrc='342' idxDest='343'/>
+<Connection idxSrc='346' idxDest='347' idxPinOut='2'/>
+<Connection idxSrc='345' idxDest='346'/>
+<Connection idxSrc='344' idxDest='345'/>
+<Connection idxSrc='343' idxDest='344'/>
+<Connection idxSrc='348' idxDest='349'/>
+<Connection idxSrc='349' idxDest='343' idxPinIn='1'/>
+<Connection idxSrc='353' idxDest='346' idxPinIn='1'/>
+<Connection idxSrc='340' idxDest='341'/>
+<Connection idxSrc='347' idxDest='246'/>
+<Connection idxSrc='358' idxDest='359'/>
+<Connection idxSrc='357' idxDest='360'/>
+<Connection idxSrc='360' idxDest='361'/>
+<Connection idxSrc='359' idxDest='357' idxPinIn='1'/>
+<Connection idxSrc='356' idxDest='357'/>
+<Connection idxSrc='355' idxDest='356'/>
+<Connection idxSrc='354' idxDest='355'/>
+<Connection idxSrc='361' idxDest='288'/>
+<Connection idxSrc='337' idxDest='364'/>
+<Connection idxSrc='364' idxDest='335'/>
+<Connection idxSrc='363' idxDest='337'/>
+<Connection idxSrc='362' idxDest='363'/>
+<Connection idxSrc='352' idxDest='365'/>
+<Connection idxSrc='365' idxDest='353'/>
+<Connection idxSrc='366' idxDest='367'/>
+<Connection idxSrc='367' idxDest='352'/>
+<Connection idxSrc='156' idxDest='139'/>
+<Connection idxSrc='172' idxDest='139' idxPinIn='1'/>
+<Connection idxSrc='213' idxDest='139' idxPinIn='2'/>
+<Connection idxSrc='264' idxDest='139' idxPinIn='3'/>
+<Connection idxSrc='303' idxDest='373'/>
+<Connection idxSrc='211' idxDest='212'/>
+<Connection idxSrc='374' idxDest='375'/>
+<Connection idxSrc='375' idxDest='376'/>
+<Connection idxSrc='376' idxDest='377'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='132' y='588' size='6' anchor='65'>IDOCAPTURA.CTTR_SECUENCIA_FICHA_DECA</Annotation>
+  <Annotation x='312' y='588' size='6' anchor='66'>Se filtra ES_RANGO_FICHA = 1</Annotation>
+  <Annotation x='528' y='576' size='6' anchor='72'>Se realiza cruce por el campo TI_DOC_REG_FICHA
+y el campo TI_FICHA, tomando la intersección entre ambos</Annotation>
+  <Annotation x='684' y='420' size='6' anchor='75'>Se calcula el campo IN_DECA</Annotation>
+  <Annotation x='-108' y='372' size='6' anchor='147'>Se construye la función de LDFU_IN_ABIS
+LDPK_ETL_LPROC_DNI.LDFU_IN_ABIS(F.CO_RUTA,
+                                             F.TI_DOC_REG_FICHA,
+                                             F.IN_ABIS,
+                                             F.CO_TIPO_CAPTURA,
+                                             F.CO_TIPO_TRAMITE,
+                                             F.CO_SUBTIPO_TRAMITE)</Annotation>
+  <Annotation x='-432' y='372' size='6' anchor='144'>Se crean las variables a partir de valores constantes
+CO_CORE
+CO_PROCESO
+CO_ETAPA
+IN_RECTIFICACION
+IN_CANAL
+SYSDATE
+FE_DATA
+FE_ENVIO_PROC
+IN_APROBADO</Annotation>
+  <Annotation x='-276' y='192' size='6' anchor='145'>sE CREA NLAS VARIABLES
+IN_DNIE
+FE_REGI
+IM_RECIBO</Annotation>
+  <Annotation x='-120' y='132' size='6' anchor='146'>Se actualizan las siguientes variables
+CO_CONTINENTE_DOMICILIO
+CO_PAIS_DOMICILIO
+CO_DEPARTAMENTO_DOMICILIO
+CO_PROVINCIA_DOMICILIO
+CO_DISTRITO_DOMICILIO
+FE_NACI
+CO_ESTADO_CIVIL
+CO_GRADO_INSTRUCCION
+IN_DONA_ORGANO</Annotation>
+  <Annotation x='1128' y='204' size='6' anchor='157'>sE RENOMBRAN LOS CAMPOS</Annotation>
+  <Annotation x='1284' y='204' size='6' anchor='156'>se seleccionan los campos necesarios</Annotation>
+  <Annotation x='-396' y='852' size='6' anchor='158'>Se crean los siguientes campos dependientes de valores constantes
+co_core
+co_proceso
+co_etapa
+in_rectificacion
+in_canal
+sysdate
+fe_data
+fe_envio_proc
+in_aprobado</Annotation>
+  <Annotation x='-120' y='852' size='6' anchor='159'>se actualizan las variables
+IN_DNIE
+FE_REGI
+IM_RECIBO</Annotation>
+  <Annotation x='0' y='864' size='6' anchor='160'>sE ACTUALIZAN LAS SIGUIENTES VARIABLES
+CO_CONTINENTE_DOMICILIO
+CO_PAIS_DOMICILIO
+CO_DEPARTAMENTO_DOMICILIO
+CO_PROVINCIA_DOMICILIO
+CO_DISTRITO_DOMICILIO
+FE_NACI
+CO_ESTADO_CIVIL
+CO_GRADO_INSTRUCCION
+IN_DONA_ORGANO</Annotation>
+  <Annotation x='144' y='672' size='6'>SE CREA EL CAMPO IN_ABIS</Annotation>
+  <Annotation x='852' y='780' size='6' anchor='169'>SE CREA EL CAMPO IN_DECA</Annotation>
+  <Annotation x='216' y='1032' size='6' anchor='164'>/IDOCAPTURA.CTTR_SECUENCIA_FICHA_DECA</Annotation>
+  <Annotation x='-252' y='1008' size='6' anchor='197'>Se crean los campos a partir de valores constantes
+CO_CORE
+CO_PROCESO
+CO_ETAPA
+IN_RECTIFICACION
+IN_CANAL
+SYSDATE
+FE_DATA
+FE_ENVIO_PROC
+IN_APROBADO</Annotation>
+  <Annotation x='-72' y='1260' size='6' anchor='198'>SE ACUTALIZAN LAS VARIABLES
+IN_DNIE
+FE_REGI
+IM_RECIBO</Annotation>
+  <Annotation x='60' y='1272' size='6' anchor='200'>Se actualizan las variables
+CO_CONTINENTE_DOMICILIO
+CO_PAIS_DOMICILIO
+CO_DEPARTAMENTO_DOMICILIO
+CO_PROVINCIA_DOMICILIO
+CO_DISTRITO_DOMICILIO
+FE_NACI
+CO_ESTADO_CIVIL
+CO_GRADO_INSTRUCCION
+IN_DONA_ORGANO</Annotation>
+  <Annotation x='228' y='1104' size='6'>sE CRE A la variable IN_ABIS</Annotation>
+  <Annotation x='1116' y='1392' size='14' anchor='210'>Se crea el campo IN_DECA</Annotation>
+  <Annotation x='-216' y='1548' size='6' anchor='246'>Se crean los campos a partir de valores constantes
+CO_CORE
+CO_PROCESO
+CO_ETAPA
+IN_RECTIFICACION
+IN_CANAL
+SYSDATE
+FE_DATA
+FE_ENVIO_PROC
+IN_APROBADO</Annotation>
+  <Annotation x='-84' y='1620' size='6' anchor='247'>SE ACUTALIZAN LAS VARIABLES
+IN_DNIE
+FE_REGI
+IM_RECIBO</Annotation>
+  <Annotation x='60' y='1560' size='6' anchor='249'>Se actualizan las variables
+CO_CONTINENTE_DOMICILIO
+CO_PAIS_DOMICILIO
+CO_DEPARTAMENTO_DOMICILIO
+CO_PROVINCIA_DOMICILIO
+CO_DISTRITO_DOMICILIO
+FE_NACI
+CO_ESTADO_CIVIL
+CO_GRADO_INSTRUCCION
+IN_DONA_ORGANO</Annotation>
+  <Annotation x='216' y='1608' size='6' anchor='250'>SE CREA EL CAMPO in_abis</Annotation>
+  <Annotation x='852' y='1956' size='6' anchor='262'>Se crea el campo IN_DECA</Annotation>
+  <Annotation x='-96' y='2292' size='6' anchor='288'>Se crean los campos a partir de valores constantes
+CO_CORE
+CO_PROCESO
+CO_ETAPA
+IN_RECTIFICACION
+IN_CANAL
+SYSDATE
+FE_DATA
+FE_ENVIO_PROC
+IN_APROBADO</Annotation>
+  <Annotation x='48' y='2076' size='6' anchor='289'>SE ACUTALIZAN LAS VARIABLES
+IN_DNIE
+FE_REGI
+IM_RECIBO</Annotation>
+  <Annotation x='180' y='2328' size='6' anchor='290'>Se actualizan las variables
+CO_CONTINENTE_DOMICILIO
+CO_PAIS_DOMICILIO
+CO_DEPARTAMENTO_DOMICILIO
+CO_PROVINCIA_DOMICILIO
+CO_DISTRITO_DOMICILIO
+FE_NACI
+CO_ESTADO_CIVIL
+CO_GRADO_INSTRUCCION
+IN_DONA_ORGANO</Annotation>
+  <Annotation x='288' y='2268' size='6' anchor='291'>SE CREA EL CAMPO in_abis</Annotation>
+  <Annotation x='984' y='2364' size='6' anchor='300'>Se crea el campo IN_DECA</Annotation>
+  <Annotation x='2040' y='1272' size='10'>Se unen todos los flujos en uno solo, los campos
+deben coincidir entre si tanto el nombre como el formato</Annotation>
+  <Annotation x='2124' y='1056' size='12' anchor='141'>IDO_DATA_BI.LDTT_PROCESO_DNI_CAPT_PRODUCCION</Annotation>
+  <Annotation x='-1428' y='300' bold='1' color='#228b22' anchor='305'>CRUCE_FICHA_ESTACION_CTTX_hoy</Annotation>
+  <Annotation x='-1380' y='444' anchor='309'>IDOTABMAESTRA.GETM_ANI U</Annotation>
+  <Annotation x='-1080' y='216' size='6' anchor='306'>Se filtra la fuente con
+- CO_TIPO_CAPTURA in 2 ó 4
+- ES_FICHA_REF  in 1,4</Annotation>
+  <Annotation x='-1008' y='360' size='6' anchor='306'>Se filtra el campo CO_DOC_ADJ=&quot;165&quot;</Annotation>
+  <Annotation x='-1140' y='360' size='6' color='#ff0000' anchor='306'>Se filtra el campo ES_FINAL = 4
+Se filtra el parametro de entrada</Annotation>
+  <Annotation x='-1344' y='768' bold='1' color='#228b22' anchor='317'>CRUCE_FICHA_ESTACION_PRTX_hoy</Annotation>
+  <Annotation x='-1284' y='852' anchor='322'>IDOTABMAESTRA.GETM_ANI U</Annotation>
+  <Annotation x='-1032' y='1104' size='6' anchor='327'>Se filtra la fuente con
+- CO_TIPO_CAPTURA in 2 ó 4
+- ES_FICHA_REF  in 1,4</Annotation>
+  <Annotation x='-1092' y='1248' size='6' color='#ff0000' anchor='327'>Se filtra el campo ES_FINAL = 4
+Se filtra el parametro de entrada</Annotation>
+  <Annotation x='-948' y='1248' size='6' anchor='327'>Se filtra el campo CO_DOC_ADJ=&quot;165&quot;</Annotation>
+  <Annotation x='-1416' y='1500' size='10' anchor='338'>IDOCAPTURA.PRTV_TRAMITES_MPV</Annotation>
+  <Annotation x='-1452' y='1920' size='6' anchor='350'>IDOCAPTURA.PRTV_TRAMITES_MPV</Annotation>
+  <Annotation x='-1416' y='1836' size='6' anchor='348'>IDOTABMAESTRA.GETM_ANI</Annotation>
+  <Annotation x='-1392' y='1320' size='10' anchor='332'>IDOTABMAESTRA.GETM_ANI</Annotation>
+  <Annotation x='-1392' y='1176' bold='1' color='#228b22' anchor='325'>CRUCE_FICHA_ESTACION_CTTX_hoy</Annotation>
+  <Annotation x='-1512' y='1728' bold='1' color='#228b22' anchor='340'>CRUCE_FICHA_ESTACION_PRTX_hoy</Annotation>
+  <Annotation x='-1092' y='2328' anchor='358'>IDOTABMAESTRA.GETM_ANI U</Annotation>
+  <Annotation x='-1140' y='2172' bold='1' color='#228b22' anchor='354'>CRUCE_FICHA_ESTACION_CTTX_hoy</Annotation>
+</TEXTANNOTATIONS>
+<GROUPBOXANNOTATIONS>
+  <Groupbox x='168' y='372' w='792' h='228' color='#ffdab9'/>
+  <Groupbox x='228' y='816' w='792' h='228' color='#ffdab9'/>
+</GROUPBOXANNOTATIONS>
+</ANATELLA>

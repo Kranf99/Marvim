@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='4.10'>
+<GlobalParameters wDirLoc='0' dataDirRead='C:/' dataDirWrite=':/'>
+<Parameters>
+<Par name='P_DFE_DATA'>20230725</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace zoom='1' x='-2007' y='-503'>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAAB8PwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAAB8AAAAHgA////AAAAAwAABzgAAAEL/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAASzAAACqAD////8AAAEtwAAAoEAAAGUAP////oAAAABAgAAAAL7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAAAeQD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAA2sAAACOAAAAeQD///8AAAY0AAAB8AAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABfT/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<RunToFinishLine idx='11' x='-756' y='-336' nPinIn='3'/>
+<FilterRows forceHDBuffering='1' module='MathParser' idx='29' x='-2340' y='-336'>
+ <Expression>x="C" || x="B" || x="M" || x="+" || x="" || x="I"</Expression>
+ <InputVars>
+    <InputVar column='ES_FINAL' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='31' x='-2208' y='-336'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' label='a' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='b' isNumber='0'/>
+    <InputVar column='FE_CREA_AUDI' label='f' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='llave' meta='U'>a//"-"//b</OutputVar>
+    <OutputVar name='V_DFE_DATA' meta='U'>substr(f,0,8)</OutputVar>
+    <OutputVar name='P_CIN_IST'>1</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='33' x='-2076' y='-336' keep='1'>
+ <c>llave</c>
+ <c>V_DFE_DATA</c>
+ <c>P_CIN_IST</c>
+</SelectColumns>
+<writeColumnarGel module='MathParser' idx='36' v='3.19' x='-1416' y='-336' createDir='1' file=':/LDFU_FE_APROB_PROC1.cgel_anatella'/>
+<RowCounter idx='231' x='-1572' y='-334' label='CounterID_232' compact='0'/>
+<writeColumnarGel module='MathParser' idx='273' v='3.19' x='-1056' y='-336' createDir='1' file=':/../Gel_DataLake/DM3/LDFU_FE_APROB_PROC1.cgel_anatella'/>
+<ColumnRename module='DefaultActions' idx='279' x='-1224' y='-336' mode='0'><before>
+<c>llave</c><c>V_DFE_DATA</c><c>P_CIN_IST</c></before><after>
+<c>fkey</c><c>FE_CREA_AUDI_smax</c><c>P_CIN_IST</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<sort idx='284' v='3.06' x='-1920' y='-336' action='S' tapeSize='1000' maxNTape='0'>
+  <field type='A'>llave</field>
+  <field type='Z'>V_DFE_DATA</field>
+</sort>
+<NaiveDeduplicate module='DefaultActions' idx='297' x='-1788' y='-336'>
+<c>llave</c>
+</NaiveDeduplicate>
+<RowCounter idx='307' x='-924' y='-334' label='CounterID_308' compact='0'/>
+<ReadColumnarGel module='MathParser' idx='314' x='-2496' y='-336' columnSelection='1' fileName=':/../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.PRTX_ESTACION_TRAMITE.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c><c>NU_SEC_ESTACION</c><c>US_CREA_AUDI</c><c>FE_CREA_AUDI</c><c>ES_INICIAL</c><c>ES_FINAL</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='29' idxDest='31'/>
+<Connection idxSrc='31' idxDest='33'/>
+<Connection idxSrc='231' idxDest='36'/>
+<Connection idxSrc='279' idxDest='273'/>
+<Connection idxSrc='36' idxDest='279'/>
+<Connection idxSrc='33' idxDest='284'/>
+<Connection idxSrc='284' idxDest='297'/>
+<Connection idxSrc='297' idxDest='231'/>
+<Connection idxSrc='273' idxDest='307'/>
+<Connection idxSrc='307' idxDest='11'/>
+<Connection idxSrc='314' idxDest='29'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-2544' y='-396' size='10' bold='1' color='#228b22'>PRTX_ESTACION_TRAMITE</Annotation>
+  <Annotation x='-2412' y='-372' size='10' anchor='29'>ES_FINAL IN (&apos;C&apos;, &apos;B&apos;, &apos;M&apos;, &apos;+&apos;, &apos;&quot;&apos;, &apos;I&apos;)</Annotation>
+  <Annotation x='-1572' y='-288' size='10' anchor='36'>LDFU_FE_APROB_PROC 1</Annotation>
+  <Annotation x='-2076' y='-396' size='10'>llave
+V_DFE_DATA
+P_CIN_IST</Annotation>
+  <Annotation x='-2208' y='-396' size='10'>Crear llave
+NU_FICHA_REG
+TI_DOC_REG_FICHA</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

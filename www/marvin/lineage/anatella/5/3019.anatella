@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.04'>
+<GlobalParameters wDirLoc='1' dataDirRead='D:/ProdAnatella/Extraccion/DM8' dataDirWrite=':/' otherDir='D:/ProdAnatella/DM8'>
+<ODBCConnections>
+<odbc name='MP' link='MP' login='IDU_DATA_BI' ep='1' password='LAAAADAAAACtAAAAXr/cZLiNl/GEmuybjO+mkICsf+4csD3hbTGFZL4tAmE='/>
+<odbc name='BI' link='BI' login='IDODATAMART' ep='1' password='LAAAADAAAAAwAAAAwGpxp6zSxYvTavET3cSjkRHi5+cQCegCp1aeegj0RSw='/>
+</ODBCConnections>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAABWPwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAABWAAAAHgA////AAAAAwAABjAAAAGI/AEAAAAB/AAAAAAAAAYwAAABlAD////6AAAAAQEAAAAD+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAD/////AAAAZwD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAYAD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD///8AAAUsAAABWAAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<parallelRun idx='619' x='-588' y='2604' maxConcurrentRun='6' abort='1'>
+<RunData><anatellaGraph>:/Integracion_SEDE_AREA.anatella</anatellaGraph></RunData>
+<RunData><anatellaGraph>:/Integracion_CANAL_CARPETA.anatella</anatellaGraph></RunData>
+<RunData><anatellaGraph>:/Integracion_PROCESO_CLIENTE.anatella</anatellaGraph></RunData>
+<RunData><anatellaGraph>:/Integracion_DOCUMENTO_Y_GESTIONDOC.anatella</anatellaGraph></RunData>
+<RunData><anatellaGraph>:/Integracion_RESPONSABLE_ATENCION.anatella</anatellaGraph></RunData>
+<RunData><anatellaGraph>:/Integracion_TRAMITE_DOCUMENTARIO.anatella</anatellaGraph></RunData>
+</parallelRun>
+<parallelRun idx='620' x='-588' y='2712' maxConcurrentRun='1' abort='1'>
+<RunData><anatellaGraph>:/Generacion Flat File.anatella</anatellaGraph></RunData>
+</parallelRun>
+<RunToFinishLine idx='621' x='-336' y='2496' nPinIn='20'/>
+<parallelRun idx='624' x='-588' y='2496' maxConcurrentRun='1' abort='1'>
+<RunData><anatellaGraph>:/01 RunExtraccion.anatella</anatellaGraph></RunData>
+</parallelRun>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='619' idxDest='621' idxPinIn='9'/>
+<Connection idxSrc='624' idxDest='621'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-780' y='2520' size='14' anchor='624'>Run Extraction</Annotation>
+  <Annotation x='-780' y='2628' size='14' anchor='619'>Create DataMart</Annotation>
+  <Annotation x='-768' y='2736' size='14' anchor='620'>Create Flat File</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

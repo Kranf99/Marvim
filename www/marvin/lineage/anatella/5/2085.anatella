@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.07'>
+<GlobalParameters wDirLoc='0' dataDirRead='D:/ProdAnatella/DM3_EnEvaluacion' dataDirWrite=':/'>
+<Parameters>
+<Par name='P_DFE_DATA'>20230725</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAACkfwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACkQAAAHgA////AAAAAwAAB4AAAAEL/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAASzAAACkQD////8AAAEtwAAAskAAAGUAP////oAAAABAgAAAAL7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAAAeQD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAA2sAAACOAAAAeQD///8AAAZ8AAACkQAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<RunToFinishLine idx='11' x='-756' y='-216' nPinIn='3'/>
+<FilterRows forceHDBuffering='1' module='MathParser' idx='221' x='-1500' y='-216'>
+ <Expression>x="?" || x="@" || x="$" || x="H"</Expression>
+ <InputVars>
+    <InputVar column='ES_FINAL' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='223' x='-1368' y='-216'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' label='a' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='b' isNumber='0'/>
+    <InputVar column='FE_CREA_AUDI' label='f' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='llave' meta='U'>a//"-"//b</OutputVar>
+  </OutputVars>
+</Calculator>
+<writeColumnarGel module='MathParser' idx='225' x='-1056' y='-216' createDir='1' file=':/ESTACION_TRAMITE_FILTRO_PR.cgel_anatella'/>
+<RowCounter idx='227' x='-1236' y='-214' label='CounterID_228' compact='0'/>
+<RowCounter idx='308' x='-924' y='-214' label='CounterID_309' compact='0'/>
+<ReadColumnarGel module='MathParser' idx='315' x='-1656' y='-420' columnSelection='1' fileName=':/../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.PRTX_ESTACION_TRAMITE.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c><c>NU_SEC_ESTACION</c><c>US_CREA_AUDI</c><c>FE_CREA_AUDI</c><c>ES_INICIAL</c><c>ES_FINAL</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='221' idxDest='223'/>
+<Connection idxSrc='227' idxDest='225'/>
+<Connection idxSrc='223' idxDest='227'/>
+<Connection idxSrc='225' idxDest='308'/>
+<Connection idxSrc='308' idxDest='11'/>
+<Connection idxSrc='315' idxDest='221'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-1848' y='-276' size='10' bold='1' color='#228b22'>PRTX_ESTACION_TRAMITE</Annotation>
+  <Annotation x='-1644' y='-96' size='14' anchor='221'>x=&quot;?&quot; || x=&quot;@&quot; || x=&quot;$&quot; || x=&quot;H&quot;</Annotation>
+  <Annotation x='-1332' y='-300' size='14' anchor='225'>ESTACION_TRAMITE_FILTRO_PR.cgel_anatella</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

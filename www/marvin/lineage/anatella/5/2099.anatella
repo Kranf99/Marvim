@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.07'>
+<GlobalParameters wDirLoc='0' dataDirRead='D:/ProdAnatella/Gel_DataLake/Extraccion/DNI' dataDirWrite=':/'>
+<Parameters>
+<Par name='P_DFE_DATA'>20230810</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAACkfwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACkQAAAHgA////AAAAAwAAB4AAAAEL/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAASzAAACqQD////8AAAEtwAAAskAAAGUAP////oAAAABAgAAAAL7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAAAeQD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAA2sAAACOAAAAeQD///8AAAZ8AAACkQAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<FilterRows module='MathParser' idx='4' x='-2136' y='-588'>
+ <Expression>x=4</Expression>
+ <InputVars>
+    <InputVar column='ES_FINAL' label='x'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='7' x='-2004' y='-588'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' label='a' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='b' isNumber='0'/>
+    <InputVar column='FE_CREA_AUDI' label='f' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='llave' meta='U'>a//"-"//b</OutputVar>
+    <OutputVar name='V_DFE_DATA' meta='U'>substr(f,0,8)</OutputVar>
+    <OutputVar name='P_CIN_IST'>0</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='8' x='-1860' y='-588' keep='1'>
+ <c>llave</c>
+ <c>V_DFE_DATA</c>
+ <c>P_CIN_IST</c>
+</SelectColumns>
+<FilterRows keyHD='169177282912500202' forceHDBuffering='1' module='MathParser' idx='17' x='-2136' y='-492'>
+ <Expression>x=5 || x=6</Expression>
+ <InputVars>
+    <InputVar column='ES_FINAL' label='x'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='19' x='-2004' y='-492'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' label='a' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='b' isNumber='0'/>
+    <InputVar column='FE_CREA_AUDI' label='f' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='llave' meta='U'>a//"-"//b</OutputVar>
+    <OutputVar name='V_DFE_DATA' meta='U'>substr(f,0,8)</OutputVar>
+    <OutputVar name='P_CIN_IST'>0</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='21' x='-1872' y='-492' keep='1'>
+ <c>llave</c>
+ <c>V_DFE_DATA</c>
+ <c>P_CIN_IST</c>
+</SelectColumns>
+<FilterRows keyHD='169177293712500467' forceHDBuffering='1' module='MathParser' idx='30' x='-2136' y='-396'>
+ <Expression>x="C" || x="B" || x="M" || x="+" || x="" || x="I"</Expression>
+ <InputVars>
+    <InputVar column='ES_FINAL' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='32' x='-2004' y='-396'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' label='a' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='b' isNumber='0'/>
+    <InputVar column='FE_CREA_AUDI' label='f' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='llave' meta='U'>a//"-"//b</OutputVar>
+    <OutputVar name='V_DFE_DATA' meta='U'>substr(f,0,8)</OutputVar>
+    <OutputVar name='P_CIN_IST'>0</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='34' x='-1872' y='-396' keep='1'>
+ <c>llave</c>
+ <c>V_DFE_DATA</c>
+ <c>P_CIN_IST</c>
+</SelectColumns>
+<ReadColumnarGel module='MathParser' idx='202' x='-2664' y='-444' columnSelection='2' fileName=':/../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.CTTX_ESTACION_TRAMITE.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows keyHD='169177160312500580' forceHDBuffering='1' module='MathParser' idx='204' x='-2376' y='-444'>
+ <Expression>x="C" || x="B" || x="M" || x="+" || x="" || x="I" || x="4" || x="5" || x="6" || x="?" || x="@" || x="$" || x="H" || x="|"</Expression>
+ <InputVars>
+    <InputVar column='ES_FINAL' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<inlineTable idx='216' x='-2808' y='-528'>
+<ColumnNames><c>C1</c></ColumnNames>
+<Rows>
+ <r><c>FE_CREA_AUDI</c></r>
+ <r><c>US_CREA_AUDI</c></r>
+ <r><c>ES_FINAL</c></r>
+ <r><c>ES_INICIAL</c></r>
+ <r><c>NU_SEC_ESTACION</c></r>
+ <r><c>NU_FICHA_REG</c></r>
+ <r><c>TI_DOC_REG_FICHA</c></r>
+</Rows>
+</inlineTable>
+<FilterRows keyHD='169177332812500701' forceHDBuffering='1' module='MathParser' idx='222' x='-2136' y='-300'>
+ <Expression>x="?" || x="@" || x="$" || x="H"</Expression>
+ <InputVars>
+    <InputVar column='ES_FINAL' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='224' x='-2004' y='-300'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' label='a' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='b' isNumber='0'/>
+    <InputVar column='FE_CREA_AUDI' label='f' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='llave' meta='U'>a//"-"//b</OutputVar>
+  </OutputVars>
+</Calculator>
+<writeColumnarGel module='MathParser' idx='226' x='-840' y='-300' createDir='1' file=':/ESTACION_TRAMITE_FILTRO_CT.cgel_anatella'/>
+<RowCounter idx='228' x='-1452' y='-298' label='CounterID_229' compact='0'/>
+<writeColumnarGel module='MathParser' idx='235' x='-1296' y='-588' createDir='1' file=':/LDFU_FE_ENVIO0.cgel_anatella'/>
+<RowCounter idx='236' x='-1464' y='-586' label='CounterID_237' compact='0'/>
+<RowCounter idx='237' x='-1464' y='-490' label='CounterID_238' compact='0'/>
+<writeColumnarGel module='MathParser' idx='238' x='-1308' y='-492' createDir='1' file=':/LDFU_FE_RECE_PROC0.cgel_anatella'/>
+<RowCounter idx='252' x='-1464' y='-394' label='CounterID_253' compact='0'/>
+<writeColumnarGel module='MathParser' idx='253' x='-1308' y='-396' createDir='1' file=':/LDFU_FE_APROB_PROC0.cgel_anatella'/>
+<RowCounter idx='261' x='-2544' y='-442' label='CounterID_262' compact='0'/>
+<writeColumnarGel module='MathParser' idx='270' x='-852' y='-588' createDir='1' file=':/../Gel_DataLake/DM3/LDFU_FE_ENVIO0.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='272' x='-852' y='-492' createDir='1' file=':/../Gel_DataLake/DM3/LDFU_FE_RECE_PROC0.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='274' x='-852' y='-396' createDir='1' file=':/../Gel_DataLake/DM3/LDFU_FE_APROB_PROC0.cgel_anatella'/>
+<ColumnRename module='DefaultActions' idx='276' x='-1164' y='-588'><before>
+<c>llave</c><c>V_DFE_DATA</c><c>P_CIN_IST</c></before><after>
+<c>fkey</c><c>FE_CREA_AUDI_smax</c><c>P_CIN_IST</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<ColumnRename module='DefaultActions' idx='278' x='-1164' y='-492'><before>
+<c>llave</c><c>V_DFE_DATA</c><c>P_CIN_IST</c></before><after>
+<c>fkey</c><c>FE_CREA_AUDI_smax</c><c>P_CIN_IST</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<ColumnRename module='DefaultActions' idx='280' x='-1164' y='-396'><before>
+<c>llave</c><c>V_DFE_DATA</c><c>P_CIN_IST</c></before><after>
+<c>fkey</c><c>FE_CREA_AUDI_smax</c><c>P_CIN_IST</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<sort idx='281' v='3.06' x='-1727.66' y='-588.802' action='S'>
+  <field type='A'>llave</field>
+  <field type='Z'>V_DFE_DATA</field>
+</sort>
+<sort idx='283' v='3.06' x='-1716' y='-492' action='S'>
+  <field type='A'>llave</field>
+  <field type='Z'>V_DFE_DATA</field>
+</sort>
+<sort idx='285' v='3.06' x='-1716' y='-396' action='S'>
+  <field type='A'>llave</field>
+  <field type='Z'>V_DFE_DATA</field>
+</sort>
+<NaiveDeduplicate module='DefaultActions' idx='294' x='-1590.88' y='-587.173'>
+<c>llave</c>
+</NaiveDeduplicate>
+<NaiveDeduplicate module='DefaultActions' idx='296' x='-1584' y='-492'>
+<c>llave</c>
+</NaiveDeduplicate>
+<NaiveDeduplicate module='DefaultActions' idx='298' x='-1584' y='-396'>
+<c>llave</c>
+</NaiveDeduplicate>
+<RunToFinishLine idx='11' x='-684' y='-588' nPinIn='40'/>
+<FilterRows keyHD='169177375912500824' forceHDBuffering='1' module='MathParser' idx='299' x='-2148' y='-72'>
+ <Expression>x="@"</Expression>
+ <InputVars>
+    <InputVar column='ES_FINAL' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='300' x='-2016' y='-72'>
+  <InputVars>
+    <InputVar column='NU_SEC_ESTACION' meta='F'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='NU_SEC_ESTACION_MEN1'>NU_SEC_ESTACION-1</OutputVar>
+    <OutputVar name='NU_SEC_ESTACION_MAS1'>NU_SEC_ESTACION+1</OutputVar>
+  </OutputVars>
+</Calculator>
+<writeColumnarGel module='MathParser' idx='301' x='-852' y='-72' createDir='1' file=':/ESTACION_TRAMITE_CTX_ARROBA.cgel_anatella'/>
+<RowCounter idx='302' x='-1884' y='-70' label='CounterID_303' compact='0'/>
+<FilterRows keyHD='169177359712500888' forceHDBuffering='1' module='MathParser' idx='303' x='-2136' y='-204'>
+ <Expression>x="@" || x="$" || x="|"</Expression>
+ <InputVars>
+    <InputVar column='ES_FINAL' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='304' x='-2004' y='-204'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' label='a' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='b' isNumber='0'/>
+    <InputVar column='FE_CREA_AUDI' label='f' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='llave' meta='U'>a//"-"//b</OutputVar>
+  </OutputVars>
+</Calculator>
+<RowCounter idx='305' x='-1452' y='-202' label='CounterID_306' compact='0'/>
+<writeColumnarGel module='MathParser' idx='306' x='-840' y='-204' createDir='1' file=':/ESTACION_TRAMITE_FILTRO_CT2.cgel_anatella'/>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='4' idxDest='7'/>
+<Connection idxSrc='7' idxDest='8'/>
+<Connection idxSrc='17' idxDest='19'/>
+<Connection idxSrc='19' idxDest='21'/>
+<Connection idxSrc='30' idxDest='32'/>
+<Connection idxSrc='32' idxDest='34'/>
+<Connection idxSrc='204' idxDest='4'/>
+<Connection idxSrc='204' idxDest='17'/>
+<Connection idxSrc='204' idxDest='30'/>
+<Connection idxSrc='216' idxDest='202' idxPinIn='1'/>
+<Connection idxSrc='222' idxDest='224'/>
+<Connection idxSrc='204' idxDest='222'/>
+<Connection idxSrc='228' idxDest='226'/>
+<Connection idxSrc='236' idxDest='235'/>
+<Connection idxSrc='237' idxDest='238'/>
+<Connection idxSrc='252' idxDest='253'/>
+<Connection idxSrc='202' idxDest='261'/>
+<Connection idxSrc='261' idxDest='204'/>
+<Connection idxSrc='276' idxDest='270'/>
+<Connection idxSrc='235' idxDest='276'/>
+<Connection idxSrc='278' idxDest='272'/>
+<Connection idxSrc='280' idxDest='274'/>
+<Connection idxSrc='238' idxDest='278'/>
+<Connection idxSrc='253' idxDest='280'/>
+<Connection idxSrc='8' idxDest='281'/>
+<Connection idxSrc='21' idxDest='283'/>
+<Connection idxSrc='34' idxDest='285'/>
+<Connection idxSrc='224' idxDest='228'/>
+<Connection idxSrc='281' idxDest='294'/>
+<Connection idxSrc='294' idxDest='236'/>
+<Connection idxSrc='283' idxDest='296'/>
+<Connection idxSrc='296' idxDest='237'/>
+<Connection idxSrc='285' idxDest='298'/>
+<Connection idxSrc='298' idxDest='252'/>
+<Connection idxSrc='270' idxDest='11'/>
+<Connection idxSrc='204' idxDest='299'/>
+<Connection idxSrc='299' idxDest='300'/>
+<Connection idxSrc='272' idxDest='11' idxPinIn='8'/>
+<Connection idxSrc='274' idxDest='11' idxPinIn='16'/>
+<Connection idxSrc='226' idxDest='11' idxPinIn='24'/>
+<Connection idxSrc='301' idxDest='11' idxPinIn='32'/>
+<Connection idxSrc='302' idxDest='301'/>
+<Connection idxSrc='300' idxDest='302'/>
+<Connection idxSrc='204' idxDest='303'/>
+<Connection idxSrc='303' idxDest='304'/>
+<Connection idxSrc='304' idxDest='305'/>
+<Connection idxSrc='305' idxDest='306'/>
+<Connection idxSrc='306' idxDest='11' idxPinIn='25'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-2856' y='-384' size='10' bold='1' color='#228b22' anchor='202'>CTTX_ESTACION_TRAMITE</Annotation>
+  <Annotation x='-2256' y='-588' size='10' anchor='4'>ES_FINAL = &apos;4&apos;</Annotation>
+  <Annotation x='-1164' y='-252' size='14' anchor='226'>:/ESTACION_TRAMITE_FILTRO_CT</Annotation>
+  <Annotation x='-996' y='-552' size='10' anchor='270'>LDFU_FE_ENVIO0</Annotation>
+  <Annotation x='-1020' y='-456' size='10' anchor='272'>LDFU_FE_RECE_PROC0</Annotation>
+  <Annotation x='-1020' y='-360' size='10' anchor='274'>LDFU_FE_APROB_PROC0</Annotation>
+  <Annotation x='-1308' y='-24' size='14' anchor='301'>:/ESTACION_TRAMITE_CTX_ARROBA.cgel_anatella</Annotation>
+  <Annotation x='-1164' y='-180' size='14' anchor='306'>:/ESTACION_TRAMITE_FILTRO_CT2</Annotation>
+  <Annotation x='-2424' y='-336' size='14' anchor='204'>x=&quot;C&quot; || x=&quot;B&quot; || 
+x=&quot;M&quot; || x=&quot;+&quot; || 
+x=&quot;&quot; || x=&quot;I&quot; || 
+x=&quot;4&quot; || x=&quot;5&quot; || 
+x=&quot;6&quot; || x=&quot;?&quot; || 
+x=&quot;@&quot; || x=&quot;$&quot; || 
+x=&quot;H&quot; || x=&quot;|&quot;</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

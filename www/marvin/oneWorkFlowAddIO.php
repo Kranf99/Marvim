@@ -32,7 +32,7 @@ else if ($dt=='Applications') $filter="AND category>=140 and category<160";
 else if ($dt=='API\'s') $filter="AND category>=160 and category<199";
 else $filter="AND category>=100 and category<199";
 
-if ($idserver!=0) $filter.=" and idserver=".$idserver;
+if ($idserver!=0) $filter.=" and a.idserver=".(int)$idserver;
 
 $baseParams='idworkflow='.$idworkflow.'&workflowDirection='.$workflowDirection;
 

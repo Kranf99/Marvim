@@ -1,0 +1,440 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.04'>
+<GlobalParameters wDirLoc='1' dataDirRead='D:/ProdAnatella/Extraccion/DM8' dataDirWrite=':/../DataLake/DM8'>
+<ODBCConnections>
+<odbc name='MP' link='MP' login='IDU_DATA_BI' ep='1' password='LAAAAJICAACCAgAAvzFciBfP2zkzTXzoc7EJShnLcW5RMVVH8yP8TK3pM8c='/>
+<odbc name='BI' link='BI' login='IDODATAMART' ep='1' password='LAAAAJICAACSAgAAHUp5TJz4cfYp2NqZpgwf2M5FUzCW3d/JzUaChofdgaE='/>
+</ODBCConnections>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAADqAAACR/wCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACRwAAAHgA////AAAAAwAAB4AAAAFV/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAKRAAACUwD////8AAAClQAABOsAAAGUAP////oAAAABAQAAAAL7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAA4oAAAIoAAAAYAD///8AAAaSAAACRwAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<ReadColumnarGel module='MathParser' idx='43' x='-1452' y='1176' columnSelection='1' fileName=':/../Extraccion/DM8/CLIENTE.cgel_anatella'>
+ <ColumnsToRead>
+  <c>ID_CLIENTE</c><c>NOMBRE</c><c>APELLIDO_MATERNO</c><c>APELLIDO_PATERNO</c><c>ID_TIPO_CLIENTE</c><c>NUMERO_IDENTIFICACION</c><c>RAZON_SOCIAL</c><c>TELEFONO</c><c>CORREO</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='44' x='-1452' y='1440' columnSelection='1' fileName=':/../Extraccion/DM8/DIRECCION.cgel_anatella'>
+ <ColumnsToRead>
+  <c>DIRECCION</c><c>ID_CLIENTE</c><c>ID_DIRECCION</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='49' x='-1440' y='924' columnSelection='1' fileName=':/../Extraccion/DM8/PROCESO.cgel_anatella'>
+ <ColumnsToRead>
+  <c>ID_PROCESO</c><c>DESCRIPCION</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='51' x='-1452' y='1308' columnSelection='1' fileName=':/../Extraccion/DM8/TIPO_CLIENTE.cgel_anatella'>
+ <ColumnsToRead>
+  <c>ID_TIPO_CLIENTE</c><c>NOMBRE</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='53' x='-1440' y='1044' columnSelection='1' fileName=':/../Extraccion/DM8/TIPO_PROCESO.cgel_anatella'>
+ <ColumnsToRead>
+  <c>ID_TIPO_PROCESO</c><c>NOMBRE</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<MultiJoin keyHD='168139363348044176' module='DefaultActions' idx='54' x='-1104' y='1176' nPinIn='3'>
+  <Join pin='1' mainKey='ID_TIPO_CLIENTE' slaveKey='ID_TIPO_CLIENTE' prefix='TIpo.' copyAll='0'>
+  <c>NOMBRE</c>
+  </Join>
+  <Join pin='2' mainKey='ID_CLIENTE' slaveKey='ID_CLIENTE' prefix='' copyAll='0'>
+  <c>DIRECCION</c>
+  </Join>
+</MultiJoin>
+<sort idx='326' x='-1320' y='1440' action='S'>
+  <field type='0'>ID_CLIENTE</field>
+  <field type='9'>ID_DIRECCION</field>
+</sort>
+<NaiveDeduplicate module='DefaultActions' idx='327' x='-1188' y='1440'>
+<c>ID_CLIENTE</c>
+</NaiveDeduplicate>
+<writeGel idx='328' x='-12' y='1176' createDir='1' file=':/../DataLake/DM8/MPDS_CLIENTE.gel_anatella'/>
+<ColumnRename module='DefaultActions' idx='329' x='-840' y='1176'><before>
+<c>ID_CLIENTE</c><c>NUMERO_IDENTIFICACION</c><c>RAZON_SOCIAL</c><c>TELEFONO</c><c>ID_TIPO_CLIENTE</c><c>CORREO</c><c>DIRECCION</c><c>TIpo.NOMBRE</c></before><after>
+<c>CO_CLIENTE</c><c>NU_IDENTIFCLIENTE</c><c>DE_RAZONSOCIAL</c><c>NU_TELEFONOCLIENTE</c><c>CO_TIPOCLIENTE</c><c>DE_EMAILCLIENTE</c><c>DE_DIRECCIONCLIENTE</c><c>DE_TIPOCLIENTE</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<Calculator module='MathParser' idx='330' x='-972' y='1176' addNowS='1' dateFormat='yyyyMMdd hh:mm:ss'>
+  <InputVars>
+    <InputVar column='NOMBRE' label='a' isNumber='0'/>
+    <InputVar column='APELLIDO_MATERNO' label='b' isNumber='0'/>
+    <InputVar column='APELLIDO_PATERNO' label='c' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='DE_CLIENTE' meta='U'>a// " " //b // " " // c</OutputVar>
+    <OutputVar name='FE_MODI_AUDI' meta='U'>_nowS</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns keyHD='168139387748044050' module='DefaultActions' idx='332' x='-720' y='1176' keep='1'>
+ <c>CO_CLIENTE</c>
+ <c>NU_IDENTIFCLIENTE</c>
+ <c>DE_RAZONSOCIAL</c>
+ <c>NU_TELEFONOCLIENTE</c>
+ <c>DE_EMAILCLIENTE</c>
+ <c>DE_DIRECCIONCLIENTE</c>
+ <c>FE_MODI_AUDI</c>
+ <c>DE_CLIENTE</c>
+ <c>DE_TIPOCLIENTE</c>
+ <c>CO_TIPOCLIENTE</c>
+</SelectColumns>
+<MultiJoin module='DefaultActions' idx='382' x='-1176' y='924'>
+  <Join pin='1' mainKey='ID_PROCESO' slaveKey='ID_TIPO_PROCESO' prefix='' inner='1'>
+    </Join>
+</MultiJoin>
+<ColumnRename module='DefaultActions' idx='383' x='-1020' y='924'><before>
+<c>ID_PROCESO</c><c>DESCRIPCION</c><c>NOMBRE</c></before><after>
+<c>CO_PROCESO</c><c>DE_PROCESO</c><c>DE_TIPOPROCESO</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<Calculator module='MathParser' idx='384' x='-876' y='924'>
+  <InputVars>
+    <InputVar column='CO_PROCESO' meta='F'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_TIPOPROCESO'>CO_PROCESO</OutputVar>
+  </OutputVars>
+</Calculator>
+<writeGel idx='386' x='-12' y='924' createDir='1' file=':/../DataLake/DM8/MPDS_PROCESO.gel_anatella'/>
+<Calculator keyHD='168139393148044768' module='MathParser' idx='387' x='-720' y='924' addNowS='1' dateFormat='yyyyMMdd hh:mm:ss'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='FE_MODI_AUDI' meta='U'>_nowS</OutputVar>
+  </OutputVars>
+</Calculator>
+<ChangeDataType keyHD='168139390548044518' idx='412' x='-156' y='1176'>
+</ChangeDataType>
+<RunToFinishLine idx='614' x='324' y='924' nPinIn='41'/>
+<readGel idx='615' x='-24' y='1080' fileName=':/../DataLake/DM8/MPDS_PROCESO.gel_anatella'/>
+<readGel idx='618' x='0' y='1308' fileName=':/../DataLake/DM8/MPDS_CLIENTE.gel_anatella'/>
+<OracleOCI module='Oracle' idx='695' v='3.02' x='168' y='984' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 151.101.180.50)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec2)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAJICAABtAwAA4c0uohKYT4H276vU6MkvI8I88SpWyDq7lTp848dCoCA=' rowBuffer='1' isSelect='0'>
+<SQL>
+truncate table IDODATAMART.MPDS_PROCESO
+</SQL>
+</OracleOCI>
+<upsertOCI module='Oracle' idx='697' v='3.01' x='168' y='1080' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 151.101.180.50)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec2)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAJICAACSAgAAHUp5TJz4cfYp2NqZpgwf2M5FUzCW3d/JzUaChofdgaE=' dateFormat='YYYYMMDD HH24:MI:SS' operation='0' table='IDODATAMART.MPDS_PROCESO'>
+  <keyCols></keyCols>
+  <updateCols></updateCols>
+</upsertOCI>
+<OracleOCI module='Oracle' idx='698' v='3.02' x='168' y='1224' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 151.101.180.50)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec2)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAJICAACSAgAAHUp5TJz4cfYp2NqZpgwf2M5FUzCW3d/JzUaChofdgaE=' rowBuffer='1' isSelect='0'>
+<SQL>
+truncate table IDODATAMART.MPDS_CLIENTE
+</SQL>
+</OracleOCI>
+<upsertOCI module='Oracle' idx='699' v='3.01' x='168' y='1308' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 151.101.180.50)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec2)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAJICAACSAgAAHUp5TJz4cfYp2NqZpgwf2M5FUzCW3d/JzUaChofdgaE=' dateFormat='YYYYMMDD HH24:MI:SS' operation='0' table='IDODATAMART.MPDS_CLIENTE'>
+  <keyCols></keyCols>
+  <updateCols></updateCols>
+</upsertOCI>
+<Generic keyHD='168139377548044293' idx='700' x='-588' y='1224' id='get_meta-data'
+  longName='Get meta-data'
+  le='1444654687384'
+  keywords='meta data extract get'
+  image='/getMetaData.svg'
+  author='Frank Vanden Berghen'
+  revision='0.03'
+  tags='150_Standard'
+  pdfDestination='5_5_14_get_meta_data'>
+<Description>
+Get meta-data: column name &amp; type + sort meta-data.&lt;br/&gt;&lt;br/&gt;
+Do not enable the option &quot;pump all rows from input&quot; unless you know what you are doing
+</Description>
+<Parameters>
+  <Parameter id='readAll' text='pump all rows from input' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+var rIn,rOut,i,ak,at;
+function init()
+{
+    rIn=rowDeepCopy(getCurrentRow());
+    setOutputRowSize(0,5);
+    i=0;
+    rOut=new Row(5);
+    rowSetColumnName(rOut,0,"Before");
+    rowSetColumnName(rOut,1,"After");
+    rowSetColumnName(rOut,2,"Type");
+    rowSetColumnName(rOut,3,"SortPriority");
+    rowSetColumnName(rOut,4,"SortType");
+    
+    var j=rIn.nColumn,k=0;
+    ak=new Array(j); at=new Array(j);
+    while(j--) { ak[j]=null; at[j]=null; }
+    for(;;)
+    {
+        var j=rowGetSortColumnIdx(rIn,k);
+        if (j&lt;0) break;
+        ak[j]=k;
+        at[j]=rowGetSortType(rIn,k);
+        k++;
+    }
+    return 0;
+}
+
+function run()
+{
+    if (i==rIn.nColumn) 
+    {
+        if (readAll)
+        {
+            var r;
+            for(;;)
+            {
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                r=getNextRow();
+                if (r.isNull||userAskedAbort()) return 1;
+            }
+        }
+        return 1;
+    }
+    var cn=rowGetColumnName(rIn,i);
+    rOut.setColumn(0,cn);
+    rOut.setColumn(1,cn);
+    rOut.setColumn(2,rowGetMetaType(rIn,i));
+    rOut.setColumn(3,ak[i]);
+    rOut.setColumn(4,at[i]);
+    i++;
+    rOut.write(); 
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<FilterRows keyHD='168139380248044238' module='MathParser' idx='701' x='-456' y='1224'>
+ <Expression>Type!="U"</Expression>
+ <InputVars>
+    <InputVar column='Type' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='702' x='-336' y='1224'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='After' meta='U' update='1'>"string"</OutputVar>
+  </OutputVars>
+</Calculator>
+<Generic keyHD='168139377548044293' idx='703' x='-588' y='972' id='get_meta-data'
+  longName='Get meta-data'
+  le='1444654687384'
+  keywords='meta data extract get'
+  image='/getMetaData.svg'
+  author='Frank Vanden Berghen'
+  revision='0.03'
+  tags='150_Standard'
+  pdfDestination='5_5_14_get_meta_data'>
+<Description>
+Get meta-data: column name &amp; type + sort meta-data.&lt;br/&gt;&lt;br/&gt;
+Do not enable the option &quot;pump all rows from input&quot; unless you know what you are doing
+</Description>
+<Parameters>
+  <Parameter id='readAll' text='pump all rows from input' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+var rIn,rOut,i,ak,at;
+function init()
+{
+    rIn=rowDeepCopy(getCurrentRow());
+    setOutputRowSize(0,5);
+    i=0;
+    rOut=new Row(5);
+    rowSetColumnName(rOut,0,"Before");
+    rowSetColumnName(rOut,1,"After");
+    rowSetColumnName(rOut,2,"Type");
+    rowSetColumnName(rOut,3,"SortPriority");
+    rowSetColumnName(rOut,4,"SortType");
+    
+    var j=rIn.nColumn,k=0;
+    ak=new Array(j); at=new Array(j);
+    while(j--) { ak[j]=null; at[j]=null; }
+    for(;;)
+    {
+        var j=rowGetSortColumnIdx(rIn,k);
+        if (j&lt;0) break;
+        ak[j]=k;
+        at[j]=rowGetSortType(rIn,k);
+        k++;
+    }
+    return 0;
+}
+
+function run()
+{
+    if (i==rIn.nColumn) 
+    {
+        if (readAll)
+        {
+            var r;
+            for(;;)
+            {
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                r=getNextRow();
+                if (r.isNull||userAskedAbort()) return 1;
+            }
+        }
+        return 1;
+    }
+    var cn=rowGetColumnName(rIn,i);
+    rOut.setColumn(0,cn);
+    rOut.setColumn(1,cn);
+    rOut.setColumn(2,rowGetMetaType(rIn,i));
+    rOut.setColumn(3,ak[i]);
+    rOut.setColumn(4,at[i]);
+    i++;
+    rOut.write(); 
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<FilterRows keyHD='168139380248044238' module='MathParser' idx='704' x='-456' y='972'>
+ <Expression>Type!="U"</Expression>
+ <InputVars>
+    <InputVar column='Type' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='705' x='-324' y='972'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='After' meta='U' update='1'>"string"</OutputVar>
+  </OutputVars>
+</Calculator>
+<ChangeDataType idx='706' x='-180' y='924'>
+</ChangeDataType>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='43' idxDest='54'/>
+<Connection idxSrc='51' idxDest='54' idxPinIn='1'/>
+<Connection idxSrc='44' idxDest='326'/>
+<Connection idxSrc='326' idxDest='327'/>
+<Connection idxSrc='327' idxDest='54' idxPinIn='2'/>
+<Connection idxSrc='54' idxDest='330'/>
+<Connection idxSrc='330' idxDest='329'/>
+<Connection idxSrc='329' idxDest='332'/>
+<Connection idxSrc='49' idxDest='382'/>
+<Connection idxSrc='53' idxDest='382' idxPinIn='1'/>
+<Connection idxSrc='382' idxDest='383'/>
+<Connection idxSrc='383' idxDest='384'/>
+<Connection idxSrc='384' idxDest='387'/>
+<Connection idxSrc='332' idxDest='412'/>
+<Connection idxSrc='412' idxDest='328'/>
+<Connection idxSrc='386' idxDest='614'/>
+<Connection idxSrc='328' idxDest='614' idxPinIn='21'/>
+<Connection idxSrc='695' idxDest='614' idxPinIn='5'/>
+<Connection idxSrc='615' idxDest='697'/>
+<Connection idxSrc='697' idxDest='614' idxPinIn='13'/>
+<Connection idxSrc='698' idxDest='614' idxPinIn='25'/>
+<Connection idxSrc='618' idxDest='699'/>
+<Connection idxSrc='699' idxDest='614' idxPinIn='32'/>
+<Connection idxSrc='332' idxDest='700'/>
+<Connection idxSrc='700' idxDest='701'/>
+<Connection idxSrc='701' idxDest='702'/>
+<Connection idxSrc='702' idxDest='412' idxPinIn='1'/>
+<Connection idxSrc='387' idxDest='703'/>
+<Connection idxSrc='703' idxDest='704'/>
+<Connection idxSrc='704' idxDest='705'/>
+<Connection idxSrc='387' idxDest='706'/>
+<Connection idxSrc='706' idxDest='386'/>
+<Connection idxSrc='705' idxDest='706' idxPinIn='1'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-1440' y='1272' size='14' anchor='43'>CLIENTE</Annotation>
+  <Annotation x='-1452' y='1524' size='14' anchor='44'>DIRECCION</Annotation>
+  <Annotation x='-1428' y='888' size='14' anchor='49'>PROCESO</Annotation>
+  <Annotation x='-1440' y='1128' size='14' anchor='53'>TIPO_PROCESO</Annotation>
+  <Annotation x='-1464' y='1404' size='14' anchor='51'>TIPO_CLIENTE</Annotation>
+  <Annotation x='-36' y='1260' size='14' anchor='328'>MPDS_CLIENTE</Annotation>
+  <Annotation x='-24' y='900' size='14' anchor='386'>MPDS_PROCESO</Annotation>
+  <Annotation x='-984' y='1260' size='14'>DE_CLIENTE
+FE_MODI_AUDI</Annotation>
+  <Annotation x='-1224' y='1524' size='14'>ID DIRECCION DE MAYOR VALOR</Annotation>
+  <Annotation x='-1080' y='1032' size='14' anchor='383'>ID_PROCESO	CO_PROCESO
+DESCRIPCION	DE_PROCESO
+NOMBRE		DE_TIPOPROCESO</Annotation>
+  <Annotation x='-912' y='864' size='14'>CO_TIPOPROCESO=
+CO_PROCESO</Annotation>
+  <Annotation x='-732' y='888' size='14'>FE_MODI_AUDI</Annotation>
+  <Annotation x='-984' y='1320' size='14' anchor='329'>ID_CLIENTE		CO_CLIENTE
+NUMERO_IDENTIFICACION	NU_IDENTIFCLIENTE
+RAZON_SOCIAL		DE_RAZONSOCIAL
+TELEFONO		NU_TELEFONOCLIENTE
+ID_TIPO_CLIENTE		CO_TIPOCLIENTE
+CORREO			DE_EMAILCLIENTE
+DIRECCION		DE_DIRECCIONCLIENTE
+TIpo.NOMBRE		DE_TIPOCLIENTE</Annotation>
+  <Annotation x='-1332' y='936' size='14'>ID_PROCESO
+DESCRIPCION</Annotation>
+  <Annotation x='-1320' y='1068' size='14'>ID_TIPO_PROCESO
+NOMBRE</Annotation>
+  <Annotation x='-1752' y='1176' size='14' anchor='43'>ID_CLIENTE
+NOMBRE
+APELLIDO_MATERNO
+APELLIDO_PATERNO
+ID_TIPO_CLIENTE
+NUMERO_IDENTIFICACION
+RAZON_SOCIAL
+TELEFONO
+CORREO</Annotation>
+  <Annotation x='-1332' y='1332' size='14' anchor='51'>ID_TIPO_CLIENTE
+NOMBRE</Annotation>
+  <Annotation x='-1596' y='1452' size='14'>DIRECCION
+ID_CLIENTE
+ID_DIRECCION</Annotation>
+  <Annotation x='-1272' y='1200' size='14'>ID_TIPO_CLIENTE
+ID_CLIENTE</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

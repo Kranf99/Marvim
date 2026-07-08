@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.20'>
+<GlobalParameters wDirLoc='0' dataDirRead='D:/ProdAnatella/DM3_EnEvaluacion' dataDirWrite=':/'>
+<Parameters>
+<Par name='P_DFE_DATA'>20230725</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAABQPwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAABQAAAAHgA////AAAAAwAABEEAAAEL/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAKpAAACkQD////8AAACrQAAAZQAAAGUAP////oAAAAAAgAAAAL7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAAAeQD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAA2sAAACOAAAAeQD///8AAAM9AAABQAAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAAA/L/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<RunToFinishLine idx='11' x='-1848' y='-216' nPinIn='3'/>
+<FilterRows keyHD='172600456117664404' module='MathParser' idx='298' x='-2688' y='-216'>
+ <Expression>x="H"</Expression>
+ <InputVars>
+    <InputVar column='ES_FINAL' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<writeColumnarGel module='MathParser' idx='299' v='3.19' x='-2148' y='-216' createDir='1' file=':/ESTACION_TRAMITE_H.cgel_anatella'/>
+<RowCounter idx='300' x='-2316' y='-214' label='CounterID_301' compact='0'/>
+<RowCounter idx='309' x='-2016' y='-214' label='CounterID_310' compact='0'/>
+<ReadColumnarGel keyHD='172600440817664919' module='MathParser' idx='316' x='-2904' y='-360' columnSelection='1' fileName=':/../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.PRTX_ESTACION_TRAMITE.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c><c>NU_SEC_ESTACION</c><c>US_CREA_AUDI</c><c>FE_CREA_AUDI</c><c>ES_INICIAL</c><c>ES_FINAL</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='298' idxDest='300'/>
+<Connection idxSrc='300' idxDest='299'/>
+<Connection idxSrc='299' idxDest='309'/>
+<Connection idxSrc='309' idxDest='11'/>
+<Connection idxSrc='316' idxDest='298'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-2964' y='-264' size='10' bold='1' color='#228b22'>PRTX_ESTACION_TRAMITE</Annotation>
+  <Annotation x='-2784' y='-192' size='14' anchor='298'>x=&quot;H&quot;</Annotation>
+  <Annotation x='-2532' y='-168' size='14' anchor='299'>:/ESTACION_TRAMITE_H.cgel_anatella</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

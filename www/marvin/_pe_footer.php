@@ -275,7 +275,7 @@ function initHugeRTEEditMain(bgcolor)
       if (linked !== content) editor.setContent(linked);
 	    hugerte.triggerSave();
 	    myMainEditorContent = content; // Update tracked content
-	    saveContent(content,0,editor.getElement(),editor);
+	    saveContent(content,editor.getContent({ format: 'text' }),editor.getElement(),editor);
 	  });
     window.addEventListener('beforeunload', function (e) {
       const content = editor.getContent();

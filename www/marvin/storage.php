@@ -24,7 +24,7 @@ else if ($dt=='Applications') $filter="AND a.category>=140 and a.category<160";
 else if ($dt=='API\'s') $filter="AND a.category>=160 and a.category<199";
 else $filter="AND a.category>=100 and a.category<199";
 
-if ($idserver!=0) $filter.=" and idserver=".$idserver;
+if ($idserver!=0) $filter.=" and a.idserver=".(int)$idserver;
 ?>
 <!-- Content -->
 <div class="content">

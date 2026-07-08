@@ -10,11 +10,11 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --header-bg:   #1E293B;
-    --page-bg:     #F1F5F9;
+    --header-bg:   #1e3a8a;
+    --page-bg:     #f5f5f5;
     --sidebar-bg:  #FFFFFF;
     --panel-bg:    #FFFFFF;
-    --border:      #E2E8F0;
+    --border:      #e5e7eb;
     --text-main:   #1E293B;
     --text-muted:  #64748B;
     --accent:      #3B82F6;
@@ -26,7 +26,7 @@
   }
 
   body {
-    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
     background: var(--page-bg);
     color: var(--text-main);
     height: 100vh;
@@ -105,9 +105,9 @@
     width: 100%;
     padding: 7px 10px 7px 30px;
     border: 1px solid var(--border);
-    border-radius: 7px;
+    border-radius: 4px;
     font-size: .83rem;
-    background: var(--page-bg);
+    background: var(--panel-bg);
     outline: none;
     transition: border-color .15s;
   }
@@ -254,7 +254,27 @@
   .view-tab:hover  { color: var(--text-main); }
   .view-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
   .view-tab-count  { font-weight: 400; font-size: .72rem; margin-left: 4px; color: var(--text-muted); }
-  .view-tabs .panel-max-btn { margin-left: auto; }
+  .view-tabs .panel-max-btn { margin-left: 8px; }
+
+  /* ── Depth toggle (Immediate / Complete) ── */
+  .depth-toggle {
+    margin-left: auto;
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    background: #F1F5F9;
+  }
+  .depth-btn {
+    padding: 4px 12px;
+    font-size: .74rem; font-weight: 600;
+    color: var(--text-muted);
+    background: transparent; border: none; cursor: pointer;
+    transition: background .12s, color .12s;
+    white-space: nowrap;
+  }
+  .depth-btn:hover  { color: var(--text-main); }
+  .depth-btn.active { background: var(--accent); color: #fff; }
 
   /* ── DAG panel ── */
   .dag-panel {
@@ -300,7 +320,7 @@
   .zoom-btn {
     width: 32px; height: 32px;
     background: white; border: 1px solid var(--border);
-    border-radius: 6px; cursor: pointer;
+    border-radius: 4px; cursor: pointer;
     font-size: 1.1rem; line-height: 32px; text-align: center;
     box-shadow: 0 1px 4px rgba(0,0,0,.08);
     transition: background .1s;
@@ -365,8 +385,8 @@
     50%     { filter: drop-shadow(0 0 12px rgba(99,102,241,.95)); }
   }
   .node-label {
-    font-family: system-ui, sans-serif;
-    font-size: 11px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 9px;
     fill: #FFFFFF;
     pointer-events: none;
     text-anchor: middle;
@@ -380,6 +400,8 @@
     transition: stroke .15s, stroke-width .15s;
   }
   .edge-path.highlighted { stroke: #3B82F6; stroke-width: 2.5; }
+  .edge-path.call-edge { stroke: #94A3B8; stroke-width: 1.2; stroke-dasharray: 6 3; }
+  .edge-path.call-edge.highlighted { stroke: #3B82F6; stroke-width: 1.8; stroke-dasharray: 6 3; }
 
   /* destination pulse */
   @keyframes dest-pulse {
@@ -400,7 +422,7 @@
     background: rgba(255,255,255,.12);
     color: #F8FAFC;
     border: 1px solid rgba(255,255,255,.22);
-    border-radius: 6px;
+    border-radius: 4px;
     padding: 5px 13px;
     font-size: .8rem;
     font-weight: 600;
@@ -420,13 +442,13 @@
   }
 
   .ov-toolbar {
-    background: #1E293B;
+    background: var(--header-bg);
     display: flex;
     align-items: center;
     gap: 14px;
     padding: 9px 20px;
     flex-shrink: 0;
-    border-bottom: 1px solid #334155;
+    border-bottom: 1px solid #1a3070;
   }
   .ov-title {
     font-size: 1rem;
@@ -509,7 +531,7 @@
   #ov-svg:active { cursor: grabbing; }
   .ov-status {
     position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
-    background: rgba(30,41,59,.85);
+    background: rgba(30,58,138,.85);
     color: #F8FAFC;
     padding: 5px 14px;
     border-radius: 20px;
@@ -542,12 +564,12 @@
   .ov-node circle  { transition: r .2s; }
   .ov-node text {
     font-size: 8px;
-    font-family: system-ui, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
     pointer-events: none;
     user-select: none;
   }
   .ov-hull { pointer-events: none; }
-  .ov-hull-label { font-size: 9px; font-family: system-ui, sans-serif; font-weight: 600; pointer-events: none; opacity: 0.7; }
+  .ov-hull-label { font-size: 9px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; font-weight: 600; pointer-events: none; opacity: 0.7; }
 
   /* Context menu */
   #ov-ctx-menu {
@@ -848,7 +870,7 @@
     display: flex; flex-direction: column;
   }
   .max-hdr {
-    background: #1E293B;
+    background: var(--header-bg);
     display: flex; align-items: center; gap: 10px;
     padding: 8px 16px; flex-shrink: 0;
   }
@@ -912,6 +934,40 @@
   }
   .anatella-panel-header h3 span { font-weight: 500; text-transform: none; letter-spacing: 0; }
   .anatella-panel-right { display: flex; align-items: center; gap: 6px; }
+  .ai-desc-panel {
+    width: 272px; flex-shrink: 0; order: -1;
+    display: flex; flex-direction: column;
+    border-right: 1px solid #C4B5FD; background: #F5F3FF; overflow: hidden;
+    transition: width .18s ease, border-color .18s;
+  }
+  .ai-desc-panel.collapsed { width: 26px; cursor: pointer; }
+  .ai-desc-panel.collapsed .ai-desc-panel-hdr { display: none; }
+  .ai-desc-panel.collapsed .ai-desc-text { display: none; }
+  .ai-desc-strip {
+    display: none; flex-direction: column; align-items: center;
+    padding: 10px 0; gap: 8px; flex: 1; user-select: none;
+  }
+  .ai-desc-panel.collapsed .ai-desc-strip { display: flex; }
+  .ai-desc-strip-icon { font-size: 11px; color: #7C3AED; }
+  .ai-desc-strip-label {
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    font-size: .64rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .08em; color: #5B21B6;
+  }
+  .ai-desc-panel-hdr {
+    padding: 6px 10px 5px; background: #EDE9FE;
+    border-bottom: 1px solid #C4B5FD;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0; gap: 6px;
+  }
+  .ai-desc-panel-hdr span { font-weight: 700; color: #5B21B6; font-size: .71rem; text-transform: uppercase; letter-spacing: .07em; }
+  .ai-desc-gen-btn { background: #7C3AED; color: #fff; border: none; cursor: pointer; font-size: .72rem; font-weight: 600; padding: 2px 8px; border-radius: 3px; }
+  .ai-desc-gen-btn:hover { background: #5B21B6; }
+  .ai-desc-gen-btn:disabled { opacity: .5; cursor: not-allowed; }
+  .ai-desc-close { background: none; border: none; cursor: pointer; color: #7C3AED; font-size: 14px; line-height: 1; padding: 1px 5px; border-radius: 3px; }
+  .ai-desc-close:hover { background: #DDD6FE; color: #4C1D95; }
+  .ai-desc-text { flex: 1; overflow-y: auto; padding: 8px 12px; font-size: .78rem; line-height: 1.6; color: #1E293B; }
+  .ai-desc-text.ai-desc-empty { color: #94A3B8; font-style: italic; }
   .anatella-open-btn {
     background: #FEF3C7; color: #92400E;
     border: 1px solid #F59E0B; border-radius: 5px;
@@ -1134,7 +1190,19 @@
   }
   .form-group input:focus { border-color: #3B82F6; box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
   .form-group input.invalid { border-color: #EF4444; }
+  .form-group select {
+    padding: 7px 10px; border: 1px solid #CBD5E1; border-radius: 7px;
+    font-size: .83rem; color: #1E293B; outline: none; transition: border-color .15s;
+    background: white;
+  }
+  .form-group select:focus { border-color: #3B82F6; box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
+  .form-group select.invalid { border-color: #EF4444; }
   .form-hint { font-size: .7rem; color: #94A3B8; margin-top: 2px; }
+  .dm-progress { display: flex; flex-direction: column; gap: 8px; }
+  .dm-prog-bar-wrap { height: 8px; background: #E2E8F0; border-radius: 8px; overflow: hidden; }
+  .dm-prog-bar { height: 100%; width: 0%; background: linear-gradient(90deg,#3B82F6,#06B6D4); border-radius: 8px; transition: width .15s; }
+  .dm-prog-label { font-size: .78rem; color: #64748B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dm-prog-counts { font-size: .76rem; color: #64748B; display: flex; gap: 14px; }
   .modal-ftr {
     padding: 14px 22px; border-top: 1px solid #E2E8F0;
     display: flex; gap: 10px; justify-content: flex-end;
@@ -1231,6 +1299,10 @@
       <button class="view-tab active" data-view="graph">Graph View</button>
       <button class="view-tab" data-view="list">List View <span class="view-tab-count" id="path-count"></span></button>
       <button class="view-tab" data-view="overview">Project Overview</button>
+      <div class="depth-toggle" id="depth-toggle" title="How far to trace lineage through shared files">
+        <button class="depth-btn active" data-depth="immediate">Immediate</button>
+        <button class="depth-btn" data-depth="full">Complete</button>
+      </div>
       <button class="panel-max-btn" id="paths-max-btn" title="Maximize list view" style="display:none">⛶</button>
     </div>
 
@@ -1247,6 +1319,12 @@
             <marker id="arrow-hl" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
               <path d="M0,0 L0,6 L8,3 z" fill="#3B82F6"/>
             </marker>
+            <marker id="arrow-call" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#94A3B8"/>
+            </marker>
+            <marker id="arrow-call-hl" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#3B82F6"/>
+            </marker>
           </defs>
           <g id="dag-root"></g>
         </svg>
@@ -1261,12 +1339,13 @@
           <p id="empty-msg">Select a file to explore its lineage</p>
         </div>
         <div class="legend" id="legend" style="display:none">
-          <div class="legend-item"><div class="legend-dot" style="background:#F59E0B;transform:rotate(45deg)"></div> .anatella</div>
+          <div class="legend-item"><svg width="12" height="10" style="flex-shrink:0"><polygon points="3,0 9,0 12,5 9,10 3,10 0,5" fill="#F59E0B"/></svg> .anatella</div>
           <div class="legend-item"><div class="legend-dot" style="background:#059669"></div> .gel/.cgel</div>
           <div class="legend-item"><div class="legend-dot" style="background:#EFF6FF;border:2px solid #3B82F6"></div> SQL/OCI</div>
           <div class="legend-item"><div class="legend-dot" style="background:#F8FAFC;border:1.5px solid #475569"></div> .cvx/.txt</div>
           <div class="legend-item"><div class="legend-dot" style="background:#6366F1;border-radius:50%"></div> Selected</div>
           <div class="legend-item"><div class="legend-dot" style="background:#94A3B8;border-radius:50%"></div> Other</div>
+          <div class="legend-item"><svg width="22" height="10" style="flex-shrink:0"><line x1="0" y1="5" x2="22" y2="5" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="5,3"/></svg> Executes</div>
         </div>
         <div class="zoom-controls" id="zoom-controls" style="display:none">
           <div class="zoom-btn" id="zoom-in"  title="Zoom in">+</div>
@@ -1336,6 +1415,20 @@
       </div>
       <div class="anatella-status" id="anatella-status" style="display:none"></div>
       <div class="anatella-scroll" id="anatella-scroll">
+        <div class="ai-desc-panel" id="ai-desc-panel">
+          <div class="ai-desc-strip" id="ai-desc-strip">
+            <span class="ai-desc-strip-icon">&#9654;</span>
+            <span class="ai-desc-strip-label">AI Description</span>
+          </div>
+          <div class="ai-desc-panel-hdr">
+            <span>Ask AI</span>
+            <div style="display:flex;gap:4px;align-items:center">
+              <button class="ai-desc-gen-btn" id="ai-desc-gen-btn" title="Generate description">&#9654; Ask</button>
+              <button class="ai-desc-close" id="ai-desc-close" title="Collapse panel">&#9664;</button>
+            </div>
+          </div>
+          <div class="ai-desc-text ai-desc-empty" id="ai-desc-text">Click &#9654; Ask to generate a description of this pipeline.</div>
+        </div>
         <svg id="anatella-svg"></svg>
         <div class="an-props hidden" id="an-props">
           <div class="an-props-head">
@@ -1448,6 +1541,21 @@ function dirpart(p) {
 function truncate(s, n = 20) {
   return s.length > n ? s.substring(0, n - 1) + '…' : s;
 }
+function wrapLabel(name, maxLen = 17) {
+  if (name.length <= maxLen) return [name];
+  const mid = Math.round(name.length / 2);
+  for (let d = 0; d <= 6; d++) {
+    for (const pos of [mid - d, mid + d]) {
+      if (pos > 0 && pos < name.length && /[_\-.]/.test(name[pos])) {
+        const p = (name[pos] === '_' || name[pos] === '-') ? pos + 1 : pos;
+        const l2 = name.slice(p);
+        return [name.slice(0, p), l2.length > maxLen ? l2.slice(0, maxLen - 1) + '…' : l2];
+      }
+    }
+  }
+  const l2 = name.slice(mid);
+  return [name.slice(0, mid), l2.length > maxLen ? l2.slice(0, maxLen - 1) + '…' : l2];
+}
 
 // ── Tab state ─────────────────────────────────────────────────────────────
 const TAB_META = {
@@ -1460,6 +1568,8 @@ const tabData  = { dest: null, source: null, script: null, variable: null }; // 
 let activeTab  = 'dest';
 let _activeDatamartRoot = '';
 let selectedFocal = null; // currently highlighted path
+let _depth = 'immediate'; // 'immediate' (1 hop) vs 'full' (complete BFS through shared files)
+let _focalIsScript = true; // depth toggle only applies to script focals (not files)
 
 function escHtml(s) {
   return String(s)
@@ -1592,19 +1702,39 @@ async function selectItem(path, tab) {
 }
 
 async function selectFileNode(file) {
+  // full_graph is always complete — the immediate/complete depth toggle only
+  // applies to script focals (graph_for_script); hide it while a file is focal.
+  _focalIsScript = false;
+  const dt = document.getElementById('depth-toggle');
+  if (dt) dt.style.display = 'none';
   const res  = await fetch(`${API}?action=full_graph&file=${encodeURIComponent(file)}`);
   const data = await res.json();
   const upChains   = parseChains(data.upstream);
   const downChains = parseChains(data.downstream);
-  const graph = buildFullGraph(upChains, downChains, file);
+  const callSet = new Set();
+  (data.call_edges || []).forEach(ce => callSet.add(ce.caller + '→' + ce.callee));
+  const graph = buildFullGraph(upChains, downChains, file, callSet);
+  // Inject call edges: both endpoints must already be nodes (no orphans)
+  (data.call_edges || []).forEach(ce => {
+    const ek = ce.caller + '→' + ce.callee;
+    if (graph.nodes.has(ce.caller) && graph.nodes.has(ce.callee)) {
+      const already = graph.edges.find(e => e.from === ce.caller && e.to === ce.callee);
+      if (!already) graph.edges.push({ from: ce.caller, to: ce.callee, edgeType: 'call' });
+    }
+  });
   layoutGraph(graph);
-  renderGraph(graph, file);
+  renderGraph(graph, file, callSet);
   renderPaths(upChains, downChains, file);
   updateStats(graph, upChains, downChains);
 }
 
 async function selectScript(script) {
-  const res  = await fetch(`${API}?action=graph_for_script&script=${encodeURIComponent(script)}`);
+  _focalIsScript = true;
+  const dtg = document.getElementById('depth-toggle');
+  if (dtg && document.querySelector('.view-tab.active')?.dataset.view !== 'overview') {
+    dtg.style.display = 'inline-flex';
+  }
+  const res  = await fetch(`${API}?action=graph_for_script&depth=${_depth}&script=${encodeURIComponent(script)}`);
   const data = await res.json();
   // focal is the path as stored in Dependencies (may differ from script when ScriptMeta uses full paths)
   const focal = (data.focal && data.focal !== script) ? data.focal : script;
@@ -1624,13 +1754,23 @@ async function selectScript(script) {
   });
 
   // Script-to-script connections (Relations + ScriptIO sub-script calls)
-  (data.rel_before || []).forEach(a => upChains.push([a, focal]));
-  (data.rel_after  || []).forEach(b => downChains.push([focal, b]));
+  const callSet = new Set();
+  (data.rel_before || []).forEach(a => {
+    upChains.push([a, focal]);
+    callSet.add(a + '→' + focal);
+  });
+  (data.rel_after  || []).forEach(b => {
+    downChains.push([focal, b]);
+    callSet.add(focal + '→' + b);
+  });
   // DB/OCI query inputs (is_db_query=1): show as stub upstream nodes
   (data.db_inputs  || []).forEach(dbPath => upChains.push([dbPath, focal]));
-  const graph = buildFullGraph(upChains, downChains, focal);
+  // Extended neighbours through shared files (immediate = 1 hop, full = complete BFS).
+  parseChains(data.up_edges   || []).forEach(ch => upChains.push(ch));
+  parseChains(data.down_edges || []).forEach(ch => downChains.push(ch));
+  const graph = buildFullGraph(upChains, downChains, focal, callSet);
   layoutGraph(graph);
-  renderGraph(graph, focal);
+  renderGraph(graph, focal, callSet);
   renderPaths(upChains, downChains, focal);
   updateStats(graph, upChains, downChains);
   // Auto-open variable inspector and pipeline visualiser (use original path for basename matching)
@@ -1655,73 +1795,80 @@ function parseChains(rows) {
 }
 
 // ── Build full graph (upstream + downstream of focal) ─────────────────────
-function buildFullGraph(upChains, downChains, focal) {
+function buildFullGraph(upChains, downChains, focal, callSet) {
+  callSet = callSet || new Set();
   const nodes   = new Map();
   const edges   = [];
   const edgeSet = new Set();
 
-  // upDepth = column where the focal node sits
-  const upDepth = upChains.length > 0 ? Math.max(...upChains.map(c => c.length - 1)) : 0;
-
-  function nodeType(path, col) {
-    if (path === focal)                   return 'focal';
-    if (path.endsWith('.anatella'))       return 'script';
-    if (col === 0 && upChains.length > 0) return 'source';
-    return 'intermediate';
-  }
-
-  function setNode(path, col, forceCol = false) {
+  function ensureNode(path) {
     if (!nodes.has(path)) {
-      nodes.set(path, {
-        id: path, path,
-        label: truncate(basename(path), 18),
-        type: nodeType(path, col),
-        col, row: 0, x: 0, y: 0
-      });
-    } else if (forceCol) {
-      nodes.get(path).col = col;          // focal always pinned
-    } else {
-      // for shared upstream nodes take leftmost position
-      const n = nodes.get(path);
-      if (col < n.col) n.col = col;
+      nodes.set(path, { id: path, path, label: basename(path), type: 'intermediate', col: 0, row: 0, x: 0, y: 0 });
     }
   }
-
   function addEdges(steps) {
     for (let i = 0; i < steps.length - 1; i++) {
       const ek = steps[i] + '→' + steps[i + 1];
-      if (!edgeSet.has(ek)) { edgeSet.add(ek); edges.push({ from: steps[i], to: steps[i + 1] }); }
+      if (!edgeSet.has(ek)) {
+        edgeSet.add(ek);
+        edges.push({ from: steps[i], to: steps[i + 1], edgeType: callSet.has(ek) ? 'call' : 'file' });
+      }
     }
   }
+  upChains.forEach(steps => { steps.forEach(ensureNode); addEdges(steps); });
+  downChains.forEach(steps => { steps.forEach(ensureNode); addEdges(steps); });
+  ensureNode(focal);
 
-  // Upstream chains: align so focal always lands at upDepth
-  upChains.forEach(steps => {
-    const offset = upDepth - (steps.length - 1);
-    steps.forEach((path, i) => setNode(path, offset + i, path === focal));
-    addEdges(steps);
+  // ── BFS layering from the focal ───────────────────────────────────────────
+  // Chains arrive as short segments (source → script → destination), so a
+  // node's column must come from its distance to the focal in the *merged*
+  // graph — positioning by segment length flattened deep trees to a single
+  // extra level. Shortest-path BFS (not longest-path): file cycles (A→B→A)
+  // exist in real pipelines and would inflate longest-path layering forever.
+  const inAdj = new Map(), outAdj = new Map();
+  edges.forEach(e => {
+    if (!inAdj.has(e.to))    inAdj.set(e.to, []);
+    inAdj.get(e.to).push(e.from);
+    if (!outAdj.has(e.from)) outAdj.set(e.from, []);
+    outAdj.get(e.from).push(e.to);
   });
-
-  // Downstream chains: focal at upDepth, downstream nodes at upDepth+1, +2 …
-  downChains.forEach(steps => {
-    steps.forEach((path, i) => {
-      const col = upDepth + i;
-      setNode(path, col, path === focal);
-      // last node in a downstream chain is a final destination
-      if (i === steps.length - 1 && path !== focal && !nodes.get(path)?.type?.startsWith('script')) {
-        const n = nodes.get(path);
-        if (n && n.type === 'intermediate') n.type = 'destination';
+  function bfs(start, adj) {
+    const dist = new Map([[start, 0]]);
+    let frontier = [start];
+    while (frontier.length) {
+      const next = [];
+      for (const n of frontier) {
+        for (const m of (adj.get(n) || [])) {
+          if (!dist.has(m)) { dist.set(m, dist.get(n) + 1); next.push(m); }
+        }
       }
-    });
-    addEdges(steps);
-  });
-
-  // Ensure focal is always present (happens when a script has zero connections)
-  if (!nodes.has(focal)) setNode(focal, 0, true);
-
-  // If no upstream chains focal is a pure source — keep focal type (not 'source')
-  if (upChains.length === 0) {
-    nodes.get(focal).type = 'focal';
+      frontier = next;
+    }
+    return dist;
   }
+  const distUp   = bfs(focal, inAdj);    // nodes that reach the focal (upstream)
+  const distDown = bfs(focal, outAdj);   // nodes the focal reaches (downstream)
+
+  let minCol = 0;
+  nodes.forEach(n => {
+    if (n.path === focal) { n.col = 0; return; }
+    const u = distUp.get(n.path), d = distDown.get(n.path);
+    if (u !== undefined && (d === undefined || u <= d)) n.col = -u;  // nearer side wins
+    else if (d !== undefined)                           n.col = d;
+    else                                                n.col = 0;   // disconnected fallback
+    if (n.col < minCol) minCol = n.col;
+  });
+  const upDepth = -minCol;                          // focal's final column
+  nodes.forEach(n => { n.col -= minCol; });
+
+  // ── Node types (after layering) ─────────────────────────────────────────
+  const hasOut = new Set(edges.map(e => e.from));
+  nodes.forEach(n => {
+    if (n.path === focal)             { n.type = 'focal';  return; }
+    if (n.path.endsWith('.anatella')) { n.type = 'script'; return; }
+    if (upDepth > 0 && n.col === 0)   { n.type = 'source'; return; }
+    n.type = (n.col > upDepth && !hasOut.has(n.id)) ? 'destination' : 'intermediate';
+  });
 
   return { nodes, edges, upDepth };
 }
@@ -1784,7 +1931,8 @@ function fileNodeStyle(path, type) {
   return { ...fb, isDiamond: false };
 }
 
-function renderGraph(graph, focal) {
+function renderGraph(graph, focal, callSet) {
+  callSet = callSet || new Set();
   const { nodes, edges } = graph;
   const nodeArr = [...nodes.values()];
   const emptyState = document.getElementById('empty-state');
@@ -1823,20 +1971,32 @@ function renderGraph(graph, focal) {
   const ty  = (vH - graphH * sc) / 2 - minY * sc + 20;
   svg.call(zoomBehavior.transform, d3.zoomIdentity.translate(tx, ty).scale(sc));
 
-  // edges
-  root.selectAll('.edge-path')
-    .data(edges)
+  // edges — file-flow edges first (so call edges render on top)
+  const fileEdges = edges.filter(e => e.edgeType !== 'call');
+  const callEdges = edges.filter(e => e.edgeType === 'call');
+
+  function edgePath(e) {
+    const s = nodes.get(e.from), t = nodes.get(e.to);
+    if (!s || !t) return '';
+    const x1 = s.x + NODE_W, y1 = s.y + NODE_H / 2;
+    const x2 = t.x,           y2 = t.y + NODE_H / 2;
+    const cx = (x1 + x2) / 2;
+    return `M${x1},${y1} C${cx},${y1} ${cx},${y2} ${x2},${y2}`;
+  }
+
+  root.selectAll('.edge-path-file')
+    .data(fileEdges)
     .join('path')
     .attr('class', 'edge-path')
     .attr('marker-end', 'url(#arrow)')
-    .attr('d', e => {
-      const s = nodes.get(e.from), t = nodes.get(e.to);
-      if (!s || !t) return '';
-      const x1 = s.x + NODE_W, y1 = s.y + NODE_H / 2;
-      const x2 = t.x,           y2 = t.y + NODE_H / 2;
-      const cx = (x1 + x2) / 2;
-      return `M${x1},${y1} C${cx},${y1} ${cx},${y2} ${x2},${y2}`;
-    });
+    .attr('d', edgePath);
+
+  root.selectAll('.edge-path-call')
+    .data(callEdges)
+    .join('path')
+    .attr('class', 'edge-path call-edge')
+    .attr('marker-end', 'url(#arrow-call)')
+    .attr('d', edgePath);
 
   // nodes
   const nodeGroups = root.selectAll('.node-group')
@@ -1844,9 +2004,22 @@ function renderGraph(graph, focal) {
     .join('g')
     .attr('class', d => `node-group${d.type === 'focal' ? ' node-focal' : d.type === 'destination' ? ' node-dest' : ''}`)
     .attr('transform', d => `translate(${d.x},${d.y})`)
-    .on('mouseover', (e, d) => showTip(e, d.path))
+    .on('mouseover', (e, d) => {
+      const tip = d.path && d.path.endsWith('.anatella') && d.type !== 'focal'
+        ? d.path + '\n(click to explore this script)'
+        : d.path;
+      showTip(e, tip);
+    })
     .on('mouseleave', hideTip)
     .on('click', (e, d) => {
+      if (d.path && d.path.endsWith('.anatella') && d.type !== 'focal') {
+        // Navigate to this script's own lineage (makes it the new focal)
+        selectedFocal = d.path;
+        setDagTitle(d.path, 'script');
+        filterCurrentList(document.getElementById('search-input').value.toLowerCase());
+        selectScript(d.path);
+        return;
+      }
       highlightPaths(d.id, root, nodes, edges);
       if (d.type === 'script' || (d.type === 'focal' && d.path.endsWith('.anatella'))) {
         loadVarsForScript(d.path, null);
@@ -1854,16 +2027,16 @@ function renderGraph(graph, focal) {
       }
     });
 
-  // shape: diamond for .anatella scripts, rounded rect for data files
+  // shape: hexagon for .anatella scripts, rounded rect for data files
   nodeGroups.each(function(d) {
     const g  = d3.select(this);
     const st = fileNodeStyle(d.path || d.id, d.type);
     const isFocal = d.type === 'focal';
     if (st.isDiamond) {
-      const hw = NODE_W / 2, hh = NODE_H / 2;
+      const hh = NODE_H / 2;
       g.append('polygon')
         .attr('class', 'node-rect')
-        .attr('points', `${hw},0 ${NODE_W},${hh} ${hw},${NODE_H} 0,${hh}`)
+        .attr('points', `${hh},0 ${NODE_W-hh},0 ${NODE_W},${hh} ${NODE_W-hh},${NODE_H} ${hh},${NODE_H} 0,${hh}`)
         .attr('fill', st.fill)
         .attr('stroke', st.stroke)
         .attr('stroke-width', st.sw);
@@ -1879,11 +2052,18 @@ function renderGraph(graph, focal) {
         .attr('stroke', st.stroke)
         .attr('stroke-width', st.sw);
     }
-    g.append('text')
+    const lines = wrapLabel(d.label);
+    const textEl = g.append('text')
       .attr('class', st.textFill === '#fff' ? 'node-label' : 'node-label dark')
-      .attr('x', NODE_W / 2)
-      .attr('y', NODE_H / 2)
-      .text(d.label);
+      .attr('x', NODE_W / 2);
+    if (lines.length === 1) {
+      textEl.attr('y', NODE_H / 2).text(lines[0]);
+    } else {
+      const lh = 10;
+      textEl.append('tspan').attr('x', NODE_W / 2).attr('y', NODE_H / 2 - lh / 2).text(lines[0]);
+      textEl.append('tspan').attr('x', NODE_W / 2).attr('y', NODE_H / 2 + lh / 2).text(lines[1]);
+    }
+    g.append('title').text(d.path || d.id);
   });
 
   // zoom controls
@@ -1898,7 +2078,6 @@ function renderGraph(graph, focal) {
 
 // ── Highlight paths through a node ────────────────────────────────────────
 function highlightPaths(nodeId, root, nodes, edges) {
-  // find all edges connected (directly or transitively) to this node
   const connected = new Set();
   connected.add(nodeId);
   let changed = true;
@@ -1909,9 +2088,14 @@ function highlightPaths(nodeId, root, nodes, edges) {
       if (connected.has(e.to)   && !connected.has(e.from)) { connected.add(e.from); changed = true; }
     });
   }
+  const isHl = e => connected.has(e.from) && connected.has(e.to);
   root.selectAll('.edge-path')
-    .classed('highlighted', e => connected.has(e.from) && connected.has(e.to))
-    .attr('marker-end', e => (connected.has(e.from) && connected.has(e.to)) ? 'url(#arrow-hl)' : 'url(#arrow)');
+    .classed('highlighted', isHl)
+    .attr('marker-end', e => {
+      const hl = isHl(e);
+      if (e.edgeType === 'call') return hl ? 'url(#arrow-call-hl)' : 'url(#arrow-call)';
+      return hl ? 'url(#arrow-hl)' : 'url(#arrow)';
+    });
 }
 
 // ── Render path cards ──────────────────────────────────────────────────────
@@ -1976,6 +2160,7 @@ async function switchView(view) {
   document.getElementById('paths-panel').style.display     = view === 'list'     ? '' : 'none';
   document.getElementById('overview-panel').style.display  = view === 'overview' ? '' : 'none';
   document.getElementById('paths-max-btn').style.display   = view === 'list'     ? '' : 'none';
+  document.getElementById('depth-toggle').style.display    = (view === 'overview' || !_focalIsScript) ? 'none' : 'inline-flex';
   if (view === 'overview') {
     if (!ovLoaded) await loadOverview('');
     highlightFocalInOverview();
@@ -1983,6 +2168,17 @@ async function switchView(view) {
 }
 document.querySelectorAll('.view-tab').forEach(btn => {
   btn.addEventListener('click', () => switchView(btn.dataset.view));
+});
+
+// Depth toggle: Immediate (1 hop) vs Complete (full BFS through shared files).
+// Only meaningful for script focals — full_graph (file focals) is always complete.
+document.querySelectorAll('.depth-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    if (btn.dataset.depth === _depth) return;
+    _depth = btn.dataset.depth;
+    document.querySelectorAll('.depth-btn').forEach(b => b.classList.toggle('active', b === btn));
+    if (selectedFocal && _focalIsScript) await selectScript(selectedFocal);
+  });
 });
 
 // ── Anatella panel: collapse/expand + drag-resize ─────────────────────────
@@ -2824,7 +3020,7 @@ loadTabData('dest');
 <div class="modal-overlay hidden" id="dm-modal">
   <div class="modal-box">
     <div class="modal-hdr">
-      <h2>Add / Update Datamart</h2>
+      <h2>New Datamart</h2>
       <button class="modal-close" onclick="closeAddDatamartModal()" title="Close">&times;</button>
     </div>
     <div class="modal-body">
@@ -2860,11 +3056,31 @@ loadTabData('dest');
         <label>Repository Name <span class="opt-lbl">(optional)</span></label>
         <input id="dm-repo" type="text" placeholder="e.g. DM3-sc">
       </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Server <span style="color:#EF4444">*</span></label>
+          <select id="dm-server"><option value="">Loading servers…</option></select>
+        </div>
+        <div class="form-group">
+          <label>Category <span style="color:#EF4444">*</span></label>
+          <select id="dm-category"><option value="">Loading categories…</option></select>
+        </div>
+      </div>
       <div id="dm-msg" style="font-size:.78rem;color:#DC2626;display:none"></div>
+
+      <div id="dm-progress" class="dm-progress" style="display:none">
+        <div class="dm-prog-label" id="dm-prog-label">—</div>
+        <div class="dm-prog-bar-wrap"><div class="dm-prog-bar" id="dm-prog-bar"></div></div>
+        <div class="dm-prog-counts">
+          <span>✓ <strong id="dm-prog-done">0</strong> done</span>
+          <span>✗ <strong id="dm-prog-err">0</strong> errors</span>
+          <span>/ <strong id="dm-prog-total">0</strong> total</span>
+        </div>
+      </div>
     </div>
     <div class="modal-ftr">
-      <button class="btn-cancel" onclick="closeAddDatamartModal()">Cancel</button>
-      <button class="btn-primary" id="dm-save-btn" onclick="saveDatamart()">Save &amp; Open Extractor</button>
+      <button class="btn-cancel" id="dm-cancel-btn" onclick="closeAddDatamartModal()">Cancel</button>
+      <button class="btn-primary" id="dm-save-btn" onclick="saveDatamart()">OK</button>
     </div>
   </div>
 </div>
@@ -2979,6 +3195,8 @@ function switchToScriptTab(rootDir) {
 }
 
 // ── Add Datamart Modal ────────────────────────────────────────────────────────
+let _dmRunCancel = false;
+
 function openAddDatamartModal() {
   // Populate autocomplete from existing datamarts
   const companies = [...new Set(_projectsData.map(d => d.company).filter(Boolean))];
@@ -2988,11 +3206,56 @@ function openAddDatamartModal() {
   document.getElementById('dm-client-list').innerHTML  = clients.map(v => `<option value="${escHtml(v)}">`).join('');
   document.getElementById('dm-project-list').innerHTML = projects.map(v => `<option value="${escHtml(v)}">`).join('');
   document.getElementById('dm-msg').style.display = 'none';
+  document.getElementById('dm-progress').style.display = 'none';
+  const saveBtn = document.getElementById('dm-save-btn');
+  saveBtn.disabled = false;
+  saveBtn.textContent = 'OK';
   document.getElementById('dm-modal').classList.remove('hidden');
   document.getElementById('dm-company').focus();
+  loadDmServerAndCategoryOptions();
+}
+
+async function loadDmServerAndCategoryOptions() {
+  const serverSel = document.getElementById('dm-server');
+  const catSel     = document.getElementById('dm-category');
+  serverSel.innerHTML = '<option value="">Loading…</option>';
+  catSel.innerHTML    = '<option value="">Loading…</option>';
+
+  try {
+    const r = await fetch('extract_api.php?action=get_marvin_servers');
+    const data = await r.json();
+    const current = localStorage.getItem('lin_idServer') || '';
+    if (Array.isArray(data) && data.length) {
+      serverSel.innerHTML = '<option value="">— pick a server —</option>' + data.map(s => {
+        const sel = String(s.id) === current ? ' selected' : '';
+        return `<option value="${s.id}"${sel}>${escHtml(s.name)}${s.serverType ? '  (' + escHtml(s.serverType) + ')' : ''}</option>`;
+      }).join('');
+    } else {
+      serverSel.innerHTML = '<option value="">No servers found</option>';
+    }
+  } catch (e) {
+    serverSel.innerHTML = '<option value="">Error loading servers</option>';
+  }
+
+  try {
+    const rd = await fetch('extract_api.php?action=get_marvin_departments');
+    const depts = await rd.json();
+    const curDept = localStorage.getItem('lin_idDepartment') || '1';
+    if (Array.isArray(depts) && depts.length) {
+      catSel.innerHTML = depts.map(d => {
+        const sel = String(d.id) === curDept ? ' selected' : '';
+        return `<option value="${d.id}"${sel}>${escHtml(d.name)}</option>`;
+      }).join('');
+    } else {
+      catSel.innerHTML = '<option value="">No categories found</option>';
+    }
+  } catch (e) {
+    catSel.innerHTML = '<option value="">Error loading categories</option>';
+  }
 }
 
 function closeAddDatamartModal() {
+  _dmRunCancel = true;
   document.getElementById('dm-modal').classList.add('hidden');
 }
 
@@ -3003,21 +3266,36 @@ async function saveDatamart() {
   const datamart = document.getElementById('dm-datamart').value.trim();
   const root     = document.getElementById('dm-root').value.trim();
   const repo     = document.getElementById('dm-repo').value.trim();
+  const idServer = parseInt(document.getElementById('dm-server').value, 10);
+  const idCategory = parseInt(document.getElementById('dm-category').value, 10);
   const msgEl    = document.getElementById('dm-msg');
   const saveBtn  = document.getElementById('dm-save-btn');
+  const cancelBtn = document.getElementById('dm-cancel-btn');
 
   msgEl.style.display = 'none';
   [['dm-company', company], ['dm-project', project], ['dm-datamart', datamart], ['dm-root', root]].forEach(([id, val]) => {
     document.getElementById(id).classList.toggle('invalid', !val);
   });
+  document.getElementById('dm-server').classList.toggle('invalid', !idServer);
+  document.getElementById('dm-category').classList.toggle('invalid', !idCategory);
   if (!company || !project || !datamart || !root) {
     msgEl.textContent = 'Company, project, datamart and root directory are required.';
     msgEl.style.display = '';
     return;
   }
+  if (!idServer) {
+    msgEl.textContent = 'Please select a server.';
+    msgEl.style.display = '';
+    return;
+  }
+  if (!idCategory) {
+    msgEl.textContent = 'Please select a category.';
+    msgEl.style.display = '';
+    return;
+  }
 
   saveBtn.disabled = true;
-  saveBtn.textContent = 'Saving…';
+  saveBtn.textContent = 'Working…';
   try {
     const r = await fetch('extract_api.php?action=save_datamart', {
       method: 'POST',
@@ -3026,19 +3304,74 @@ async function saveDatamart() {
     });
     const d = await r.json();
     if (d.error) throw new Error(d.error);
-    closeAddDatamartModal();
+
+    // Remember server/category choice, same keys extract.html relies on
+    localStorage.setItem('lin_idServer', String(idServer));
+    localStorage.setItem('lin_serverName', document.getElementById('dm-server').options[document.getElementById('dm-server').selectedIndex].text.replace(/\s+\(.*\)$/, ''));
+    localStorage.setItem('lin_idDepartment', String(idCategory));
+
+    await runDatamartExtraction(root, idServer, idCategory, saveBtn, cancelBtn);
+
     await loadProjectTree();
-    // Open extractor in new tab
-    const url = 'extract.html?root=' + encodeURIComponent(root) + '&dm_id=' + d.id +
-                '&dm_name=' + encodeURIComponent(datamart);
-    window.open(url, '_blank');
+    closeAddDatamartModal();
   } catch(e) {
     msgEl.textContent = 'Error: ' + e.message;
     msgEl.style.display = '';
-  } finally {
     saveBtn.disabled = false;
-    saveBtn.textContent = 'Save & Open Extractor';
+    saveBtn.textContent = 'OK';
   }
+}
+
+async function runDatamartExtraction(root, idServer, idCategory, saveBtn, cancelBtn) {
+  _dmRunCancel = false;
+  const progWrap = document.getElementById('dm-progress');
+  const label    = document.getElementById('dm-prog-label');
+  const bar      = document.getElementById('dm-prog-bar');
+  const doneLbl  = document.getElementById('dm-prog-done');
+  const errLbl   = document.getElementById('dm-prog-err');
+  const totLbl   = document.getElementById('dm-prog-total');
+
+  progWrap.style.display = '';
+  label.textContent = 'Scanning ' + root + ' …';
+
+  const sr = await fetch('extract_api.php?action=scan_dir&root=' + encodeURIComponent(root));
+  const paths = await sr.json();
+  if (paths.error) throw new Error(paths.error);
+
+  const total = paths.length;
+  totLbl.textContent = total;
+  doneLbl.textContent = '0';
+  errLbl.textContent  = '0';
+  bar.style.width = '0%';
+
+  let done = 0, errors = 0;
+  for (const path of paths) {
+    if (_dmRunCancel) break;
+    label.textContent = path.split('/').pop();
+    bar.style.width = Math.round(done / (total || 1) * 100) + '%';
+
+    try {
+      const er = await fetch('extract_api.php?action=extract_script&path=' + encodeURIComponent(path));
+      const data = await er.json();
+      data.idServer = idServer;
+      data.idDepartment = idCategory;
+      const svr = await fetch('extract_api.php?action=save_script', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(data)
+      });
+      await svr.json();
+      if (data.error) errors++;
+    } catch(e) {
+      errors++;
+    }
+
+    done++;
+    doneLbl.textContent = done;
+    errLbl.textContent  = errors;
+  }
+  bar.style.width = '100%';
+  label.textContent = _dmRunCancel ? 'Cancelled.' : 'Done!';
 }
 
 // Close modal on overlay click

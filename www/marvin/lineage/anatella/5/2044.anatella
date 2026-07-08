@@ -1,0 +1,2996 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.20'>
+<GlobalParameters wDirLoc='0' dataDirRead='F:/ProdAnatella/DM3/backup_co_motivo_31072024/procesamiento' dataDirWrite='F:/ProdAnatella/backup_co_motivo_31072024/UPDATE'>
+<Parameters>
+<Par name='Table2'>DIM_MOTIVO</Par>
+<Par name='Columns1'>&quot;CO_MOTIVO&quot;</Par>
+<Par name='Where1'>(&quot;CO_CORE&quot;=&apos;01&apos;)AND(&quot;CO_PROCESO&quot;=&apos;03&apos;)AND(&quot;CO_ETAPA&quot;=&apos;03&apos;)AND(&quot;CO_RUTA&quot;=&apos;1&apos;)AND(&quot;CO_LOCAL_CAPTURA&quot;=&apos;001924&apos;)AND(&quot;CO_LOCAL_ENTREGA&quot;=&apos;001924&apos;)AND(&quot;CO_TIPO_TRAMITE&quot;=&apos;I&apos;)AND(&quot;CO_SUBTIPO_TRAMITE&quot;=&apos;B&apos;)AND(&quot;CO_TIPO_CAPTURA&quot;=&apos;2&apos;)AND(&quot;CO_APLICATIVO&quot;=&apos;004&apos;)AND(&quot;CO_TIPO_PAGO&quot;=&apos;1&apos;)AND(&quot;CO_TIPO_DNI&quot;=&apos;0&apos;)AND(&quot;TI_DOC_REG_FICHA&quot;=&apos;F&apos;)AND(&quot;CO_GENERO&quot;=&apos;2&apos;)AND(&quot;IN_ABIS&quot;=&apos;1&apos;)AND(&quot;CO_CONTINENTE_DOMICILIO&quot;=&apos;92&apos;)AND(&quot;CO_PAIS_DOMICILIO&quot;=&apos;13&apos;)AND(&quot;CO_DEPARTAMENTO_DOMICILIO&quot;=&apos;19&apos;)AND(&quot;CO_PROVINCIA_DOMICILIO&quot;=&apos;00&apos;)AND(&quot;CO_DISTRITO_DOMICILIO&quot;=&apos;00&apos;)AND(&quot;NU_EDAD&quot;=39)AND(&quot;CO_SERV_CAPTURA&quot;=&apos;45915050&apos;)AND(&quot;IM_RECIBO&quot;=0)AND(&quot;IN_CANAL&quot;=&apos;00&apos;)AND(&quot;NU_HORA&quot;=&apos;10&apos;)AND(&quot;FE_CAPTURA&quot;=TO_DATE(&apos;20230818&apos;,&apos;YYYYMMDD&apos;))AND(&quot;FE_DATA&quot;=TO_DATE(&apos;20231004&apos;,&apos;YYYYMMDD&apos;))AND(&quot;FE_ENVIO_PROC&quot;=TO_DATE(&apos;20230818&apos;,&apos;YYYYMMDD&apos;))AND(&quot;CO_GRUPO_EDAD&quot;=&apos;6&apos;)AND(&quot;FE_RECE_PROC&quot;=TO_DATE(&apos;20230905&apos;,&apos;YYYYMMDD&apos;))AND(&quot;CO_SERVIDOR&quot;=&apos;09445358&apos;)AND(&quot;IN_RECUPERADO&quot;=&apos;N&apos;)AND(&quot;CO_SUBPROCESO&quot;=&apos;04&apos;)AND(&quot;IN_DECA&quot;=&apos;0&apos;)AND(&quot;IN_APROBADO&quot;=&apos;0&apos;)AND(&quot;CO_LOCAL_IMPRESION&quot;=&apos;000529&apos;)AND(&quot;CO_LOCAL_CAPT_DNI&quot;=&apos;062305&apos;)AND(&quot;CO_LOCAL_ENTR_DNI&quot;=&apos;062305&apos;)AND(&quot;IN_TRANSFERENCIA&quot;=&apos;0&apos;)AND(&quot;CO_GRADO_INSTRUCCION&quot;=&apos;20&apos;)</Par>
+<Par name='Where2'>ES_MOTIVO=&apos;1&apos;</Par>
+<Par name='Table1'>IDODATAMART.LDTF_PROCESO_DNI</Par>
+<Par name='Columns2'></Par>
+<Par name='Valor'>019</Par>
+<Par name='z'>&quot;</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAABzfwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAABzQAAAHgA////AAAAAwAABkAAAAEb/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAQLAAACNgD////8AAAEDwAAAjEAAAGUAP////oAAAAAAQAAAAL7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAYAD///8AAAU8AAABzQAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<ReadColumnarGel module='MathParser' idx='1081' x='-1428' y='-372' fileName='F:/ProdAnatella/DM3/backup_co_motivo_31072024/procesamiento/IDODATAMART.LDTT_PROCESO_DNI.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='1084' x='-1140' y='-276' fileName=':/../Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.DIM_APLICATIVO.cgel_anatella'>
+ <ColumnsToRead>
+  <c>CO_APLICATIVO</c><c>IN_RECTIFICACION</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<sort idx='1086' v='3.06' x='-1008' y='-396' action='S'>
+  <field type='A'>IN_RECTIFICACION</field>
+</sort>
+<sort idx='1087' v='3.06' x='-1008' y='-276' action='S'>
+  <field type='A'>IN_RECTIFICACION</field>
+</sort>
+<Join module='DefaultActions' idx='1088' x='-840' y='-396' joinMode='0' keyA='IN_RECTIFICACION'>
+<SlaveKeys><c>IN_RECTIFICACION</c></SlaveKeys>
+<Prefixes><c></c><c></c></Prefixes>
+</Join>
+<Calculator module='MathParser' idx='1089' x='-1140' y='-396'>
+  <InputVars>
+    <InputVar column='IN_RECTIFICACION' isNumber='0'/>
+    <InputVar column='CO_TIPO_CAPTURA' isNumber='0'/>
+    <InputVar column='CO_TIPO_TRAMITE' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_RECTIFICACION' meta='U' update='1'>isNull(IN_RECTIFICACION)?_nullS:
+CO_TIPO_CAPTURA="3" &amp;&amp; CO_TIPO_TRAMITE="D"?"DW":
+CO_TIPO_CAPTURA="3" &amp;&amp; CO_TIPO_TRAMITE!="D"?"00":
+CO_TIPO_CAPTURA!="3"?"03":_nullS</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='1090' x='-696' y='-396'>
+  <InputVars>
+    <InputVar column='NU_EDAD' meta='F'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_GRUPO_EDAD' meta='U' update='1'>NU_EDAD=0?"0":
+(NU_EDAD>=1 &amp;&amp; NU_EDAD&lt;=6)?"1":
+(NU_EDAD>=7 &amp;&amp; NU_EDAD&lt;=16)?"2":
+(NU_EDAD=17)?"3":
+(NU_EDAD>=18 &amp;&amp; NU_EDAD&lt;=19)?"4":
+(NU_EDAD>=20 &amp;&amp; NU_EDAD&lt;=29)?"5":
+(NU_EDAD>=30 &amp;&amp; NU_EDAD&lt;=39)?"6":
+(NU_EDAD>=40 &amp;&amp; NU_EDAD&lt;=49)?"7":
+(NU_EDAD>=50 &amp;&amp; NU_EDAD&lt;=59)?"8":
+(NU_EDAD>=60 &amp;&amp; NU_EDAD&lt;=69)?"9":
+(NU_EDAD>=70 &amp;&amp; NU_EDAD&lt;=79)?"A":"B"</OutputVar>
+    <OutputVar name='CO_PROYECTO' meta='U'>"0001"</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='1091' x='-276' y='-396' addNowS='1' isUTC='0' dateFormat='yyyyMMdd HH:mm:ss'>
+  <InputVars>
+    <InputVar column='IN_RECUPERADO' isNumber='0'/>
+    <InputVar column='NU_CANTI'/>
+    <InputVar column='IM_RECIBO'/>
+    <InputVar column='FE_CAPTURA' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_RECUPERADO' meta='U'>IN_RECUPERADO="N"?"0":"1"</OutputVar>
+    <OutputVar name='NU_CANTI' update='1'>NU_CANTI</OutputVar>
+    <OutputVar name='IM_RECIBO' update='1'>IM_RECIBO</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='1092' x='0' y='-396' keep='1'>
+ <c>CO_CORE</c>
+ <c>CO_PROCESO</c>
+ <c>CO_ETAPA</c>
+ <c>CO_RUTA</c>
+ <c>CO_LOCAL_CAPTURA</c>
+ <c>CO_LOCAL_ENTREGA</c>
+ <c>CO_TIPO_TRAMITE</c>
+ <c>CO_SUBTIPO_TRAMITE</c>
+ <c>CO_TIPO_CAPTURA</c>
+ <c>CO_APLICATIVO</c>
+ <c>CO_TIPO_PAGO</c>
+ <c>CO_TIPO_DNI</c>
+ <c>TI_DOC_REG_FICHA</c>
+ <c>CO_GENERO</c>
+ <c>IN_ABIS</c>
+ <c>CO_CONTINENTE_DOMICILIO</c>
+ <c>CO_PAIS_DOMICILIO</c>
+ <c>CO_DEPARTAMENTO_DOMICILIO</c>
+ <c>CO_PROVINCIA_DOMICILIO</c>
+ <c>CO_DISTRITO_DOMICILIO</c>
+ <c>NU_EDAD</c>
+ <c>CO_SERV_CAPTURA</c>
+ <c>IM_RECIBO</c>
+ <c>IN_CANAL</c>
+ <c>NU_HORA</c>
+ <c>FE_CAPTURA</c>
+ <c>FE_CARGA_BI</c>
+ <c>NU_CANTI</c>
+ <c>NU_SEC</c>
+ <c>FE_DATA</c>
+ <c>FE_ENVIO_PROC</c>
+ <c>US_CREA</c>
+ <c>CO_GRUPO_EDAD</c>
+ <c>FE_RECE_PROC</c>
+ <c>CO_SERVIDOR</c>
+ <c>IN_RECUPERADO</c>
+ <c>CO_SUBPROCESO</c>
+ <c>IN_DECA</c>
+ <c>CO_MOTIVO</c>
+ <c>IN_APROBADO</c>
+ <c>FE_APROB_PROC</c>
+ <c>IN_PRIORI_IMPR</c>
+ <c>FE_ACT_ANI</c>
+ <c>CO_GRUPO_IMPRESION</c>
+ <c>IN_ORIGEN_IMPR</c>
+ <c>CO_LOCAL_IMPRESION</c>
+ <c>CO_LOCAL_CAPT_DNI</c>
+ <c>CO_LOCAL_ENTR_DNI</c>
+ <c>CO_LOCAL_IMPR_DNI</c>
+ <c>FE_GENERA_LOTE</c>
+ <c>IN_TRANSFERENCIA</c>
+ <c>FE_ENVIO_DESP</c>
+ <c>FE_RECE_AGEN</c>
+ <c>CO_ESTADO_CIVIL</c>
+ <c>CO_GRADO_INSTRUCCION</c>
+ <c>CO_RESTRICCION</c>
+ <c>FE_CADUCIDAD</c>
+ <c>IN_DONA_ORGANO</c>
+</SelectColumns>
+<ColumnRename module='DefaultActions' idx='1093' x='-132' y='-396'><before>
+<c>CO_LOCAL_CAPTURA_DNI</c><c>CO_LOCAL_IMPRESION_DNI</c><c>CO_LOCAL_ENTREGA_DNI</c></before><after>
+<c>CO_LOCAL_CAPT_DNI</c><c>CO_LOCAL_IMPR_DNI</c><c>CO_LOCAL_ENTR_DNI</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<ReadColumnarGel module='MathParser' idx='1095' x='-1404' y='12' abortIfMissing='0' fileName=':/../Gel_DataLake/Extraccion/BI/IDO_DATA_BI.BITR_SEC_CARGA_DATA.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<Calculator module='MathParser' idx='1102' x='-852' y='12' addNowS='1' isUTC='0' dateFormat='yyyyMMdd HH:mm:ss'>
+  <InputVars>
+    <InputVar column='NU_SEC' meta='F'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='FE_CARGA' meta='U' isInput='1'>_nowS</OutputVar>
+    <OutputVar name='NU_SEC' update='1'>isNull(NU_SEC)?1:NU_SEC+1</OutputVar>
+    <OutputVar name='CO_PROYECTO' meta='U'>"0001"</OutputVar>
+    <OutputVar name='FE_DATA' meta='U' isInput='1'>itoa(P_DFE_DATA)</OutputVar>
+    <OutputVar name='ES_SEC' meta='U'>"1"</OutputVar>
+    <OutputVar name='US_CREA_AUDI' meta='U'>"ADMIN"</OutputVar>
+    <OutputVar name='FE_CREA_AUDI' meta='U'>_nowS</OutputVar>
+  </OutputVars>
+</Calculator>
+<FilterRows module='MathParser' idx='1108' x='-1260' y='12'>
+ <Expression>substr(FE_DATA,0,8)=itoa(P_DFE_DATA) &amp;&amp; CO_PROYECTO="0001"</Expression>
+ <InputVars>
+    <InputVar column='FE_DATA' isNumber='0'/>
+    <InputVar column='CO_PROYECTO' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<SelectColumns module='DefaultActions' idx='1110' x='-696' y='-228' keep='1'>
+ <c>CO_PROYECTO</c>
+ <c>NU_SEC</c>
+</SelectColumns>
+<sort idx='1111' v='3.06' x='-552' y='-396' action='S'>
+  <field type='A'>CO_PROYECTO</field>
+</sort>
+<sort idx='1112' v='3.06' x='-540' y='-228' action='S'>
+  <field type='A'>CO_PROYECTO</field>
+</sort>
+<Join module='DefaultActions' idx='1113' x='-420' y='-396' joinMode='0' keyA='CO_PROYECTO'>
+<SlaveKeys><c>CO_PROYECTO</c></SlaveKeys>
+<Prefixes><c></c><c></c></Prefixes>
+</Join>
+<ReadColumnarGel module='MathParser' idx='1117' x='-24' y='624' fileName=':/../Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='1118' x='120' y='624'>
+ <Expression>CO_CORE=1 &amp;&amp; CO_ETAPA=4 &amp;&amp; NU_SEC=1 &amp;&amp; substr(FE_DATA,0,8)="20240119"</Expression>
+ <InputVars>
+    <InputVar column='CO_CORE'/>
+    <InputVar column='CO_ETAPA'/>
+    <InputVar column='NU_SEC' meta='F'/>
+    <InputVar column='FE_DATA' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<writeColumnarGel module='MathParser' idx='1125' v='3.19' x='1080' y='24' file=':/../Gel_DataLake/Extraccion/IDODATAMART/Inventario_Inicial.cgel_anatella'/>
+<FilterRows module='MathParser' idx='1126' x='948' y='24'>
+ <Expression>CO_CORE=1 &amp;&amp; CO_ETAPA=4</Expression>
+ <InputVars>
+    <InputVar column='CO_CORE'/>
+    <InputVar column='CO_ETAPA'/>
+    <InputVar column='NU_SEC' meta='F'/>
+    <InputVar column='FE_DATA' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<writeColumnarGel module='MathParser' idx='1127' v='3.19' x='252' y='624' file=':/../Gel_DataLake/Extraccion/IDODATAMART/Inventario_Inicial.cgel_anatella'/>
+<ReadColumnarGel module='MathParser' idx='1130' x='240' y='-192' fileName=':/../Gel_DataLake/Extraccion/IDODATAMART/Inventario_Inicial.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<Append module='DefaultActions' idx='1131' x='780' y='-396' output='0'>
+  </Append>
+<Calculator module='MathParser' idx='1132' x='372' y='-192'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_ETAPA' meta='U' update='1'>"01"</OutputVar>
+    <OutputVar name='FE_DATA' meta='U' update='1'>itoa(P_DFE_DATA)</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='1188' x='-1296' y='-372'>
+  <InputVars>
+    <InputVar column='CO_SUBPROCESO' isNumber='0'/>
+    <InputVar column='CO_MOTIVO' isNumber='0'/>
+    <InputVar column='IN_APROBADO' isNumber='0'/>
+    <InputVar column='FE_ENVIO_DESP' isNumber='0'/>
+    <InputVar column='FE_RECE_AGEN' isNumber='0'/>
+    <InputVar column='IN_TRANSFERENCIA' isNumber='0'/>
+    <InputVar column='CO_PROCESO'/>
+    <InputVar column='CO_TIPO_CAPTURA' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_SUBPROCESO' meta='U' update='1'>nvl(CO_SUBPROCESO,"01")</OutputVar>
+    <OutputVar name='CO_TIPO_CAPTURA' meta='U' update='1'>isNull(CO_TIPO_CAPTURA)?"1":CO_TIPO_CAPTURA</OutputVar>
+    <OutputVar name='FE_ENVIO_DESP' meta='U' update='1'>(CO_PROCESO=9 || CO_PROCESO=11)?FE_ENVIO_DESP:_nullS</OutputVar>
+    <OutputVar name='FE_RECE_AGEN' meta='U' update='1'>(CO_PROCESO=9 || CO_PROCESO=11)?FE_RECE_AGEN:_nullS</OutputVar>
+    <OutputVar name='IN_TRANSFERENCIA' meta='U' update='1'>(CO_PROCESO=9 || CO_PROCESO=11)?IN_TRANSFERENCIA:"0"</OutputVar>
+    <OutputVar name='CO_MOTIVO' meta='U' update='1'>nvl(CO_MOTIVO,c_vco_motivo_nep)</OutputVar>
+    <OutputVar name='IN_APROBADO' meta='U' update='1'>nvl(IN_APROBADO,itoa(c_cin_aprob_pend))</OutputVar>
+    <OutputVar name='CO_GRUPO_EDAD' meta='U'>_nullS</OutputVar>
+  </OutputVars>
+</Calculator>
+<FilterRows module='MathParser' idx='1190' x='1392' y='60'>
+ <Expression>Oracle_Status_1="ERROR"</Expression>
+ <InputVars>
+    <InputVar column='Oracle_Status_1' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='1203' x='132' y='-396'>
+  <InputVars>
+    <InputVar column='IN_DONA_ORGANO' isNumber='0'/>
+    <InputVar column='FE_CAPTURA' isNumber='0'/>
+    <InputVar column='FE_DATA'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IN_DONA_ORGANO' meta='U' update='1'>IN_DONA_ORGANO="S"?"1":
+IN_DONA_ORGANO="N"?"0":_nullS</OutputVar>
+    <OutputVar name='FE_DATA' meta='U' update='1'>itoa(FE_DATA)</OutputVar>
+    <OutputVar name='FE_CAPTURA' meta='U' update='1'>substr(FE_CAPTURA,1,1)="."?itoa(FE_DATA):FE_CAPTURA</OutputVar>
+  </OutputVars>
+</Calculator>
+<ReplaceStrings module='DefaultActions' idx='1204' x='264' y='-396'>
+<Global>
+</Global><String>
+</String><RegExp>
+</RegExp>
+<Processing truncate='8'>
+<c>FE_ACT_ANI</c><c>FE_APROB_PROC</c><c>FE_CADUCIDAD</c><c>FE_CAPTURA</c><c>FE_DATA</c><c>FE_ENVIO_DESP</c><c>FE_ENVIO_PROC</c><c>FE_GENERA_LOTE</c><c>FE_RECE_AGEN</c><c>FE_RECE_PROC</c></Processing></ReplaceStrings>
+<ReplaceStrings module='DefaultActions' idx='1205' x='396' y='-396'>
+<Global>
+<Group><vars><c>IN_CANAL</c></vars>
+<replacements>
+<r><s>2.000000e+000</s><d>02</d></r>
+<r><s>4.000000e+000</s><d>04</d></r>
+<r><s>5.000000e+000</s><d>05</d></r>
+<r><s>3.000000e+000</s><d>03</d></r>
+<r><s>1.000000e+000</s><d>01</d></r>
+<r><s>0.000000e+000</s><d>00</d></r>
+</replacements></Group>
+</Global><String>
+</String><RegExp>
+</RegExp>
+<Processing>
+</Processing></ReplaceStrings>
+<Calculator module='MathParser' idx='1206' x='528' y='-396'>
+  <InputVars>
+    <InputVar column='CO_SERVIDOR' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='CO_SERVIDOR' meta='U' update='1'>contains(CO_SERVIDOR,"IND")?"IND":
+contains(CO_SERVIDOR,"+")?substr(CO_SERVIDOR,0,1)//substr(CO_SERVIDOR,2,6):
+CO_SERVIDOR</OutputVar>
+  </OutputVars>
+</Calculator>
+<RowCounter idx='1210' x='1224' y='26' label='CounterID_1211' compact='0'/>
+<RowCounter idx='1211' x='516' y='-190' label='CounterID_1212' compact='0'/>
+<Calculator module='MathParser' idx='1219' x='648' y='-396'>
+  <InputVars>
+    <InputVar column='IM_RECIBO' label='mal' isNumber='0' meta='F'/>
+    <InputVar column='IM_RECIBO' label='bien' meta='F'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IM_RECIBO' update='1'>mal="nan"?0:bien</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='1222' x='924' y='-396' addNowS='1' isUTC='0' dateFormat='yyyyMMdd HH:mm:ss'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='FE_CARGA_BI' meta='U' update='1'>_nowS</OutputVar>
+  </OutputVars>
+</Calculator>
+<writeColumnarGel module='MathParser' idx='1233' v='3.19' x='1524' y='60' file='&gt;&quot;:/../Gel_DataLake/Extraccion/IDODATAMART/errores_carga_&quot;+P_DFE_DATA+&quot;.cgel_anatella&quot;'/>
+<ReadColumnarGel module='MathParser' idx='1234' x='564' y='648' fileName='&gt;&quot;:/../Gel_DataLake/Extraccion/IDODATAMART/errores_carga_&quot;+P_DFE_DATA+&quot;.cgel_anatella&quot;'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='1235' x='720' y='648'>
+ <Expression>_n>1</Expression>
+ <InputVars>
+ </InputVars>
+</FilterRows>
+<SelectColumns module='DefaultActions' idx='1236' x='852' y='648' keep='0'>
+ <c>Oracle_Status_1</c>
+</SelectColumns>
+<upsertOCI module='Oracle' idx='1237' v='3.01' x='996' y='648' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAACJAQAAZ2s6HONZwrAdj/r+iC/37JNhcTj0Ff150RAXhEu72cU=' rowBuffer='2000' dateFormat='YYYYMMDD HH24:MI:SS' errorMode='1' operation='0' table='IDODATAMART.LDTF_PROCESO_DNI'>
+  <keyCols></keyCols>
+  <updateCols><c>CO_CORE</c><c>CO_PROCESO</c><c>CO_ETAPA</c><c>CO_RUTA</c><c>CO_LOCAL_CAPTURA</c><c>CO_LOCAL_ENTREGA</c><c>CO_TIPO_TRAMITE</c><c>CO_SUBTIPO_TRAMITE</c><c>CO_TIPO_CAPTURA</c><c>CO_APLICATIVO</c><c>CO_TIPO_PAGO</c><c>CO_TIPO_DNI</c><c>TI_DOC_REG_FICHA</c><c>CO_GENERO</c><c>IN_ABIS</c><c>CO_CONTINENTE_DOMICILIO</c><c>CO_PAIS_DOMICILIO</c><c>CO_DEPARTAMENTO_DOMICILIO</c><c>CO_PROVINCIA_DOMICILIO</c><c>CO_DISTRITO_DOMICILIO</c><c>NU_EDAD</c><c>CO_SERV_CAPTURA</c><c>IM_RECIBO</c><c>IN_CANAL</c><c>NU_HORA</c><c>FE_CAPTURA</c><c>FE_CARGA_BI</c><c>NU_CANTI</c><c>FE_DATA</c><c>FE_ENVIO_PROC</c><c>US_CREA</c><c>CO_GRUPO_EDAD</c><c>FE_RECE_PROC</c><c>CO_SERVIDOR</c><c>IN_RECUPERADO</c><c>CO_SUBPROCESO</c><c>CO_MOTIVO</c><c>IN_APROBADO</c><c>FE_APROB_PROC</c><c>IN_DECA</c><c>FE_ACT_ANI</c><c>CO_GRUPO_IMPRESION</c><c>IN_ORIGEN_IMPR</c><c>CO_LOCAL_IMPRESION</c><c>FE_GENERA_LOTE</c><c>IN_TRANSFERENCIA</c><c>FE_CADUCIDAD</c><c>CO_LOCAL_CAPT_DNI</c><c>CO_LOCAL_IMPR_DNI</c><c>CO_LOCAL_ENTR_DNI</c><c>IN_PRIORI_IMPR</c><c>CO_GRADO_INSTRUCCION</c><c>IN_DONA_ORGANO</c><c>CO_RESTRICCION</c><c>NU_SEC</c><c>FE_ENVIO_DESP</c><c>FE_RECE_AGEN</c></updateCols>
+  <SQL>INSERT INTO IDODATAMART.LDTF_PROCESO_DNI ("CO_CORE","CO_PROCESO","CO_ETAPA","CO_RUTA","CO_LOCAL_CAPTURA","CO_LOCAL_ENTREGA","CO_TIPO_TRAMITE","CO_SUBTIPO_TRAMITE","CO_TIPO_CAPTURA","CO_APLICATIVO","CO_TIPO_PAGO","CO_TIPO_DNI","TI_DOC_REG_FICHA","CO_GENERO","IN_ABIS","CO_CONTINENTE_DOMICILIO","CO_PAIS_DOMICILIO","CO_DEPARTAMENTO_DOMICILIO","CO_PROVINCIA_DOMICILIO","CO_DISTRITO_DOMICILIO","NU_EDAD","CO_SERV_CAPTURA","IM_RECIBO","IN_CANAL","NU_HORA","FE_CAPTURA","FE_CARGA_BI","NU_CANTI","FE_DATA","US_CREA","CO_GRUPO_EDAD","CO_SERVIDOR","IN_RECUPERADO","CO_SUBPROCESO","CO_MOTIVO","IN_APROBADO","IN_DECA","CO_GRUPO_IMPRESION","IN_ORIGEN_IMPR","CO_LOCAL_IMPRESION","IN_TRANSFERENCIA","CO_LOCAL_CAPT_DNI","CO_LOCAL_IMPR_DNI","CO_LOCAL_ENTR_DNI","IN_PRIORI_IMPR","CO_GRADO_INSTRUCCION","IN_DONA_ORGANO","CO_RESTRICCION","NU_SEC") VALUES (:1,:2,:3,:4,:5,:6,:7,:8,:9,:10,:11,:12,:13,:14,:15,:16,:17,:18,:19,:20,:21,:22,:23,:24,:25,TO_DATE(:26,'YYYYMMDD HH24:MI:SS'),TO_DATE(:27,'YYYYMMDD HH24:MI:SS'),:28,TO_DATE(:29,'YYYYMMDD HH24:MI:SS'),TO_DATE(:30,'YYYYMMDD HH24:MI:SS'),:31,:32,:33,:34,:35,:36,:37,:38,:39,:40,:41,:42,:43,:44,:45,:46,TO_DATE(:47,'YYYYMMDD HH24:MI:SS'),:48,:49)</SQL>
+</upsertOCI>
+<aggregate idx='1238' x='1140' y='648' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='Oracle_Status_1'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<RowCounter idx='1242' x='1680' y='62' label='CounterID_1243' compact='0'/>
+<RowCounter idx='1244' x='1140' y='254' label='CounterID_1245' compact='0'/>
+<Calculator module='MathParser' idx='1273' x='1476' y='252' addNowS='1' isUTC='0' dateFormat='hh:mm:ss'>
+  <InputVars>
+    <InputVar column='count' isNumber='0'/>
+    <InputVar column='Oracle_Status_1' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Title' meta='U'>"Info:"</OutputVar>
+    <OutputVar name='Usuario' meta='U'>"ido_data_bi"</OutputVar>
+    <OutputVar name='DB' meta='U'>"BI"</OutputVar>
+    <OutputVar name='Esquema.Tabla' meta='U'>"IDO_DATA_BI.BITR_SEC_CARGA_DATA"</OutputVar>
+    <OutputVar name='Hora_Inicio' meta='U'>HoraInicio</OutputVar>
+    <OutputVar name='Hora_Final' meta='U'>_nowS</OutputVar>
+    <OutputVar name='Registros_Cargados' meta='U'>(Oracle_Status_1 //"-"//count)</OutputVar>
+  </OutputVars>
+</Calculator>
+<Split module='DefaultActions' idx='1275' x='1632' y='252' sep='.' useSuffix='0' fixed='1' number='2'>
+  <c>Esquema.Tabla</c>
+</Split>
+<Generic idx='1277' x='1944' y='252' id='printLog'
+  longName='print a table into the log'
+  le='1677715736540'
+  abortOnMissingColumn='0'
+  keywords='print log table code display debug'
+  image='/printLog.svg'
+  author='Frank Vanden Berghen'
+  revision='0.03'
+  tags='600_System Tools'
+  pdfDestination='5_25_2_template'>
+<Description>
+
+</Description>
+<Parameters>
+  <Parameter id='idSize' text='column size' type='double'>40</Parameter>
+  <Parameter id='idText' text='text header' type='string'>No. Registros insertados</Parameter>
+  <Parameter id='idPH' text='Print Header Row?' type='bool'>1</Parameter>
+</Parameters>
+<Script>
+var blank="",a=[];
+function parallelRun(v) { return false; }
+function init(){return 0;}
+
+function justify(s,i)
+{
+    s=String(s);
+    if (s.length&lt;idSize) 
+    {
+        if (a[i]=='U') 
+        {
+            s=s+blank;
+            return s.substr(0,idSize);
+        }
+        s=blank+s;
+        return s.substr(s.length-idSize,idSize);
+    }
+    return s.substr(0,idSize-2)+"..";
+}
+
+function run()
+{
+    if(idText.length>0) print(idText);
+    var r=getNextRow();
+    if (r.isNull) return 1;
+    var i=idSize,n=r.nColumn,s="";
+    while(i--) blank+=" ";
+    i=n;
+    while(i--) a=rowGetMetaType(r,i);
+    if (idPH)
+    {
+        s=justify(rowGetColumnName(r,0).toUpperCase(),0);
+        for(i=1;i&lt;n;i++) 
+            s+="|"+justify(rowGetColumnName(r,i).toUpperCase(),i);
+        {
+            var b2=blank.replace(/./g,"-"),s2=b2;
+            for(i=1;i&lt;n;i++) s2+="+"+b2;
+            s=s+"\n"+s2;
+        }
+        print(s);
+    }
+    for(;;)
+    {
+        s=justify(r.col(0),0);
+        for(i=1;i&lt;n;i++) 
+            s+="|"+justify(r.col(i),i);
+        print(s);
+        if (userAskedAbort()) return 1;
+        r=getNextRow();
+        if (r.isNull) return 1;
+    }
+    return 1;
+}
+</Script>
+</Generic>
+<Generic idx='1278' x='2088' y='240' id='runSelectedPin'
+ deprecated='1'
+  longName='run a part of the graph'
+  nPinIn='2'
+  isVariableNPinIn='1'
+  nPinInMin='2'
+  le='1585048261289'
+  shape='3'
+  keywords='run part graph'
+  image='/multiplexer.png'
+  author='Frank Vanden Berghen'
+  revision='0.04'
+  tags='600_System Tools'
+  pdfDestination='5_21_10_run_selected_pin'>
+<Description>
+
+</Description>
+<Parameters>
+  <Parameter id='idMode' text='Operating mode' type='combobox'><meta>&lt;i&gt;Execute all boxes on all input pins&lt;/i&gt;&lt;i&gt;Execute the boxes on the input pin number given below&lt;/i&gt;</meta><data>0</data></Parameter>
+  <Parameter id='idPinToRun' text='pin to run' type='string'></Parameter>
+</Parameters>
+<Script>
+function init(){ return 0;}
+
+function run()
+{
+    if (idMode==1)
+    {
+        var r;
+        do{
+            r=getNextRow(Number(idPinToRun));
+            if (userAskedAbort()) return 1;
+        } while(!r.isNull);
+        return 1;
+    }
+    var i,r;
+    for(i=0;i&lt;nPinIn;i++)
+    {
+        do{
+            r=getNextRow(i);
+            if (userAskedAbort()) return 1;
+        } while(!r.isNull);
+    }
+    return 1;
+}
+</Script>
+</Generic>
+<Generic idx='1279' x='2268' y='228' id='runSelectedPin'
+ deprecated='1'
+  longName='run a part of the graph'
+  nPinIn='2'
+  isVariableNPinIn='1'
+  nPinInMin='2'
+  le='1585048261289'
+  shape='3'
+  keywords='run part graph'
+  image='/multiplexer.png'
+  author='Frank Vanden Berghen'
+  revision='0.04'
+  tags='600_System Tools'
+  pdfDestination='5_21_10_run_selected_pin'>
+<Description>
+
+</Description>
+<Parameters>
+  <Parameter id='idMode' text='Operating mode' type='combobox'><meta>&lt;i&gt;Execute all boxes on all input pins&lt;/i&gt;&lt;i&gt;Execute the boxes on the input pin number given below&lt;/i&gt;</meta><data>1</data></Parameter>
+  <Parameter id='idPinToRun' text='pin to run' type='string'>> Cargar</Parameter>
+</Parameters>
+<Script>
+function init(){ return 0;}
+
+function run()
+{
+    if (idMode==1)
+    {
+        var r;
+        do{
+            r=getNextRow(Number(idPinToRun));
+            if (userAskedAbort()) return 1;
+        } while(!r.isNull);
+        return 1;
+    }
+    var i,r;
+    for(i=0;i&lt;nPinIn;i++)
+    {
+        do{
+            r=getNextRow(i);
+            if (userAskedAbort()) return 1;
+        } while(!r.isNull);
+    }
+    return 1;
+}
+</Script>
+</Generic>
+<Calculator module='MathParser' idx='1300' x='972' y='156' addNowS='1' isUTC='0' dateFormat='hh:mm:ss'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='gpName' meta='U'>"HoraInicio"</OutputVar>
+    <OutputVar name='HORA_INICIO' meta='U'>_nowS</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='1301' x='1476' y='156' keep='1'>
+ <c>gpName</c>
+ <c>HORA_INICIO</c>
+</SelectColumns>
+<FilterRows module='MathParser' idx='1302' x='1632' y='156' truncate='1'>
+ <Expression>_n&lt;1</Expression>
+ <InputVars>
+ </InputVars>
+</FilterRows>
+<Generic idx='1303' v='3.17' x='1944' y='156' id='setGlobalParameters'
+  longName='set the value of some global Parameters'
+  le='1692127096655'
+  abortOnMissingColumn='0'
+  shape='3'
+  keywords='set global paramater'
+  image='/setGlobalParameters.svg'
+  author='Frank Vanden Berghen'
+  revision='0.10'
+  tags='800_Other'>
+<Description>
+&lt;html&gt;
+Set the value of some Global Parameters.&lt;br /&gt;&lt;br /&gt;
+The input table contains 2 columns:&lt;ol&gt;
+&lt;li&gt;The name of the Global Parameters to set.&lt;/li&gt;
+&lt;li&gt;The new value of the Global Parameter.&lt;/li&gt;&lt;/ol&gt;
+If the second column is omitted, the Global Parameter is reset to an empty string.&lt;br /&gt;
+&lt;br /&gt;
+The behavior is:&lt;ol&gt;
+&lt;li&gt;NEW: Set or Update all Global Paramaters and then continue. The input table is not forwarded to the ouput.&lt;/li&gt;
+&lt;li&gt;OLD: Set one Global Paramaters and directly forward the input row to the ouput&lt;/li&gt;&lt;/ol&gt;
+</Description>
+<Parameters>
+  <Parameter id='parName' text='The Global Parameter Names' type='onecolumn'><meta>0</meta><data>gpName</data></Parameter>
+  <Parameter id='parValue' text='The Global Parameter Values' type='onecolumn'><meta>0</meta><data>HORA_INICIO</data></Parameter>
+  <Parameter id='setOnlyIfEmpty' text='Only set value if Global Parameter is empty' type='bool'>0</Parameter>
+  <Parameter id='behavior' text='Behavior' type='combobox'><meta>&lt;i&gt;New Behavior&lt;/i&gt;&lt;i&gt;Old Behavior&lt;/i&gt;</meta><data>0</data></Parameter>
+</Parameters>
+<Script>
+function init()
+{
+    var r=getCurrentRow();
+    if (r.isNull) return 0;
+	setOutputRowSize(0,r.nColumn);
+    if (parName&lt;0) throw "Error: No column to define the \"names\" of the Global Parameters?";
+    if (parValue&lt;0) throw "Error: No column to define the \"values\" of the Global Parameters?";
+    if (behavior==0) return 0;
+    return 0;
+}
+
+function setGP(name,r)
+{
+    if (parValue&lt;0)
+    {
+        var assign=new Function(name+"=\"\";");
+        assign();
+    } else
+    {
+        var t=""+r.col(parValue);
+        t=t.replace(new RegExp("\\\\", 'g'), "\\\\");
+        t=t.replace(new RegExp("\"", 'g'), "\\\"");
+        t=t.replace(new RegExp("\n", 'g'), "");
+        t=t.replace(new RegExp("\r", 'g'), "");
+        t=name+"=\""+t+"\";"
+        var assign=new Function(t);
+        assign();
+    }
+}
+
+function setGP2(r)
+{
+    var name=r.col(parName), transient=false;
+    if (name[0]=='*') { name=name.substr(1); transient=true; }
+    var testIfExists=new Function("return typeof("+name+");");
+    var t=testIfExists();
+    if (t=="undefined") { newGlobalVar(name,"",transient); setGP(name,r); return;  }
+    if (t=="number") throw "Error: a global parameter NAME cannot be a number (i.e. you used \""+name+"\")";
+    if (!setOnlyIfEmpty) { setGP(name,r); return; }
+    var getValue=new Function("return "+name+";");
+    if (getValue()!="") setGP(name,r);
+}
+
+function run()
+{
+    if (behavior==0)
+    {
+        for(;;)
+        {
+            var r=getNextRow();
+            if (r.isNull) return 1;
+            if (userAskedAbort()) return 1;
+            setGP2(r);
+        }
+    }
+    
+    var r=getNextRow();
+    if (r.isNull) return 1;
+    r.write(); 
+    writeEOL();
+    setGP2(r);
+    return 0;
+}
+</Script>
+</Generic>
+<SelectColumns module='DefaultActions' idx='1387' x='1776' y='252' keep='1'>
+ <c>Title</c>
+ <c>DB</c>
+ <c>Usuario</c>
+ <c>Esquema</c>
+ <c>Tabla</c>
+ <c>Registros_Cargados</c>
+ <c>Hora_Inicio</c>
+ <c>Hora_Final</c>
+</SelectColumns>
+<aggregate idx='1388' x='1320' y='252' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='Oracle_Status_1'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<ReadColumnarGel module='MathParser' idx='1389' x='1188' y='-168' abortIfMissing='0' fileName=':/../Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<Append module='DefaultActions' idx='1390' x='1392' y='-168' output='2'>
+  <c>FE_DATA</c><c>CO_SERVICIO</c><c>CO_SERVICIO_DETALLE</c><c>HO_CONSULTA</c><c>NU_DOC_USUARIO</c><c>NU_DNI_CONSULTA</c><c>NU_CANTIDAD</c><c>FE_CREA_AUDI</c><c>US_CREA_AUDI</c><c>NU_RUC</c><c>FE_MODI_AUDI</c><c>US_MODI_AUDI</c><c>NU_SECUENCIA</c><c>ES_REGISTRO</c><c>CO_TIPO_DOC_USUARIO</c></Append>
+<writeColumnarGel module='MathParser' idx='1391' v='3.19' x='1560' y='-168' file=':/../Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI_TMP.cgel_anatella'/>
+<inlineTable idx='1392' x='1392' y='-72'>
+<ColumnNames><c>C1</c><c>C2</c></ColumnNames>
+<Rows>
+ <r><c>:/../Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI_TMP.cgel_anatella</c><c>:/../Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI.cgel_anatella</c></r>
+ <r><c>:/../Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI_TMP.000.cs_anatella</c><c>:/../Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI.000.cs_anatella</c></r>
+</Rows>
+</inlineTable>
+<Generic idx='1393' x='1560' y='-72' id='simpleFileOps'
+  longName='Simple File Operations'
+  le='1648063873179'
+  abortOnMissingColumn='0'
+  shape='3'
+  keywords='file copy move rename delete'
+  image='/fileOps.svg'
+  author='Frank Vanden Berghen'
+  revision='0.09'
+  tags='600_System Tools'>
+<Description>
+
+</Description>
+<Parameters>
+  <Parameter id='idMode' text='Mode' type='combobox'><meta>&lt;i&gt;Copy Files&lt;/i&gt;&lt;i&gt;Move (or Rename) Files&lt;/i&gt;&lt;i&gt;Delete Files&lt;/i&gt;&lt;i&gt;Create Dir&lt;/i&gt;</meta><data>1</data></Parameter>
+  <Parameter id='idSource' text='Source File' type='onecolumn'><meta>0</meta><data>C1</data></Parameter>
+  <Parameter id='idDestination' text='Destination File' type='onecolumn'><meta>0</meta><data>C2</data></Parameter>
+  <Parameter id='idNAttempts' text='Maximum number of attempts' type='double'>2</Parameter>
+  <Parameter id='msToSleep' text='Wait for X milliseconds between each attempt. X=?' type='double'>5000</Parameter>
+  <Parameter id='idAbort' text='Abort if this still fails after all the attempts' type='bool'>0</Parameter>
+  <Parameter id='idOverwrite' text='Overwrite destination File (for copy/move ops.)' type='bool'>1</Parameter>
+</Parameters>
+<Script>
+var mr,attemptNumber,attemptLeft;
+function parallelRun(v) { return true; }
+
+function init()
+{
+    var r=getCurrentRow();
+    if (r.isNull) return 0;
+    setOutputRowSize(0,r.nColumn+1);
+    idNAttempts--;
+    if (!(idNAttempts>=0)) idNAttempts=0;
+    mr=new Row(1);
+    rowSetColumnName(mr,0,"Op_Status");
+    rowSetMetaType(mr,0,'K');
+    switch(idMode)
+    {
+    case 0:
+    case 1:
+        if (idSource&lt;0) throw "SimpleFileOps: no source?";
+        if (idDestination&lt;0) throw "SimpleFileOps: no destination?";
+        break;
+    case 2:
+    case 3:
+        if (idSource&lt;0) throw "SimpleFileOps: no source?";
+        break;
+    }
+    return 0;
+}
+
+function doWait(s)
+{
+    attemptLeft--;
+    print(s+" Failed: Waiting "+msToSleep+"ms before next attempt...");
+    sleep(msToSleep);
+    attemptNumber++;
+    print("Sleep finished: Attempting "+s+" again ("+attemptNumber+")...");
+}
+
+function overwrite(s)
+{
+    if (!idOverwrite) return 0;
+    for(;;)
+    {
+        a=fileDelete(s,true);
+        if (a&amp;&amp;(!fileExist(s))) break;
+        if (!attemptLeft)
+        {
+            if (idAbort)  throw "Error Overwriting File "+s;
+            break;
+        }
+        doWait("Overwrite");
+        if (userAskedAbort()) return 1;
+    }
+    return 0;
+}
+
+function run()
+{
+    var r=getNextRow();
+    if (r.isNull) return 1;
+    var a;
+    attemptNumber=1;
+    attemptLeft=idNAttempts;
+    switch(idMode)
+    {
+    case 0:
+        {
+            var s=r.col(idSource),d=r.col(idDestination);
+            if (overwrite(d)) return 1;
+            for(;;)
+            {
+                a=fileCopy(s,d,true);
+                if (a) break;
+                if (!attemptLeft)
+                {
+                    if (idAbort)  throw "Error Copying File "+s;
+                    break;
+                }
+                doWait("Copy");
+                if (userAskedAbort()) return 1;
+            }
+            break;
+        }
+    case 1:
+        {
+            var s=r.col(idSource),d=r.col(idDestination);
+            if (overwrite(d)) return 1;
+            for(;;)
+            {
+                a=fileMove(s,d,true);
+                if (a) break;
+                if (!attemptLeft)
+                {
+                    if (idAbort)  throw "Error Moving File "+s;
+                    break;
+                }
+                doWait("Move");
+                if (userAskedAbort()) return 1;
+            }
+            break;
+        }
+    case 2:
+        {
+            var s=r.col(idSource);
+            for(;;)
+            {
+                a=fileDelete(s,true);
+                if (a&amp;&amp;(!fileExist(s))) break;
+                if (!attemptLeft)
+                {
+                    if (idAbort)  throw "Error Deleting File "+s;
+                    break;
+                }
+                doWait("Delete");
+                if (userAskedAbort()) return 1;
+            }
+            break;
+        }
+    case 3:
+        {
+            var s=r.col(idSource);
+            mkDir(s);
+            a=fileExist(s);
+            break;
+        }
+    }
+    r.write(); 
+    mr.setColumn(0,a?1:0);
+    mr.write();
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<writeColumnarGel module='MathParser' idx='1394' v='3.19' x='972' y='360' file=':/../Gel_DataLake/Extraccion/BI/IDO_DATA_BI.BITR_SEC_CARGA_DATA_TMP.cgel_anatella'/>
+<inlineTable idx='1397' x='1464' y='408'>
+<ColumnNames><c>C1</c><c>C2</c></ColumnNames>
+<Rows>
+ <r><c>:/../Gel_DataLake/Extraccion/BI/IDO_DATA_BI.BITR_SEC_CARGA_DATA_TMP.cgel_anatella</c><c>:/../Gel_DataLake/Extraccion/BI/IDO_DATA_BI.BITR_SEC_CARGA_DATA.cgel_anatella</c></r>
+ <r><c>:/../Gel_DataLake/Extraccion/BI/IDO_DATA_BI.BITR_SEC_CARGA_DATA_TMP.000.cs_anatella</c><c>:/../Gel_DataLake/Extraccion/BI/IDO_DATA_BI.BITR_SEC_CARGA_DATA.000.cs_anatella</c></r>
+</Rows>
+</inlineTable>
+<Generic idx='1398' x='1632' y='408' id='simpleFileOps'
+  longName='Simple File Operations'
+  le='1648063873179'
+  abortOnMissingColumn='0'
+  shape='3'
+  keywords='file copy move rename delete'
+  image='/fileOps.svg'
+  author='Frank Vanden Berghen'
+  revision='0.09'
+  tags='600_System Tools'>
+<Description>
+
+</Description>
+<Parameters>
+  <Parameter id='idMode' text='Mode' type='combobox'><meta>&lt;i&gt;Copy Files&lt;/i&gt;&lt;i&gt;Move (or Rename) Files&lt;/i&gt;&lt;i&gt;Delete Files&lt;/i&gt;&lt;i&gt;Create Dir&lt;/i&gt;</meta><data>1</data></Parameter>
+  <Parameter id='idSource' text='Source File' type='onecolumn'><meta>0</meta><data>C1</data></Parameter>
+  <Parameter id='idDestination' text='Destination File' type='onecolumn'><meta>0</meta><data>C2</data></Parameter>
+  <Parameter id='idNAttempts' text='Maximum number of attempts' type='double'>2</Parameter>
+  <Parameter id='msToSleep' text='Wait for X milliseconds between each attempt. X=?' type='double'>500</Parameter>
+  <Parameter id='idAbort' text='Abort if this still fails after all the attempts' type='bool'>0</Parameter>
+  <Parameter id='idOverwrite' text='Overwrite destination File (for copy/move ops.)' type='bool'>1</Parameter>
+</Parameters>
+<Script>
+var mr,attemptNumber,attemptLeft;
+function parallelRun(v) { return true; }
+
+function init()
+{
+    var r=getCurrentRow();
+    if (r.isNull) return 0;
+    setOutputRowSize(0,r.nColumn+1);
+    idNAttempts--;
+    if (!(idNAttempts>=0)) idNAttempts=0;
+    mr=new Row(1);
+    rowSetColumnName(mr,0,"Op_Status");
+    rowSetMetaType(mr,0,'K');
+    switch(idMode)
+    {
+    case 0:
+    case 1:
+        if (idSource&lt;0) throw "SimpleFileOps: no source?";
+        if (idDestination&lt;0) throw "SimpleFileOps: no destination?";
+        break;
+    case 2:
+    case 3:
+        if (idSource&lt;0) throw "SimpleFileOps: no source?";
+        break;
+    }
+    return 0;
+}
+
+function doWait(s)
+{
+    attemptLeft--;
+    print(s+" Failed: Waiting "+msToSleep+"ms before next attempt...");
+    sleep(msToSleep);
+    attemptNumber++;
+    print("Sleep finished: Attempting "+s+" again ("+attemptNumber+")...");
+}
+
+function overwrite(s)
+{
+    if (!idOverwrite) return 0;
+    for(;;)
+    {
+        a=fileDelete(s,true);
+        if (a&amp;&amp;(!fileExist(s))) break;
+        if (!attemptLeft)
+        {
+            if (idAbort)  throw "Error Overwriting File "+s;
+            break;
+        }
+        doWait("Overwrite");
+        if (userAskedAbort()) return 1;
+    }
+    return 0;
+}
+
+function run()
+{
+    var r=getNextRow();
+    if (r.isNull) return 1;
+    var a;
+    attemptNumber=1;
+    attemptLeft=idNAttempts;
+    switch(idMode)
+    {
+    case 0:
+        {
+            var s=r.col(idSource),d=r.col(idDestination);
+            if (overwrite(d)) return 1;
+            for(;;)
+            {
+                a=fileCopy(s,d,true);
+                if (a) break;
+                if (!attemptLeft)
+                {
+                    if (idAbort)  throw "Error Copying File "+s;
+                    break;
+                }
+                doWait("Copy");
+                if (userAskedAbort()) return 1;
+            }
+            break;
+        }
+    case 1:
+        {
+            var s=r.col(idSource),d=r.col(idDestination);
+            if (overwrite(d)) return 1;
+            for(;;)
+            {
+                a=fileMove(s,d,true);
+                if (a) break;
+                if (!attemptLeft)
+                {
+                    if (idAbort)  throw "Error Moving File "+s;
+                    break;
+                }
+                doWait("Move");
+                if (userAskedAbort()) return 1;
+            }
+            break;
+        }
+    case 2:
+        {
+            var s=r.col(idSource);
+            for(;;)
+            {
+                a=fileDelete(s,true);
+                if (a&amp;&amp;(!fileExist(s))) break;
+                if (!attemptLeft)
+                {
+                    if (idAbort)  throw "Error Deleting File "+s;
+                    break;
+                }
+                doWait("Delete");
+                if (userAskedAbort()) return 1;
+            }
+            break;
+        }
+    case 3:
+        {
+            var s=r.col(idSource);
+            mkDir(s);
+            a=fileExist(s);
+            break;
+        }
+    }
+    r.write(); 
+    mr.setColumn(0,a?1:0);
+    mr.write();
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<Append module='DefaultActions' idx='1399' x='624' y='360' output='2'>
+  </Append>
+<aggregate idx='1408' v='2.45' x='-1128' y='12' inRAMAlgo='1' omitSuffix='1' always1Row='1'>
+ <OneAggregate>
+  <GroupBy>
+  </GroupBy>
+  <OutputVars>
+   <v name='NU_SEC' imax='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<ColumnRename module='DefaultActions' idx='1411' x='-984' y='12'><before>
+<c>NU_SEC</c></before><after>
+<c>NU_SEC</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<SelectColumns module='DefaultActions' idx='1413' x='1380' y='-924' keep='1'>
+</SelectColumns>
+<OracleOCI module='Oracle' idx='1414' v='2.54' x='660' y='-804' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' newMode='0' dateFormat='1'>
+<SQL>
+select * from IDODATAMART.LDTF_PROCESO_DNI WHERE FE_DATA &gt;= DATE &apos;2024-06-17&apos;
+</SQL>
+</OracleOCI>
+<FilterRows module='MathParser' idx='1415' x='792' y='-804'>
+ <Expression>atof(left(FE_CREA_AUDI,8))=20231022</Expression>
+ <InputVars>
+    <InputVar column='FE_DATA' label='FE_CREA_AUDI' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<SelectColumns module='DefaultActions' idx='1416' x='948' y='-806.427' keep='0'>
+</SelectColumns>
+<Generic idx='1417' x='1080' y='-912' id='get_meta-data'
+  longName='Get meta-data'
+  le='1444654687384'
+  keywords='meta data extract get'
+  image='/getMetaData.svg'
+  author='Frank Vanden Berghen'
+  revision='0.03'
+  tags='150_Standard'
+  pdfDestination='5_5_14_get_meta_data'>
+<Description>
+Get meta-data: column name &amp; type + sort meta-data.&lt;br/&gt;&lt;br/&gt;
+Do not enable the option &quot;pump all rows from input&quot; unless you know what you are doing
+</Description>
+<Parameters>
+  <Parameter id='readAll' text='pump all rows from input' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+var rIn,rOut,i,ak,at;
+function init()
+{
+    rIn=rowDeepCopy(getCurrentRow());
+    setOutputRowSize(0,5);
+    i=0;
+    rOut=new Row(5);
+    rowSetColumnName(rOut,0,"Before");
+    rowSetColumnName(rOut,1,"After");
+    rowSetColumnName(rOut,2,"Type");
+    rowSetColumnName(rOut,3,"SortPriority");
+    rowSetColumnName(rOut,4,"SortType");
+    
+    var j=rIn.nColumn,k=0;
+    ak=new Array(j); at=new Array(j);
+    while(j--) { ak[j]=null; at[j]=null; }
+    for(;;)
+    {
+        var j=rowGetSortColumnIdx(rIn,k);
+        if (j&lt;0) break;
+        ak[j]=k;
+        at[j]=rowGetSortType(rIn,k);
+        k++;
+    }
+    return 0;
+}
+
+function run()
+{
+    if (i==rIn.nColumn) 
+    {
+        if (readAll)
+        {
+            var r;
+            for(;;)
+            {
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                r=getNextRow();
+                if (r.isNull||userAskedAbort()) return 1;
+            }
+        }
+        return 1;
+    }
+    var cn=rowGetColumnName(rIn,i);
+    rOut.setColumn(0,cn);
+    rOut.setColumn(1,cn);
+    rOut.setColumn(2,rowGetMetaType(rIn,i));
+    rOut.setColumn(3,ak[i]);
+    rOut.setColumn(4,at[i]);
+    i++;
+    rOut.write(); 
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<SelectColumns module='DefaultActions' idx='1418' x='1224' y='-912' keep='1'>
+ <c>Before</c>
+</SelectColumns>
+<ActionCRC module='DefaultActions' idx='1420' x='1548' y='-928.853' minusMode='0' name='concatenation_compressed' mode='3'>
+<c>CO_CORE</c><c>CO_PROCESO</c><c>CO_ETAPA</c><c>CO_RUTA</c><c>CO_LOCAL_CAPTURA</c><c>CO_LOCAL_ENTREGA</c><c>CO_TIPO_TRAMITE</c><c>CO_TIPO_CAPTURA</c><c>CO_TIPO_PAGO</c><c>CO_TIPO_DNI</c><c>TI_DOC_REG_FICHA</c><c>CO_GENERO</c><c>CO_SERV_CAPTURA</c><c>CO_SUBPROCESO</c><c>CO_MOTIVO</c><c>CO_GRUPO_IMPRESION</c><c>CO_CONTINENTE_DOMICILIO</c><c>CO_PAIS_DOMICILIO</c><c>CO_DEPARTAMENTO_DOMICILIO</c><c>CO_PROVINCIA_DOMICILIO</c><c>CO_DISTRITO_DOMICILIO</c><c>CO_SERVIDOR</c><c>CO_ESTADO_CIVIL</c><c>FE_CADUCIDAD</c><c>NU_CANTI</c><c>CO_APLICATIVO</c></ActionCRC>
+<FilterOnKey module='DefaultActions' idx='1421' x='2016' y='-928.853' slaveKey='concatenation_compressed'>
+  <c>concatenation_compressed</c></FilterOnKey>
+<SelectColumns forceHDBuffering='1' module='DefaultActions' idx='1422' x='2148' y='-900' keep='0'>
+ <c>concatenation_compressed</c>
+</SelectColumns>
+<upsertOCI module='Oracle' idx='1423' v='3.01' x='2304' y='-900' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' rowBuffer='2000' dateFormat='YYYYMMDD HH24:MI:SS' errorMode='1' operation='0' table='IDODATAMART.LDTF_PROCESO_DNI'>
+  <keyCols></keyCols>
+  <updateCols><c>CO_CORE</c><c>CO_PROCESO</c><c>CO_ETAPA</c><c>CO_RUTA</c><c>CO_LOCAL_CAPTURA</c><c>CO_LOCAL_ENTREGA</c><c>CO_TIPO_TRAMITE</c><c>CO_SUBTIPO_TRAMITE</c><c>CO_TIPO_CAPTURA</c><c>CO_APLICATIVO</c><c>CO_TIPO_PAGO</c><c>CO_TIPO_DNI</c><c>TI_DOC_REG_FICHA</c><c>CO_GENERO</c><c>IN_ABIS</c><c>CO_CONTINENTE_DOMICILIO</c><c>CO_PAIS_DOMICILIO</c><c>CO_DEPARTAMENTO_DOMICILIO</c><c>CO_PROVINCIA_DOMICILIO</c><c>CO_DISTRITO_DOMICILIO</c><c>NU_EDAD</c><c>CO_SERV_CAPTURA</c><c>IM_RECIBO</c><c>IN_CANAL</c><c>NU_HORA</c><c>FE_CAPTURA</c><c>FE_CARGA_BI</c><c>NU_CANTI</c><c>FE_DATA</c><c>FE_ENVIO_PROC</c><c>US_CREA</c><c>CO_GRUPO_EDAD</c><c>FE_RECE_PROC</c><c>CO_SERVIDOR</c><c>IN_RECUPERADO</c><c>CO_SUBPROCESO</c><c>CO_MOTIVO</c><c>IN_APROBADO</c><c>FE_APROB_PROC</c><c>IN_DECA</c><c>FE_ACT_ANI</c><c>CO_GRUPO_IMPRESION</c><c>IN_ORIGEN_IMPR</c><c>CO_LOCAL_IMPRESION</c><c>FE_GENERA_LOTE</c><c>IN_TRANSFERENCIA</c><c>FE_CADUCIDAD</c><c>CO_LOCAL_CAPT_DNI</c><c>CO_LOCAL_IMPR_DNI</c><c>CO_LOCAL_ENTR_DNI</c><c>IN_PRIORI_IMPR</c><c>CO_GRADO_INSTRUCCION</c><c>IN_DONA_ORGANO</c><c>CO_RESTRICCION</c><c>NU_SEC</c><c>FE_ENVIO_DESP</c><c>FE_RECE_AGEN</c></updateCols>
+  <SQL>INSERT INTO IDODATAMART.LDTF_PROCESO_DNI ("CO_CORE","CO_PROCESO","CO_ETAPA","CO_RUTA","CO_LOCAL_CAPTURA","CO_LOCAL_ENTREGA","CO_TIPO_TRAMITE","CO_SUBTIPO_TRAMITE","CO_TIPO_CAPTURA","CO_APLICATIVO","CO_TIPO_PAGO","CO_TIPO_DNI","TI_DOC_REG_FICHA","CO_GENERO","IN_ABIS","CO_CONTINENTE_DOMICILIO","CO_PAIS_DOMICILIO","CO_DEPARTAMENTO_DOMICILIO","CO_PROVINCIA_DOMICILIO","CO_DISTRITO_DOMICILIO","NU_EDAD","CO_SERV_CAPTURA","IM_RECIBO","IN_CANAL","NU_HORA","FE_CAPTURA","FE_CARGA_BI","NU_CANTI","FE_DATA","US_CREA","CO_GRUPO_EDAD","CO_SERVIDOR","IN_RECUPERADO","CO_SUBPROCESO","CO_MOTIVO","IN_APROBADO","IN_DECA","CO_GRUPO_IMPRESION","IN_ORIGEN_IMPR","CO_LOCAL_IMPRESION","IN_TRANSFERENCIA","CO_LOCAL_CAPT_DNI","CO_LOCAL_IMPR_DNI","CO_LOCAL_ENTR_DNI","IN_PRIORI_IMPR","CO_GRADO_INSTRUCCION","IN_DONA_ORGANO","CO_RESTRICCION","NU_SEC") VALUES (:1,:2,:3,:4,:5,:6,:7,:8,:9,:10,:11,:12,:13,:14,:15,:16,:17,:18,:19,:20,:21,:22,:23,:24,:25,TO_DATE(:26,'YYYYMMDD HH24:MI:SS'),TO_DATE(:27,'YYYYMMDD HH24:MI:SS'),:28,TO_DATE(:29,'YYYYMMDD HH24:MI:SS'),TO_DATE(:30,'YYYYMMDD HH24:MI:SS'),:31,:32,:33,:34,:35,:36,:37,:38,:39,:40,:41,:42,:43,:44,:45,:46,TO_DATE(:47,'YYYYMMDD HH24:MI:SS'),:48,:49)</SQL>
+</upsertOCI>
+<FilterRows module='MathParser' idx='1424' x='2304' y='-792' truncate='1'>
+ <Expression>_n&lt;20</Expression>
+ <InputVars>
+ </InputVars>
+</FilterRows>
+<upsertOCI module='Oracle' idx='1425' v='3.01' x='2460' y='-792' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' rowBuffer='2000' dateFormat='YYYYMMDD HH24:MI:SS' errorMode='1' operation='0' table='IDODATAMART.LDTF_PROCESO_DNI'>
+  <keyCols></keyCols>
+  <updateCols><c>CO_CORE</c><c>CO_PROCESO</c><c>CO_ETAPA</c><c>CO_RUTA</c><c>CO_LOCAL_CAPTURA</c><c>CO_LOCAL_ENTREGA</c><c>CO_TIPO_TRAMITE</c><c>CO_SUBTIPO_TRAMITE</c><c>CO_TIPO_CAPTURA</c><c>CO_APLICATIVO</c><c>CO_TIPO_PAGO</c><c>CO_TIPO_DNI</c><c>TI_DOC_REG_FICHA</c><c>CO_GENERO</c><c>IN_ABIS</c><c>CO_CONTINENTE_DOMICILIO</c><c>CO_PAIS_DOMICILIO</c><c>CO_DEPARTAMENTO_DOMICILIO</c><c>CO_PROVINCIA_DOMICILIO</c><c>CO_DISTRITO_DOMICILIO</c><c>NU_EDAD</c><c>CO_SERV_CAPTURA</c><c>IM_RECIBO</c><c>IN_CANAL</c><c>NU_HORA</c><c>FE_CAPTURA</c><c>FE_CARGA_BI</c><c>NU_CANTI</c><c>FE_DATA</c><c>FE_ENVIO_PROC</c><c>US_CREA</c><c>CO_GRUPO_EDAD</c><c>FE_RECE_PROC</c><c>CO_SERVIDOR</c><c>IN_RECUPERADO</c><c>CO_SUBPROCESO</c><c>CO_MOTIVO</c><c>IN_APROBADO</c><c>FE_APROB_PROC</c><c>IN_DECA</c><c>FE_ACT_ANI</c><c>CO_GRUPO_IMPRESION</c><c>IN_ORIGEN_IMPR</c><c>CO_LOCAL_IMPRESION</c><c>FE_GENERA_LOTE</c><c>IN_TRANSFERENCIA</c><c>FE_CADUCIDAD</c><c>CO_LOCAL_CAPT_DNI</c><c>CO_LOCAL_IMPR_DNI</c><c>CO_LOCAL_ENTR_DNI</c><c>IN_PRIORI_IMPR</c><c>CO_GRADO_INSTRUCCION</c><c>IN_DONA_ORGANO</c><c>CO_RESTRICCION</c><c>NU_SEC</c><c>FE_ENVIO_DESP</c><c>FE_RECE_AGEN</c></updateCols>
+  <SQL>INSERT INTO IDODATAMART.LDTF_PROCESO_DNI ("CO_CORE","CO_PROCESO","CO_ETAPA","CO_RUTA","CO_LOCAL_CAPTURA","CO_LOCAL_ENTREGA","CO_TIPO_TRAMITE","CO_SUBTIPO_TRAMITE","CO_TIPO_CAPTURA","CO_APLICATIVO","CO_TIPO_PAGO","CO_TIPO_DNI","TI_DOC_REG_FICHA","CO_GENERO","IN_ABIS","CO_CONTINENTE_DOMICILIO","CO_PAIS_DOMICILIO","CO_DEPARTAMENTO_DOMICILIO","CO_PROVINCIA_DOMICILIO","CO_DISTRITO_DOMICILIO","NU_EDAD","CO_SERV_CAPTURA","IM_RECIBO","IN_CANAL","NU_HORA","FE_CAPTURA","FE_CARGA_BI","NU_CANTI","FE_DATA","US_CREA","CO_GRUPO_EDAD","CO_SERVIDOR","IN_RECUPERADO","CO_SUBPROCESO","CO_MOTIVO","IN_APROBADO","IN_DECA","CO_GRUPO_IMPRESION","IN_ORIGEN_IMPR","CO_LOCAL_IMPRESION","IN_TRANSFERENCIA","CO_LOCAL_CAPT_DNI","CO_LOCAL_IMPR_DNI","CO_LOCAL_ENTR_DNI","IN_PRIORI_IMPR","CO_GRADO_INSTRUCCION","IN_DONA_ORGANO","CO_RESTRICCION","NU_SEC") VALUES (:1,:2,:3,:4,:5,:6,:7,:8,:9,:10,:11,:12,:13,:14,:15,:16,:17,:18,:19,:20,:21,:22,:23,:24,:25,TO_DATE(:26,'YYYYMMDD HH24:MI:SS'),TO_DATE(:27,'YYYYMMDD HH24:MI:SS'),:28,TO_DATE(:29,'YYYYMMDD HH24:MI:SS'),TO_DATE(:30,'YYYYMMDD HH24:MI:SS'),:31,:32,:33,:34,:35,:36,:37,:38,:39,:40,:41,:42,:43,:44,:45,:46,TO_DATE(:47,'YYYYMMDD HH24:MI:SS'),:48,:49)</SQL>
+</upsertOCI>
+<aggregate idx='1426' x='1716' y='-696' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='concatenation_compressed'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<sort idx='1427' v='3.06' x='1848' y='-696' action='S'>
+  <field type='9'>count</field>
+</sort>
+<sort idx='1428' v='3.06' x='1716' y='-804' action='S'>
+  <field type='A'>concatenation_compressed</field>
+</sort>
+<NaiveDeduplicate module='DefaultActions' idx='1429' x='1848' y='-804' outputDuplicates='1'>
+<c>concatenation_compressed</c>
+</NaiveDeduplicate>
+<ActionCRC module='DefaultActions' idx='1446' x='1548' y='-811.28' minusMode='0' name='concatenation_compressed' mode='3'>
+<c>CO_CORE</c><c>CO_PROCESO</c><c>CO_ETAPA</c><c>CO_RUTA</c><c>CO_LOCAL_CAPTURA</c><c>CO_LOCAL_ENTREGA</c><c>CO_TIPO_TRAMITE</c><c>CO_TIPO_CAPTURA</c><c>CO_TIPO_PAGO</c><c>CO_TIPO_DNI</c><c>TI_DOC_REG_FICHA</c><c>CO_GENERO</c><c>CO_SERV_CAPTURA</c><c>CO_SUBPROCESO</c><c>CO_MOTIVO</c><c>CO_GRUPO_IMPRESION</c><c>CO_CONTINENTE_DOMICILIO</c><c>CO_PAIS_DOMICILIO</c><c>CO_DEPARTAMENTO_DOMICILIO</c><c>CO_PROVINCIA_DOMICILIO</c><c>CO_DISTRITO_DOMICILIO</c><c>CO_SERVIDOR</c><c>CO_ESTADO_CIVIL</c><c>FE_CADUCIDAD</c><c>NU_CANTI</c><c>CO_APLICATIVO</c></ActionCRC>
+<OracleOCI module='Oracle' idx='1454' v='2.54' x='-3312' y='-1116' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' newMode='0' dateFormat='1'>
+<SQL>
+select * from IDODATAMART.LDTF_PROCESO_DNI WHERE FE_DATA = DATE &apos;2023-10-02&apos; and CO_SERV_CAPTURA=&apos;42300400&apos;
+</SQL>
+</OracleOCI>
+<aggregate idx='1455' x='-3036' y='-1152' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='FE_DATA'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<ReadColumnarGel module='MathParser' idx='1456' x='-1248' y='-996' abortIfMissing='0' fileName=':/../Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='1458' x='-996' y='-996'>
+ <Expression>FE_DATA=20240707</Expression>
+ <InputVars>
+    <InputVar column='FE_DATA'/>
+ </InputVars>
+</FilterRows>
+<upsertOCI module='Oracle' idx='1459' v='3.01' x='-756' y='-996' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' rowBuffer='2000' dateFormat='YYYYMMDD HH24:MI:SS' errorMode='1' operation='0' table='IDODATAMART.LDTF_PROCESO_DNI'>
+  <keyCols></keyCols>
+  <updateCols><c>CO_CORE</c><c>CO_PROCESO</c><c>CO_ETAPA</c><c>CO_RUTA</c><c>CO_LOCAL_CAPTURA</c><c>CO_LOCAL_ENTREGA</c><c>CO_TIPO_TRAMITE</c><c>CO_SUBTIPO_TRAMITE</c><c>CO_TIPO_CAPTURA</c><c>CO_APLICATIVO</c><c>CO_TIPO_PAGO</c><c>CO_TIPO_DNI</c><c>TI_DOC_REG_FICHA</c><c>CO_GENERO</c><c>IN_ABIS</c><c>CO_CONTINENTE_DOMICILIO</c><c>CO_PAIS_DOMICILIO</c><c>CO_DEPARTAMENTO_DOMICILIO</c><c>CO_PROVINCIA_DOMICILIO</c><c>CO_DISTRITO_DOMICILIO</c><c>NU_EDAD</c><c>CO_SERV_CAPTURA</c><c>IM_RECIBO</c><c>IN_CANAL</c><c>NU_HORA</c><c>FE_CAPTURA</c><c>FE_CARGA_BI</c><c>NU_CANTI</c><c>FE_DATA</c><c>FE_ENVIO_PROC</c><c>US_CREA</c><c>CO_GRUPO_EDAD</c><c>FE_RECE_PROC</c><c>CO_SERVIDOR</c><c>IN_RECUPERADO</c><c>CO_SUBPROCESO</c><c>CO_MOTIVO</c><c>IN_APROBADO</c><c>FE_APROB_PROC</c><c>IN_DECA</c><c>FE_ACT_ANI</c><c>CO_GRUPO_IMPRESION</c><c>IN_ORIGEN_IMPR</c><c>CO_LOCAL_IMPRESION</c><c>FE_GENERA_LOTE</c><c>IN_TRANSFERENCIA</c><c>FE_CADUCIDAD</c><c>CO_LOCAL_CAPT_DNI</c><c>CO_LOCAL_IMPR_DNI</c><c>CO_LOCAL_ENTR_DNI</c><c>IN_PRIORI_IMPR</c><c>CO_GRADO_INSTRUCCION</c><c>IN_DONA_ORGANO</c><c>CO_RESTRICCION</c><c>NU_SEC</c><c>FE_ENVIO_DESP</c><c>FE_RECE_AGEN</c></updateCols>
+  <SQL>INSERT INTO IDODATAMART.LDTF_PROCESO_DNI ("CO_CORE","CO_PROCESO","CO_ETAPA","CO_RUTA","CO_LOCAL_CAPTURA","CO_LOCAL_ENTREGA","CO_TIPO_TRAMITE","CO_SUBTIPO_TRAMITE","CO_TIPO_CAPTURA","CO_APLICATIVO","CO_TIPO_PAGO","CO_TIPO_DNI","TI_DOC_REG_FICHA","CO_GENERO","IN_ABIS","CO_CONTINENTE_DOMICILIO","CO_PAIS_DOMICILIO","CO_DEPARTAMENTO_DOMICILIO","CO_PROVINCIA_DOMICILIO","CO_DISTRITO_DOMICILIO","NU_EDAD","CO_SERV_CAPTURA","IM_RECIBO","IN_CANAL","NU_HORA","FE_CAPTURA","FE_CARGA_BI","NU_CANTI","FE_DATA","US_CREA","CO_GRUPO_EDAD","CO_SERVIDOR","IN_RECUPERADO","CO_SUBPROCESO","CO_MOTIVO","IN_APROBADO","IN_DECA","CO_GRUPO_IMPRESION","IN_ORIGEN_IMPR","CO_LOCAL_IMPRESION","IN_TRANSFERENCIA","CO_LOCAL_CAPT_DNI","CO_LOCAL_IMPR_DNI","CO_LOCAL_ENTR_DNI","IN_PRIORI_IMPR","CO_GRADO_INSTRUCCION","IN_DONA_ORGANO","CO_RESTRICCION","NU_SEC") VALUES (:1,:2,:3,:4,:5,:6,:7,:8,:9,:10,:11,:12,:13,:14,:15,:16,:17,:18,:19,:20,:21,:22,:23,:24,:25,TO_DATE(:26,'YYYYMMDD HH24:MI:SS'),TO_DATE(:27,'YYYYMMDD HH24:MI:SS'),:28,TO_DATE(:29,'YYYYMMDD HH24:MI:SS'),TO_DATE(:30,'YYYYMMDD HH24:MI:SS'),:31,:32,:33,:34,:35,:36,:37,:38,:39,:40,:41,:42,:43,:44,:45,:46,TO_DATE(:47,'YYYYMMDD HH24:MI:SS'),:48,:49)</SQL>
+</upsertOCI>
+<aggregate idx='1460' x='-516' y='-996' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='Oracle_Status_1'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<ReadColumnarGel module='MathParser' idx='1461' x='-1116' y='-1140' abortIfMissing='0' fileName=':/../Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<aggregate idx='1462' x='-636' y='-1140' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='FE_CARGA_BI'/>
+   <v name='FE_DATA'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<FilterRows module='MathParser' idx='1463' x='-876' y='-1140'>
+ <Expression>FE_DATA>=20231031</Expression>
+ <InputVars>
+    <InputVar column='FE_DATA'/>
+ </InputVars>
+</FilterRows>
+<aggregate idx='1487' x='-1032' y='300' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_PROYECTO'/>
+   <v name='FE_CARGA'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<sort idx='1488' v='3.06' x='-888' y='300' action='S'>
+  <field type='Z'>FE_CARGA</field>
+</sort>
+<FilterRows module='MathParser' idx='1489' x='-1188' y='300'>
+ <Expression>CO_PROYECTO="0001"</Expression>
+ <InputVars>
+    <InputVar column='CO_PROYECTO' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<aggregate idx='1492' x='816' y='-1080' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_MOTIVO'/>
+   <v name='CO_CORE'/>
+   <v name='CO_PROCESO'/>
+   <v name='CO_ETAPA'/>
+   <v name='CO_SUBPROCESO'/>
+   <v name='FE_DATA'/>
+   <v name='FE_CARGA_BI'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<ReadColumnarGel module='MathParser' idx='1493' x='756' y='876' abortIfMissing='0' fileName=':/../Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='1494' x='900' y='876'>
+ <Expression>atof(left(FE_DATA,8))=20240202 || atof(left(FE_DATA,8))=20240201 || atof(left(FE_DATA,8))=20240203</Expression>
+ <InputVars>
+    <InputVar column='FE_DATA' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<aggregate idx='1495' x='1056' y='864' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='FE_DATA'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<Calculator module='MathParser' idx='1497' x='972' y='-1092'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='NewVar'>1</OutputVar>
+  </OutputVars>
+</Calculator>
+<ReadColumnarGel module='MathParser' idx='1498' x='1452' y='612' fileName='&gt;&quot;:/../Gel_DataLake/Extraccion/IDODATAMART/errores_carga_&quot;+P_DFE_DATA+&quot;.cgel_anatella&quot;'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<writeColumnarGel module='MathParser' idx='1499' v='3.19' x='-3180' y='-984' file='F:/ProdAnatella/DM3/backup_co_motivo_31072024/backup_20230601_factDNI-observados.cgel_anatella'/>
+<ReadColumnarGel module='MathParser' idx='1500' x='-1440' y='-1680' fileName='F:/ProdAnatella/backup_20240101_factDNI.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<aggregate idx='1501' x='-1272' y='-1680' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='CO_PROCESO'/>
+   <v name='CO_ETAPA'/>
+   <v name='CO_MOTIVO'/>
+   <v name='IN_APROBADO'/>
+   <v name='FE_DATA'/>
+   <v name='FE_CARGA_BI'/>
+   <v name='CO_APLICATIVO'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='NU_CANTI' sum='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<aggregate idx='1502' x='-1068' y='-1680' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_PROCESO'/>
+   <v name='CO_ETAPA'/>
+   <v name='CO_MOTIVO'/>
+   <v name='IN_APROBADO'/>
+   <v name='CO_APLICATIVO'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='FE_DATA' smin='1' smax='1'/>
+   <v name='NU_CANTI_sum' sum='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<aggregate idx='1503' x='-900' y='-1680' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='CO_MOTIVO'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<aggregate idx='1504' x='-3012' y='-984' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='CO_CORE'/>
+   <v name='CO_PROCESO'/>
+   <v name='CO_ETAPA'/>
+   <v name='CO_RUTA'/>
+   <v name='CO_TIPO_TRAMITE'/>
+   <v name='CO_SUBTIPO_TRAMITE'/>
+   <v name='CO_TIPO_CAPTURA'/>
+   <v name='CO_APLICATIVO'/>
+   <v name='IN_ABIS'/>
+   <v name='FE_CARGA_BI'/>
+   <v name='FE_DATA'/>
+   <v name='NU_CANTI'/>
+   <v name='IN_DECA'/>
+   <v name='CO_MOTIVO'/>
+   <v name='IN_APROBADO'/>
+   <v name='CO_RESTRICCION'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<aggregate idx='1505' x='-2712' y='-960' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='CO_MOTIVO'/>
+   <v name='CO_PROCESO'/>
+   <v name='Mes'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='NU_CANTI' sum='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<Calculator module='MathParser' idx='1507' x='-2856' y='-984'>
+  <InputVars>
+    <InputVar column='FE_DATA' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Mes' meta='U'>substr(FE_DATA,0,6)</OutputVar>
+  </OutputVars>
+</Calculator>
+<OracleOCI module='Oracle' idx='1508' v='2.54' x='-1260' y='-852' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' newMode='0' dateFormat='1'>
+<SQL>
+select * from IDODATAMART.LDTF_PROCESO_DNI WHERE FE_DATA &gt;= DATE &apos;2023-06-01&apos;
+</SQL>
+</OracleOCI>
+<aggregate idx='1509' x='-1068' y='-840' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='FE_DATA'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<sort idx='1510' v='3.06' x='-2580' y='-960' action='S'>
+  <field type='A'>CO_PROCESO</field>
+  <field type='A'>Mes</field>
+  <field type='A'>CO_MOTIVO</field>
+</sort>
+<aggregate idx='1512' x='-2424' y='-972' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='Mes'/>
+   <v name='CO_PROCESO'/>
+   <v name='CO_MOTIVO'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='NU_CANTI_sum' sum='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<ReadColumnarGel module='MathParser' idx='1519' x='-900' y='-1500' abortIfMissing='0' fileName='D:/ProdAnatella/Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<aggregate idx='1520' x='-624' y='-1704' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='FE_DATA'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<sort idx='1521' v='3.06' x='-456' y='-1704' action='S'>
+  <field type='Z'>FE_DATA</field>
+</sort>
+<writeColumnarGel module='MathParser' idx='1522' v='3.19' x='-408' y='-1500' file=':/../Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI_TMP_2.cgel_anatella'/>
+<FilterRows module='MathParser' idx='1523' x='-744' y='-1488'>
+ <Expression>FE_DATA>20240915</Expression>
+ <InputVars>
+    <InputVar column='FE_DATA'/>
+ </InputVars>
+</FilterRows>
+<writeColumnarGel module='MathParser' idx='1524' v='3.19' x='-576' y='-1500' file=':/../Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI_2.cgel_anatella'/>
+<ReadColumnarGel module='MathParser' idx='1525' x='-900' y='-1392' abortIfMissing='0' fileName='D:/ProdAnatella/Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI_TMP.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='1526' x='-756' y='-1380'>
+ <Expression>FE_DATA>20240915</Expression>
+ <InputVars>
+    <InputVar column='FE_DATA'/>
+ </InputVars>
+</FilterRows>
+<writeColumnarGel module='MathParser' idx='1527' v='3.19' x='-588' y='-1380' file='D:/ProdAnatella/Gel_DataLake/Extraccion/IDODATAMART/IDODATAMART.LDTF_PROCESO_DNI_TMP_2.cgel_anatella'/>
+<ReadColumnarGel module='MathParser' idx='1528' x='-4056' y='-984' fileName='F:/ProdAnatella/DM3/backup_co_motivo_31072024/backup_20230601_factDNI-observados.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<aggregate idx='1531' x='-2328' y='-840' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='CO_PROCESO'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<FilterRows module='MathParser' idx='1532' x='-2208' y='-972'>
+ <Expression>1</Expression>
+ <InputVars>
+    <InputVar column='CO_PROCESO' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Flatten module='DefaultActions' idx='1533' v='2.39' x='-1788' y='-996' alternativeNaming='2' key='CO_MOTIVO' category='Mes'>
+ <ToTranspose><c>NU_CANTI_sum_sum</c></ToTranspose>
+ <ToKeep><c>CO_PROCESO</c></ToKeep>
+</Flatten>
+<aggregate idx='1534' x='-2328' y='-708' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='Mes'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<sort idx='1535' v='3.06' x='-2004' y='-984' action='S'>
+  <field type='A'>CO_MOTIVO</field>
+</sort>
+<sort idx='1536' v='3.06' x='-1848' y='-864' action='S'>
+  <field type='A'>CO_PROCESO</field>
+</sort>
+<Calculator module='MathParser' idx='1537' x='-2004' y='-864'>
+  <InputVars>
+    <InputVar column='CO_MOTIVO' label='b' isNumber='0'/>
+    <InputVar column='CO_PROCESO' label='a' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Motivo' meta='U'>a//"-"//b</OutputVar>
+  </OutputVars>
+</Calculator>
+<Flatten module='DefaultActions' idx='1538' v='2.39' x='-1692' y='-864' alternativeNaming='2' key='CO_PROCESO' category='Mes'>
+ <ToTranspose><c>NU_CANTI_sum_sum</c></ToTranspose>
+ <ToKeep><c>Motivo</c></ToKeep>
+</Flatten>
+<writeExcel module='WriteReport' idx='1539' v='3.05' x='-1596' y='-996' fileNameDestination=':/Summary_Observados.xlsx' sheetName='data1'/>
+<writeExcel module='WriteReport' idx='1540' v='3.05' x='-1572' y='-864' mode='1' fileNameDestination=':/Summary_Observados.xlsx' sheetName='data2'/>
+<FilterRows module='MathParser' idx='1541' x='-3060' y='-792'>
+ <Expression>x>=20230801 &amp;&amp; x&lt;=20230831 &amp;&amp; xxx=11</Expression>
+ <InputVars>
+    <InputVar column='FE_DATA' label='x'/>
+    <InputVar column='CO_PROCESO' label='xxx'/>
+ </InputVars>
+</FilterRows>
+<FilterRows module='MathParser' idx='1542' x='-2904' y='-792'>
+ <Expression>x=11</Expression>
+ <InputVars>
+    <InputVar column='CO_PROCESO' label='x'/>
+ </InputVars>
+</FilterRows>
+<FilterRows module='MathParser' idx='1543' x='-2748' y='-756'>
+ <Expression>x!="A01"</Expression>
+ <InputVars>
+    <InputVar column='CO_MOTIVO' label='x' isNumber='0'/>
+    <InputVar column='CO_ETAPA' label='e'/>
+ </InputVars>
+</FilterRows>
+<aggregate idx='1545' x='-2568' y='-792' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_ETAPA'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<FilterRows module='MathParser' idx='1547' x='-3312' y='-684'>
+ <Expression>x=3 &amp;&amp; xx=4 &amp;&amp; xxx=3</Expression>
+ <InputVars>
+    <InputVar column='CO_PROCESO' label='x'/>
+    <InputVar column='CO_SUBPROCESO' label='xx'/>
+    <InputVar column='CO_ETAPA' label='xxx'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='1549' x='-3204' y='-684'>
+  <InputVars>
+    <InputVar column='FE_DATA' label='x' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='mes' meta='U'>substr(x,0,6)</OutputVar>
+  </OutputVars>
+</Calculator>
+<aggregate idx='1550' x='-2916' y='-672' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='mes'/>
+   <v name='CO_RUTA'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='NU_CANTI' sum='1'/>
+  </OutputVars>
+ </OneAggregate>
+ <OneAggregate>
+  <GroupBy>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<FilterRows module='MathParser' idx='1551' x='-3060' y='-684'>
+ <Expression>x=0 || x=2</Expression>
+ <InputVars>
+    <InputVar column='IN_APROBADO' label='x'/>
+ </InputVars>
+</FilterRows>
+<sort idx='1553' v='3.06' x='-2772' y='-660' action='S'>
+  <field type='A'>mes</field>
+  <field type='A'>CO_RUTA</field>
+</sort>
+<OracleOCI module='Oracle' idx='1554' v='2.54' x='-2976' y='-1404' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' newMode='0' dateFormat='1'>
+<SQL>
+select * from IDODATAMART.LDTF_PROCESO_DNI WHERE FE_DATA &gt;= DATE &apos;2023-09-30&apos; and FE_DATA &lt; DATE &apos;2023-10-31&apos; and co_proceso=&apos;08&apos;
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='1557' v='2.54' x='-4332' y='-480' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' newMode='0' dateFormat='1'>
+<SQL>
+select * from DIM_MOTIVO
+</SQL>
+</OracleOCI>
+<sort idx='1558' v='3.06' x='-3876' y='-492' action='S'>
+  <field type='A'>CO_MOTIVO</field>
+</sort>
+<writeColumnarGel module='MathParser' idx='1560' v='3.19' x='-2784' y='-1392' file='F:/ProdAnatella/backup_co_motivo_31072024/Impresiones_202309_202403.cgel_anatella'/>
+<OracleOCI module='Oracle' idx='1561' v='2.54' x='-3768' y='-1836' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' newMode='0' dateFormat='1'>
+<SQL>
+select * from IDODATAMART.LDTF_PROCESO_DNI WHERE FE_DATA &gt;= DATE &apos;2023-09-01&apos; and FE_DATA &lt; DATE &apos;2024-03-31&apos; and co_proceso=&apos;03&apos; and co_subproceso=&apos;04&apos; and co_etapa=&apos;03&apos; and co_ruta=&apos;4&apos;
+</SQL>
+</OracleOCI>
+<writeColumnarGel module='MathParser' idx='1562' v='3.19' x='-3624' y='-1836' file='F:/ProdAnatella/backup_co_motivo_31072024/procesamiento_202309_202403.cgel_anatella'/>
+<ReadColumnarGel module='MathParser' idx='1563' x='-4044' y='-1332' fileName='F:/ProdAnatella/backup_co_motivo_31072024/Impresion/IDO_DATA_BI.LDTT_PROCESO_DNI_IMPR_CALIDAD_M.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='1566' x='-3960' y='-1548' fileName='F:/ProdAnatella/backup_co_motivo_31072024/Impresiones_202309_202403.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='1567' x='-3588' y='-1548'>
+ <Expression>f>=20230930 &amp;&amp; f&lt;=20231031 &amp;&amp; e=3 &amp;&amp; s=8 &amp;&amp; (r=1||r=3||r=4) &amp;&amp; a!="A"</Expression>
+ <InputVars>
+    <InputVar column='FE_DATA' label='f'/>
+    <InputVar column='CO_ETAPA' label='e'/>
+    <InputVar column='CO_SUBPROCESO' label='s'/>
+    <InputVar column='CO_RUTA' label='r'/>
+    <InputVar column='IN_APROBADO' label='a' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<aggregate idx='1569' x='-3612' y='-1656' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='FE_DATA'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<sort idx='1570' v='3.06' x='-3456' y='-1668' action='S'>
+  <field type='A'>FE_DATA</field>
+</sort>
+<FilterRows module='MathParser' idx='1572' x='-3888' y='-1332'>
+ <Expression>f>=20230930 &amp;&amp; f&lt;=20231031 &amp;&amp; a!="A"</Expression>
+ <InputVars>
+    <InputVar column='FE_DATA' label='f'/>
+    <InputVar column='CO_PROCESO' isNumber='0'/>
+    <InputVar column='CO_CORE'/>
+    <InputVar column='CO_SUBPROCESO'/>
+    <InputVar column='CO_ETAPA'/>
+    <InputVar column='CO_RUTA'/>
+    <InputVar column='IN_APROBADO' label='a' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<aggregate idx='1573' x='-3564' y='-1332' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='FE_DATA'/>
+   <v name='CO_ETAPA'/>
+   <v name='CO_RUTA'/>
+   <v name='CO_MOTIVO'/>
+   <v name='IN_APROBADO'/>
+   <v name='CO_TIPO_DNI'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<FilterRows module='MathParser' idx='1574' x='-4176' y='-480'>
+ <Expression>CO_MOTIVO="A01"</Expression>
+ <InputVars>
+    <InputVar column='CO_MOTIVO' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<sort idx='1576' v='3.06' x='-3264' y='-1380' action='S'>
+  <field type='A'>FE_DATA</field>
+  <field type='A'>CO_ETAPA</field>
+  <field type='A'>CO_RUTA</field>
+  <field type='A'>CO_TIPO_DNI</field>
+</sort>
+<aggregate idx='1577' x='-3420' y='-1548' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='FE_DATA'/>
+   <v name='CO_CORE'/>
+   <v name='CO_PROCESO'/>
+   <v name='CO_SUBPROCESO'/>
+   <v name='CO_ETAPA'/>
+   <v name='CO_RUTA'/>
+   <v name='CO_MOTIVO'/>
+   <v name='IN_APROBADO'/>
+   <v name='CO_TIPO_DNI'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='NU_CANTI' sum='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<sort idx='1578' v='3.06' x='-3144' y='-1572' action='S'>
+  <field type='A'>FE_DATA</field>
+  <field type='A'>CO_CORE</field>
+  <field type='A'>CO_PROCESO</field>
+  <field type='A'>CO_SUBPROCESO</field>
+  <field type='A'>CO_ETAPA</field>
+  <field type='A'>CO_RUTA</field>
+</sort>
+<OracleOCI module='Oracle' idx='1579' v='2.54' x='-2268' y='-1404' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' newMode='0' dateFormat='1'>
+<SQL>
+select * from IDODATAMART.LDTF_PROCESO_DNI WHERE FE_DATA &gt;= DATE &apos;2023-08-01&apos; and FE_DATA &lt; DATE &apos;2023-08-31&apos; and co_proceso=&apos;08&apos;
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='1580' v='2.54' x='-4332' y='-372' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' newMode='0' dateFormat='1'>
+<SQL>
+select * from ldds_ind_aprobacion
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='1581' v='2.54' x='-1908' y='-1896' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' newMode='0' dateFormat='1'>
+<SQL>
+select table_name from all_tables
+</SQL>
+</OracleOCI>
+<sort idx='1582' v='3.06' x='-1692' y='-1896' action='S'>
+  <field type='A'>TABLE_NAME</field>
+</sort>
+<sort idx='1583' v='3.06' x='-4188' y='-372' action='S'>
+  <field type='A'>IN_APROBACION</field>
+</sort>
+<aggregate idx='1585' x='-3264' y='-1236' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='CO_TIPO_DNI'/>
+   <v name='IN_APROBADO'/>
+   <v name='CO_MOTIVO'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<aggregate idx='1586' x='-3816' y='-1512' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='IN_APROBADO'/>
+   <v name='CO_MOTIVO'/>
+   <v name='CO_TIPO_DNI'/>
+   <v name='CO_CORE'/>
+   <v name='CO_PROCESO'/>
+   <v name='CO_ETAPA'/>
+   <v name='CO_RUTA'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<SelectColumns module='DefaultActions' idx='1587' x='-3744' y='-1332' keep='0'>
+ <c>CO_CORE</c>
+ <c>CO_PROCESO</c>
+ <c>CO_SUBPROCESO</c>
+</SelectColumns>
+<ReadColumnarGel module='MathParser' idx='1590' x='-4500' y='-252' fileName='F:/ProdAnatella/DM3/backup_co_motivo_31072024/procesamiento/historicoOCT2023.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='1596' x='-4536' y='0' fileName='F:/ProdAnatella/DM3/backup_co_motivo_31072024/procesamiento/klever_procesamiento.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='1608' x='-4356' y='-252'>
+ <Expression>F>=20231001 &amp;&amp; F&lt;=20240214 &amp;&amp; P=3 &amp;&amp; S=4 &amp;&amp; E=3 &amp;&amp; R!=4</Expression>
+ <InputVars>
+    <InputVar column='FE_DATA' label='F'/>
+    <InputVar column='CO_PROCESO' label='P'/>
+    <InputVar column='CO_SUBPROCESO' label='S'/>
+    <InputVar column='CO_ETAPA' label='E'/>
+    <InputVar column='CO_RUTA' label='R'/>
+ </InputVars>
+</FilterRows>
+<FilterRows module='MathParser' idx='1612' x='-4200' y='-252'>
+ <Expression>A=0 || A=2</Expression>
+ <InputVars>
+    <InputVar column='IN_APROBADO' label='A'/>
+ </InputVars>
+</FilterRows>
+<FilterRows module='MathParser' idx='1613' x='-4380' y='0'>
+ <Expression>F>=20231001 &amp;&amp; F&lt;=20240214 &amp;&amp; P=3 &amp;&amp; S=4 &amp;&amp; E=3 &amp;&amp; R!=4</Expression>
+ <InputVars>
+    <InputVar column='FE_DATA' label='F'/>
+    <InputVar column='CO_PROCESO' label='P'/>
+    <InputVar column='CO_SUBPROCESO' label='S'/>
+    <InputVar column='CO_ETAPA' label='E'/>
+    <InputVar column='CO_RUTA' label='R'/>
+ </InputVars>
+</FilterRows>
+<FilterRows module='MathParser' idx='1614' x='-4236' y='0'>
+ <Expression>A=0 || A=2</Expression>
+ <InputVars>
+    <InputVar column='IN_APROBADO' label='A'/>
+ </InputVars>
+</FilterRows>
+<inlineTable idx='1619' x='-4080' y='144'>
+<ColumnNames><c>C1</c></ColumnNames>
+<Rows>
+ <r><c>CO_CORE</c></r>
+ <r><c>CO_PROCESO</c></r>
+ <r><c>CO_ETAPA</c></r>
+ <r><c>CO_RUTA</c></r>
+ <r><c>CO_LOCAL_CAPTURA</c></r>
+ <r><c>CO_LOCAL_ENTREGA</c></r>
+ <r><c>CO_TIPO_TRAMITE</c></r>
+ <r><c>CO_SUBTIPO_TRAMITE</c></r>
+ <r><c>CO_TIPO_CAPTURA</c></r>
+ <r><c>CO_APLICATIVO</c></r>
+ <r><c>CO_TIPO_PAGO</c></r>
+ <r><c>CO_TIPO_DNI</c></r>
+ <r><c>TI_DOC_REG_FICHA</c></r>
+ <r><c>CO_GENERO</c></r>
+ <r><c>IN_ABIS</c></r>
+ <r><c>CO_CONTINENTE_DOMICILIO</c></r>
+ <r><c>CO_PAIS_DOMICILIO</c></r>
+ <r><c>CO_DEPARTAMENTO_DOMICILIO</c></r>
+ <r><c>CO_PROVINCIA_DOMICILIO</c></r>
+ <r><c>CO_DISTRITO_DOMICILIO</c></r>
+ <r><c>NU_EDAD</c></r>
+ <r><c>CO_SERV_CAPTURA</c></r>
+ <r><c>IM_RECIBO</c></r>
+ <r><c>IN_CANAL</c></r>
+ <r><c>NU_HORA</c></r>
+ <r><c>FE_CAPTURA</c></r>
+ <r><c>FE_DATA</c></r>
+ <r><c>FE_ENVIO_PROC</c></r>
+ <r><c>CO_GRUPO_EDAD</c></r>
+ <r><c>FE_RECE_PROC</c></r>
+ <r><c>CO_SERVIDOR</c></r>
+ <r><c>IN_RECUPERADO</c></r>
+ <r><c>CO_SUBPROCESO</c></r>
+ <r><c>IN_DECA</c></r>
+ <r><c>IN_APROBADO</c></r>
+ <r><c>CO_GRADO_INSTRUCCION</c></r>
+ <r><c>CO_RESTRICCION</c></r>
+ <r><c>CO_ESTADO_CIVIL</c></r>
+ <r><c>FE_CADUCIDAD</c></r>
+ <r><c>IN_DONA_ORGANO</c></r>
+</Rows>
+</inlineTable>
+<writeColumnarGel module='MathParser' idx='1622' v='3.19' x='792' y='-552' file='F:/ProdAnatella/DM3/backup_co_motivo_31072024/procesamiento/klever_procesamiento.cgel_anatella'/>
+<Calculator module='MathParser' idx='1636' x='-3780' y='-252'>
+  <InputVars>
+    <InputVar column='CO_CORE' isNumber='0'/>
+    <InputVar column='CO_PROCESO' isNumber='0'/>
+    <InputVar column='CO_ETAPA' isNumber='0'/>
+    <InputVar column='CO_RUTA' isNumber='0'/>
+    <InputVar column='CO_LOCAL_CAPTURA' isNumber='0'/>
+    <InputVar column='CO_LOCAL_ENTREGA' isNumber='0'/>
+    <InputVar column='CO_TIPO_TRAMITE' isNumber='0'/>
+    <InputVar column='CO_SUBTIPO_TRAMITE' isNumber='0'/>
+    <InputVar column='CO_TIPO_CAPTURA' isNumber='0'/>
+    <InputVar column='CO_APLICATIVO' isNumber='0'/>
+    <InputVar column='CO_TIPO_PAGO' isNumber='0'/>
+    <InputVar column='CO_TIPO_DNI' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' isNumber='0'/>
+    <InputVar column='CO_GENERO' isNumber='0'/>
+    <InputVar column='IN_ABIS' isNumber='0'/>
+    <InputVar column='CO_CONTINENTE_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_PAIS_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_DEPARTAMENTO_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_PROVINCIA_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_DISTRITO_DOMICILIO' isNumber='0'/>
+    <InputVar column='NU_EDAD' isNumber='0' meta='F'/>
+    <InputVar column='CO_SERV_CAPTURA' isNumber='0'/>
+    <InputVar column='IM_RECIBO' isNumber='0' meta='F'/>
+    <InputVar column='IN_CANAL' isNumber='0'/>
+    <InputVar column='NU_HORA' isNumber='0'/>
+    <InputVar column='FE_CAPTURA' isNumber='0'/>
+    <InputVar column='FE_DATA' isNumber='0'/>
+    <InputVar column='FE_ENVIO_PROC' isNumber='0'/>
+    <InputVar column='CO_GRUPO_EDAD' isNumber='0'/>
+    <InputVar column='FE_RECE_PROC' isNumber='0'/>
+    <InputVar column='CO_SERVIDOR' isNumber='0'/>
+    <InputVar column='IN_RECUPERADO' isNumber='0'/>
+    <InputVar column='CO_SUBPROCESO' isNumber='0'/>
+    <InputVar column='IN_DECA' isNumber='0'/>
+    <InputVar column='IN_APROBADO' isNumber='0'/>
+    <InputVar column='CO_GRADO_INSTRUCCION' isNumber='0'/>
+    <InputVar column='CO_RESTRICCION' isNumber='0'/>
+    <InputVar column='CO_ESTADO_CIVIL' isNumber='0'/>
+    <InputVar column='FE_CADUCIDAD' isNumber='0'/>
+    <InputVar column='IN_DONA_ORGANO' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='LLAVE' meta='U'>CO_CORE//"-"//CO_PROCESO//"-"//CO_ETAPA//"-"//CO_RUTA//"-"//CO_TIPO_TRAMITE//"-"//CO_SUBTIPO_TRAMITE//"-"//CO_TIPO_CAPTURA//"-"//CO_APLICATIVO//"-"//CO_TIPO_PAGO//"-"//CO_TIPO_DNI//"-"//TI_DOC_REG_FICHA//"-"//CO_GENERO//"-"//IN_ABIS//"-"//CO_CONTINENTE_DOMICILIO//"-"//CO_PAIS_DOMICILIO//"-"//CO_DEPARTAMENTO_DOMICILIO//"-"//CO_PROVINCIA_DOMICILIO//"-"//CO_DISTRITO_DOMICILIO//"-"//IM_RECIBO//"-"//IN_CANAL//"-"//NU_HORA//"-"//FE_CAPTURA//"-"//FE_DATA//"-"//CO_SERVIDOR//"-"//CO_SUBPROCESO//"-"//IN_DECA//"-"//IN_APROBADO//"-"//CO_RESTRICCION//"-"//IN_DONA_ORGANO</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='1637' x='-3852' y='-12'>
+  <InputVars>
+    <InputVar column='CO_CORE' isNumber='0'/>
+    <InputVar column='CO_PROCESO' isNumber='0'/>
+    <InputVar column='CO_ETAPA' isNumber='0'/>
+    <InputVar column='CO_RUTA' isNumber='0'/>
+    <InputVar column='CO_LOCAL_CAPTURA' isNumber='0'/>
+    <InputVar column='CO_LOCAL_ENTREGA' isNumber='0'/>
+    <InputVar column='CO_TIPO_TRAMITE' isNumber='0'/>
+    <InputVar column='CO_SUBTIPO_TRAMITE' isNumber='0'/>
+    <InputVar column='CO_TIPO_CAPTURA' isNumber='0'/>
+    <InputVar column='CO_APLICATIVO' isNumber='0'/>
+    <InputVar column='CO_TIPO_PAGO' isNumber='0'/>
+    <InputVar column='CO_TIPO_DNI' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' isNumber='0'/>
+    <InputVar column='CO_GENERO' isNumber='0'/>
+    <InputVar column='IN_ABIS' isNumber='0'/>
+    <InputVar column='CO_CONTINENTE_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_PAIS_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_DEPARTAMENTO_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_PROVINCIA_DOMICILIO' isNumber='0'/>
+    <InputVar column='CO_DISTRITO_DOMICILIO' isNumber='0'/>
+    <InputVar column='NU_EDAD' isNumber='0' meta='F'/>
+    <InputVar column='CO_SERV_CAPTURA' isNumber='0'/>
+    <InputVar column='IM_RECIBO' isNumber='0' meta='F'/>
+    <InputVar column='IN_CANAL' isNumber='0'/>
+    <InputVar column='NU_HORA' isNumber='0'/>
+    <InputVar column='FE_CAPTURA' isNumber='0'/>
+    <InputVar column='FE_DATA' isNumber='0'/>
+    <InputVar column='FE_ENVIO_PROC' isNumber='0'/>
+    <InputVar column='CO_GRUPO_EDAD' isNumber='0'/>
+    <InputVar column='FE_RECE_PROC' isNumber='0'/>
+    <InputVar column='CO_SERVIDOR' isNumber='0'/>
+    <InputVar column='IN_RECUPERADO' isNumber='0'/>
+    <InputVar column='CO_SUBPROCESO' isNumber='0'/>
+    <InputVar column='IN_DECA' isNumber='0'/>
+    <InputVar column='IN_APROBADO' isNumber='0'/>
+    <InputVar column='CO_GRADO_INSTRUCCION' isNumber='0'/>
+    <InputVar column='CO_RESTRICCION' isNumber='0'/>
+    <InputVar column='CO_ESTADO_CIVIL' isNumber='0'/>
+    <InputVar column='FE_CADUCIDAD' isNumber='0'/>
+    <InputVar column='IN_DONA_ORGANO' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='LLAVE' meta='U'>CO_CORE//"-"//CO_PROCESO//"-"//CO_ETAPA//"-"//CO_RUTA//"-"//CO_TIPO_TRAMITE//"-"//CO_SUBTIPO_TRAMITE//"-"//CO_TIPO_CAPTURA//"-"//CO_APLICATIVO//"-"//CO_TIPO_PAGO//"-"//CO_TIPO_DNI//"-"//TI_DOC_REG_FICHA//"-"//CO_GENERO//"-"//IN_ABIS//"-"//CO_CONTINENTE_DOMICILIO//"-"//CO_PAIS_DOMICILIO//"-"//CO_DEPARTAMENTO_DOMICILIO//"-"//CO_PROVINCIA_DOMICILIO//"-"//CO_DISTRITO_DOMICILIO//"-"//IM_RECIBO//"-"//IN_CANAL//"-"//NU_HORA//"-"//FE_CAPTURA//"-"//FE_DATA//"-"//CO_SERVIDOR//"-"//CO_SUBPROCESO//"-"//IN_DECA//"-"//IN_APROBADO//"-"//CO_RESTRICCION//"-"//IN_DONA_ORGANO</OutputVar>
+    <OutputVar name='cruzo'>1</OutputVar>
+  </OutputVars>
+</Calculator>
+<sort idx='1638' v='3.06' x='-3624' y='-252' action='S'>
+  <field type='A'>LLAVE</field>
+</sort>
+<sort idx='1639' v='3.06' x='-3456' y='-12' action='S'>
+  <field type='A'>LLAVE</field>
+</sort>
+<Join module='DefaultActions' idx='1640' x='-3324' y='-120' joinMode='1' keyA='LLAVE'>
+<SlaveKeys><c>LLAVE</c></SlaveKeys>
+<Prefixes><c></c><c></c></Prefixes>
+</Join>
+<SelectColumns module='DefaultActions' idx='1641' x='-3660' y='-12' keep='1'>
+ <c>LLAVE</c>
+ <c>CO_MOTIVO</c>
+ <c>cruzo</c>
+</SelectColumns>
+<SelectColumns module='DefaultActions' idx='1642' x='-3924' y='-252' keep='0'>
+ <c>CO_MOTIVO</c>
+</SelectColumns>
+<SelectColumns module='DefaultActions' idx='1645' x='-3852' y='132' keep='1'>
+</SelectColumns>
+<SelectColumns module='DefaultActions' idx='1647' x='-3180' y='-120' keep='1'>
+ <c>CO_CORE</c>
+ <c>CO_PROCESO</c>
+ <c>CO_ETAPA</c>
+ <c>CO_RUTA</c>
+ <c>CO_LOCAL_CAPTURA</c>
+ <c>CO_LOCAL_ENTREGA</c>
+ <c>CO_TIPO_TRAMITE</c>
+ <c>CO_SUBTIPO_TRAMITE</c>
+ <c>CO_TIPO_CAPTURA</c>
+ <c>CO_APLICATIVO</c>
+ <c>CO_TIPO_PAGO</c>
+ <c>CO_TIPO_DNI</c>
+ <c>TI_DOC_REG_FICHA</c>
+ <c>CO_GENERO</c>
+ <c>IN_ABIS</c>
+ <c>CO_CONTINENTE_DOMICILIO</c>
+ <c>CO_PAIS_DOMICILIO</c>
+ <c>CO_DEPARTAMENTO_DOMICILIO</c>
+ <c>CO_PROVINCIA_DOMICILIO</c>
+ <c>CO_DISTRITO_DOMICILIO</c>
+ <c>NU_EDAD</c>
+ <c>CO_SERV_CAPTURA</c>
+ <c>IM_RECIBO</c>
+ <c>IN_CANAL</c>
+ <c>NU_HORA</c>
+ <c>FE_CAPTURA</c>
+ <c>FE_CARGA_BI</c>
+ <c>NU_CANTI</c>
+ <c>NU_SEC</c>
+ <c>FE_DATA</c>
+ <c>FE_ENVIO_PROC</c>
+ <c>US_CREA</c>
+ <c>CO_GRUPO_EDAD</c>
+ <c>FE_RECE_PROC</c>
+ <c>CO_SERVIDOR</c>
+ <c>IN_RECUPERADO</c>
+ <c>CO_SUBPROCESO</c>
+ <c>IN_DECA</c>
+ <c>CO_MOTIVO</c>
+ <c>IN_APROBADO</c>
+ <c>FE_APROB_PROC</c>
+ <c>IN_PRIORI_IMPR</c>
+ <c>FE_ACT_ANI</c>
+ <c>CO_GRUPO_IMPRESION</c>
+ <c>IN_ORIGEN_IMPR</c>
+ <c>CO_LOCAL_IMPRESION</c>
+ <c>CO_LOCAL_CAPT_DNI</c>
+ <c>CO_LOCAL_ENTR_DNI</c>
+ <c>CO_LOCAL_IMPR_DNI</c>
+ <c>FE_GENERA_LOTE</c>
+ <c>IN_TRANSFERENCIA</c>
+ <c>FE_ENVIO_DESP</c>
+ <c>FE_RECE_AGEN</c>
+ <c>CO_ESTADO_CIVIL</c>
+ <c>CO_GRADO_INSTRUCCION</c>
+ <c>CO_RESTRICCION</c>
+ <c>FE_CADUCIDAD</c>
+ <c>IN_DONA_ORGANO</c>
+</SelectColumns>
+<writeColumnarGel module='MathParser' idx='1657' v='3.19' x='-2832' y='-108' file='F:/ProdAnatella/DM3/backup_co_motivo_31072024/procesamiento/oBSERVADOSaCTUALIZAR.cgel_anatella'/>
+<OracleOCI module='Oracle' idx='1720' v='3.15' x='-4716' y='312' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' mode='1' newMode='0' dateFormat='1'>
+<SQL>
+UPDATE IDODATAMART.LDTF_PROCESO_DNI SET &quot;CO_MOTIVO&quot;=&apos;A01&apos; WHERE ((&quot;CO_CORE&quot;=&apos;01&apos;)AND(&quot;CO_PROCESO&quot;=&apos;03&apos;)AND(&quot;CO_ETAPA&quot;=&apos;03&apos;)AND(&quot;CO_RUTA&quot;=&apos;1&apos;)AND(&quot;CO_LOCAL_CAPTURA&quot;=&apos;000209&apos;)AND(&quot;CO_LOCAL_ENTREGA&quot;=&apos;000209&apos;)AND(&quot;CO_TIPO_TRAMITE&quot;=&apos;I&apos;)AND(&quot;CO_SUBTIPO_TRAMITE&quot;=&apos;A&apos;)AND(&quot;CO_TIPO_CAPTURA&quot;=&apos;2&apos;)AND(&quot;CO_APLICATIVO&quot;=&apos;004&apos;)AND(&quot;CO_TIPO_PAGO&quot;=&apos;0&apos;)AND(&quot;CO_TIPO_DNI&quot;=&apos;0&apos;)AND(&quot;TI_DOC_REG_FICHA&quot;=&apos;E&apos;)AND(&quot;CO_GENERO&quot;=&apos;1&apos;)AND(&quot;IN_ABIS&quot;=&apos;0&apos;)AND(&quot;CO_CONTINENTE_DOMICILIO&quot;=&apos;92&apos;)AND(&quot;CO_PAIS_DOMICILIO&quot;=&apos;33&apos;)AND(&quot;CO_DEPARTAMENTO_DOMICILIO&quot;=&apos;11&apos;)AND(&quot;CO_PROVINCIA_DOMICILIO&quot;=&apos;06&apos;)AND(&quot;CO_DISTRITO_DOMICILIO&quot;=&apos;06&apos;)AND(&quot;NU_EDAD&quot;=&apos;0&apos;)AND(&quot;CO_SERV_CAPTURA&quot;=&apos;42300400&apos;)AND(&quot;IM_RECIBO&quot;=&apos;16&apos;)AND(&quot;IN_CANAL&quot;=&apos;00&apos;)AND(&quot;NU_HORA&quot;=&apos;11&apos;)AND(&quot;FE_CAPTURA&quot;=TO_DATE(&apos;20230922&apos;,&apos;YYYYMMDD HH24:MI:SS&apos;))AND(&quot;NU_CANTI&quot;=&apos;1&apos;)AND(&quot;NU_SEC&quot;=&apos;1&apos;)AND(&quot;FE_DATA&quot;=TO_DATE(&apos;20231002&apos;,&apos;YYYYMMDD HH24:MI:SS&apos;))AND(&quot;FE_ENVIO_PROC&quot;=TO_DATE(&apos;20230922&apos;,&apos;YYYYMMDD HH24:MI:SS&apos;))AND(&quot;US_CREA&quot;=&apos;BIADMIN&apos;)AND(&quot;CO_GRUPO_EDAD&quot;=&apos;0&apos;)AND(&quot;FE_RECE_PROC&quot;=TO_DATE(&apos;20230925&apos;,&apos;YYYYMMDD HH24:MI:SS&apos;))AND(&quot;CO_SERVIDOR&quot;=&apos;09960703&apos;)AND(&quot;IN_RECUPERADO&quot;=&apos;N&apos;)AND(&quot;CO_SUBPROCESO&quot;=&apos;04&apos;)AND(&quot;IN_DECA&quot;=&apos;0&apos;)AND(&quot;IN_APROBADO&quot;=&apos;0&apos;)AND(&quot;FE_APROB_PROC&quot; is null)AND(&quot;IN_PRIORI_IMPR&quot; is null)AND(&quot;FE_ACT_ANI&quot; is null)AND(&quot;CO_GRUPO_IMPRESION&quot; is null)AND(&quot;IN_ORIGEN_IMPR&quot; is null)AND(&quot;CO_LOCAL_IMPRESION&quot;=&apos;000529&apos;)AND(&quot;CO_LOCAL_CAPT_DNI&quot;=&apos;000286&apos;)AND(&quot;CO_LOCAL_ENTR_DNI&quot;=&apos;000286&apos;)AND(&quot;CO_LOCAL_IMPR_DNI&quot; is null)AND(&quot;FE_GENERA_LOTE&quot; is null)AND(&quot;IN_TRANSFERENCIA&quot;=&apos;0&apos;)AND(&quot;FE_ENVIO_DESP&quot; is null)AND(&quot;FE_RECE_AGEN&quot; is null)AND(&quot;CO_ESTADO_CIVIL&quot; is null)AND(&quot;CO_GRADO_INSTRUCCION&quot;=&apos;4&apos;)AND(&quot;CO_RESTRICCION&quot; is null)AND(&quot;FE_CADUCIDAD&quot; is null)AND(&quot;IN_DONA_ORGANO&quot; is null))
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='1721' v='2.54' x='-4716' y='444' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' newMode='0' dateFormat='1'>
+<SQL>
+select * from IDODATAMART.LDTF_PROCESO_DNI WHERE 
+(&quot;CO_CORE&quot;=&apos;01&apos;)AND
+(&quot;CO_PROCESO&quot;=&apos;03&apos;)AND
+(&quot;CO_ETAPA&quot;=&apos;03&apos;)AND
+(&quot;CO_RUTA&quot;=&apos;1&apos;)AND
+(&quot;CO_LOCAL_CAPTURA&quot;=&apos;000209&apos;)AND
+(&quot;CO_LOCAL_ENTREGA&quot;=&apos;000209&apos;)AND
+(&quot;CO_TIPO_TRAMITE&quot;=&apos;I&apos;)AND
+(&quot;CO_SUBTIPO_TRAMITE&quot;=&apos;A&apos;)AND
+(&quot;CO_TIPO_CAPTURA&quot;=&apos;2&apos;)AND
+(&quot;CO_APLICATIVO&quot;=&apos;004&apos;)AND
+(&quot;CO_TIPO_PAGO&quot;=&apos;0&apos;)AND
+(&quot;CO_TIPO_DNI&quot;=&apos;0&apos;)AND
+(&quot;TI_DOC_REG_FICHA&quot;=&apos;E&apos;)AND
+(&quot;CO_GENERO&quot;=&apos;1&apos;)AND
+(&quot;IN_ABIS&quot;=&apos;0&apos;)AND
+(&quot;CO_CONTINENTE_DOMICILIO&quot;=&apos;92&apos;)AND
+(&quot;CO_PAIS_DOMICILIO&quot;=&apos;33&apos;)AND
+(&quot;CO_DEPARTAMENTO_DOMICILIO&quot;=&apos;11&apos;)AND
+(&quot;CO_PROVINCIA_DOMICILIO&quot;=&apos;06&apos;)AND
+(&quot;CO_DISTRITO_DOMICILIO&quot;=&apos;06&apos;)AND
+(&quot;NU_EDAD&quot;=0)AND
+(&quot;CO_SERV_CAPTURA&quot;=&apos;42300400&apos;)AND
+(&quot;IM_RECIBO&quot;=16)AND
+(&quot;IN_CANAL&quot;=&apos;00&apos;)AND
+(&quot;NU_HORA&quot;=&apos;11&apos;)AND
+(&quot;FE_CAPTURA&quot;=TO_DATE(&apos;20230922&apos;,&apos;YYYYMMDD HH24:MI:SS&apos;))AND
+(&quot;FE_DATA&quot;=TO_DATE(&apos;20231002&apos;,&apos;YYYYMMDD HH24:MI:SS&apos;))AND
+(&quot;FE_ENVIO_PROC&quot;=TO_DATE(&apos;20230922&apos;,&apos;YYYYMMDD HH24:MI:SS&apos;))AND
+(&quot;CO_GRUPO_EDAD&quot;=&apos;0&apos;)AND
+(&quot;FE_RECE_PROC&quot;=TO_DATE(&apos;20230925&apos;,&apos;YYYYMMDD HH24:MI:SS&apos;))AND
+(&quot;CO_SERVIDOR&quot;=&apos;09960703&apos;)AND
+(&quot;IN_RECUPERADO&quot;=&apos;N&apos;)AND
+(&quot;CO_SUBPROCESO&quot;=&apos;04&apos;)AND
+(&quot;IN_DECA&quot;=&apos;0&apos;)AND
+(&quot;IN_APROBADO&quot;=&apos;0&apos;)AND
+(&quot;CO_GRADO_INSTRUCCION&quot;=&apos;4&apos;)AND
+(&quot;CO_RESTRICCION&quot; IS NULL)AND
+(&quot;CO_ESTADO_CIVIL&quot; IS NULL)AND
+(&quot;FE_CADUCIDAD&quot; IS NULL)AND
+(&quot;IN_DONA_ORGANO&quot; IS NULL)
+</SQL>
+</OracleOCI>
+<SelectColumns module='DefaultActions' idx='1730' x='-4620' y='312' keep='1'>
+ <c>CO_MOTIVO</c>
+</SelectColumns>
+<aggregate idx='1735' x='-2664' y='-108' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_CORE'/>
+   <v name='CO_PROCESO'/>
+   <v name='CO_ETAPA'/>
+   <v name='CO_RUTA'/>
+   <v name='IN_APROBADO'/>
+   <v name='CO_MOTIVO'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='NU_CANTI' sum='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<FilterRows module='MathParser' idx='1739' x='-3024' y='-120'>
+ <Expression>1</Expression>
+ <InputVars>
+    <InputVar column='CO_MOTIVO' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<OracleOCI forceHDBuffering='1' module='Oracle' idx='1755' v='3.15' x='-2400' y='408' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' mode='1' newMode='0' dateFormat='1' SQLCol='SQL'>
+<SQL>
+&gt;&quot;UPDATE IDODATAMART.LDTF_PROCESO_DNI SET &quot; + Columns1 + &quot; = &apos;&quot; + Valor + &quot;&apos; WHERE &quot; + Where1
+</SQL>
+</OracleOCI>
+<aggregate idx='1756' x='-2892' y='-396' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='CO_CORE'/>
+   <v name='CO_PROCESO'/>
+   <v name='CO_ETAPA'/>
+   <v name='CO_RUTA'/>
+   <v name='CO_LOCAL_CAPTURA'/>
+   <v name='CO_LOCAL_ENTREGA'/>
+   <v name='CO_TIPO_TRAMITE'/>
+   <v name='CO_SUBTIPO_TRAMITE'/>
+   <v name='CO_TIPO_CAPTURA'/>
+   <v name='CO_APLICATIVO'/>
+   <v name='CO_TIPO_PAGO'/>
+   <v name='CO_TIPO_DNI'/>
+   <v name='TI_DOC_REG_FICHA'/>
+   <v name='CO_GENERO'/>
+   <v name='IN_ABIS'/>
+   <v name='CO_CONTINENTE_DOMICILIO'/>
+   <v name='CO_PAIS_DOMICILIO'/>
+   <v name='CO_DEPARTAMENTO_DOMICILIO'/>
+   <v name='CO_PROVINCIA_DOMICILIO'/>
+   <v name='CO_DISTRITO_DOMICILIO'/>
+   <v name='NU_EDAD'/>
+   <v name='CO_SERV_CAPTURA'/>
+   <v name='IM_RECIBO'/>
+   <v name='IN_CANAL'/>
+   <v name='NU_HORA'/>
+   <v name='FE_CAPTURA'/>
+   <v name='FE_DATA'/>
+   <v name='FE_ENVIO_PROC'/>
+   <v name='CO_GRUPO_EDAD'/>
+   <v name='FE_RECE_PROC'/>
+   <v name='CO_SERVIDOR'/>
+   <v name='IN_RECUPERADO'/>
+   <v name='CO_SUBPROCESO'/>
+   <v name='IN_DECA'/>
+   <v name='IN_APROBADO'/>
+   <v name='CO_LOCAL_IMPRESION'/>
+   <v name='CO_LOCAL_CAPT_DNI'/>
+   <v name='CO_LOCAL_ENTR_DNI'/>
+   <v name='IN_TRANSFERENCIA'/>
+   <v name='IN_DONA_ORGANO'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<aggregate idx='1762' x='-3132' y='-228' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_MOTIVO'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<sort idx='1763' v='3.06' x='-3072' y='-348' action='S'>
+  <field type='A'>count</field>
+  <field type='A'>CO_MOTIVO</field>
+</sort>
+<OracleOCI keyHD='173825574532500222' forceHDBuffering='1' module='Oracle' idx='1764' v='2.54' x='-2988' y='216' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' newMode='0' dateFormat='1' SQLCol='SQL'>
+<SQL>
+&gt;&quot;select * from IDODATAMART.LDTF_PROCESO_DNI WHERE &quot; + Where1
+</SQL>
+</OracleOCI>
+<OracleOCI forceHDBuffering='1' module='Oracle' idx='1773' v='2.54' x='-2904' y='576' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = BDBI)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAOYBAADmAQAA+fPtAu3GD6dqMCQpp8bahbo16nqgOz1nD4JORgss4AU=' newMode='0' dateFormat='1' SQLCol='SQL'>
+<SQL>
+&gt;&quot;select * from IDODATAMART.LDTF_PROCESO_DNI WHERE &quot; + Where1
+</SQL>
+</OracleOCI>
+<aggregate keyHD='173825574532500222' idx='1776' x='-2832' y='216' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_MOTIVO'/>
+   <v name='FE_DATA'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='NU_CANTI' sum='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<aggregate idx='1777' x='-2736' y='588' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_MOTIVO'/>
+   <v name='FE_DATA'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<RunToFinishLine idx='1778' x='-2004' y='84' nPinIn='11' pinSeparator='43'/>
+<Generic idx='1781' v='3.14' x='-3324' y='408' id='loopAnatellaGraphsAdv2'
+  longName='Run the different Anatella graphs given in input'
+  le='1688221255410'
+  abortOnMissingColumn='0'
+  shape='3'
+  keywords='loop run anatella graph meta control process .anatella'
+  image='/loop2.svg'
+  author='Frank Vanden Berghen'
+  revision='0.12'
+  tags='050_Run Control, 600_System Tools'
+  pdfDestination='5_21_6_loop_anatella_graphs_adv'>
+<Description>
+Run the different Anatella graphs given in input
+</Description>
+<Parameters>
+  <Parameter id='idFile' text='Anatella Graphs to run inside loop' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='idParam' text='Global Loop Params (optional)' type='manycolumns'><meta>0</meta><data></data></Parameter>
+  <Parameter id='idTest' text='Test Column (optional)' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='idGPV' text='Global Parameters to pass to the graph (comma-separated)' type='string'></Parameter>
+  <Parameter id='idClear' text='Clear the value of all Global Parameters before running the graph' type='bool'>0</Parameter>
+  <Parameter id='hasCounter' text='add an iteration counter?' type='bool'>0</Parameter>
+  <Parameter id='idCounterName' text='Iteration counter name' type='string'>gpcounter</Parameter>
+  <Parameter id='ncpu' text='run N graph(s) in parallel. N=?' type='string'>1</Parameter>
+  <Parameter id='idSilent' text='Silent Mode?' type='bool'>1</Parameter>
+  <Parameter id='idVerbosity' text='Message Verbosity inside Log' type='combobox'><meta>&lt;i&gt;Silent&lt;/i&gt;&lt;i&gt;Normal Verbosity&lt;/i&gt;&lt;i&gt;Show the logs of the executed graphs&lt;/i&gt;</meta><data>2</data></Parameter>
+  <Parameter id='idAbortAction' text='When run fails:' type='combobox'><meta>&lt;i&gt;Never Abort And No Retry&lt;/i&gt;
+&lt;i&gt;Never Abort But Retry 5 Times&lt;/i&gt;
+&lt;i&gt;Abort If Still Failed after 1 &quot;Retry&quot;&lt;/i&gt;
+&lt;i&gt;Abort If Still Warning after 1 &quot;Retry&quot;&lt;/i&gt;
+&lt;i&gt;Abort If Still Failed after 5 &quot;Retry&quot;&lt;/i&gt;
+&lt;i&gt;Abort If Still Warning after 5 &quot;Retry&quot;&lt;/i&gt;</meta><data>2</data></Parameter>
+</Parameters>
+<Script>
+var p,names=[],counterValue=0,defaultGP=[],nRetry=1;
+function init(){return 0;}
+
+function strStartsWith(str, prefix) { return (str.indexOf(prefix)==0); }
+
+function handleReturnCode(rc)
+{
+    if (rc!=0) setWarningFlag();
+    if (((rc>1)||(rc&lt;0))&amp;&amp;(idAbortAction>=2)) throw "Aborting (Errors)...";
+    if ((rc!=0)&amp;&amp;(idAbortAction>=3)) throw "Aborting (Warnings)...";
+}
+
+function launch(r,s)
+{
+    if((idTest&lt;0)||(r.col(idTest)))
+    {
+        var param=[];
+        var j=idParam.length,rc;
+        while(j--) param[j]=(names[j]+r.col(idParam[j]));
+        if (hasCounter&amp;&amp;(idCounterName.length)) { param[j]=("-D"+idCounterName+"="+counterValue); counterValue++; j++; }
+        if (idSilent)  param[j]="-s";
+        if (Number(idClear)!=0) param=["-c"].concat(param);
+        param=param.concat(defaultGP);
+
+        if (ncpu>1) p.addAnatellaJob(s,param);
+        else
+        {
+           rc=p.runAnatella(s,param);
+           if (nRetry==5)
+           {
+             if (idAbortAction==2)
+             {
+                 if (rc>1) rc=p.runAnatella(s,param);
+                 if (rc>1) rc=p.runAnatella(s,param);
+                 if (rc>1) rc=p.runAnatella(s,param);
+                 if (rc>1) rc=p.runAnatella(s,param);
+             } else  if (idAbortAction==3)
+             {
+                 if (rc>=1) rc=p.runAnatella(s,param);
+                 if (rc>=1) rc=p.runAnatella(s,param);
+                 if (rc>=1) rc=p.runAnatella(s,param);
+                 if (rc>=1) rc=p.runAnatella(s,param);
+             }
+           }
+           handleReturnCode(rc);
+        }
+    }
+}
+
+function run()
+{
+    if (idFile&lt;0) return 1;
+    if (idAbortAction>3) { idAbortAction-=2; nRetry=5; }
+
+    p=new ProcessRunner(nRetry);
+    p.setVerbose(idVerbosity);
+    ncpu=Math.max(1,Number(ncpu));
+    if (ncpu>70)
+        throw "ERROR: Unusually high parameter for parallel execution: Are you sure that you want to execute this loop using "+ncpu+" CPU's? If yes, please remove this sanity check for the code of the Action.";
+    var j,s,ss;
+    var r=getNextRow();
+    if (r.isNull) return 1;
+    {
+        s=trim(idGPV);
+        if (s.length>0)
+        {
+            s=s.split(",");
+            var i=s.length,k;
+            while(i--)
+            {
+                k=trim(s[i]);
+                if (k.length>0) 
+                {
+                    if (isTransient(k)) ss="-D*"+k; else ss="-D"+k;
+                    defaultGP.push(ss+"="+eval(k));
+                }
+            }
+        }
+    }
+
+    for(j=0;j&lt;idParam.length;j++) 
+    {
+        s=rowGetColumnName(r,idParam[j]);
+        //if (isTransient(s)) s="-D*"+s; else s="-D"+s;
+        names[j]="-D"+s+"=";
+    }
+    for(;;)
+    {
+        s=""+r.col(idFile);
+        if (strStartsWith(s,":/")) s=currentDir+s.substr(2);
+        if (fileExist(s)) launch(r,s);
+        else
+        {
+            if (fileExist(s+".anatella")) launch(r,s+".anatella");
+            else print("Warning: graph '"+s+"' does not exists");
+        }
+        var r=getNextRow();
+        if (r.isNull) break;
+    }
+
+    if (ncpu>1) handleReturnCode(p.run(ncpu,idAbortAction));
+    return 1;
+}
+</Script>
+</Generic>
+<Append module='DefaultActions' idx='1782' x='-4500' y='-720' output='0' nPinIn='6'>
+  </Append>
+<ReadColumnarGel module='MathParser' idx='1783' x='-4692' y='-864' fileName='F:/ProdAnatella/DM3/backup_co_motivo_31072024/procesamiento/historicoOCT2023.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='1784' x='-4740' y='-768' fileName='F:/ProdAnatella/DM3/backup_co_motivo_31072024/procesamiento/historiconov2023.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='1785' x='-4752' y='-672' fileName='F:/ProdAnatella/DM3/backup_co_motivo_31072024/procesamiento/historicodic2023.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='1786' x='-4716' y='-576' fileName='F:/ProdAnatella/DM3/backup_co_motivo_31072024/procesamiento/historicoene2024.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='1787' x='-4680' y='-492' fileName='F:/ProdAnatella/DM3/backup_co_motivo_31072024/procesamiento/historicofeb2024.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='1788' x='-3792' y='456'>
+ <Expression>CO_MOTIVO="437"</Expression>
+ <InputVars>
+    <InputVar column='CO_MOTIVO' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<inlineTable keyHD='173825839733684018' idx='1791' x='-2472' y='540'>
+<ColumnNames><c>C1</c></ColumnNames>
+<Rows>
+ <r><c></c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='1792' x='-2316' y='540'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='NewVar' meta='U'>Where1</OutputVar>
+    <OutputVar name='C1' meta='U' update='1'>Valor</OutputVar>
+  </OutputVars>
+</Calculator>
+<writeGel idx='1793' x='-2160' y='552' file='F:/ProdAnatella/backup_co_motivo_31072024/UPDATE/RESULTADOS.gel_anatella'/>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='1086' idxDest='1088'/>
+<Connection idxSrc='1087' idxDest='1088' idxPinIn='1'/>
+<Connection idxSrc='1084' idxDest='1087'/>
+<Connection idxSrc='1089' idxDest='1086'/>
+<Connection idxSrc='1088' idxDest='1090'/>
+<Connection idxSrc='1091' idxDest='1093'/>
+<Connection idxSrc='1093' idxDest='1092'/>
+<Connection idxSrc='1095' idxDest='1108'/>
+<Connection idxSrc='1102' idxDest='1110'/>
+<Connection idxSrc='1090' idxDest='1111'/>
+<Connection idxSrc='1110' idxDest='1112'/>
+<Connection idxSrc='1111' idxDest='1113'/>
+<Connection idxSrc='1112' idxDest='1113' idxPinIn='1'/>
+<Connection idxSrc='1117' idxDest='1118'/>
+<Connection idxSrc='1126' idxDest='1125'/>
+<Connection idxSrc='1118' idxDest='1127'/>
+<Connection idxSrc='1130' idxDest='1132'/>
+<Connection idxSrc='1113' idxDest='1091'/>
+<Connection idxSrc='1081' idxDest='1188'/>
+<Connection idxSrc='1092' idxDest='1203'/>
+<Connection idxSrc='1203' idxDest='1204'/>
+<Connection idxSrc='1204' idxDest='1205'/>
+<Connection idxSrc='1205' idxDest='1206'/>
+<Connection idxSrc='1125' idxDest='1210'/>
+<Connection idxSrc='1132' idxDest='1211'/>
+<Connection idxSrc='1211' idxDest='1131' idxPinIn='1'/>
+<Connection idxSrc='1206' idxDest='1219'/>
+<Connection idxSrc='1219' idxDest='1131'/>
+<Connection idxSrc='1131' idxDest='1222'/>
+<Connection idxSrc='1131' idxDest='1126'/>
+<Connection idxSrc='1190' idxDest='1233'/>
+<Connection idxSrc='1234' idxDest='1235'/>
+<Connection idxSrc='1235' idxDest='1236'/>
+<Connection idxSrc='1236' idxDest='1237'/>
+<Connection idxSrc='1237' idxDest='1238'/>
+<Connection idxSrc='1233' idxDest='1242'/>
+<Connection idxSrc='1188' idxDest='1089'/>
+<Connection idxSrc='1273' idxDest='1275'/>
+<Connection idxSrc='1277' idxDest='1278' idxPinIn='1'/>
+<Connection idxSrc='1278' idxDest='1279' idxPinIn='1'/>
+<Connection idxSrc='1102' idxDest='1300'/>
+<Connection idxSrc='1300' idxDest='1301'/>
+<Connection idxSrc='1301' idxDest='1302'/>
+<Connection idxSrc='1302' idxDest='1303'/>
+<Connection idxSrc='1303' idxDest='1278'/>
+<Connection idxSrc='1275' idxDest='1387'/>
+<Connection idxSrc='1387' idxDest='1277'/>
+<Connection idxSrc='1244' idxDest='1388'/>
+<Connection idxSrc='1388' idxDest='1273'/>
+<Connection idxSrc='1389' idxDest='1390'/>
+<Connection idxSrc='1222' idxDest='1390' idxPinIn='1'/>
+<Connection idxSrc='1390' idxDest='1391'/>
+<Connection idxSrc='1392' idxDest='1393'/>
+<Connection idxSrc='1397' idxDest='1398'/>
+<Connection idxSrc='1399' idxDest='1394'/>
+<Connection idxSrc='1102' idxDest='1399' idxPinIn='1'/>
+<Connection idxSrc='1095' idxDest='1399'>
+  <Point x='-1234.64' y='220.723'/>
+</Connection>
+<Connection idxSrc='1108' idxDest='1408'/>
+<Connection idxSrc='1408' idxDest='1411'/>
+<Connection idxSrc='1411' idxDest='1102'/>
+<Connection idxSrc='1414' idxDest='1415'/>
+<Connection idxSrc='1415' idxDest='1416'/>
+<Connection idxSrc='1416' idxDest='1417'/>
+<Connection idxSrc='1417' idxDest='1418'/>
+<Connection idxSrc='1418' idxDest='1413' idxPinIn='1'/>
+<Connection idxSrc='1413' idxDest='1420'/>
+<Connection idxSrc='1420' idxDest='1421'/>
+<Connection idxSrc='1421' idxDest='1422' idxPinOut='2'/>
+<Connection idxSrc='1422' idxDest='1423'/>
+<Connection idxSrc='1422' idxDest='1424'/>
+<Connection idxSrc='1424' idxDest='1425'/>
+<Connection idxSrc='1426' idxDest='1427'/>
+<Connection idxSrc='1428' idxDest='1429'/>
+<Connection idxSrc='1429' idxDest='1421' idxPinIn='1'/>
+<Connection idxSrc='1416' idxDest='1426'/>
+<Connection idxSrc='1416' idxDest='1446'/>
+<Connection idxSrc='1446' idxDest='1428'/>
+<Connection idxSrc='1454' idxDest='1455'/>
+<Connection idxSrc='1456' idxDest='1458'/>
+<Connection idxSrc='1458' idxDest='1459'/>
+<Connection idxSrc='1459' idxDest='1460'/>
+<Connection idxSrc='1461' idxDest='1463'/>
+<Connection idxSrc='1463' idxDest='1462'/>
+<Connection idxSrc='1487' idxDest='1488'/>
+<Connection idxSrc='1095' idxDest='1489'/>
+<Connection idxSrc='1489' idxDest='1487'/>
+<Connection idxSrc='1414' idxDest='1492'/>
+<Connection idxSrc='1493' idxDest='1494'/>
+<Connection idxSrc='1494' idxDest='1495'/>
+<Connection idxSrc='1492' idxDest='1497'/>
+<Connection idxSrc='1102' idxDest='1244'/>
+<Connection idxSrc='1454' idxDest='1499'/>
+<Connection idxSrc='1500' idxDest='1501'/>
+<Connection idxSrc='1501' idxDest='1502'/>
+<Connection idxSrc='1502' idxDest='1503'/>
+<Connection idxSrc='1504' idxDest='1507'/>
+<Connection idxSrc='1507' idxDest='1505'/>
+<Connection idxSrc='1508' idxDest='1509'/>
+<Connection idxSrc='1505' idxDest='1510'/>
+<Connection idxSrc='1519' idxDest='1520'/>
+<Connection idxSrc='1520' idxDest='1521'/>
+<Connection idxSrc='1519' idxDest='1523'/>
+<Connection idxSrc='1523' idxDest='1524'/>
+<Connection idxSrc='1525' idxDest='1526'/>
+<Connection idxSrc='1526' idxDest='1527'/>
+<Connection idxSrc='1524' idxDest='1522'/>
+<Connection idxSrc='1528' idxDest='1504'/>
+<Connection idxSrc='1510' idxDest='1512'/>
+<Connection idxSrc='1512' idxDest='1531'/>
+<Connection idxSrc='1512' idxDest='1532'/>
+<Connection idxSrc='1512' idxDest='1534'/>
+<Connection idxSrc='1534' idxDest='1533' idxPinIn='1'/>
+<Connection idxSrc='1532' idxDest='1535'/>
+<Connection idxSrc='1535' idxDest='1533'/>
+<Connection idxSrc='1537' idxDest='1536'/>
+<Connection idxSrc='1532' idxDest='1537'/>
+<Connection idxSrc='1536' idxDest='1538'/>
+<Connection idxSrc='1534' idxDest='1538' idxPinIn='1'/>
+<Connection idxSrc='1533' idxDest='1539'/>
+<Connection idxSrc='1538' idxDest='1540'/>
+<Connection idxSrc='1528' idxDest='1541'/>
+<Connection idxSrc='1541' idxDest='1542'/>
+<Connection idxSrc='1542' idxDest='1543'/>
+<Connection idxSrc='1543' idxDest='1545'/>
+<Connection idxSrc='1528' idxDest='1547'/>
+<Connection idxSrc='1547' idxDest='1549'/>
+<Connection idxSrc='1549' idxDest='1551'/>
+<Connection idxSrc='1551' idxDest='1550'/>
+<Connection idxSrc='1550' idxDest='1553'/>
+<Connection idxSrc='1561' idxDest='1562'/>
+<Connection idxSrc='1566' idxDest='1567'/>
+<Connection idxSrc='1566' idxDest='1569'/>
+<Connection idxSrc='1569' idxDest='1570'/>
+<Connection idxSrc='1563' idxDest='1572'/>
+<Connection idxSrc='1557' idxDest='1574'/>
+<Connection idxSrc='1574' idxDest='1558'/>
+<Connection idxSrc='1573' idxDest='1576'/>
+<Connection idxSrc='1554' idxDest='1560'/>
+<Connection idxSrc='1567' idxDest='1577'/>
+<Connection idxSrc='1577' idxDest='1578'/>
+<Connection idxSrc='1581' idxDest='1582'/>
+<Connection idxSrc='1580' idxDest='1583'/>
+<Connection idxSrc='1573' idxDest='1585'/>
+<Connection idxSrc='1566' idxDest='1586'/>
+<Connection idxSrc='1572' idxDest='1587'/>
+<Connection idxSrc='1587' idxDest='1573'/>
+<Connection idxSrc='1590' idxDest='1608'/>
+<Connection idxSrc='1608' idxDest='1612'/>
+<Connection idxSrc='1596' idxDest='1613'/>
+<Connection idxSrc='1613' idxDest='1614'/>
+<Connection idxSrc='1219' idxDest='1622'/>
+<Connection idxSrc='1636' idxDest='1638'/>
+<Connection idxSrc='1638' idxDest='1640'/>
+<Connection idxSrc='1639' idxDest='1640' idxPinIn='1'/>
+<Connection idxSrc='1637' idxDest='1641'/>
+<Connection idxSrc='1641' idxDest='1639'/>
+<Connection idxSrc='1612' idxDest='1642'/>
+<Connection idxSrc='1642' idxDest='1636'/>
+<Connection idxSrc='1619' idxDest='1645' idxPinIn='1'/>
+<Connection idxSrc='1640' idxDest='1647'/>
+<Connection idxSrc='1721' idxDest='1730'/>
+<Connection idxSrc='1657' idxDest='1735'/>
+<Connection idxSrc='1647' idxDest='1739'/>
+<Connection idxSrc='1739' idxDest='1756'/>
+<Connection idxSrc='1614' idxDest='1637'/>
+<Connection idxSrc='1614' idxDest='1645'/>
+<Connection idxSrc='1739' idxDest='1657'/>
+<Connection idxSrc='1647' idxDest='1762'/>
+<Connection idxSrc='1762' idxDest='1763'/>
+<Connection idxSrc='1764' idxDest='1776'/>
+<Connection idxSrc='1773' idxDest='1777'/>
+<Connection idxSrc='1783' idxDest='1782'/>
+<Connection idxSrc='1784' idxDest='1782' idxPinIn='1'/>
+<Connection idxSrc='1785' idxDest='1782' idxPinIn='2'/>
+<Connection idxSrc='1786' idxDest='1782' idxPinIn='4'/>
+<Connection idxSrc='1787' idxDest='1782' idxPinIn='5'/>
+<Connection idxSrc='1791' idxDest='1792'/>
+<Connection idxSrc='1792' idxDest='1793'/>
+<Connection idxSrc='1793' idxDest='1778' idxPinIn='10'/>
+<Connection idxSrc='1755' idxDest='1778' idxPinIn='7'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-1884' y='-348' size='14' anchor='1081'>IDODATAMART.LDTT_PROCESO_DNI.cgel_anatella</Annotation>
+  <Annotation x='-1644' y='36' size='14' anchor='1095'>BITR_SEC_CARGA_DATA</Annotation>
+  <Annotation x='-1332' y='-252' size='14' anchor='1084'>DIM_APLICATIVO</Annotation>
+  <Annotation x='264' y='-444' size='14' anchor='1204'>trunc fechas</Annotation>
+  <Annotation x='408' y='-444' size='14' anchor='1205'>in_canal</Annotation>
+  <Annotation x='516' y='-468' size='14' anchor='1206'>Ajuste
+Co_Servidor</Annotation>
+  <Annotation x='132' y='-468' size='14' anchor='1203'>Fe_data=
+PD_FE_DATA</Annotation>
+  <Annotation x='-84' y='-1752' size='14' anchor='1092'>CO_CORE
+CO_PROCESO
+CO_ETAPA
+CO_RUTA
+CO_LOCAL_CAPTURA
+CO_LOCAL_ENTREGA
+CO_TIPO_TRAMITE
+CO_SUBTIPO_TRAMITE
+CO_TIPO_CAPTURA
+CO_APLICATIVO
+CO_TIPO_PAGO
+CO_TIPO_DNI
+TI_DOC_REG_FICHA
+CO_GENERO
+IN_ABIS
+CO_CONTINENTE_DOMICILIO
+CO_PAIS_DOMICILIO
+CO_DEPARTAMENTO_DOMICILIO
+CO_PROVINCIA_DOMICILIO
+CO_DISTRITO_DOMICILIO
+NU_EDAD
+CO_SERV_CAPTURA
+IM_RECIBO
+IN_CANAL
+NU_HORA
+FE_CAPTURA
+FE_CARGA_BI
+NU_CANTI
+NU_SEC
+FE_DATA
+FE_ENVIO_PROC
+US_CREA
+CO_GRUPO_EDAD
+FE_RECE_PROC
+CO_SERVIDOR
+IN_RECUPERADO
+CO_SUBPROCESO
+IN_DECA
+CO_MOTIVO
+IN_APROBADO
+FE_APROB_PROC
+IN_PRIORI_IMPR
+FE_ACT_ANI
+CO_GRUPO_IMPRESION
+IN_ORIGEN_IMPR
+CO_LOCAL_IMPRESION
+CO_LOCAL_CAPT_DNI
+CO_LOCAL_ENTR_DNI
+CO_LOCAL_IMPR_DNI
+FE_GENERA_LOTE
+IN_TRANSFERENCIA
+FE_ENVIO_DESP
+FE_RECE_AGEN
+CO_ESTADO_CIVIL
+CO_GRADO_INSTRUCCION
+CO_RESTRICCION
+FE_CADUCIDAD
+IN_DONA_ORGANO</Annotation>
+  <Annotation x='-144' y='-288' size='14' anchor='1093'>CO_LOCAL_CAPTURA_DNI	CO_LOCAL_CAPT_DNI
+CO_LOCAL_IMPRESION_DNI	CO_LOCAL_IMPR_DNI
+CO_LOCAL_ENTREGA_DNI	CO_LOCAL_ENTR_DNI</Annotation>
+  <Annotation x='-288' y='-480' size='14' anchor='1091'>IN_RECUPERADO
+NU_CANTI
+IM_RECIBO</Annotation>
+  <Annotation x='-408' y='-492' size='14' anchor='1113'>Cruze 
+Proyecto
+NU_SEC</Annotation>
+  <Annotation x='-696' y='-492' size='14' anchor='1090'>Grupo_Edad
+CO_Proyecto</Annotation>
+  <Annotation x='-852' y='-456' size='14' anchor='1088'>In_Rectificacion</Annotation>
+  <Annotation x='-1140' y='-468' size='14' anchor='1089'>In_Rectificacion
+Antes de Aplicativo</Annotation>
+  <Annotation x='-1296' y='-420' size='14' anchor='1188'>Parametros</Annotation>
+  <Annotation x='-1416' y='-60' size='14' anchor='1108'>substr(FE_DATA,0,8)=itoa(P_DFE_DATA) 
+&amp;&amp; CO_PROYECTO=&quot;0001&quot;</Annotation>
+  <Annotation x='-924' y='132' size='14' anchor='1102'>Datos Para
+LLenar SEC Carga</Annotation>
+  <Annotation x='-732' y='-276' size='14' anchor='1110'>NU_SEC para la FACT</Annotation>
+  <Annotation x='-240' y='660' size='14' anchor='1117'>LDTF_PROCESO_DNI</Annotation>
+  <Annotation x='-336' y='540' size='14'>Por si se necesita carga invetario incial 
+de la tabla total</Annotation>
+  <Annotation x='444' y='516' size='14' color='#0000ff'>|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|</Annotation>
+  <Annotation x='72' y='-144' size='14'>Inventario_Inicial</Annotation>
+  <Annotation x='972' y='-60' size='14'>Crear Inventario Inicial
+del dia siguiente</Annotation>
+  <Annotation x='-372' y='492' size='14' color='#0000ff'>__________________________________________________________________________________</Annotation>
+  <Annotation x='-372' y='744' size='14' color='#0000ff'>__________________________________________________________________________________</Annotation>
+  <Annotation x='-384' y='504' size='14' color='#0000ff'>|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|</Annotation>
+  <Annotation x='636' y='-456' size='14' anchor='1219'>nan en IM_RECIBO</Annotation>
+  <Annotation x='480' y='492' size='14' color='#0000ff'>__________________________________________________________________________________</Annotation>
+  <Annotation x='492' y='744' size='14' color='#0000ff'>__________________________________________________________________________________</Annotation>
+  <Annotation x='480' y='504' size='14' color='#0000ff'>|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|</Annotation>
+  <Annotation x='1296' y='516' size='14' color='#0000ff'>|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|</Annotation>
+  <Annotation x='588' y='564' size='14'>por si se tiene que cargar datos errados</Annotation>
+  <Annotation x='1692' y='-108' size='14' anchor='1391'>IDODATAMART.LDTF_PROCESO_DNI</Annotation>
+  <Annotation x='840' y='-144' size='14' anchor='1389'>IDODATAMART.LDTF_PROCESO_DNI</Annotation>
+  <Annotation x='864' y='468' size='14' anchor='1394'>IDO_DATA_BI.BITR_SEC_CARGA_DATA</Annotation>
+  <Annotation x='-1272' y='-1032' size='14'>Cargar manualmente desde el cgel_anatella</Annotation>
+  <Annotation x='-1044' y='-888' size='14'>Verificar carga en fact</Annotation>
+  <Annotation x='-1140' y='-1176' size='14'>Verificar backup en cgel_anatella</Annotation>
+  <Annotation x='-1236' y='-1500' size='14'>CO-subproceso 04
+co_proceso 03
+ in_aprobado 
+co_motivo</Annotation>
+  <Annotation x='-4176' y='-1524' size='14' anchor='1566'>Historico impresiones</Annotation>
+  <Annotation x='-4272' y='-1308' size='14' anchor='1563'>onservados impresiones</Annotation>
+  <Annotation x='-4524' y='-360' size='14' anchor='1580'>aprobaCioneS</Annotation>
+  <Annotation x='-4440' y='-456' size='14' anchor='1557'>motivos</Annotation>
+  <Annotation x='-4836' y='-228' size='14' anchor='1590'>procesamiento historico oct2023</Annotation>
+  <Annotation x='-4728' y='-60' size='14' anchor='1596'>hugo procesAmiento obsErvaDos</Annotation>
+  <Annotation x='-276' y='-108' size='14'>4679748</Annotation>
+  <Annotation x='-4908' y='336' size='14' anchor='1720'>input update sql</Annotation>
+  <Annotation x='-4872' y='480' size='14' anchor='1721'>select en sql</Annotation>
+  <Annotation x='-3576' y='211.707' size='14'>data</Annotation>
+  <Annotation x='-3120' y='252' size='14' anchor='1764'>SELECT</Annotation>
+  <Annotation x='-2508' y='432' size='14' anchor='1755'>UPDATE</Annotation>
+  <Annotation x='-1680' y='120' size='14'>CO_MOTIVO	count
+019	1X
+098	1X
+173	1X
+191	1X
+254	1X
+403	1X
+406	1X
+409	1X
+413	1X
+447	1X
+450	1X
+452	1X
+461	1X
+462	1X
+490	1X
+502	1X
+503	1X
+506	1X
+528	1X
+536	1X
+437	10
+289	11
+510	11
+514	11
+523	11
+511	12
+416	13
+440	13
+186	15
+521	15
+052	152
+485	17
+556	18
+156	2
+404	2
+427	2
+442	2
+458	2
+460	2
+479	2
+508	2
+517	2
+524	2
+549	2
+415	20
+512	20
+420	22
+418	244
+053	25
+026	3
+027	3
+042	3
+100	3
+182	3
+408	3
+426	3
+443	3
+500	3
+522	3
+A01	301
+233	39
+102	4
+402	4
+411	4
+425	4
+429	4
+481	4
+501	4
+507	4
+534	4
+538	4
+542	4
+544	4
+234	43
+060	5
+519	5
+055	54
+417	59
+022	6
+419	6
+463	6
+473	6
+513	6
+533	6
+183	7
+189	7
+520	7
+454	8
+482	8
+158	9
+475	9
+478	9
+033	90
+160	96</Annotation>
+  <Annotation x='-3240' y='612' size='14' anchor='1773'>SELECT DESPUeS DE UPDaTE</Annotation>
+</TEXTANNOTATIONS>
+<GROUPBOXANNOTATIONS>
+  <Groupbox x='-1356' y='-1200' w='1056' h='444' color='#aebb7a'/>
+</GROUPBOXANNOTATIONS>
+</ANATELLA>

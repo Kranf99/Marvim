@@ -1,0 +1,525 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.02'>
+<GlobalParameters wDirLoc='1' dataDirRead='D:/ProdAnatella/Extraccion/DM8' dataDirWrite=':/'>
+<ODBCConnections>
+<odbc name='MP' link='MP' login='IDU_DATA_BI' ep='1' password='LAAAAIoDAACKAwAA6+qG8APs+M0Ig3x6hJuEuoT6N4TupmzJOQqwVHLpSYY='/>
+<odbc name='BI' link='BI' login='IDODATAMART' ep='1' password='LAAAAIoDAACKAwAAN/tyRdICCTOcoAWmYTjfGeTQi9y07EkAoWV4jmd69Zg='/>
+</ODBCConnections>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAADqAAACWfwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACWQAAAHgA////AAAAAwAABjAAAADo/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAJTAAAAZwD////8AAACVwAAA9kAAAGUAP////oAAAAAAQAAAAL7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAA4oAAAIoAAAAYAD///8AAAVCAAACWQAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<readGel idx='545' x='-6516' y='2088' nBlockForward='2' fileName=':/../DataLake/DM8/MPTF_TRAMITE_DOCUMENTARIO.gel_anatella'/>
+<readGel idx='546' x='-6516' y='2172' fileName=':/../DataLake/DM8/MDPS_DOCUMENTO_PRINCIPAL.gel_anatella'/>
+<MultiJoin module='DefaultActions' idx='547' x='-5796' y='2496' nPinIn='10'>
+  <Join pin='1' mainKey='NU_DOCUMENTO' slaveKey='NU_DOCUMENTO' prefix='DOCPRIN.'>
+    </Join>
+  <Join pin='2' mainKey='CO_AREA' slaveKey='CO_AREA' prefix='AREA.'>
+    </Join>
+  <Join pin='3' mainKey='CO_CANAL' slaveKey='CO_CANAL' prefix='CANAL.'>
+    </Join>
+  <Join pin='4' mainKey='CO_CARPETA' slaveKey='CO_CARPETA' prefix='CARPETA.'>
+    </Join>
+  <Join pin='5' mainKey='CO_CLIENTE' slaveKey='CO_CLIENTE' prefix='CLIENTE.'>
+    </Join>
+  <Join pin='6' mainKey='CO_PROCESO' slaveKey='CO_PROCESO' prefix='PROCESO.'>
+    </Join>
+  <Join pin='7' mainKey='KeyResp' slaveKey='KeyResp' prefix='RESPONSABLE.'>
+    </Join>
+  <Join pin='8' mainKey='CO_SEDE' slaveKey='CO_SEDE' prefix='SEDE.'>
+    </Join>
+  <Join pin='9' mainKey='CO_USUARIOGESTIONDOC' slaveKey='CO_USUARIOGESTIONDOC' prefix='USUARIO.'>
+    </Join>
+</MultiJoin>
+<readGel idx='548' x='-6516' y='2268' fileName=':/../DataLake/DM8/MPDS_AREA.gel_anatella'/>
+<readGel idx='549' x='-6516' y='2364' fileName=':/../DataLake/DM8/MPDS_CANAL.gel_anatella'/>
+<readGel idx='551' x='-6516' y='2460' fileName=':/../DataLake/DM8/MPDS_CARPETA.gel_anatella'/>
+<readGel idx='552' x='-6516' y='2556' fileName=':/../DataLake/DM8/MPDS_CLIENTE.gel_anatella'/>
+<readGel idx='554' x='-6516' y='2652' fileName=':/../DataLake/DM8/MPDS_PROCESO.gel_anatella'/>
+<readGel idx='555' x='-6516' y='2748' fileName=':/../DataLake/DM8/MPDS_RESPONSABLE_ATENCION.gel_anatella'/>
+<readGel idx='556' x='-6516' y='2844' fileName=':/../DataLake/DM8/MPDS_SEDE.gel_anatella'/>
+<readGel idx='557' x='-6516' y='2940' fileName=':/../DataLake/DM8/MPDS_USUARIO_GESTION_DOCUMENTO.gel_anatella'/>
+<writeExcel module='WriteReport' idx='559' v='2.58' x='-4440' y='2496' mode='2' fileNameDestination=':/Archivo Plano Completo.xlsx'/>
+<aggregate idx='577' x='-5544' y='2616' inRAMAlgo='1' omitSuffix='1'>
+ <OneAggregate>
+  <GroupBy>
+  </GroupBy>
+  <OutputVars>
+   <v name='CO_EXPEDIENTE' countNonNull='1'/>
+   <v name='CO_ESTADOREGISTRO' countNonNull='1'/>
+   <v name='NU_REGISTRO' countNonNull='1'/>
+   <v name='CO_CLIENTE' countNonNull='1'/>
+   <v name='CO_PROCESO' countNonNull='1'/>
+   <v name='CO_CANAL' countNonNull='1'/>
+   <v name='CO_CARPETA' countNonNull='1'/>
+   <v name='CO_SEDE' countNonNull='1'/>
+   <v name='CO_AREA' countNonNull='1'/>
+   <v name='CO_TIPOSOPORTE' countNonNull='1'/>
+   <v name='NU_DOCUMENTO' countNonNull='1'/>
+   <v name='DE_TIPOSOPORTE' countNonNull='1'/>
+   <v name='DE_ESTADOREGISTRO' countNonNull='1'/>
+   <v name='CO_USUARIOGESTIONDOC' countNonNull='1'/>
+   <v name='FE_REGISTRO' countNonNull='1'/>
+   <v name='CO_RESPONSABLEATENCION' countNonNull='1'/>
+   <v name='FE_LIMITE' countNonNull='1'/>
+   <v name='FE_ATENCION' countNonNull='1'/>
+   <v name='CA_DIASATENCION' countNonNull='1'/>
+   <v name='CA_DIASEJECUTADO' countNonNull='1'/>
+   <v name='CA_TRAMITE' countNonNull='1'/>
+   <v name='FE_MODI_AUDI' countNonNull='1'/>
+   <v name='CO_PRIORIDAD_PRIMERA_TRAZA' countNonNull='1'/>
+   <v name='DE_PRIORIDAD_PRIMERA_TRAZA' countNonNull='1'/>
+   <v name='CO_AREA_ULTIMA_TRAZA' countNonNull='1'/>
+   <v name='DE_AREA_ULTIMA_TRAZA' countNonNull='1'/>
+   <v name='DOCPRIN.CO_EXPEDIENTE' countNonNull='1'/>
+   <v name='DOCPRIN.DE_DOCUMENTO' countNonNull='1'/>
+   <v name='DOCPRIN.NU_UIDDOCUMENTO' countNonNull='1'/>
+   <v name='DOCPRIN.CO_TIPODOCUMENTO' countNonNull='1'/>
+   <v name='DOCPRIN.DE_TIPODOCUMENTO' countNonNull='1'/>
+   <v name='DOCPRIN.DE_ASUNTODOCUMENTO' countNonNull='1'/>
+   <v name='DOCPRIN.CO_PRINCIPAL' countNonNull='1'/>
+   <v name='DOCPRIN.FE_MODI_AUDI' countNonNull='1'/>
+   <v name='AREA.DE_AREA' countNonNull='1'/>
+   <v name='AREA.CO_TIPOAREA' countNonNull='1'/>
+   <v name='AREA.DE_TIPOAREA' countNonNull='1'/>
+   <v name='AREA.FE_MODI_AUDI' countNonNull='1'/>
+   <v name='CANAL.DE_CANAL' countNonNull='1'/>
+   <v name='CANAL.FE_MODI_AUDI' countNonNull='1'/>
+   <v name='CARPETA.NU_CARPETA' countNonNull='1'/>
+   <v name='CARPETA.CO_TIPOCARPETA' countNonNull='1'/>
+   <v name='CARPETA.DE_TIPOCARPETA' countNonNull='1'/>
+   <v name='CARPETA.FE_MODI_AUDI' countNonNull='1'/>
+   <v name='CLIENTE.NU_IDENTIFCLIENTE' countNonNull='1'/>
+   <v name='CLIENTE.DE_RAZONSOCIAL' countNonNull='1'/>
+   <v name='CLIENTE.NU_TELEFONOCLIENTE' countNonNull='1'/>
+   <v name='CLIENTE.DE_EMAILCLIENTE' countNonNull='1'/>
+   <v name='CLIENTE.DE_DIRECCIONCLIENTE' countNonNull='1'/>
+   <v name='CLIENTE.FE_MODI_AUDI' countNonNull='1'/>
+   <v name='CLIENTE.DE_CLIENTE' countNonNull='1'/>
+   <v name='CLIENTE.DE_TIPOCLIENTE' countNonNull='1'/>
+   <v name='CLIENTE.CO_TIPOCLIENTE' countNonNull='1'/>
+   <v name='PROCESO.DE_PROCESO' countNonNull='1'/>
+   <v name='PROCESO.DE_TIPOPROCESO' countNonNull='1'/>
+   <v name='PROCESO.CO_TIPOPROCESO' countNonNull='1'/>
+   <v name='PROCESO.FE_MODI_AUDI' countNonNull='1'/>
+   <v name='RESPONSABLE.DE_RESPONSABLEATENCION' countNonNull='1'/>
+   <v name='RESPONSABLE.DE_EMAILRESPONSABLEATENCION' countNonNull='1'/>
+   <v name='RESPONSABLE.CO_AREARESPONSABLEATENCION' countNonNull='1'/>
+   <v name='RESPONSABLE.DE_CARGORESPONSABLEATENCION' countNonNull='1'/>
+   <v name='RESPONSABLE.NU_IDENTIFRESPONSABLEATENCION' countNonNull='1'/>
+   <v name='RESPONSABLE.CO_CARGORESPONSABLEATENCION' countNonNull='1'/>
+   <v name='RESPONSABLE.DE_AREARESPONSABLEATENCION' countNonNull='1'/>
+   <v name='RESPONSABLE.FE_MODI_AUDI' countNonNull='1'/>
+   <v name='SEDE.DE_SEDE' countNonNull='1'/>
+   <v name='SEDE.CO_SUCURSAL' countNonNull='1'/>
+   <v name='SEDE.FE_MODI_AUDI' countNonNull='1'/>
+   <v name='USUARIO.DE_USUARIOGESTIONDOC' countNonNull='1'/>
+   <v name='USUARIO.NU_IDENTIFUSUARIOGESTIONDOC' countNonNull='1'/>
+   <v name='USUARIO.DE_EMAILUSUARIOGESTIONDOC' countNonNull='1'/>
+   <v name='USUARIO.CO_CARGOUSUARIOGESTIONDOC' countNonNull='1'/>
+   <v name='USUARIO.DE_CARGOUSUARIOGESTIONDOC' countNonNull='1'/>
+   <v name='USUARIO.CO_SEDEUSUARIOGESTIONDOC' countNonNull='1'/>
+   <v name='USUARIO.DE_SEDEUSUARIOGESTIONDOC' countNonNull='1'/>
+   <v name='USUARIO.CO_AREAUSUARIOGESTIONDOC' countNonNull='1'/>
+   <v name='USUARIO.DE_AREAUSUARIOGESTIONDOC' countNonNull='1'/>
+   <v name='USUARIO.FE_MODI_AUDI' countNonNull='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<Generic idx='578' x='-5412' y='2616' id='transpose'
+  longName='transpose the full table'
+  le='1404836334296'
+  keywords='transpose pivot table'
+  image='/transpose.png'
+  author='Frank Vanden Berghen'
+  revision='0.05'
+  tags='800_Other'
+  pdfDestination='5_25_2_transpose'>
+<Description>
+Transpose the full table. Only work for SMALL tables since the whole table is loaded into RAM.
+</Description>
+<Parameters>
+  <Parameter id='firstColContainsColName' text='first Column Contains Column Names' type='bool'>0</Parameter>
+  <Parameter id='hasToCreateColumn' text='Create a column with the (old) column names' type='bool'>1</Parameter>
+  <Parameter id='colPrefix' text='prefix column name' type='string'></Parameter>
+</Parameters>
+<Script>
+function fullTableRequiredToComputeMetas(idxPinIn) { return true; }
+var rowIdx,nRows,myRow,fullTable;
+
+function init()
+{
+    fullTable=new Array();
+    rowIdx=0;
+    return 0;
+}
+
+function run()
+{
+    if (rowIdx==0)
+    {
+        var r;
+        for(;;)
+        {
+            r=getNextRow();
+            if (r.isNull) break;
+            fullTable.push(rowDeepCopy(r));
+        }
+        var i=0,n=fullTable.length,base=0;
+        if (!n) return 1;
+        nRows=fullTable[0].nColumn;
+        if (hasToCreateColumn) { i=1; n++; base=1; }
+        setOutputRowSize(0,n);
+        myRow=new Row(n);
+        if (firstColContainsColName)
+        {
+            rowIdx=1;
+            for(;i&lt;n;i++)
+                 rowSetColumnName(myRow,i,colPrefix+fullTable[i-base].col(0)); 
+        } else
+        {
+            for(;i&lt;n;i++)
+                 rowSetColumnName(myRow,i,colPrefix+"C"+(i+1)); 
+        }
+        if (hasToCreateColumn) 
+        {
+            if (firstColContainsColName) rowSetColumnName(myRow,0,rowGetColumnName(fullTable[0],0));
+            else rowSetColumnName(myRow,0,"OldColumnNames");
+        }
+    }
+    var i=0,n=fullTable.length,base=0;
+    if (hasToCreateColumn)
+    {
+        myRow.setColumn(0,rowGetColumnName(fullTable[0],rowIdx));
+         i=1; n++; base=1;
+    }
+    for(;i&lt;n;i++)
+        myRow.setColumn(i,fullTable[i-base].col(rowIdx));
+    myRow.write(); 
+    writeEOL();
+    rowIdx++;
+    if (rowIdx==nRows) return 1;
+    return 0;
+}
+</Script>
+</Generic>
+<FilterRows keyHD='168070167433624172' module='MathParser' idx='579' x='-5040' y='2616'>
+ <Expression>C2=0</Expression>
+ <InputVars>
+    <InputVar column='Non Null' label='C2'/>
+ </InputVars>
+</FilterRows>
+<writeExcel module='WriteReport' idx='614' v='2.58' x='-4440' y='2616' mode='2' fileNameDestination=':/Archivo Plano Completo.xlsx' sheetName='Vacios' startRow='0'/>
+<RunToFinishLine idx='615' x='-4320' y='2496' nPinIn='26'/>
+<Calculator module='MathParser' idx='621' x='-6396' y='2688'>
+  <InputVars>
+    <InputVar column='CO_RESPONSABLEATENCION' label='a' isNumber='0'/>
+    <InputVar column='CO_AREARESPONSABLEATENCION' label='b' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='KeyResp' meta='U'>a// "_"//b</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='622' x='-6108' y='2088'>
+  <InputVars>
+    <InputVar column='CO_RESPONSABLEATENCION' label='a' isNumber='0'/>
+    <InputVar column='CO_AREA' label='b' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='KeyResp' meta='U'>a// "_"//b</OutputVar>
+  </OutputVars>
+</Calculator>
+<readExcel keyHD='168063937834008993' module='WriteReport' idx='627' v='2.81' x='-5664' y='2616' autoDate='1' fileName=':/Archivo Plano Completo.xlsx'/>
+<RowCounter idx='628' x='-6396' y='2474' label='CounterID_629'/>
+<aggregate idx='634' x='-5544' y='2712' inRAMAlgo='1' omitSuffix='1'>
+ <OneAggregate>
+  <GroupBy>
+  </GroupBy>
+  <OutputVars>
+   <v name='CO_EXPEDIENTE' countDistinct='1'/>
+   <v name='CO_ESTADOREGISTRO' countDistinct='1'/>
+   <v name='NU_REGISTRO' countDistinct='1'/>
+   <v name='CO_CLIENTE' countDistinct='1'/>
+   <v name='CO_PROCESO' countDistinct='1'/>
+   <v name='CO_CANAL' countDistinct='1'/>
+   <v name='CO_CARPETA' countDistinct='1'/>
+   <v name='CO_SEDE' countDistinct='1'/>
+   <v name='CO_AREA' countDistinct='1'/>
+   <v name='CO_TIPOSOPORTE' countDistinct='1'/>
+   <v name='NU_DOCUMENTO' countDistinct='1'/>
+   <v name='DE_TIPOSOPORTE' countDistinct='1'/>
+   <v name='DE_ESTADOREGISTRO' countDistinct='1'/>
+   <v name='CO_USUARIOGESTIONDOC' countDistinct='1'/>
+   <v name='FE_REGISTRO' countDistinct='1'/>
+   <v name='CO_RESPONSABLEATENCION' countDistinct='1'/>
+   <v name='FE_LIMITE' countDistinct='1'/>
+   <v name='FE_ATENCION' countDistinct='1'/>
+   <v name='CA_DIASATENCION' countDistinct='1'/>
+   <v name='CA_DIASEJECUTADO' countDistinct='1'/>
+   <v name='CA_TRAMITE' countDistinct='1'/>
+   <v name='FE_MODI_AUDI' countDistinct='1'/>
+   <v name='CO_PRIORIDAD_PRIMERA_TRAZA' countDistinct='1'/>
+   <v name='DE_PRIORIDAD_PRIMERA_TRAZA' countDistinct='1'/>
+   <v name='CO_AREA_ULTIMA_TRAZA' countDistinct='1'/>
+   <v name='DE_AREA_ULTIMA_TRAZA' countDistinct='1'/>
+   <v name='DOCPRIN.CO_EXPEDIENTE' countDistinct='1'/>
+   <v name='DOCPRIN.DE_DOCUMENTO' countDistinct='1'/>
+   <v name='DOCPRIN.NU_UIDDOCUMENTO' countDistinct='1'/>
+   <v name='DOCPRIN.CO_TIPODOCUMENTO' countDistinct='1'/>
+   <v name='DOCPRIN.DE_TIPODOCUMENTO' countDistinct='1'/>
+   <v name='DOCPRIN.DE_ASUNTODOCUMENTO' countDistinct='1'/>
+   <v name='DOCPRIN.CO_PRINCIPAL' countDistinct='1'/>
+   <v name='DOCPRIN.FE_MODI_AUDI' countDistinct='1'/>
+   <v name='AREA.DE_AREA' countDistinct='1'/>
+   <v name='AREA.CO_TIPOAREA' countDistinct='1'/>
+   <v name='AREA.DE_TIPOAREA' countDistinct='1'/>
+   <v name='AREA.FE_MODI_AUDI' countDistinct='1'/>
+   <v name='CANAL.DE_CANAL' countDistinct='1'/>
+   <v name='CANAL.FE_MODI_AUDI' countDistinct='1'/>
+   <v name='CARPETA.NU_CARPETA' countDistinct='1'/>
+   <v name='CARPETA.CO_TIPOCARPETA' countDistinct='1'/>
+   <v name='CARPETA.DE_TIPOCARPETA' countDistinct='1'/>
+   <v name='CARPETA.FE_MODI_AUDI' countDistinct='1'/>
+   <v name='CLIENTE.NU_IDENTIFCLIENTE' countDistinct='1'/>
+   <v name='CLIENTE.DE_RAZONSOCIAL' countDistinct='1'/>
+   <v name='CLIENTE.NU_TELEFONOCLIENTE' countDistinct='1'/>
+   <v name='CLIENTE.DE_EMAILCLIENTE' countDistinct='1'/>
+   <v name='CLIENTE.DE_DIRECCIONCLIENTE' countDistinct='1'/>
+   <v name='CLIENTE.FE_MODI_AUDI' countDistinct='1'/>
+   <v name='CLIENTE.DE_CLIENTE' countDistinct='1'/>
+   <v name='CLIENTE.DE_TIPOCLIENTE' countDistinct='1'/>
+   <v name='CLIENTE.CO_TIPOCLIENTE' countDistinct='1'/>
+   <v name='PROCESO.DE_PROCESO' countDistinct='1'/>
+   <v name='PROCESO.DE_TIPOPROCESO' countDistinct='1'/>
+   <v name='PROCESO.CO_TIPOPROCESO' countDistinct='1'/>
+   <v name='PROCESO.FE_MODI_AUDI' countDistinct='1'/>
+   <v name='RESPONSABLE.DE_RESPONSABLEATENCION' countDistinct='1'/>
+   <v name='RESPONSABLE.DE_EMAILRESPONSABLEATENCION' countDistinct='1'/>
+   <v name='RESPONSABLE.CO_AREARESPONSABLEATENCION' countDistinct='1'/>
+   <v name='RESPONSABLE.DE_CARGORESPONSABLEATENCION' countDistinct='1'/>
+   <v name='RESPONSABLE.NU_IDENTIFRESPONSABLEATENCION' countDistinct='1'/>
+   <v name='RESPONSABLE.CO_CARGORESPONSABLEATENCION' countDistinct='1'/>
+   <v name='RESPONSABLE.DE_AREARESPONSABLEATENCION' countDistinct='1'/>
+   <v name='RESPONSABLE.FE_MODI_AUDI' countDistinct='1'/>
+   <v name='SEDE.DE_SEDE' countDistinct='1'/>
+   <v name='SEDE.CO_SUCURSAL' countDistinct='1'/>
+   <v name='SEDE.FE_MODI_AUDI' countDistinct='1'/>
+   <v name='USUARIO.DE_USUARIOGESTIONDOC' countDistinct='1'/>
+   <v name='USUARIO.NU_IDENTIFUSUARIOGESTIONDOC' countDistinct='1'/>
+   <v name='USUARIO.DE_EMAILUSUARIOGESTIONDOC' countDistinct='1'/>
+   <v name='USUARIO.CO_CARGOUSUARIOGESTIONDOC' countDistinct='1'/>
+   <v name='USUARIO.DE_CARGOUSUARIOGESTIONDOC' countDistinct='1'/>
+   <v name='USUARIO.CO_SEDEUSUARIOGESTIONDOC' countDistinct='1'/>
+   <v name='USUARIO.DE_SEDEUSUARIOGESTIONDOC' countDistinct='1'/>
+   <v name='USUARIO.CO_AREAUSUARIOGESTIONDOC' countDistinct='1'/>
+   <v name='USUARIO.DE_AREAUSUARIOGESTIONDOC' countDistinct='1'/>
+   <v name='USUARIO.FE_MODI_AUDI' countDistinct='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<Generic idx='635' x='-5412' y='2712' id='transpose'
+  longName='transpose the full table'
+  le='1404836334296'
+  keywords='transpose pivot table'
+  image='/transpose.png'
+  author='Frank Vanden Berghen'
+  revision='0.05'
+  tags='800_Other'
+  pdfDestination='5_25_2_transpose'>
+<Description>
+Transpose the full table. Only work for SMALL tables since the whole table is loaded into RAM.
+</Description>
+<Parameters>
+  <Parameter id='firstColContainsColName' text='first Column Contains Column Names' type='bool'>0</Parameter>
+  <Parameter id='hasToCreateColumn' text='Create a column with the (old) column names' type='bool'>1</Parameter>
+  <Parameter id='colPrefix' text='prefix column name' type='string'></Parameter>
+</Parameters>
+<Script>
+function fullTableRequiredToComputeMetas(idxPinIn) { return true; }
+var rowIdx,nRows,myRow,fullTable;
+
+function init()
+{
+    fullTable=new Array();
+    rowIdx=0;
+    return 0;
+}
+
+function run()
+{
+    if (rowIdx==0)
+    {
+        var r;
+        for(;;)
+        {
+            r=getNextRow();
+            if (r.isNull) break;
+            fullTable.push(rowDeepCopy(r));
+        }
+        var i=0,n=fullTable.length,base=0;
+        if (!n) return 1;
+        nRows=fullTable[0].nColumn;
+        if (hasToCreateColumn) { i=1; n++; base=1; }
+        setOutputRowSize(0,n);
+        myRow=new Row(n);
+        if (firstColContainsColName)
+        {
+            rowIdx=1;
+            for(;i&lt;n;i++)
+                 rowSetColumnName(myRow,i,colPrefix+fullTable[i-base].col(0)); 
+        } else
+        {
+            for(;i&lt;n;i++)
+                 rowSetColumnName(myRow,i,colPrefix+"C"+(i+1)); 
+        }
+        if (hasToCreateColumn) 
+        {
+            if (firstColContainsColName) rowSetColumnName(myRow,0,rowGetColumnName(fullTable[0],0));
+            else rowSetColumnName(myRow,0,"OldColumnNames");
+        }
+    }
+    var i=0,n=fullTable.length,base=0;
+    if (hasToCreateColumn)
+    {
+        myRow.setColumn(0,rowGetColumnName(fullTable[0],rowIdx));
+         i=1; n++; base=1;
+    }
+    for(;i&lt;n;i++)
+        myRow.setColumn(i,fullTable[i-base].col(rowIdx));
+    myRow.write(); 
+    writeEOL();
+    rowIdx++;
+    if (rowIdx==nRows) return 1;
+    return 0;
+}
+</Script>
+</Generic>
+<ColumnRename module='DefaultActions' idx='636' x='-5280' y='2616'><before>
+<c>C2</c></before><after>
+<c>Non Null</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<ColumnRename module='DefaultActions' idx='637' x='-5280' y='2712'><before>
+<c>C2</c></before><after>
+<c>Distinct</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<FilterRows module='MathParser' idx='638' x='-5160' y='2748'>
+ <Expression>C2=0</Expression>
+ <InputVars>
+    <InputVar column='Non Null' label='C2'/>
+ </InputVars>
+</FilterRows>
+<MultiJoin keyHD='168063938434008587' module='DefaultActions' idx='639' x='-5160' y='2616'>
+  <Join pin='1' mainKey='OldColumnNames' slaveKey='OldColumnNames' prefix=''>
+    </Join>
+</MultiJoin>
+<aggregate keyHD='168063941334008056' idx='641' x='-4800' y='2748' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='OldColumnNames_S0'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='Non Null' smin='1' smax='1' mean='1'/>
+   <v name='Distinct' smin='1' smax='1' mean='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<Split module='DefaultActions' idx='642' x='-5040' y='2748' sep='.' fixed='1' number='2'>
+  <c>OldColumnNames</c>
+</Split>
+<Calculator module='MathParser' idx='643' x='-4920' y='2748'>
+  <InputVars>
+    <InputVar column='OldColumnNames_S0' label='x' isNumber='0'/>
+    <InputVar column='OldColumnNames_S1' label='y' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='OldColumnNames_S0' meta='U' update='1'>isNull(y)?"Main":x</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='644' x='-4680' y='2748' addNowS='1' dateFormat='yyyyMMdd'>
+  <InputVars>
+    <InputVar column='Non Null_mean' label='x' meta='F'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Completeness'>x/2839</OutputVar>
+    <OutputVar name='Fecha' meta='U'>_nowS</OutputVar>
+  </OutputVars>
+</Calculator>
+<writeExcel module='WriteReport' idx='645' v='2.58' x='-4440' y='2748' mode='2' fileNameDestination=':/Archivo Plano Completo.xlsx' sheetName='Agrupados' startRow='0'/>
+<Calculator module='MathParser' idx='646' x='-4680' y='2616' addNowS='1' dateFormat='yyyyMMdd'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Fecha' meta='U'>_nowS</OutputVar>
+  </OutputVars>
+</Calculator>
+<ChangeDataType idx='647' x='-4860' y='2496'>
+<toDouble><c>CO_EXPEDIENTE</c><c>CO_CLIENTE</c><c>CO_PROCESO</c><c>CO_CANAL</c><c>CO_CARPETA</c><c>CO_SEDE</c><c>CO_AREA</c><c>CO_TIPOSOPORTE</c><c>CO_USUARIOGESTIONDOC</c><c>CO_PRIORIDAD_PRIMERA_TRAZA</c><c>CO_AREA_ULTIMA_TRAZA</c><c>CO_RESPONSABLEATENCION</c><c>CO_AMBITO</c><c>CLIENTE.CO_TIPOCLIENTE</c><c>PROCESO.CO_TIPOPROCESO</c><c>RESPONSABLE.CO_RESPONSABLEATENCION</c><c>RESPONSABLE.CO_CARGORESPONSABLEATENCION</c><c>RESPONSABLE.CO_AREARESPONSABLEATENCION</c><c>SEDE.CO_SUCURSAL</c><c>USUARIO.CO_CARGOUSUARIOGESTIONDOC</c><c>USUARIO.CO_SEDEUSUARIOGESTIONDOC</c><c>USUARIO.CO_AREAUSUARIOGESTIONDOC</c></toDouble>
+</ChangeDataType>
+<ChangeDataType idx='648' x='-4560' y='2616'>
+<toDouble><c>Non Null</c><c>Distinct</c></toDouble>
+</ChangeDataType>
+<ChangeDataType idx='649' x='-4560' y='2748'>
+<toDouble><c>count</c><c>Non Null_smin</c><c>Non Null_smax</c><c>Non Null_mean</c><c>Distinct_smin</c><c>Distinct_smax</c><c>Distinct_mean</c><c>Completeness</c></toDouble>
+</ChangeDataType>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='546' idxDest='547' idxPinIn='1'/>
+<Connection idxSrc='548' idxDest='547' idxPinIn='2'/>
+<Connection idxSrc='549' idxDest='547' idxPinIn='3'/>
+<Connection idxSrc='552' idxDest='547' idxPinIn='5'/>
+<Connection idxSrc='554' idxDest='547' idxPinIn='6'/>
+<Connection idxSrc='556' idxDest='547' idxPinIn='8'/>
+<Connection idxSrc='557' idxDest='547' idxPinIn='9'/>
+<Connection idxSrc='577' idxDest='578'/>
+<Connection idxSrc='559' idxDest='615'/>
+<Connection idxSrc='614' idxDest='615' idxPinIn='10'/>
+<Connection idxSrc='621' idxDest='547' idxPinIn='7'/>
+<Connection idxSrc='545' idxDest='622'/>
+<Connection idxSrc='622' idxDest='547'/>
+<Connection idxSrc='627' idxDest='577'/>
+<Connection idxSrc='555' idxDest='621'/>
+<Connection idxSrc='551' idxDest='628'/>
+<Connection idxSrc='628' idxDest='547' idxPinIn='4'/>
+<Connection idxSrc='627' idxDest='634'/>
+<Connection idxSrc='634' idxDest='635'/>
+<Connection idxSrc='578' idxDest='636'/>
+<Connection idxSrc='635' idxDest='637'/>
+<Connection idxSrc='637' idxDest='638'/>
+<Connection idxSrc='636' idxDest='639'/>
+<Connection idxSrc='639' idxDest='579'/>
+<Connection idxSrc='637' idxDest='639' idxPinIn='1'/>
+<Connection idxSrc='639' idxDest='642'/>
+<Connection idxSrc='642' idxDest='643'/>
+<Connection idxSrc='643' idxDest='641'/>
+<Connection idxSrc='641' idxDest='644'/>
+<Connection idxSrc='645' idxDest='615' idxPinIn='21'/>
+<Connection idxSrc='579' idxDest='646'/>
+<Connection idxSrc='547' idxDest='647'/>
+<Connection idxSrc='647' idxDest='559'/>
+<Connection idxSrc='646' idxDest='648'/>
+<Connection idxSrc='648' idxDest='614'/>
+<Connection idxSrc='644' idxDest='649'/>
+<Connection idxSrc='649' idxDest='645'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-5652' y='2808' size='14'>CO_RESPONSABLEATENCION_countNonNull
+DOCPRIN.DE_DOCUMENTO_countNonNull
+AREA.CO_TIPOAREA_countNonNull
+SEDE.CO_SUCURSAL_countNonNull: SOLO HAY UN VALOR PARA ID_SEDE EN EXPEDIENTE</Annotation>
+  <Annotation x='-5964' y='2100' size='14'>CO_RESPONSABLEATENCION
+CO_AREA</Annotation>
+  <Annotation x='-6840' y='2112' size='14'>MPTF_TRAMITE_DOCUMENTARIO</Annotation>
+  <Annotation x='-6816' y='2196' size='14'>MDPS_DOCUMENTO_PRINCIPAL</Annotation>
+  <Annotation x='-6660' y='2292' size='14'>MPDS_AREA</Annotation>
+  <Annotation x='-6672' y='2388' size='14'>MPDS_CANAL</Annotation>
+  <Annotation x='-6696' y='2484' size='14'>MPDS_CARPETA</Annotation>
+  <Annotation x='-6696' y='2580' size='14'>MPDS_CLIENTE</Annotation>
+  <Annotation x='-6696' y='2676' size='14'>MPDS_PROCESO</Annotation>
+  <Annotation x='-6840' y='2772' size='14'>MPDS_RESPONSABLE_ATENCION</Annotation>
+  <Annotation x='-6672' y='2856' size='14'>MPDS_SEDE</Annotation>
+  <Annotation x='-6900' y='2952' size='14'>MPDS_USUARIO_GESTION_DOCUMENTO</Annotation>
+</TEXTANNOTATIONS>
+<GROUPBOXANNOTATIONS>
+</GROUPBOXANNOTATIONS>
+</ANATELLA>

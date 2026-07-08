@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.20'>
+<GlobalParameters wDirLoc='0' dataDirRead='D:/ProdAnatella/Gel_DataLake/DM3' dataDirWrite='D:/ProdAnatella/Gel_DataLake/DM3'>
+<Parameters>
+<Par name='C_NU_MAX_TRANS'>5000</Par>
+<Par name='C_TIPO_MANUAL'>00</Par>
+<Par name='C_TIPO_CLIENTE'>01</Par>
+<Par name='C_TIPO_WEB'>02</Par>
+<Par name='C_TIPO_MOVIL'>03</Par>
+<Par name='C_TIPO_PVM'>04</Par>
+<Par name='C_TIPO_BN'>05</Par>
+<Par name='C_CO_ETP_INV_INI'>01</Par>
+<Par name='C_CO_ETP_RECEPCION'>02</Par>
+<Par name='C_CO_ETP_PRODUCCION'>03</Par>
+<Par name='C_CO_ETP_INV_FIN'>04</Par>
+<Par name='C_CO_CORE'>01</Par>
+<Par name='C_IN_DESAP_ANALISTA'>0</Par>
+<Par name='C_IN_APROB_ANALISTA'>1</Par>
+<Par name='C_IN_DESAP_PERITO'>2</Par>
+<Par name='C_IN_APROB_PERITO'>3</Par>
+<Par name='C_IN_PENDIENTE'>4</Par>
+<Par name='C_IN_DESAP_ABIS'>5</Par>
+<Par name='C_IN_APROB_ABIS'>6</Par>
+<Par name='C_IN_DERIV_PERITO'>7</Par>
+<Par name='C_IN_ACTUALIZADO_ANI'>8</Par>
+<Par name='C_IN_OBS_CCALIDAD'>9</Par>
+<Par name='C_IN_APROB_CCALIDAD'>A</Par>
+<Par name='C_IN_POR_RECIBIR_DESP'>B</Par>
+<Par name='C_IN_RECIBIDO_DESP'>C</Par>
+<Par name='C_IN_ENVIO_AGENCIA'>D</Par>
+<Par name='C_IN_TRANSFERIDO'>E</Par>
+<Par name='C_IN_ENVIO_REIMPR'>F</Par>
+<Par name='C_IN_ENVIO_REPROC'>G</Par>
+<Par name='C_IN_ENTREGA'>H</Par>
+<Par name='C_IN_PEND_ENTREGA'>I</Par>
+<Par name='C_IN_RECEP_CAPTURA'>J</Par>
+<Par name='C_IN_ANULADO'>K</Par>
+<Par name='C_IN_ENVIO_PROC'>L</Par>
+<Par name='C_IN_MARCA_ENTREGA'>M</Par>
+<Par name='C_IN_MARCA_TRANSFER'>N</Par>
+<Par name='C_IN_MARCA_REIMP'>O</Par>
+<Par name='C_IN_MARCA_REPROC'>P</Par>
+<Par name='C_IN_RECH_FALTANTE'>Q</Par>
+<Par name='C_IN_ENVIO_DESTRUC'>R</Par>
+<Par name='C_IN_ENTREGA_ERROR'>S</Par>
+<Par name='C_DE_GRUPO_CAPT'>01</Par>
+<Par name='C_DE_GRUPO_PROC'>02</Par>
+<Par name='C_DE_GRUPO_GTI'>03</Par>
+<Par name='C_DE_GRUPO_IMPR'>04</Par>
+<Par name='C_DE_GRUPO_DESP'>05</Par>
+<Par name='C_IN_OBS_IMPR'>9</Par>
+<Par name='C_IN_RECI_AGENCIA'>J</Par>
+<Par name='P_DDE_GRUPO'>01</Par>
+<Par name='P_DFE_DATA'></Par>
+<Par name='SELECTED_GRAPH'>0</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAACP/wCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACPwAAAHgA////AAAAAwAABj0AAACW/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAJ0AAAAZwD////8AAACeAAAA8UAAAGUAP////oAAAABAQAAAAL7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAYAD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD///8AAAU5AAACPwAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<RunToFinishLine idx='5' x='-192' y='180' nPinIn='2'/>
+<ReadColumnarGel keyHD='168975358006264114' module='MathParser' idx='10' x='-828' y='-144' abortIfMissing='0' fileName=':/../../Gel_DataLake/DM3/IDO_DATA_BI.LDTT_PROCESO_DNI_IMPR_ENVIO.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel keyHD='168975358206264739' module='MathParser' idx='11' x='-828' y='-36' abortIfMissing='0' fileName=':/../../Gel_DataLake/DM3/IDO_DATA_BI.LDTT_PROCESO_DNI_IMPR_ASIG_TNP.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel keyHD='168975358606264021' module='MathParser' idx='12' x='-828' y='60' abortIfMissing='0' fileName=':/../../Gel_DataLake/DM3/IDO_DATA_BI.LDTT_PROCESO_DNI_IMPR_PERSONALIZA.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel keyHD='168975358806264771' module='MathParser' idx='13' x='-828' y='180' abortIfMissing='0' fileName=':/../../Gel_DataLake/DM3/IDO_DATA_BI.LDTT_PROCESO_DNI_IMPR_CALIDAD.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel keyHD='168975364706264428' module='MathParser' idx='14' x='-840' y='300' abortIfMissing='0' fileName=':/../../Gel_DataLake/DM3/LDSP_PRODUCCION_LAMINADO.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='15' x='-828' y='420' abortIfMissing='0' fileName=':/../../Gel_DataLake/DM3/LDSP_PRODUCCION_IMPRESION.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='16' x='-828' y='540' abortIfMissing='0' fileName=':/../../Gel_DataLake/DM3/LDSP_PRODUCCION_CORTE.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='17' x='-828' y='660' abortIfMissing='0' fileName=':/../../Gel_DataLake/DM3/LDSP_PRODUCCION_BOLEADO.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<Append module='DefaultActions' idx='18' x='-480' y='180' output='2' nPinIn='8'>
+  </Append>
+<writeColumnarGel module='MathParser' idx='19' v='3.19' x='-336' y='180' file=':/../../Gel_DataLake/DM3/IDO_DATA_BI.LDTT_PROCESO_DNI_IMPR_PRODUCCION.cgel_anatella'/>
+<Generic idx='20' x='-552' y='-156' id='get_meta-data'
+  longName='Get meta-data'
+  le='1444654687384'
+  keywords='meta data extract get'
+  image='/getMetaData.svg'
+  author='Frank Vanden Berghen'
+  revision='0.03'
+  tags='150_Standard'
+  pdfDestination='5_5_14_get_meta_data'>
+<Description>
+Get meta-data: column name &amp; type + sort meta-data.&lt;br/&gt;&lt;br/&gt;
+Do not enable the option &quot;pump all rows from input&quot; unless you know what you are doing
+</Description>
+<Parameters>
+  <Parameter id='readAll' text='pump all rows from input' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+var rIn,rOut,i,ak,at;
+function init()
+{
+    rIn=rowDeepCopy(getCurrentRow());
+    setOutputRowSize(0,5);
+    i=0;
+    rOut=new Row(5);
+    rowSetColumnName(rOut,0,"Before");
+    rowSetColumnName(rOut,1,"After");
+    rowSetColumnName(rOut,2,"Type");
+    rowSetColumnName(rOut,3,"SortPriority");
+    rowSetColumnName(rOut,4,"SortType");
+    
+    var j=rIn.nColumn,k=0;
+    ak=new Array(j); at=new Array(j);
+    while(j--) { ak[j]=null; at[j]=null; }
+    for(;;)
+    {
+        var j=rowGetSortColumnIdx(rIn,k);
+        if (j&lt;0) break;
+        ak[j]=k;
+        at[j]=rowGetSortType(rIn,k);
+        k++;
+    }
+    return 0;
+}
+function run()
+{
+    if (i==rIn.nColumn) 
+    {
+        if (readAll)
+        {
+            var r;
+            for(;;)
+            {
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                r=getNextRow();
+                if (r.isNull||userAskedAbort()) return 1;
+            }
+        }
+        return 1;
+    }
+    var cn=rowGetColumnName(rIn,i);
+    rOut.setColumn(0,cn);
+    rOut.setColumn(1,cn);
+    rOut.setColumn(2,rowGetMetaType(rIn,i));
+    rOut.setColumn(3,ak[i]);
+    rOut.setColumn(4,at[i]);
+    i++;
+    rOut.write(); 
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<Generic idx='21' x='-552' y='-36' id='get_meta-data'
+  longName='Get meta-data'
+  le='1444654687384'
+  keywords='meta data extract get'
+  image='/getMetaData.svg'
+  author='Frank Vanden Berghen'
+  revision='0.03'
+  tags='150_Standard'
+  pdfDestination='5_5_14_get_meta_data'>
+<Description>
+Get meta-data: column name &amp; type + sort meta-data.&lt;br/&gt;&lt;br/&gt;
+Do not enable the option &quot;pump all rows from input&quot; unless you know what you are doing
+</Description>
+<Parameters>
+  <Parameter id='readAll' text='pump all rows from input' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+var rIn,rOut,i,ak,at;
+function init()
+{
+    rIn=rowDeepCopy(getCurrentRow());
+    setOutputRowSize(0,5);
+    i=0;
+    rOut=new Row(5);
+    rowSetColumnName(rOut,0,"Before");
+    rowSetColumnName(rOut,1,"After");
+    rowSetColumnName(rOut,2,"Type");
+    rowSetColumnName(rOut,3,"SortPriority");
+    rowSetColumnName(rOut,4,"SortType");
+    
+    var j=rIn.nColumn,k=0;
+    ak=new Array(j); at=new Array(j);
+    while(j--) { ak[j]=null; at[j]=null; }
+    for(;;)
+    {
+        var j=rowGetSortColumnIdx(rIn,k);
+        if (j&lt;0) break;
+        ak[j]=k;
+        at[j]=rowGetSortType(rIn,k);
+        k++;
+    }
+    return 0;
+}
+function run()
+{
+    if (i==rIn.nColumn) 
+    {
+        if (readAll)
+        {
+            var r;
+            for(;;)
+            {
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                r=getNextRow();
+                if (r.isNull||userAskedAbort()) return 1;
+            }
+        }
+        return 1;
+    }
+    var cn=rowGetColumnName(rIn,i);
+    rOut.setColumn(0,cn);
+    rOut.setColumn(1,cn);
+    rOut.setColumn(2,rowGetMetaType(rIn,i));
+    rOut.setColumn(3,ak[i]);
+    rOut.setColumn(4,at[i]);
+    i++;
+    rOut.write(); 
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<FilterOnKey keyHD='168975367106264366' module='DefaultActions' idx='22' x='-216' y='-144' slaveKey='Before'>
+  <c>Before</c></FilterOnKey>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='10' idxDest='18'/>
+<Connection idxSrc='11' idxDest='18' idxPinIn='1'/>
+<Connection idxSrc='12' idxDest='18' idxPinIn='2'/>
+<Connection idxSrc='13' idxDest='18' idxPinIn='3'/>
+<Connection idxSrc='14' idxDest='18' idxPinIn='4'/>
+<Connection idxSrc='15' idxDest='18' idxPinIn='5'/>
+<Connection idxSrc='16' idxDest='18' idxPinIn='6'/>
+<Connection idxSrc='17' idxDest='18' idxPinIn='7'/>
+<Connection idxSrc='18' idxDest='19'/>
+<Connection idxSrc='19' idxDest='5'/>
+<Connection idxSrc='10' idxDest='20'/>
+<Connection idxSrc='21' idxDest='22'/>
+<Connection idxSrc='20' idxDest='22' idxPinIn='1'/>
+<Connection idxSrc='14' idxDest='21'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-960' y='-120' size='14' anchor='10'>ENVIO</Annotation>
+  <Annotation x='-960' y='-12' size='14' anchor='11'>ASIG_TNP</Annotation>
+  <Annotation x='-996' y='84' size='14' anchor='12'>PERSONALIZA</Annotation>
+  <Annotation x='-996' y='216' size='14' anchor='13'>CALIDAD</Annotation>
+  <Annotation x='-996' y='324' size='14' anchor='14'>LAMINADO</Annotation>
+  <Annotation x='-984' y='444' size='14' anchor='15'>IMPRESION</Annotation>
+  <Annotation x='-984' y='576' size='14' anchor='16'>CORTE</Annotation>
+  <Annotation x='-984' y='696' size='14' anchor='17'>BOLEADO</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

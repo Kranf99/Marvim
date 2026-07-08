@@ -1,0 +1,507 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.04'>
+<GlobalParameters wDirLoc='1' dataDirRead='D:/ProdAnatella/DM8/DataLake' dataDirWrite=':/../DataLake/DM8'>
+<ODBCConnections>
+<odbc name='MP' link='MP' login='IDU_DATA_BI' ep='1' password='LAAAAMcDAADHAwAAcQc4K1LH7q7FDzvuNfRHqWRBVuk3nUWnB7uERBrSfpM='/>
+<odbc name='BI' link='BI' login='IDODATAMART' ep='1' password='LAAAAMcDAADHAwAATlkiYTKgYbreLWt6eQb6swd7c5WANFguBTrivy9We84='/>
+</ODBCConnections>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAADqAAACR/wCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACRwAAAHgA////AAAAAwAAB4AAAAFV/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAASmAAAAZwD////8AAAEqgAAAtYAAAGUAP////oAAAABAQAAAAL7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAA4oAAAIoAAAAYAD///8AAAaSAAACRwAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<ReadColumnarGel module='MathParser' idx='39' x='-1704' y='1572' columnSelection='1' fileName=':/../Extraccion/DM8/PERSONA.cgel_anatella'>
+ <ColumnsToRead>
+  <c>ID_PERSONA</c><c>NOMBRES</c><c>APELLIDOS</c><c>NUMERO_IDENTIFICACION</c><c>CORREO</c><c>ID_CARGO</c><c>CARGO</c><c>AREA</c><c>ID_PADRE</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='40' x='-1872' y='2136' columnSelection='1' fileName=':/../Extraccion/DM8/ARCHIVO.cgel_anatella'>
+ <ColumnsToRead>
+  <c>ID_ARCHIVO</c><c>X_DIGITAL_ALFRESCO</c><c>ES_PRINCIPAL</c><c>DOCUMENTO</c><c>FECHA_CREACION</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='45' x='-1728' y='1896' columnSelection='1' fileName=':/../Extraccion/DM8/DOCUMENTO.cgel_anatella'>
+ <ColumnsToRead>
+  <c>ID_DOCUMENTO</c><c>EXPEDIENTE</c><c>DESCRIPCION</c><c>ID_TIPO_DOCUMENTO</c><c>TITULO</c><c>ES_PRINCIPAL</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='52' x='-1728' y='2016' columnSelection='1' fileName=':/../Extraccion/DM8/TIPO_DOCUMENTO.cgel_anatella'>
+ <ColumnsToRead>
+  <c>ID_TIPO_DOCUMENTO</c><c>DESCRIPCION</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<Calculator module='MathParser' idx='334' x='-1572' y='1572'>
+  <InputVars>
+    <InputVar column='NOMBRES' label='n' isNumber='0'/>
+    <InputVar column='APELLIDOS' label='a' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='DE_USUARIOGESTIONDOC' meta='U'>n // " " //a</OutputVar>
+  </OutputVars>
+</Calculator>
+<ReadColumnarGel module='MathParser' idx='335' x='-1440' y='1764' columnSelection='1' fileName=':/../Extraccion/DM8/SEDE.cgel_anatella'>
+ <ColumnsToRead>
+  <c>ID_SEDE</c><c>NOMBRE</c><c>ID_PADRE</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='336' x='-1440' y='1668' columnSelection='1' fileName=':/../Extraccion/DM8/AREA.cgel_anatella'>
+ <ColumnsToRead>
+  <c>ID_AREA</c><c>ID_SEDE</c><c>NOMBRE</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<MultiJoin module='DefaultActions' idx='337' x='-1272' y='1668'>
+  <Join pin='1' mainKey='ID_SEDE' slaveKey='ID_SEDE' prefix='Sede.' copyAll='0'>
+  <c>NOMBRE</c>
+  </Join>
+</MultiJoin>
+<MultiJoin module='DefaultActions' idx='338' x='-1140' y='1572'>
+  <Join pin='1' mainKey='AREA' slaveKey='ID_AREA' prefix='' copyAll='0'>
+  <c>ID_SEDE</c><c>NOMBRE</c><c>Sede.NOMBRE</c>
+  </Join>
+</MultiJoin>
+<ColumnRename module='DefaultActions' idx='339' x='-984' y='1572'><before>
+<c>ID_PERSONA</c><c>NUMERO_IDENTIFICACION</c><c>CORREO</c><c>ID_CARGO</c><c>CARGO</c><c>ID_SEDE</c><c>NOMBRE</c><c>AREA</c><c>Sede.NOMBRE</c></before><after>
+<c>CO_USUARIOGESTIONDOC</c><c>NU_IDENTIFUSUARIOGESTIONDOC</c><c>DE_EMAILUSUARIOGESTIONDOC</c><c>CO_CARGOUSUARIOGESTIONDOC</c><c>DE_CARGOUSUARIOGESTIONDOC</c><c>CO_SEDEUSUARIOGESTIONDOC</c><c>DE_AREAUSUARIOGESTIONDOC</c><c>CO_AREAUSUARIOGESTIONDOC</c><c>DE_SEDEUSUARIOGESTIONDOC</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<Calculator module='MathParser' idx='340' x='-840' y='1572' addNowS='1' dateFormat='yyyyMMdd hh:mm:ss'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='FE_MODI_AUDI' meta='U'>_nowS</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='341' x='-228' y='1572' keep='1'>
+ <c>CO_USUARIOGESTIONDOC</c>
+ <c>DE_USUARIOGESTIONDOC</c>
+ <c>NU_IDENTIFUSUARIOGESTIONDOC</c>
+ <c>DE_EMAILUSUARIOGESTIONDOC</c>
+ <c>CO_CARGOUSUARIOGESTIONDOC</c>
+ <c>DE_CARGOUSUARIOGESTIONDOC</c>
+ <c>CO_SEDEUSUARIOGESTIONDOC</c>
+ <c>DE_SEDEUSUARIOGESTIONDOC</c>
+ <c>CO_AREAUSUARIOGESTIONDOC</c>
+ <c>DE_AREAUSUARIOGESTIONDOC</c>
+ <c>FE_MODI_AUDI</c>
+</SelectColumns>
+<writeGel idx='342' x='24' y='1572' createDir='1' file=':/../DataLake/DM8/MPDS_USUARIO_GESTION_DOCUMENTO.gel_anatella'/>
+<ColumnRename module='DefaultActions' idx='343' x='-1236' y='1896'><before>
+<c>ID_DOCUMENTO</c><c>EXPEDIENTE</c><c>DESCRIPCION</c><c>ID_TIPO_DOCUMENTO</c><c>TITULO</c><c>ES_PRINCIPAL</c><c>TipoDoc.DESCRIPCION</c><c>X_DIGITAL_ALFRESCO</c></before><after>
+<c>NU_DOCUMENTO</c><c>CO_EXPEDIENTE</c><c>DE_DOCUMENTO</c><c>CO_TIPODOCUMENTO</c><c>DE_ASUNTODOCUMENTO</c><c>CO_PRINCIPAL</c><c>DE_TIPODOCUMENTO</c><c>NU_UIDDOCUMENTO</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<MultiJoin module='DefaultActions' idx='344' x='-1392' y='1896' nPinIn='3'>
+  <Join pin='1' mainKey='ID_TIPO_DOCUMENTO' slaveKey='ID_TIPO_DOCUMENTO' prefix='TipoDoc.' copyAll='0'>
+  <c>DESCRIPCION</c>
+  </Join>
+  <Join pin='2' mainKey='ID_DOCUMENTO' slaveKey='DOCUMENTO' prefix='' copyAll='0'>
+  <c>X_DIGITAL_ALFRESCO</c>
+  </Join>
+</MultiJoin>
+<Calculator module='MathParser' idx='347' x='-1080' y='1896' addNowS='1' dateFormat='yyyyMMdd hh:mm:ss'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='FE_MODI_AUDI' meta='U'>_nowS</OutputVar>
+  </OutputVars>
+</Calculator>
+<writeGel idx='348' x='84' y='1896' createDir='1' file=':/../DataLake/DM8/MDPS_DOCUMENTO_PRINCIPAL.gel_anatella'/>
+<FilterRows module='MathParser' idx='389' x='-1752' y='2136'>
+ <Expression>x=1</Expression>
+ <InputVars>
+    <InputVar column='ES_PRINCIPAL' label='x' meta='F'/>
+ </InputVars>
+</FilterRows>
+<ChangeDataType idx='414' x='-360' y='1572'>
+</ChangeDataType>
+<SelectColumns module='DefaultActions' idx='418' x='-780' y='1896' keep='1'>
+ <c>NU_DOCUMENTO</c>
+ <c>CO_EXPEDIENTE</c>
+ <c>DE_DOCUMENTO</c>
+ <c>NU_UIDDOCUMENTO</c>
+ <c>CO_TIPODOCUMENTO</c>
+ <c>DE_TIPODOCUMENTO</c>
+ <c>DE_ASUNTODOCUMENTO</c>
+ <c>CO_PRINCIPAL</c>
+ <c>FE_MODI_AUDI</c>
+</SelectColumns>
+<ChangeDataType idx='421' x='-324' y='1896'>
+</ChangeDataType>
+<FilterRows module='MathParser' idx='541' x='-936' y='1896'>
+ <Expression>x=1</Expression>
+ <InputVars>
+    <InputVar column='CO_PRINCIPAL' label='x' meta='F'/>
+ </InputVars>
+</FilterRows>
+<RunToFinishLine idx='614' x='396' y='1572' nPinIn='51'/>
+<ChangeDataType idx='616' x='-96' y='1572'>
+<toZeroDouble><c>CO_AREAUSUARIOGESTIONDOC</c><c>CO_SEDEUSUARIOGESTIONDOC</c><c>CO_CARGOUSUARIOGESTIONDOC</c></toZeroDouble>
+</ChangeDataType>
+<readGel idx='624' x='84' y='2076' fileName=':/../DataLake/DM8/MDPS_DOCUMENTO_PRINCIPAL.gel_anatella'/>
+<readGel idx='626' x='120' y='1764' fileName=':/../DataLake/DM8/MPDS_USUARIO_GESTION_DOCUMENTO.gel_anatella'/>
+<sort idx='627' x='-1632' y='2136' action='S'>
+  <field type='0'>DOCUMENTO</field>
+  <field type='D' dateFormat='yyyyMMdd hh:mm:ss'>FECHA_CREACION</field>
+</sort>
+<NaiveDeduplicate module='DefaultActions' idx='628' x='-1512' y='2136'>
+<c>DOCUMENTO</c>
+</NaiveDeduplicate>
+<FilterRows module='MathParser' idx='631' x='-1440' y='1572'>
+ <Expression>strlen(x)>0</Expression>
+ <InputVars>
+    <InputVar column='ID_PADRE' label='x' isNumber='0' meta='F'/>
+ </InputVars>
+</FilterRows>
+<OracleOCI module='Oracle' idx='691' v='3.02' x='252' y='1632' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 151.101.180.50)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec2)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAMcDAABEAAAAd6PyXwD4VZeZ1Vaz4l0plu3xndDhtAg7C999Cr5qA5U=' rowBuffer='1' isSelect='0'>
+<SQL>
+truncate table IDODATAMART.MPDS_USUARIO_GESTION_DOCUMENTO
+</SQL>
+</OracleOCI>
+<upsertOCI module='Oracle' idx='692' v='3.01' x='252' y='1764' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 151.101.180.50)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec2)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAMcDAADHAwAATlkiYTKgYbreLWt6eQb6swd7c5WANFguBTrivy9We84=' dateFormat='YYYYMMDD HH24:MI:SS' operation='0' table='IDODATAMART.MPDS_USUARIO_GESTION_DOCUMENTO'>
+  <keyCols></keyCols>
+  <updateCols></updateCols>
+</upsertOCI>
+<OracleOCI module='Oracle' idx='693' v='3.02' x='228' y='1956' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 151.101.180.50)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec2)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAMcDAADHAwAATlkiYTKgYbreLWt6eQb6swd7c5WANFguBTrivy9We84=' rowBuffer='1' isSelect='0'>
+<SQL>
+truncate table IDODATAMART.MPDS_DOCUMENTO_PRINCIPAL
+</SQL>
+</OracleOCI>
+<upsertOCI module='Oracle' idx='694' v='3.01' x='228' y='2076' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 151.101.180.50)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bireniec2)
+    )
+  )' user='IDODATAMART' passwordc='LAAAAMcDAADHAwAATlkiYTKgYbreLWt6eQb6swd7c5WANFguBTrivy9We84=' dateFormat='YYYYMMDD HH24:MI:SS' operation='0' table='IDODATAMART.MPDS_DOCUMENTO_PRINCIPAL'>
+  <keyCols></keyCols>
+  <updateCols></updateCols>
+</upsertOCI>
+<Generic idx='695' x='-684' y='1968' id='get_meta-data'
+  longName='Get meta-data'
+  le='1444654687384'
+  keywords='meta data extract get'
+  image='/getMetaData.svg'
+  author='Frank Vanden Berghen'
+  revision='0.03'
+  tags='150_Standard'
+  pdfDestination='5_5_14_get_meta_data'>
+<Description>
+Get meta-data: column name &amp; type + sort meta-data.&lt;br/&gt;&lt;br/&gt;
+Do not enable the option &quot;pump all rows from input&quot; unless you know what you are doing
+</Description>
+<Parameters>
+  <Parameter id='readAll' text='pump all rows from input' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+var rIn,rOut,i,ak,at;
+function init()
+{
+    rIn=rowDeepCopy(getCurrentRow());
+    setOutputRowSize(0,5);
+    i=0;
+    rOut=new Row(5);
+    rowSetColumnName(rOut,0,"Before");
+    rowSetColumnName(rOut,1,"After");
+    rowSetColumnName(rOut,2,"Type");
+    rowSetColumnName(rOut,3,"SortPriority");
+    rowSetColumnName(rOut,4,"SortType");
+    
+    var j=rIn.nColumn,k=0;
+    ak=new Array(j); at=new Array(j);
+    while(j--) { ak[j]=null; at[j]=null; }
+    for(;;)
+    {
+        var j=rowGetSortColumnIdx(rIn,k);
+        if (j&lt;0) break;
+        ak[j]=k;
+        at[j]=rowGetSortType(rIn,k);
+        k++;
+    }
+    return 0;
+}
+
+function run()
+{
+    if (i==rIn.nColumn) 
+    {
+        if (readAll)
+        {
+            var r;
+            for(;;)
+            {
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                r=getNextRow();
+                if (r.isNull||userAskedAbort()) return 1;
+            }
+        }
+        return 1;
+    }
+    var cn=rowGetColumnName(rIn,i);
+    rOut.setColumn(0,cn);
+    rOut.setColumn(1,cn);
+    rOut.setColumn(2,rowGetMetaType(rIn,i));
+    rOut.setColumn(3,ak[i]);
+    rOut.setColumn(4,at[i]);
+    i++;
+    rOut.write(); 
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<FilterRows module='MathParser' idx='696' x='-564' y='1968'>
+ <Expression>Type !="U"</Expression>
+ <InputVars>
+    <InputVar column='Type' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='697' x='-444' y='1968'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='After' meta='U' update='1'>"string"</OutputVar>
+  </OutputVars>
+</Calculator>
+<Generic idx='698' x='-720' y='1596' id='get_meta-data'
+  longName='Get meta-data'
+  le='1444654687384'
+  keywords='meta data extract get'
+  image='/getMetaData.svg'
+  author='Frank Vanden Berghen'
+  revision='0.03'
+  tags='150_Standard'
+  pdfDestination='5_5_14_get_meta_data'>
+<Description>
+Get meta-data: column name &amp; type + sort meta-data.&lt;br/&gt;&lt;br/&gt;
+Do not enable the option &quot;pump all rows from input&quot; unless you know what you are doing
+</Description>
+<Parameters>
+  <Parameter id='readAll' text='pump all rows from input' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+var rIn,rOut,i,ak,at;
+function init()
+{
+    rIn=rowDeepCopy(getCurrentRow());
+    setOutputRowSize(0,5);
+    i=0;
+    rOut=new Row(5);
+    rowSetColumnName(rOut,0,"Before");
+    rowSetColumnName(rOut,1,"After");
+    rowSetColumnName(rOut,2,"Type");
+    rowSetColumnName(rOut,3,"SortPriority");
+    rowSetColumnName(rOut,4,"SortType");
+    
+    var j=rIn.nColumn,k=0;
+    ak=new Array(j); at=new Array(j);
+    while(j--) { ak[j]=null; at[j]=null; }
+    for(;;)
+    {
+        var j=rowGetSortColumnIdx(rIn,k);
+        if (j&lt;0) break;
+        ak[j]=k;
+        at[j]=rowGetSortType(rIn,k);
+        k++;
+    }
+    return 0;
+}
+
+function run()
+{
+    if (i==rIn.nColumn) 
+    {
+        if (readAll)
+        {
+            var r;
+            for(;;)
+            {
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                r=getNextRow();
+                if (r.isNull||userAskedAbort()) return 1;
+            }
+        }
+        return 1;
+    }
+    var cn=rowGetColumnName(rIn,i);
+    rOut.setColumn(0,cn);
+    rOut.setColumn(1,cn);
+    rOut.setColumn(2,rowGetMetaType(rIn,i));
+    rOut.setColumn(3,ak[i]);
+    rOut.setColumn(4,at[i]);
+    i++;
+    rOut.write(); 
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<FilterRows module='MathParser' idx='699' x='-600' y='1596'>
+ <Expression>Type !="U"</Expression>
+ <InputVars>
+    <InputVar column='Type' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='700' x='-480' y='1596'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='After' meta='U' update='1'>"string"</OutputVar>
+  </OutputVars>
+</Calculator>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='39' idxDest='334'/>
+<Connection idxSrc='336' idxDest='337'/>
+<Connection idxSrc='335' idxDest='337' idxPinIn='1'/>
+<Connection idxSrc='337' idxDest='338' idxPinIn='1'/>
+<Connection idxSrc='338' idxDest='339'/>
+<Connection idxSrc='339' idxDest='340'/>
+<Connection idxSrc='45' idxDest='344'/>
+<Connection idxSrc='344' idxDest='343'/>
+<Connection idxSrc='52' idxDest='344' idxPinIn='1'/>
+<Connection idxSrc='343' idxDest='347'/>
+<Connection idxSrc='40' idxDest='389'/>
+<Connection idxSrc='340' idxDest='414'/>
+<Connection idxSrc='414' idxDest='341'/>
+<Connection idxSrc='418' idxDest='421'/>
+<Connection idxSrc='421' idxDest='348'/>
+<Connection idxSrc='347' idxDest='541'/>
+<Connection idxSrc='541' idxDest='418'/>
+<Connection idxSrc='341' idxDest='616'/>
+<Connection idxSrc='616' idxDest='342'/>
+<Connection idxSrc='342' idxDest='614'/>
+<Connection idxSrc='348' idxDest='614' idxPinIn='27'/>
+<Connection idxSrc='389' idxDest='627'/>
+<Connection idxSrc='627' idxDest='628'/>
+<Connection idxSrc='628' idxDest='344' idxPinIn='2'/>
+<Connection idxSrc='334' idxDest='631'/>
+<Connection idxSrc='631' idxDest='338'/>
+<Connection idxSrc='691' idxDest='614' idxPinIn='5'/>
+<Connection idxSrc='626' idxDest='692'/>
+<Connection idxSrc='692' idxDest='614' idxPinIn='16'/>
+<Connection idxSrc='693' idxDest='614' idxPinIn='32'/>
+<Connection idxSrc='624' idxDest='694'/>
+<Connection idxSrc='694' idxDest='614' idxPinIn='42'/>
+<Connection idxSrc='418' idxDest='695'/>
+<Connection idxSrc='695' idxDest='696'/>
+<Connection idxSrc='696' idxDest='697'/>
+<Connection idxSrc='697' idxDest='421' idxPinIn='1'/>
+<Connection idxSrc='340' idxDest='698'/>
+<Connection idxSrc='698' idxDest='699'/>
+<Connection idxSrc='699' idxDest='700'/>
+<Connection idxSrc='700' idxDest='414' idxPinIn='1'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-1704' y='1668' size='14' anchor='39'>PERSONA</Annotation>
+  <Annotation x='-2016' y='2136' size='14' anchor='40'>ARCHIVO</Annotation>
+  <Annotation x='-1884' y='1896' size='14' anchor='45'>DOCUMENTO</Annotation>
+  <Annotation x='-1932' y='2040' size='14' anchor='52'>TIPO_DOCUMENTO</Annotation>
+  <Annotation x='-1572' y='1692' size='14' anchor='336'>AREA</Annotation>
+  <Annotation x='-1572' y='1788' size='14' anchor='335'>SEDE</Annotation>
+  <Annotation x='-1296' y='1500' size='14'>PERSONA.AREA=AREA.ID_AREA AND 
+AREA.SEDE_ID=SEDE.SEDE_ID</Annotation>
+  <Annotation x='-96' y='1716' size='14' anchor='342'>MPDS_USUARIO_GESTION_DOCUMENTO</Annotation>
+  <Annotation x='-60' y='1980' size='14' anchor='348'>MDPS_DOCUMENTO_PRINCIPAL</Annotation>
+  <Annotation x='-288' y='1488' size='14'>WARNING:
+FLOAT NO ACEPTA NULO
+VALOR &lt;- 0</Annotation>
+  <Annotation x='-60' y='1524' size='14'>NOTA: DE_DOCUMENTO: DESCRIPCION: VACIO EN DOCUMENTO</Annotation>
+  <Annotation x='-1140' y='1668' size='12' anchor='339'>ID_PERSONA		CO_USUARIOGESTIONDOC
+NUMERO_IDENTIFICACION	NU_IDENTIFUSUARIOGESTIONDOC
+CORREO			DE_EMAILUSUARIOGESTIONDOC
+ID_CARGO		CO_CARGOUSUARIOGESTIONDOC
+CARGO			DE_CARGOUSUARIOGESTIONDOC
+ID_SEDE			CO_SEDEUSUARIOGESTIONDOC
+NOMBRE			DE_AREAUSUARIOGESTIONDOC
+AREA			CO_AREAUSUARIOGESTIONDOC
+Sede.NOMBRE		DE_SEDEUSUARIOGESTIONDOC</Annotation>
+  <Annotation x='-1332' y='2028' size='10' anchor='343'>ID_DOCUMENTO	NU_DOCUMENTO
+EXPEDIENTE		CO_EXPEDIENTE
+DESCRIPCION		DE_DOCUMENTO
+ID_TIPO_DOCUMENTO	CO_TIPODOCUMENTO
+TITULO		DE_ASUNTODOCUMENTO
+ES_PRINCIPAL	CO_PRINCIPAL
+TipoDoc.DESCRIPCION	DE_TIPODOCUMENTO
+X_DIGITAL_ALFRESCO	NU_UIDDOCUMENTO</Annotation>
+  <Annotation x='-1116' y='1980' size='14'>FE_MODI_AUDI</Annotation>
+  <Annotation x='-960' y='1980' size='14'>CO_PRINCIPAL=1</Annotation>
+  <Annotation x='-312' y='1980' size='14'>toString</Annotation>
+  <Annotation x='-1752' y='1704' size='10'>ID_PERSONA
+NOMBRES
+APELLIDOS
+NUMERO_IDENTIFICACION
+CORREO
+ID_CARGO
+CARGO
+AREA</Annotation>
+  <Annotation x='-1572' y='1716' size='10'>ID_AREA
+ID_SEDE
+NOMBRE</Annotation>
+  <Annotation x='-1572' y='1824' size='10'>ID_SEDE
+NOMBRE</Annotation>
+  <Annotation x='-852' y='1536' size='12'>FE_MODI_AUDI</Annotation>
+  <Annotation x='-1884' y='1932' size='10'>ID_DOCUMENTO
+EXPEDIENTE
+DESCRIPCION
+ID_TIPO_DOCUMENTO
+TITULO
+ES_PRINCIPAL</Annotation>
+  <Annotation x='-1920' y='2076' size='10'>ID_TIPO_DOCUMENTO
+DESCRIPCION</Annotation>
+  <Annotation x='-2028' y='2172' size='10'>ID_ARCHIVO
+X_DIGITAL_ALFRESCO</Annotation>
+  <Annotation x='-1476' y='1500' size='14' anchor='631'>ID_PADRE &lt;&gt; NULL</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

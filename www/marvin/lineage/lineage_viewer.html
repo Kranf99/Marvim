@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lineage Viewer</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="scripts/fileViewer.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --header-bg:  #1e3a8a;
+    --page-bg:    #f5f5f5;
+    --panel-bg:   #FFFFFF;
+    --border:     #e5e7eb;
+    --text-main:  #1E293B;
+    --text-muted: #64748B;
+    --accent:     #3B82F6;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: var(--page-bg);
+    color: var(--text-main);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── DAG title bar ── */
+  .dag-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 16px;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .dag-title-icon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .7rem; font-weight: 800;
+    letter-spacing: .03em;
+    flex-shrink: 0;
+  }
+  .dag-title-icon.type-script      { background: #FEF3C7; color: #92400E; }
+  .dag-title-icon.type-source      { background: #DBEAFE; color: #1D4ED8; }
+  .dag-title-icon.type-destination { background: #D1FAE5; color: #065F46; }
+  .dag-title-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .dag-title-name {
+    font-size: .92rem; font-weight: 700; color: var(--text-main);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .dag-title-path {
+    font-size: .72rem; color: var(--text-muted);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  /* ── View tabs ── */
+  .view-tabs {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: white;
+    flex-shrink: 0;
+    padding: 0 8px;
+  }
+  .view-tab {
+    padding: 7px 16px;
+    font-size: .78rem; font-weight: 600;
+    color: var(--text-muted);
+    background: none; border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: color .15s, border-color .15s;
+    white-space: nowrap;
+  }
+  .view-tab:hover  { color: var(--text-main); }
+  .view-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .view-tab-count  { font-weight: 400; font-size: .72rem; margin-left: 4px; color: var(--text-muted); }
+  .view-tabs .panel-max-btn { margin-left: 8px; }
+
+  /* ── Depth toggle (Immediate / Complete) ── */
+  .depth-toggle {
+    margin-left: auto;
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    background: #F1F5F9;
+  }
+  .depth-btn {
+    padding: 4px 12px;
+    font-size: .74rem; font-weight: 600;
+    color: var(--text-muted);
+    background: transparent; border: none; cursor: pointer;
+    transition: background .12s, color .12s;
+    white-space: nowrap;
+  }
+  .depth-btn:hover  { color: var(--text-main); }
+  .depth-btn.active { background: var(--accent); color: #fff; }
+
+  /* ── View area ── */
+  .view-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ── DAG panel (graph view) ── */
+  .dag-panel {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: var(--page-bg);
+    min-height: 0;
+  }
+  #dag-svg { width: 100%; height: 100%; cursor: grab; }
+  #dag-svg:active { cursor: grabbing; }
+
+  .empty-state {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px; color: var(--text-muted);
+    pointer-events: none;
+  }
+  .empty-state svg { opacity: .25; }
+  .empty-state p { font-size: .95rem; }
+
+  .legend {
+    position: absolute; bottom: 12px; left: 12px;
+    background: white; border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 12px;
+    display: flex; gap: 14px; font-size: .75rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; color: var(--text-muted); }
+  .legend-dot  { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  .zoom-controls {
+    position: absolute; top: 12px; right: 12px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .zoom-btn {
+    width: 32px; height: 32px;
+    background: white; border: 1px solid var(--border);
+    border-radius: 4px; cursor: pointer;
+    font-size: 1.1rem; line-height: 32px; text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    transition: background .1s; user-select: none;
+  }
+  .zoom-btn:hover { background: #F8FAFC; }
+
+  /* ── Paths panel (list view) ── */
+  .paths-panel {
+    flex: 1; background: var(--panel-bg);
+    display: flex; flex-direction: column; min-height: 0;
+  }
+  .paths-scroll { overflow-y: auto; flex: 1; padding: 0 12px 8px; }
+  .paths-scroll::-webkit-scrollbar { height: 5px; width: 5px; }
+  .paths-scroll::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+
+  .path-row {
+    display: flex; align-items: center; flex-wrap: wrap;
+    gap: 0; padding: 5px 4px;
+    border-bottom: 1px solid var(--border); font-size: .75rem;
+  }
+  .path-row:last-child { border-bottom: none; }
+  .path-chip {
+    padding: 2px 8px; border-radius: 4px;
+    max-width: 200px; overflow: hidden;
+    text-overflow: ellipsis; white-space: nowrap; cursor: default;
+  }
+  .path-chip.source { background: #DBEAFE; color: #1D4ED8; }
+  .path-chip.script { background: #FEF3C7; color: #92400E; }
+  .path-chip.inter  { background: #F1F5F9; color: #475569; }
+  .path-chip.dest   { background: #D1FAE5; color: #065F46; font-weight: 600; }
+  .path-chip.focal  { background: #E0E7FF; color: #3730A3; font-weight: 700; outline: 2px solid #6366F1; outline-offset: -1px; }
+  .path-arrow       { color: #CBD5E1; padding: 0 3px; font-size: .9rem; flex-shrink: 0; }
+  .path-section-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-muted); padding: 4px 4px 2px; }
+
+  /* ── D3 nodes & edges ── */
+  .node-group { cursor: pointer; }
+  .node-rect  { transition: filter .15s; }
+  .node-group:hover .node-rect { filter: brightness(0.92); }
+  .node-focal .node-rect {
+    filter: drop-shadow(0 0 7px rgba(99,102,241,.75));
+    animation: focalPulse 1.8s ease-in-out 3;
+  }
+  .node-focal:hover .node-rect { filter: brightness(0.92) drop-shadow(0 0 7px rgba(99,102,241,.75)); }
+  @keyframes focalPulse {
+    0%,100% { filter: drop-shadow(0 0 4px rgba(99,102,241,.5)); }
+    50%     { filter: drop-shadow(0 0 12px rgba(99,102,241,.95)); }
+  }
+  .node-label {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-size: 9px; fill: #FFFFFF;
+    pointer-events: none; text-anchor: middle; dominant-baseline: middle;
+  }
+  .node-label.dark { fill: #1E293B; }
+  .edge-path { fill: none; stroke: #CBD5E1; stroke-width: 1.5; transition: stroke .15s, stroke-width .15s; }
+  .edge-path.highlighted { stroke: #3B82F6; stroke-width: 2.5; }
+  .edge-path.call-edge { stroke: #94A3B8; stroke-width: 1.2; stroke-dasharray: 6 3; }
+  .edge-path.call-edge.highlighted { stroke: #3B82F6; stroke-width: 1.8; stroke-dasharray: 6 3; }
+  @keyframes dest-pulse {
+    0%, 100% { filter: drop-shadow(0 0 4px #10B981aa); }
+    50%      { filter: drop-shadow(0 0 10px #10B981); }
+  }
+  .node-dest  { animation: dest-pulse  2s ease-in-out infinite; }
+  @keyframes focal-pulse {
+    0%, 100% { filter: drop-shadow(0 0 5px #6366F1bb); }
+    50%      { filter: drop-shadow(0 0 14px #6366F1); }
+  }
+  .node-focal { animation: focal-pulse 2s ease-in-out infinite; }
+
+  /* ── Overview panel ── */
+  #overview-panel { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--page-bg); }
+
+  .ov-toolbar {
+    background: var(--header-bg);
+    display: flex; align-items: center; gap: 14px;
+    padding: 9px 20px; flex-shrink: 0;
+    border-bottom: 1px solid #1a3070;
+  }
+  .ov-title { font-size: 1rem; font-weight: 700; color: #F8FAFC; letter-spacing: .02em; }
+  .ov-select {
+    background: rgba(255,255,255,.1); color: #F8FAFC;
+    border: 1px solid rgba(255,255,255,.2); border-radius: 6px;
+    padding: 4px 8px; font-size: .82rem; cursor: pointer;
+  }
+  .ov-toolbar .search-wrap input {
+    background: rgba(255,255,255,.1); color: #F8FAFC;
+    border-color: rgba(255,255,255,.2); font-size: .82rem;
+  }
+  .ov-toolbar .search-wrap input::placeholder { color: #94A3B8; }
+  .ov-toolbar .search-icon { color: #94A3B8; }
+  .ov-legend { display: flex; gap: 10px; align-items: center; margin-left: auto; flex-wrap: wrap; }
+  .ov-legend-item { display: flex; align-items: center; gap: 5px; font-size: .72rem; color: #94A3B8; }
+  .ov-legend-dot  { width: 10px; height: 10px; border-radius: 50%; }
+
+  .ov-body { display: flex; flex: 1; overflow: hidden; }
+
+  .ov-sidebar {
+    width: 190px; flex-shrink: 0;
+    background: white; border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .ov-sidebar.collapsed { width: 0; }
+  .ov-sb-head {
+    padding: 10px 14px 8px;
+    font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+    color: var(--text-muted); border-bottom: 1px solid var(--border); flex-shrink: 0;
+  }
+  .ov-sb-count { font-weight: 400; text-transform: none; letter-spacing: 0; margin-left: 4px; }
+  .ov-group-list { flex: 1; overflow-y: auto; padding: 4px 6px; }
+  .ov-group-list::-webkit-scrollbar { width: 4px; }
+  .ov-group-list::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+  .ov-group-item {
+    display: flex; align-items: center; gap: 7px;
+    padding: 4px 8px; border-radius: 5px; cursor: pointer;
+    font-size: .78rem; transition: background .1s;
+  }
+  .ov-group-item:hover  { background: #F1F5F9; }
+  .ov-group-item.active { background: #DBEAFE; }
+  .ov-group-swatch { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .ov-group-label  { color: var(--text-main); font-weight: 600; }
+  .ov-group-size   { color: var(--text-muted); font-size: .72rem; margin-left: auto; }
+
+  .ov-canvas { flex: 1; position: relative; overflow: hidden; }
+  #ov-svg    { width: 100%; height: 100%; cursor: grab; }
+  #ov-svg:active { cursor: grabbing; }
+  .ov-status {
+    position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+    background: rgba(30,58,138,.85); color: #F8FAFC;
+    padding: 5px 14px; border-radius: 20px; font-size: .76rem;
+    pointer-events: none; backdrop-filter: blur(4px);
+  }
+
+  .ov-link { stroke: #CBD5E1; stroke-width: 1; fill: none; marker-end: url(#ov-arrow); transition: stroke .15s, stroke-width .15s, opacity .15s; }
+  .ov-link.dimmed { opacity: .10; }
+  .ov-link.active { stroke: #3B82F6; stroke-width: 2; opacity: 1; }
+  .ov-node { cursor: pointer; transition: opacity .15s; }
+  .ov-node.dimmed { opacity: .12; }
+  .ov-node.active { opacity: 1; }
+  .ov-node.focal circle { stroke: #1D4ED8 !important; stroke-width: 3 !important; filter: drop-shadow(0 0 6px rgba(59,130,246,.75)); }
+  .ov-node circle { transition: r .2s; }
+  .ov-node text   { font-size: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; pointer-events: none; user-select: none; }
+  .ov-hull        { pointer-events: none; }
+  .ov-hull-label  { font-size: 9px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; font-weight: 600; pointer-events: none; opacity: 0.7; }
+
+  /* ── Context menu ── */
+  #ov-ctx-menu {
+    position: fixed; z-index: 500;
+    background: white; border: 1px solid var(--border);
+    border-radius: 7px; box-shadow: 0 4px 16px rgba(0,0,0,.15);
+    min-width: 160px; overflow: hidden; font-size: .82rem;
+  }
+  .ov-ctx-header {
+    padding: 6px 12px 4px; font-size: .72rem; font-weight: 700;
+    color: var(--text-muted); background: #F8FAFC;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px;
+  }
+  .ov-ctx-item { padding: 7px 14px; cursor: pointer; color: var(--text-main); transition: background .1s; }
+  .ov-ctx-item:hover { background: #EFF6FF; color: var(--accent); }
+
+  /* ── Maximize overlay ── */
+  #max-overlay { position: fixed; inset: 0; z-index: 400; background: white; flex-direction: column; }
+  .max-hdr { background: var(--header-bg); display: flex; align-items: center; gap: 10px; padding: 8px 16px; flex-shrink: 0; }
+  .max-hdr-title { font-size: .9rem; font-weight: 700; color: #F8FAFC; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .max-close-btn {
+    background: rgba(255,255,255,.12); color: #F8FAFC;
+    border: 1px solid rgba(255,255,255,.22); border-radius: 6px;
+    padding: 4px 13px; font-size: .8rem; font-weight: 600;
+    cursor: pointer; transition: background .1s; flex-shrink: 0;
+  }
+  .max-close-btn:hover { background: rgba(255,255,255,.25); }
+  #max-body { flex: 1; overflow: hidden; position: relative; background: #FAFAF7; }
+  #max-body.scrollable { overflow: auto; background: white; }
+  #max-body.scrollable .paths-scroll { display: block !important; max-height: none; padding: 12px 20px; }
+
+  /* ── Panel maximize button ── */
+  .panel-max-btn {
+    background: none; border: 1px solid rgba(0,0,0,.12); border-radius: 5px;
+    width: 24px; height: 24px; font-size: .9rem; line-height: 24px; text-align: center;
+    cursor: pointer; color: var(--text-muted); flex-shrink: 0;
+    transition: background .1s, color .1s; padding: 0;
+  }
+  .panel-max-btn:hover { background: #EFF6FF; color: var(--accent); border-color: var(--accent); }
+
+  /* ── Header btn (used in overview toolbar) ── */
+  .hdr-btn {
+    background: rgba(255,255,255,.12); color: #F8FAFC;
+    border: 1px solid rgba(255,255,255,.22); border-radius: 4px;
+    padding: 5px 13px; font-size: .8rem; font-weight: 600;
+    cursor: pointer; transition: background .15s; flex-shrink: 0;
+  }
+  .hdr-btn:hover { background: rgba(255,255,255,.22); }
+
+  /* ── Search wrap (used in overview toolbar) ── */
+  .search-wrap { position: relative; }
+  .search-wrap input {
+    width: 100%; padding: 7px 10px 7px 30px;
+    border: 1px solid var(--border); border-radius: 4px;
+    font-size: .83rem; background: var(--panel-bg);
+    outline: none; transition: border-color .15s;
+  }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap .search-icon {
+    position: absolute; left: 8px; top: 50%; transform: translateY(-50%);
+    color: var(--text-muted); pointer-events: none;
+  }
+
+  /* ── Pipeline explorer tab ── */
+  #pipeline-panel {
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+    background: var(--panel-bg);
+  }
+  .anatella-panel-header {
+    padding: 7px 14px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+    background: #FFFBEB;
+    border-bottom: 1px solid #FDE68A;
+    user-select: none;
+  }
+  .anatella-panel-header h3 {
+    font-size: .78rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .08em;
+    color: #92400E; display: flex; align-items: center; gap: 6px;
+  }
+  .anatella-panel-header h3 span { font-weight: 500; text-transform: none; letter-spacing: 0; }
+  .anatella-panel-right { display: flex; align-items: center; gap: 6px; }
+  .anatella-open-btn {
+    background: #FEF3C7; color: #92400E;
+    border: 1px solid #F59E0B; border-radius: 5px;
+    padding: 3px 11px; font-size: .76rem; font-weight: 600;
+    cursor: pointer; transition: background .15s; flex-shrink: 0;
+  }
+  .anatella-open-btn:hover { background: #FDE68A; }
+  .anatella-open-btn:disabled { opacity: .5; cursor: not-allowed; }
+  .anatella-status { padding: 4px 14px; font-size: .73rem; flex-shrink: 0; }
+  .anatella-status.ok  { color: #16a34a; }
+  .anatella-status.err { color: #dc2626; }
+  /* loadAnatellaPanel() (fileViewer.js) forces an inline height meant for the
+     bottom-docked panel in the lineage app — neutralise it in this tab layout */
+  #anatella-panel { height: auto !important; flex: 1; min-height: 0; display: flex; overflow: hidden; }
+  .anatella-scroll {
+    overflow: hidden; flex: 1; position: relative;
+    background: #FAFAF7; display: flex;
+  }
+  #anatella-svg { display: block; flex: 1; min-width: 0; height: 100%; }
+
+  /* AI description panel (left) */
+  .ai-desc-panel {
+    width: 272px; flex-shrink: 0; order: -1;
+    display: flex; flex-direction: column;
+    border-right: 1px solid #C4B5FD; background: #F5F3FF; overflow: hidden;
+    transition: width .18s ease, border-color .18s;
+  }
+  .ai-desc-panel.collapsed { width: 26px; cursor: pointer; }
+  .ai-desc-panel.collapsed .ai-desc-panel-hdr { display: none; }
+  .ai-desc-panel.collapsed .ai-desc-text { display: none; }
+  .ai-desc-strip {
+    display: none; flex-direction: column; align-items: center;
+    padding: 10px 0; gap: 8px; flex: 1; user-select: none;
+  }
+  .ai-desc-panel.collapsed .ai-desc-strip { display: flex; }
+  .ai-desc-strip-icon { font-size: 11px; color: #7C3AED; }
+  .ai-desc-strip-label {
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    font-size: .64rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .08em; color: #5B21B6;
+  }
+  .ai-desc-panel-hdr {
+    padding: 6px 10px 5px; background: #EDE9FE;
+    border-bottom: 1px solid #C4B5FD;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0; gap: 6px;
+  }
+  .ai-desc-panel-hdr span { font-weight: 700; color: #5B21B6; font-size: .71rem; text-transform: uppercase; letter-spacing: .07em; }
+  .ai-desc-gen-btn { background: #7C3AED; color: #fff; border: none; cursor: pointer; font-size: .72rem; font-weight: 600; padding: 2px 8px; border-radius: 3px; }
+  .ai-desc-gen-btn:hover { background: #5B21B6; }
+  .ai-desc-gen-btn:disabled { opacity: .5; cursor: not-allowed; }
+  .ai-desc-close { background: none; border: none; cursor: pointer; color: #7C3AED; font-size: 14px; line-height: 1; padding: 1px 5px; border-radius: 3px; }
+  .ai-desc-close:hover { background: #DDD6FE; color: #4C1D95; }
+  .ai-desc-save-btn {
+    background: #10B981; color: #fff; border: none; cursor: pointer;
+    font-size: .72rem; font-weight: 600; padding: 2px 8px; border-radius: 3px;
+  }
+  .ai-desc-save-btn:hover { background: #059669; }
+  .ai-desc-save-btn:disabled { opacity: .5; cursor: not-allowed; }
+  .ai-desc-text { flex: 1; overflow-y: auto; padding: 8px 12px; font-size: .78rem; line-height: 1.6; color: #1E293B; }
+  .ai-desc-text.ai-desc-empty { color: #94A3B8; font-style: italic; }
+  .ai-desc-text[contenteditable="true"] { outline: none; border: 1px solid #C4B5FD; border-radius: 4px; cursor: text; }
+  .ai-desc-text[contenteditable="true"]:focus { border-color: #7C3AED; box-shadow: 0 0 0 2px rgba(124,58,237,.12); }
+
+  /* Node properties panel */
+  .an-props {
+    width: 272px; flex-shrink: 0;
+    display: flex; flex-direction: column;
+    border-left: 1px solid #E2E8F0; background: #fff; overflow: hidden;
+    transition: width .15s ease, border-color .15s;
+  }
+  .an-props.hidden { width: 0; border-left: none; overflow: hidden; }
+  .an-props-head {
+    padding: 6px 10px 5px; background: #F8FAFC;
+    border-bottom: 1px solid #E2E8F0;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0; gap: 6px;
+  }
+  .an-props-title { display: flex; align-items: baseline; gap: 5px; min-width: 0; overflow: hidden; }
+  .an-props-type { font-size: .71rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .07em; color: #475569; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; }
+  .an-props-idx  { font-size: .69rem; color: #94A3B8; flex-shrink: 0; }
+  .an-props-close { background: none; border: none; cursor: pointer; color: #94A3B8;
+    font-size: 15px; line-height: 1; padding: 1px 5px; border-radius: 3px; }
+  .an-props-close:hover { background: #F1F5F9; color: #374151; }
+  .an-props-body { flex: 1; overflow-y: auto; font-size: .74rem; }
+  .an-props-body::-webkit-scrollbar { width: 4px; }
+  .an-props-body::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+  .an-props-empty { padding: 14px 10px; color: #94A3B8; font-style: italic; }
+  .an-props-table { width: 100%; border-collapse: collapse; }
+  .an-props-table td { padding: 4px 8px; vertical-align: top;
+    border-bottom: 1px solid #F1F5F9; line-height: 1.35; }
+  .an-props-table td:first-child { color: #64748B; font-weight: 600;
+    width: 36%; word-break: break-word; }
+  .an-props-table td:last-child  { color: #1E293B; word-break: break-all;
+    font-family: monospace; font-size: .69rem; }
+  .an-props-sec { padding: 4px 8px 3px; font-size: .67rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .08em;
+    color: #94A3B8; background: #F8FAFC;
+    border-top: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0; margin-top: 2px; }
+  .an-props-code { margin: 7px 8px; font-family: monospace; font-size: .71rem;
+    color: #1E293B; white-space: pre-wrap; word-break: break-all;
+    background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 4px;
+    padding: 6px 8px; max-height: 220px; overflow-y: auto; }
+  .an-props-tabs { display: flex; flex-wrap: wrap; background: #F1F5F9;
+    border-bottom: 1px solid #E2E8F0; flex-shrink: 0; }
+  .an-props-tab  { padding: 5px 9px; font-size: .69rem; font-weight: 600;
+    cursor: pointer; color: #64748B; border-right: 1px solid #E2E8F0; user-select: none; }
+  .an-props-tab:hover:not(.active) { background: #E8EEF5; }
+  .an-props-tab.active { background: #fff; color: #1D4ED8; box-shadow: inset 0 -2px 0 #2563EB; }
+  .an-props-finfo { padding: 5px 9px 2px; font-size: .69rem; color: #64748B; }
+  .an-props-finfo strong { color: #1E293B; }
+
+  /* In-panel zoom controls */
+  .an-zoom-ctrls {
+    position: absolute; top: 6px; right: 8px;
+    display: flex; flex-direction: column; gap: 3px; z-index: 10;
+  }
+  .an-zoom-btn {
+    width: 24px; height: 24px;
+    background: white; border: 1px solid var(--border);
+    border-radius: 5px; cursor: pointer;
+    font-size: .95rem; line-height: 24px; text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,.09);
+    transition: background .1s; user-select: none;
+  }
+  .an-zoom-btn:hover { background: #EFF6FF; }
+
+  /* Variable inspector panel (right) */
+  .var-panel {
+    width: 270px;
+    flex-shrink: 0;
+    background: #FFFFFF;
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: -2px 0 8px rgba(0,0,0,.06);
+    transition: width .18s ease, border-color .18s;
+  }
+  .var-panel.collapsed { width: 26px; cursor: pointer; border-left: none; }
+  .var-panel.collapsed .var-panel-header { display: none; }
+  .var-panel.collapsed .var-panel-search { display: none; }
+  .var-panel.collapsed .var-counts       { display: none; }
+  .var-panel.collapsed .var-io           { display: none; }
+  .var-panel.collapsed .var-list         { display: none; }
+  .var-panel-strip {
+    display: none; flex-direction: column; align-items: center;
+    padding: 10px 0; gap: 8px; flex: 1; user-select: none;
+  }
+  .var-panel.collapsed .var-panel-strip { display: flex; }
+  .var-panel-strip-icon  { font-size: 11px; color: #475569; }
+  .var-panel-strip-label {
+    writing-mode: vertical-rl; transform: rotate(180deg);
+    font-size: .64rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .08em; color: #475569;
+  }
+  .var-panel-collapse-btn {
+    background: none; border: none; cursor: pointer; color: #94A3B8;
+    font-size: 14px; line-height: 1; padding: 1px 5px; border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .var-panel-collapse-btn:hover { background: #F1F5F9; color: #374151; }
+  .var-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px 10px 16px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    background: #F8FAFC;
+  }
+  .var-panel-title {
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+  }
+  .var-panel-search {
+    padding: 8px 12px 6px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .var-panel-search .search-wrap input {
+    font-size: .8rem; padding: 6px 8px 6px 28px;
+  }
+  .var-counts {
+    padding: 5px 16px;
+    font-size: .72rem;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .var-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 6px 0;
+  }
+  .var-list::-webkit-scrollbar { width: 5px; }
+  .var-list::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+  .var-meta-badge {
+    font-size: .64rem;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 8px;
+    background: #D1FAE5;
+    color: #065F46;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+  .var-meta-badge.warn { background: #FEF3C7; color: #92400E; }
+  .vnode-heading {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px 3px;
+    margin-top: 4px;
+    font-size: .7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background .1s, color .1s;
+  }
+  .vnode-heading:hover { background: #EFF6FF; color: var(--accent); }
+  .vnode-badge {
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+  }
+  .vnode-badge.create { background: #D1FAE5; color: #065F46; }
+  .vnode-badge.rename { background: #FEF3C7; color: #92400E; }
+  .vnode-badge.update { background: #FEF3C7; color: #92400E; }
+  .vnode-badge.mixed  { background: #E0E7FF; color: #3730A3; }
+  .var-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px;
+    font-size: .8rem;
+    line-height: 1.4;
+    flex-wrap: wrap;
+  }
+  .var-row .vr-before {
+    color: #94A3B8;
+    font-style: italic;
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .var-row .vr-arrow { color: #CBD5E1; flex-shrink: 0; }
+  .var-row .vr-after {
+    font-weight: 600;
+    color: var(--text-main);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+  }
+  .var-row.highlight .vr-after,
+  .var-row.highlight .vr-before { color: #6366F1; }
+  .vr-op {
+    font-size: .64rem;
+    font-weight: 700;
+    padding: 1px 4px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .vr-op.create { background: #D1FAE5; color: #065F46; }
+  .vr-op.update { background: #FEF3C7; color: #92400E; }
+  .vr-op.rename { background: #E0E7FF; color: #3730A3; }
+  .vr-op.db     { background: #E0E7FF; color: #3730A3; }
+  .vr-expr {
+    width: 100%;
+    font-size: .69rem;
+    color: #94A3B8;
+    font-style: italic;
+    padding-top: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: default;
+  }
+  .vr-targets { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 3px; width: 100%; }
+  .vr-target-file { font-size: .67rem; padding: 1px 5px; border-radius: 3px;
+    background: #DBEAFE; color: #1E40AF; max-width: 100%; overflow: hidden;
+    text-overflow: ellipsis; white-space: nowrap; cursor: default; }
+  .vr-target-file.dynamic { background: #FEF3C7; color: #92400E; }
+  .var-io {
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .var-io:empty { display: none; }
+  .var-io-section { padding: 4px 0 2px; }
+  .var-io-head {
+    padding: 4px 14px 2px;
+    font-size: .68rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+  .var-io-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 14px 2px 18px;
+    font-size: .76rem;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: default;
+  }
+  .var-io-item.inp  { border-left: 2px solid #10B981; margin: 0 10px 0 14px; padding-left: 6px; }
+  .var-io-item.out  { border-left: 2px solid #6366F1; margin: 0 10px 0 14px; padding-left: 6px; }
+  .var-io-item.call { border-left: 2px solid #F59E0B; margin: 0 10px 0 14px; padding-left: 6px; }
+  .var-io-more { padding: 1px 14px 4px 20px; font-size: .7rem; color: var(--text-muted); font-style: italic; }
+
+  /* ── Tooltip ── */
+  #tooltip {
+    position: fixed; background: #1E293B; color: #F8FAFC;
+    padding: 6px 10px; border-radius: 6px; font-size: .75rem;
+    pointer-events: none; max-width: 380px; word-break: break-all;
+    line-height: 1.5; opacity: 0; transition: opacity .15s;
+    z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,.3);
+  }
+</style>
+</head>
+<body>
+
+<!-- Title bar -->
+<div class="dag-titlebar" id="dag-titlebar" style="display:none">
+  <div class="dag-title-icon" id="dag-title-icon"></div>
+  <div class="dag-title-text">
+    <span class="dag-title-name" id="dag-title-name"></span>
+    <span class="dag-title-path" id="dag-title-path"></span>
+  </div>
+</div>
+
+<!-- View tabs -->
+<div class="view-tabs" id="view-tabs" style="display:none">
+  <button class="view-tab active" data-view="graph">Graph View</button>
+  <button class="view-tab" data-view="list">List View <span class="view-tab-count" id="path-count"></span></button>
+  <button class="view-tab" data-view="overview">Project Overview</button>
+  <button class="view-tab" data-view="pipeline">Pipeline</button>
+  <div class="depth-toggle" id="depth-toggle" title="How far to trace lineage through shared files">
+    <button class="depth-btn active" data-depth="immediate">Immediate</button>
+    <button class="depth-btn" data-depth="full">Complete</button>
+  </div>
+  <button class="panel-max-btn" id="paths-max-btn" title="Maximize list view" style="display:none">⛶</button>
+</div>
+
+<!-- View area -->
+<div class="view-area" id="view-area">
+
+  <!-- Graph view -->
+  <div class="dag-panel" id="dag-panel">
+    <svg id="dag-svg">
+      <defs>
+        <marker id="arrow"    markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#CBD5E1"/></marker>
+        <marker id="arrow-hl" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#3B82F6"/></marker>
+        <marker id="arrow-call"    markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#94A3B8"/></marker>
+        <marker id="arrow-call-hl" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#3B82F6"/></marker>
+      </defs>
+      <g id="dag-root"></g>
+    </svg>
+    <div class="empty-state" id="empty-state">
+      <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+        <circle cx="26" cy="40" r="10" fill="#6366F1"/>
+        <circle cx="64" cy="20" r="10" fill="#F59E0B"/>
+        <circle cx="64" cy="60" r="10" fill="#10B981"/>
+        <line x1="26" y1="40" x2="54" y2="22" stroke="#94A3B8" stroke-width="2" stroke-dasharray="4 3"/>
+        <line x1="26" y1="40" x2="54" y2="58" stroke="#94A3B8" stroke-width="2" stroke-dasharray="4 3"/>
+      </svg>
+      <p id="empty-msg">Loading lineage…</p>
+    </div>
+    <div class="legend" id="legend" style="display:none">
+      <div class="legend-item"><svg width="12" height="10" style="flex-shrink:0"><polygon points="3,0 9,0 12,5 9,10 3,10 0,5" fill="#F59E0B"/></svg> .anatella</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#059669"></div> .gel/.cgel</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#EFF6FF;border:2px solid #3B82F6"></div> SQL/OCI</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#F8FAFC;border:1.5px solid #475569"></div> .csv/.txt</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#6366F1;border-radius:50%"></div> Selected</div>
+      <div class="legend-item"><svg width="22" height="10" style="flex-shrink:0"><line x1="0" y1="5" x2="22" y2="5" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="5,3"/></svg> Executes</div>
+    </div>
+    <div class="zoom-controls" id="zoom-controls" style="display:none">
+      <div class="zoom-btn" id="zoom-in"  title="Zoom in">+</div>
+      <div class="zoom-btn" id="zoom-fit" title="Fit to view">⊡</div>
+      <div class="zoom-btn" id="zoom-out" title="Zoom out">−</div>
+    </div>
+  </div>
+
+  <!-- List view -->
+  <div class="paths-panel" id="paths-panel" style="display:none">
+    <div class="paths-scroll" id="paths-scroll"></div>
+  </div>
+
+  <!-- Project Overview -->
+  <div id="overview-panel" style="display:none">
+    <div class="ov-toolbar">
+      <span class="ov-title" id="ov-project-name"></span>
+      <select id="ov-project-select" class="ov-select"></select>
+      <button class="hdr-btn" id="ov-expand-btn" title="Expand graph / hide sidebar" style="padding:5px 10px;font-size:.85rem">⛶</button>
+      <div style="display:flex;align-items:center;gap:7px;flex-shrink:0">
+        <span style="font-size:.72rem;color:#94A3B8;white-space:nowrap">Group spacing</span>
+        <input type="range" id="ov-spread-slider" min="0.3" max="3" step="0.1" value="1" style="width:80px;accent-color:#3B82F6;cursor:pointer">
+      </div>
+      <div class="search-wrap" style="width:220px">
+        <svg class="search-icon" width="13" height="13" viewBox="0 0 20 20" fill="none">
+          <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="2"/>
+          <line x1="13.5" y1="13.5" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input id="ov-search" type="text" placeholder="Highlight script…" autocomplete="off">
+      </div>
+      <div class="ov-legend" id="ov-legend"></div>
+    </div>
+    <div class="ov-body">
+      <div class="ov-sidebar">
+        <div class="ov-sb-head">Groups <span class="ov-sb-count" id="ov-group-count"></span></div>
+        <div class="ov-group-list" id="ov-group-list"></div>
+      </div>
+      <div class="ov-canvas" id="ov-canvas">
+        <svg id="ov-svg" width="100%" height="100%">
+          <defs>
+            <marker id="ov-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#CBD5E1"/>
+            </marker>
+          </defs>
+          <g id="ov-root"></g>
+        </svg>
+        <div class="ov-status" id="ov-status">Hover a node to see details</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pipeline explorer -->
+  <div id="pipeline-panel" style="display:none">
+    <div class="anatella-panel-header">
+      <h3>&#9670; Pipeline: <span id="anatella-panel-name">—</span></h3>
+      <div class="anatella-panel-right">
+        <button class="anatella-open-btn" id="anatella-open-btn">&#9654; Open in Anatella</button>
+      </div>
+    </div>
+    <div class="anatella-status" id="anatella-status" style="display:none"></div>
+    <div id="anatella-panel">
+      <div class="anatella-scroll" id="anatella-scroll">
+        <div class="ai-desc-panel" id="ai-desc-panel">
+          <div class="ai-desc-strip" id="ai-desc-strip">
+            <span class="ai-desc-strip-icon">&#9654;</span>
+            <span class="ai-desc-strip-label">AI Description</span>
+          </div>
+          <div class="ai-desc-panel-hdr">
+            <span>Ask AI</span>
+            <div style="display:flex;gap:4px;align-items:center">
+              <button class="ai-desc-gen-btn" id="ai-desc-gen-btn" title="Generate description">&#9654; Ask</button>
+              <button class="ai-desc-save-btn" id="ai-desc-save-btn" title="Save to Long Description" style="display:none">&#128190; Save</button>
+              <button class="ai-desc-close" id="ai-desc-close" title="Collapse panel">&#9664;</button>
+            </div>
+          </div>
+          <div class="ai-desc-text ai-desc-empty" id="ai-desc-text">Click &#9654; Ask to generate a description of this pipeline.</div>
+        </div>
+        <svg id="anatella-svg"></svg>
+        <div class="an-props hidden" id="an-props">
+          <div class="an-props-head">
+            <div class="an-props-title">
+              <span class="an-props-type" id="an-props-type">—</span>
+              <span class="an-props-idx"  id="an-props-idx"></span>
+            </div>
+            <button class="an-props-close" id="an-props-close">&#x2715;</button>
+          </div>
+          <div class="an-props-body" id="an-props-body"></div>
+        </div>
+        <div class="an-zoom-ctrls" id="an-zoom-ctrls" style="display:none">
+          <div class="an-zoom-btn" id="an-zoom-in"  title="Zoom in">+</div>
+          <div class="an-zoom-btn" id="an-zoom-fit" title="Fit">⊡</div>
+          <div class="an-zoom-btn" id="an-zoom-out" title="Zoom out">−</div>
+        </div>
+      </div>
+      <!-- Variable inspector -->
+      <div class="var-panel" id="var-panel">
+        <div class="var-panel-strip" id="var-panel-strip">
+          <span class="var-panel-strip-icon">&#9642;</span>
+          <span class="var-panel-strip-label">Variables Info</span>
+        </div>
+        <div class="var-panel-header">
+          <button class="var-panel-collapse-btn" id="var-panel-close" title="Collapse panel">&#9654;</button>
+          <div class="var-panel-title" id="var-panel-title">Variables</div>
+          <span class="var-meta-badge" id="var-meta-badge" style="display:none"></span>
+        </div>
+        <div class="var-panel-search">
+          <div class="search-wrap">
+            <svg class="search-icon" width="13" height="13" viewBox="0 0 20 20" fill="none">
+              <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="2"/>
+              <line x1="13.5" y1="13.5" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <input id="var-filter" type="text" placeholder="Filter variables…" autocomplete="off">
+          </div>
+        </div>
+        <div class="var-counts" id="var-counts"></div>
+        <div class="var-io" id="var-io"></div>
+        <div class="var-list" id="var-list"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .view-area -->
+
+<!-- Maximize overlay (paths only) -->
+<div id="max-overlay" style="display:none">
+  <div class="max-hdr">
+    <span class="max-hdr-title" id="max-title"></span>
+    <button class="max-close-btn" id="max-close">&#x2715; Close</button>
+  </div>
+  <div id="max-body"></div>
+</div>
+
+<!-- Overview context menu -->
+<div id="ov-ctx-menu" style="display:none">
+  <div class="ov-ctx-header" id="ov-ctx-name"></div>
+  <div class="ov-ctx-item" id="ov-ctx-goto">Go to Graph View</div>
+</div>
+
+<!-- Tooltip -->
+<div id="tooltip"></div>
+
+<script>
+const API      = 'lineage_api.php';
+const NODE_W   = 140, NODE_H = 32;
+const COL_GAP  = 80,  ROW_GAP = 14;
+
+// ── Context: 'workflow' (embedded in oneWorkflow.php) or 'lineage' (standalone) ──
+const _params  = new URLSearchParams(window.location.search);
+const _script  = _params.get('script')  || '';
+const _context = _params.get('context') || 'lineage';
+// 'script' (default, .anatella) or 'file' (data file / DB table — embedded from table.php)
+const _kind    = _params.get('kind') || 'script';
+
+// Lineage depth for the script view: 'immediate' (1 hop) or 'full' (complete BFS).
+let _depth = 'immediate';
+let _focalIsScript = true;  // depth toggle only applies to script focals (not files)
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let selectedFocal = null;
+let zoomBehavior;
+let ovLoaded       = false;
+let ovSimulation   = null;
+let ovRefs         = null;
+let ovClickedNode  = null;
+let ovActiveGroup  = null;
+let ovSidebarExpanded = true;
+
+// ── Tooltip ───────────────────────────────────────────────────────────────────
+const tooltip = document.getElementById('tooltip');
+let ttHide;
+function showTip(e, text) {
+  clearTimeout(ttHide);
+  tooltip.textContent = text;
+  tooltip.style.opacity = '1';
+  moveTip(e);
+}
+function moveTip(e) {
+  let x = e.clientX + 14, y = e.clientY - 10;
+  const tw = tooltip.offsetWidth, th = tooltip.offsetHeight;
+  if (x + tw > window.innerWidth  - 8) x = e.clientX - tw - 14;
+  if (y + th > window.innerHeight - 8) y = e.clientY - th - 10;
+  tooltip.style.left = x + 'px';
+  tooltip.style.top  = y + 'px';
+}
+function hideTip() {
+  ttHide = setTimeout(() => { tooltip.style.opacity = '0'; }, 120);
+}
+document.addEventListener('mousemove', e => { if (tooltip.style.opacity === '1') moveTip(e); });
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function basename(p) { if (!p) return ''; return p.replace(/\\/g, '/').split('/').pop(); }
+function dirpart(p)  { if (!p) return ''; const s = p.replace(/\\/g, '/'); const i = s.lastIndexOf('/'); return i >= 0 ? s.substring(0, i) : ''; }
+function truncate(s, n = 20) { return s.length > n ? s.substring(0, n - 1) + '…' : s; }
+function wrapLabel(name, maxLen = 17) {
+  if (name.length <= maxLen) return [name];
+  const mid = Math.round(name.length / 2);
+  for (let d = 0; d <= 6; d++) {
+    for (const pos of [mid - d, mid + d]) {
+      if (pos > 0 && pos < name.length && /[_\-.]/.test(name[pos])) {
+        const p  = (name[pos] === '_' || name[pos] === '-') ? pos + 1 : pos;
+        const l2 = name.slice(p);
+        return [name.slice(0, p), l2.length > maxLen ? l2.slice(0, maxLen - 1) + '…' : l2];
+      }
+    }
+  }
+  const l2 = name.slice(mid);
+  return [name.slice(0, mid), l2.length > maxLen ? l2.slice(0, maxLen - 1) + '…' : l2];
+}
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Title bar ─────────────────────────────────────────────────────────────────
+function setDagTitle(path, tab) {
+  const bar  = document.getElementById('dag-titlebar');
+  const icon = document.getElementById('dag-title-icon');
+  const name = document.getElementById('dag-title-name');
+  const pth  = document.getElementById('dag-title-path');
+  const bn   = basename(path);
+  const dir  = dirpart(path);
+  const typeMap = {
+    script: { label: 'SCR', cls: 'type-script' },
+    source: { label: 'SRC', cls: 'type-source' },
+    dest:   { label: 'DST', cls: 'type-destination' },
+  };
+  const t = typeMap[tab] || { label: '···', cls: 'type-source' };
+  icon.textContent = t.label;
+  icon.className   = 'dag-title-icon ' + t.cls;
+  name.textContent = bn;
+  pth.textContent  = dir || path;
+  bar.style.display = '';
+}
+
+// ── Select a script (graph + list view) ──────────────────────────────────────
+async function viewerSelectScript(path) {
+  selectedFocal = path;
+  setDagTitle(path, 'script');
+  _focalIsScript = true;
+  const dt = document.getElementById('depth-toggle');
+  if (dt && document.querySelector('.view-tab.active')?.dataset.view !== 'pipeline'
+        && document.querySelector('.view-tab.active')?.dataset.view !== 'overview') {
+    dt.style.display = 'inline-flex';
+  }
+  await selectScript(path);
+}
+
+async function selectScript(script) {
+  const res  = await fetch(`${API}?action=graph_for_script&depth=${_depth}&script=${encodeURIComponent(script)}`);
+  const data = await res.json();
+  const focal = data.focal || script;
+
+  const upChains = [], downChains = [];
+  const rows = data.rows || [];
+  const fbn  = basename(focal);
+
+  parseChains(rows).forEach(steps => {
+    const idx = steps.findIndex(s => basename(s) === fbn);
+    if (idx < 0) return;
+    if (idx > 0)               upChains.push(steps.slice(0, idx + 1));
+    if (idx < steps.length - 1) downChains.push(steps.slice(idx));
+  });
+  // Execution relations ("this script executes…") drawn as dashed grey edges.
+  const callSet = new Set();
+  (data.rel_before || []).forEach(a => { upChains.push([a, focal]);   callSet.add(a + '→' + focal); });
+  (data.rel_after  || []).forEach(b => { downChains.push([focal, b]); callSet.add(focal + '→' + b); });
+  (data.db_inputs  || []).forEach(db => upChains.push([db, focal]));
+  // Extended neighbours through shared files (immediate = 1 hop, full = BFS).
+  parseChains(data.up_edges   || []).forEach(ch => upChains.push(ch));
+  parseChains(data.down_edges || []).forEach(ch => downChains.push(ch));
+
+  const graph = buildFullGraph(upChains, downChains, focal, callSet);
+  layoutGraph(graph);
+  renderGraph(graph, focal);
+  renderPaths(upChains, downChains, focal);
+}
+
+async function selectFileNode(file) {
+  selectedFocal = file;
+  setDagTitle(file, 'dest');
+  _focalIsScript = false;
+  // full_graph always does a complete BFS — the immediate/complete depth toggle
+  // only applies to script focals (graph_for_script); hide it for files/tables.
+  const dt = document.getElementById('depth-toggle');
+  if (dt) dt.style.display = 'none';
+  const res  = await fetch(`${API}?action=full_graph&file=${encodeURIComponent(file)}`);
+  const data = await res.json();
+  const upChains   = parseChains(data.upstream);
+  const downChains = parseChains(data.downstream);
+  const graph = buildFullGraph(upChains, downChains, file);
+  layoutGraph(graph);
+  renderGraph(graph, file);
+  renderPaths(upChains, downChains, file);
+}
+
+// ── Parse / build / layout graph ─────────────────────────────────────────────
+function parseChains(rows) {
+  return (rows || [])
+    .filter(r => r.source && r.destination)
+    .map(r => {
+      const steps = [r.source];
+      for (let i = 0; i <= 6; i++) { const v = r['s' + i]; if (!v) break; steps.push(v); }
+      steps.push(r.destination);
+      return steps;
+    });
+}
+
+function buildFullGraph(upChains, downChains, focal, callSet) {
+  callSet = callSet || new Set();
+  const nodes = new Map(), edges = [], edgeSet = new Set();
+
+  function ensureNode(path) {
+    if (!nodes.has(path)) {
+      nodes.set(path, { id: path, path, label: basename(path), type: 'intermediate', col: 0, row: 0, x: 0, y: 0 });
+    }
+  }
+  function addEdges(steps) {
+    for (let i = 0; i < steps.length - 1; i++) {
+      const ek = steps[i] + '→' + steps[i + 1];
+      if (!edgeSet.has(ek)) {
+        edgeSet.add(ek);
+        edges.push({ from: steps[i], to: steps[i + 1], edgeType: callSet.has(ek) ? 'call' : 'file' });
+      }
+    }
+  }
+  upChains.forEach(steps => { steps.forEach(ensureNode); addEdges(steps); });
+  downChains.forEach(steps => { steps.forEach(ensureNode); addEdges(steps); });
+  ensureNode(focal);
+
+  // ── BFS layering from the focal ───────────────────────────────────────────
+  // Chains arrive as short segments (source → script → destination), so a
+  // node's column must come from its distance to the focal in the *merged*
+  // graph — positioning by segment length flattened deep trees to a single
+  // extra level. Shortest-path BFS (not longest-path): file cycles (A→B→A)
+  // exist in real pipelines and would inflate longest-path layering forever.
+  const inAdj = new Map(), outAdj = new Map();
+  edges.forEach(e => {
+    if (!inAdj.has(e.to))    inAdj.set(e.to, []);
+    inAdj.get(e.to).push(e.from);
+    if (!outAdj.has(e.from)) outAdj.set(e.from, []);
+    outAdj.get(e.from).push(e.to);
+  });
+  function bfs(start, adj) {
+    const dist = new Map([[start, 0]]);
+    let frontier = [start];
+    while (frontier.length) {
+      const next = [];
+      for (const n of frontier) {
+        for (const m of (adj.get(n) || [])) {
+          if (!dist.has(m)) { dist.set(m, dist.get(n) + 1); next.push(m); }
+        }
+      }
+      frontier = next;
+    }
+    return dist;
+  }
+  const distUp   = bfs(focal, inAdj);    // nodes that reach the focal (upstream)
+  const distDown = bfs(focal, outAdj);   // nodes the focal reaches (downstream)
+
+  let minCol = 0;
+  nodes.forEach(n => {
+    if (n.path === focal) { n.col = 0; return; }
+    const u = distUp.get(n.path), d = distDown.get(n.path);
+    if (u !== undefined && (d === undefined || u <= d)) n.col = -u;  // nearer side wins
+    else if (d !== undefined)                           n.col = d;
+    else                                                n.col = 0;   // disconnected fallback
+    if (n.col < minCol) minCol = n.col;
+  });
+  const upDepth = -minCol;                          // focal's final column
+  nodes.forEach(n => { n.col -= minCol; });
+
+  // ── Node types (after layering) ─────────────────────────────────────────
+  const hasOut = new Set(edges.map(e => e.from));
+  nodes.forEach(n => {
+    if (n.path === focal)             { n.type = 'focal';  return; }
+    if (n.path.endsWith('.anatella')) { n.type = 'script'; return; }
+    if (upDepth > 0 && n.col === 0)   { n.type = 'source'; return; }
+    n.type = (n.col > upDepth && !hasOut.has(n.id)) ? 'destination' : 'intermediate';
+  });
+
+  return { nodes, edges, upDepth };
+}
+
+function layoutGraph(graph) {
+  const { nodes } = graph;
+  const cols = new Map();
+  nodes.forEach(n => { if (!cols.has(n.col)) cols.set(n.col, []); cols.get(n.col).push(n); });
+  const colW = NODE_W + COL_GAP;
+  cols.forEach((group, col) => {
+    group.forEach((n, i) => { n.x = col * colW; n.y = i * (NODE_H + ROW_GAP); n.row = i; });
+  });
+}
+
+function fileNodeStyle(path, type) {
+  const low = (path || '').toLowerCase();
+  const isFocal = type === 'focal';
+  if (low.endsWith('.anatella')) {
+    return isFocal
+      ? { fill: '#6366F1', stroke: '#fff', sw: 2.5, textFill: '#fff', isDiamond: true }
+      : { fill: '#F59E0B', stroke: '#fff', sw: 1.5, textFill: '#fff', isDiamond: true };
+  }
+  if (low.endsWith('.gel_anatella') || low.endsWith('.cgel_anatella'))
+    return { fill: '#059669', stroke: '#6EE7B7', sw: 1.5, textFill: '#fff', isDiamond: false };
+  if (low.endsWith('.sql') || (!low.includes('/') && !low.includes('\\') && /^[a-z0-9_ ]+\.[a-z0-9_ ]+$/i.test(path)))
+    return { fill: '#EFF6FF', stroke: '#3B82F6', sw: 2, textFill: '#1E3A5F', isDiamond: false };
+  if (low.endsWith('.cvx') || low.endsWith('.txt') || low.endsWith('.csv'))
+    return { fill: '#F8FAFC', stroke: '#475569', sw: 1.5, textFill: '#1E293B', isDiamond: false };
+  if (isFocal) return { fill: '#6366F1', stroke: '#fff', sw: 2.5, textFill: '#fff', isDiamond: false };
+  const fb = {
+    source:       { fill: '#3B82F6', stroke: '#fff', sw: 1.5, textFill: '#fff' },
+    intermediate: { fill: '#94A3B8', stroke: '#fff', sw: 1.5, textFill: '#fff' },
+    destination:  { fill: '#10B981', stroke: '#fff', sw: 1.5, textFill: '#fff' },
+    script:       { fill: '#F59E0B', stroke: '#fff', sw: 1.5, textFill: '#fff' },
+  }[type] || { fill: '#94A3B8', stroke: '#fff', sw: 1.5, textFill: '#fff' };
+  return { ...fb, isDiamond: false };
+}
+
+// ── Render graph ──────────────────────────────────────────────────────────────
+function renderGraph(graph, focal) {
+  const { nodes, edges } = graph;
+  const nodeArr = [...nodes.values()];
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('legend').style.display      = '';
+  document.getElementById('zoom-controls').style.display = '';
+  document.getElementById('view-tabs').style.display   = '';
+  switchView('graph');
+
+  const svg    = d3.select('#dag-svg');
+  const root   = svg.select('#dag-root');
+  root.selectAll('*').remove();
+
+  const xs = nodeArr.map(n => n.x), ys = nodeArr.map(n => n.y);
+  const minX = Math.min(...xs), maxX = Math.max(...xs) + NODE_W;
+  const minY = Math.min(...ys), maxY = Math.max(...ys) + NODE_H;
+  const graphW = maxX - minX + 80, graphH = maxY - minY + 80;
+
+  const svgEl = document.getElementById('dag-svg');
+  const vW = svgEl.clientWidth || 800, vH = svgEl.clientHeight || 500;
+  zoomBehavior = d3.zoom().scaleExtent([0.15, 3]).on('zoom', e => root.attr('transform', e.transform));
+  svg.call(zoomBehavior);
+  const sc = Math.min((vW - 40) / graphW, (vH - 40) / graphH, 1.4);
+  const tx = (vW - graphW * sc) / 2 - minX * sc + 20;
+  const ty = (vH - graphH * sc) / 2 - minY * sc + 20;
+  svg.call(zoomBehavior.transform, d3.zoomIdentity.translate(tx, ty).scale(sc));
+
+  function edgePathD(e) {
+    const s = nodes.get(e.from), t = nodes.get(e.to);
+    if (!s || !t) return '';
+    const x1 = s.x + NODE_W, y1 = s.y + NODE_H / 2;
+    const x2 = t.x,           y2 = t.y + NODE_H / 2;
+    const cx = (x1 + x2) / 2;
+    return `M${x1},${y1} C${cx},${y1} ${cx},${y2} ${x2},${y2}`;
+  }
+  // File-flow edges first so dashed call edges render on top.
+  root.selectAll('.edge-path-file').data(edges.filter(e => e.edgeType !== 'call')).join('path')
+    .attr('class', 'edge-path')
+    .attr('marker-end', 'url(#arrow)')
+    .attr('d', edgePathD);
+  root.selectAll('.edge-path-call').data(edges.filter(e => e.edgeType === 'call')).join('path')
+    .attr('class', 'edge-path call-edge')
+    .attr('marker-end', 'url(#arrow-call)')
+    .attr('d', edgePathD);
+
+  const nodeGroups = root.selectAll('.node-group').data(nodeArr, d => d.id).join('g')
+    .attr('class', d => `node-group${d.type === 'focal' ? ' node-focal' : d.type === 'destination' ? ' node-dest' : ''}`)
+    .attr('transform', d => `translate(${d.x},${d.y})`)
+    .on('mouseover', (e, d) => showTip(e, d.path))
+    .on('mouseleave', hideTip)
+    .on('click', (e, d) => {
+      highlightPaths(d.id, root, nodes, edges);
+      const isScript = d.type === 'script' || (d.type === 'focal' && d.path.endsWith('.anatella'));
+      if (isScript) {
+        if (_context === 'workflow') {
+          // Navigate parent to the workflow page for this script
+          window.parent.postMessage({ type: 'lineage-navigate', path: d.path }, '*');
+        } else {
+          viewerSelectScript(d.path);
+        }
+      } else if (_context === 'workflow') {
+        // Embedded: re-root the graph on this file/table without leaving the page.
+        selectedFocal = d.path;
+        setDagTitle(d.path, 'dest');
+        selectFileNode(d.path);
+      } else {
+        selectFileNode(d.path);
+      }
+    });
+
+  nodeGroups.each(function(d) {
+    const g = d3.select(this);
+    const st = fileNodeStyle(d.path || d.id, d.type);
+    const isFocal = d.type === 'focal';
+    if (st.isDiamond) {
+      const hh = NODE_H / 2;
+      g.append('polygon').attr('class', 'node-rect')
+        .attr('points', `${hh},0 ${NODE_W-hh},0 ${NODE_W},${hh} ${NODE_W-hh},${NODE_H} ${hh},${NODE_H} 0,${hh}`)
+        .attr('fill', st.fill).attr('stroke', st.stroke).attr('stroke-width', st.sw);
+    } else {
+      g.append('rect').attr('class', 'node-rect')
+        .attr('width',  isFocal ? NODE_W + 10 : NODE_W)
+        .attr('height', isFocal ? NODE_H + 6  : NODE_H)
+        .attr('x', isFocal ? -5 : 0).attr('y', isFocal ? -3 : 0)
+        .attr('rx', (d.type === 'destination' || isFocal) ? 10 : 6)
+        .attr('fill', st.fill).attr('stroke', st.stroke).attr('stroke-width', st.sw);
+    }
+    const lines = wrapLabel(d.label);
+    const textEl = g.append('text')
+      .attr('class', st.textFill === '#fff' ? 'node-label' : 'node-label dark')
+      .attr('x', NODE_W / 2);
+    if (lines.length === 1) {
+      textEl.attr('y', NODE_H / 2).text(lines[0]);
+    } else {
+      const lh = 10;
+      textEl.append('tspan').attr('x', NODE_W / 2).attr('y', NODE_H / 2 - lh / 2).text(lines[0]);
+      textEl.append('tspan').attr('x', NODE_W / 2).attr('y', NODE_H / 2 + lh / 2).text(lines[1]);
+    }
+    g.append('title').text(d.path || d.id);
+  });
+
+  document.getElementById('zoom-in').onclick  = () => svg.transition().duration(200).call(zoomBehavior.scaleBy, 1.3);
+  document.getElementById('zoom-out').onclick = () => svg.transition().duration(200).call(zoomBehavior.scaleBy, 0.75);
+  document.getElementById('zoom-fit').onclick = () => svg.transition().duration(300).call(zoomBehavior.transform, d3.zoomIdentity.translate(tx, ty).scale(sc));
+
+  const focalNode = nodeArr.find(n => n.type === 'focal');
+  if (focalNode) highlightPaths(focalNode.id, root, nodes, edges);
+}
+
+function highlightPaths(nodeId, root, nodes, edges) {
+  const connected = new Set([nodeId]);
+  let changed = true;
+  while (changed) {
+    changed = false;
+    edges.forEach(e => {
+      if (connected.has(e.from) && !connected.has(e.to))  { connected.add(e.to);   changed = true; }
+      if (connected.has(e.to)   && !connected.has(e.from)) { connected.add(e.from); changed = true; }
+    });
+  }
+  const isHl = e => connected.has(e.from) && connected.has(e.to);
+  root.selectAll('.edge-path')
+    .classed('highlighted', isHl)
+    .attr('marker-end', e => {
+      if (e.edgeType === 'call') return isHl(e) ? 'url(#arrow-call-hl)' : 'url(#arrow-call)';
+      return isHl(e) ? 'url(#arrow-hl)' : 'url(#arrow)';
+    });
+}
+
+// ── Path cards (List view) ────────────────────────────────────────────────────
+function renderPaths(upChains, downChains, focal) {
+  const scroll = document.getElementById('paths-scroll');
+  const count  = document.getElementById('path-count');
+  const total  = upChains.length + downChains.length;
+  document.getElementById('paths-max-btn').style.display = '';
+  count.textContent = total ? `(${total})` : '';
+
+  function chipClass(p, i, steps) {
+    if (p === focal)             return 'focal';
+    if (p.endsWith('.anatella')) return 'script';
+    if (i === 0)                 return 'source';
+    if (i === steps.length - 1) return 'dest';
+    return 'inter';
+  }
+  function rowHtml(steps) {
+    const chips = steps.map((p, i) =>
+      `<span class="path-chip ${chipClass(p, i, steps)}" title="${escHtml(p)}">${escHtml(truncate(basename(p), 22))}</span>`);
+    const parts = [];
+    chips.forEach((c, i) => { parts.push(c); if (i < chips.length - 1) parts.push('<span class="path-arrow">→</span>'); });
+    return `<div class="path-row">${parts.join('')}</div>`;
+  }
+
+  let html = '';
+  if (upChains.length)   html += `<div class="path-section-label">Upstream (${upChains.length})</div>` + upChains.map(rowHtml).join('');
+  if (downChains.length) html += `<div class="path-section-label" style="margin-top:6px">Downstream (${downChains.length})</div>` + downChains.map(rowHtml).join('');
+  scroll.innerHTML = html;
+}
+
+// ── View tab switching ────────────────────────────────────────────────────────
+async function switchView(view) {
+  document.querySelectorAll('.view-tab').forEach(t => t.classList.toggle('active', t.dataset.view === view));
+  document.getElementById('dag-panel').style.display      = view === 'graph'    ? '' : 'none';
+  document.getElementById('paths-panel').style.display    = view === 'list'     ? '' : 'none';
+  document.getElementById('overview-panel').style.display = view === 'overview' ? '' : 'none';
+  document.getElementById('pipeline-panel').style.display = view === 'pipeline' ? 'flex' : 'none';
+  document.getElementById('paths-max-btn').style.display  = view === 'list'     ? '' : 'none';
+  // Depth toggle applies to the script lineage (graph/list), not overview/pipeline.
+  document.getElementById('depth-toggle').style.display   = (view === 'overview' || view === 'pipeline' || !_focalIsScript) ? 'none' : 'inline-flex';
+  if (view === 'overview') {
+    if (!ovLoaded) await loadOverview('');
+    highlightFocalInOverview();
+  }
+  if (view === 'pipeline') await openPipelineTab();
+}
+document.querySelectorAll('.view-tab').forEach(btn => {
+  btn.addEventListener('click', () => switchView(btn.dataset.view));
+});
+
+// Depth toggle: Immediate (1 hop) vs Complete (full BFS through shared files).
+document.querySelectorAll('.depth-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    if (btn.dataset.depth === _depth) return;
+    _depth = btn.dataset.depth;
+    document.querySelectorAll('.depth-btn').forEach(b => b.classList.toggle('active', b === btn));
+    if (selectedFocal && selectedFocal.endsWith('.anatella')) await selectScript(selectedFocal);
+  });
+});
+
+// ── Project overview ──────────────────────────────────────────────────────────
+async function loadOverview(project) {
+  const res  = await fetch(`${API}?action=project_graph&project=${encodeURIComponent(project)}`);
+  const data = await res.json();
+  const sel  = document.getElementById('ov-project-select');
+  sel.innerHTML = (data.projects || []).map(p =>
+    `<option value="${escHtml(p)}"${p === data.project ? ' selected' : ''}>${escHtml(p)}</option>`
+  ).join('');
+  sel.onchange = () => { ovLoaded = false; loadOverview(sel.value); };
+  document.getElementById('ov-project-name').textContent = data.project || '';
+  renderForceGraph(data.edges || [], data.groupLabels || {});
+  ovLoaded = true;
+}
+
+function buildForceData(edges) {
+  const nodeMap = new Map(), links = [], seenLinks = new Set();
+  edges.forEach(e => {
+    if (!nodeMap.has(e.A)) nodeMap.set(e.A, { id: e.A, grp: +e.grp, degree: 0 });
+    nodeMap.get(e.A).degree++;
+    if (e.B && e.B.trim()) {
+      if (!nodeMap.has(e.B)) nodeMap.set(e.B, { id: e.B, grp: +e.grp, degree: 0 });
+      nodeMap.get(e.B).degree++;
+      const lk = e.A + '→' + e.B;
+      if (!seenLinks.has(lk)) { seenLinks.add(lk); links.push({ source: e.A, target: e.B, grp: +e.grp }); }
+    }
+  });
+  return { nodes: [...nodeMap.values()], links };
+}
+
+function renderForceGraph(edges, groupLabels) {
+  if (ovSimulation) { ovSimulation.stop(); ovSimulation = null; }
+  groupLabels = groupLabels || {};
+  const { nodes, links } = buildForceData(edges);
+  const groups  = [...new Set(nodes.map(n => n.grp))].sort((a, b) => a - b);
+  const colorOf = d3.scaleOrdinal().domain(groups).range(groups.map((_, i) => d3.interpolateRainbow(i / groups.length)));
+  const rOf = d => Math.max(5, Math.min(4 + d.degree * 1.2, 18));
+
+  const cols = Math.ceil(Math.sqrt(groups.length));
+  const cellW = 160, cellH = 120;
+  const gPos  = {};
+  groups.forEach((g, i) => { gPos[g] = { x: (i % cols - (cols - 1) / 2) * cellW, y: (Math.floor(i / cols) - (Math.ceil(groups.length / cols) - 1) / 2) * cellH }; });
+  nodes.forEach(n => { n.x = gPos[n.grp].x + (Math.random() - 0.5) * 40; n.y = gPos[n.grp].y + (Math.random() - 0.5) * 40; });
+
+  function dirOf(id) { const i = id.lastIndexOf('/'); return i > 0 ? id.substring(0, i) : ''; }
+  const dirMap = new Map();
+  nodes.forEach(n => { const d = dirOf(n.id); if (!d) return; if (!dirMap.has(d)) dirMap.set(d, []); dirMap.get(d).push(n); });
+
+  const svgEl = document.getElementById('ov-svg');
+  const svg   = d3.select(svgEl);
+  const root  = svg.select('#ov-root');
+  root.selectAll('*').remove();
+  const W = svgEl.clientWidth || 900, H = svgEl.clientHeight || 600;
+  const zoom = d3.zoom().scaleExtent([0.1, 6]).on('zoom', e => root.attr('transform', e.transform));
+  svg.call(zoom).call(zoom.transform, d3.zoomIdentity.translate(W / 2, H / 2));
+  svg.on('click', () => { clearOvSelection(); hideOvContextMenu(); });
+
+  const hullG = root.append('g').attr('class', 'hull-layer');
+  const link  = root.append('g').selectAll('line').data(links).join('line').attr('class', 'ov-link');
+  const hullLine = d3.line().curve(d3.curveCardinalClosed.tension(0.6));
+
+  function safeHull(pts, pad) {
+    let ps = pts.slice();
+    while (ps.length < 3) ps.push([ps[0][0] + ps.length * 0.1, ps[0][1] + 0.1]);
+    const hull = d3.polygonHull(ps);
+    if (!hull || hull.length < 3) return null;
+    const cx = d3.mean(hull, p => p[0]), cy = d3.mean(hull, p => p[1]);
+    return hull.map(([x, y]) => { const dx = x-cx, dy = y-cy, len = Math.sqrt(dx*dx+dy*dy)||1; return [x+dx/len*pad, y+dy/len*pad]; });
+  }
+
+  function drawHulls() {
+    const hullData = [];
+    dirMap.forEach((dnodes, dir) => {
+      const pts = dnodes.map(n => [n.x, n.y]);
+      const expanded = safeHull(pts, 22);
+      if (!expanded) return;
+      const grpCounts = {};
+      dnodes.forEach(n => { grpCounts[n.grp] = (grpCounts[n.grp] || 0) + 1; });
+      const domGrp = +Object.entries(grpCounts).sort((a, b) => b[1] - a[1])[0][0];
+      const lbl = dir.replace(/^[^:]*:\/+/, '').replace(/\/+$/, '') || dir;
+      hullData.push({ dir, hull: expanded, col: colorOf(domGrp), lbl });
+    });
+    const grps = hullG.selectAll('g.ov-hull-grp').data(hullData, d => d.dir);
+    grps.exit().remove();
+    const enter  = grps.enter().append('g').attr('class', 'ov-hull-grp');
+    enter.append('path').attr('class', 'ov-hull');
+    enter.append('text').attr('class', 'ov-hull-label');
+    const merged = grps.merge(enter);
+    merged.select('path.ov-hull').attr('d', d => hullLine(d.hull))
+      .attr('fill', d => d.col).attr('fill-opacity', 0.09)
+      .attr('stroke', d => d.col).attr('stroke-opacity', 0.30)
+      .attr('stroke-width', 1.5).attr('stroke-dasharray', '5,3');
+    merged.select('text.ov-hull-label')
+      .attr('x', d => d3.min(d.hull, p => p[0]) + 4).attr('y', d => d3.min(d.hull, p => p[1]) + 10)
+      .attr('fill', d => d.col).text(d => d.lbl.length > 30 ? d.lbl.slice(0, 29) + '…' : d.lbl);
+  }
+
+  const node = root.append('g').selectAll('g').data(nodes, d => d.id).join('g')
+    .attr('class', 'ov-node')
+    .call(d3.drag()
+      .on('start', (e, d) => { if (!e.active) sim.alphaTarget(.3).restart(); d.fx = d.x; d.fy = d.y; })
+      .on('drag',  (e, d) => { d.fx = e.x; d.fy = e.y; })
+      .on('end',   (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; })
+    )
+    .on('mouseover', (e, d) => {
+      const grpLabel = groupLabels[d.grp] || groupLabels[String(d.grp)] || ('Group ' + d.grp);
+      setOvStatus(`<strong>${escHtml(basename(d.id).replace(/\.anatella$/i,''))}</strong> &nbsp;·&nbsp; ${escHtml(grpLabel)} &nbsp;·&nbsp; ${d.degree} connection${d.degree !== 1 ? 's' : ''}`);
+    })
+    .on('mouseout', () => setOvStatus('Click a node to highlight connections &nbsp;·&nbsp; Right-click for details'))
+    .on('click', (e, d) => {
+      e.stopPropagation(); hideOvContextMenu();
+      if (ovClickedNode === d.id) { ovClickedNode = null; clearOvSelection(); }
+      else                        { ovClickedNode = d.id; highlightNodeNeighbors(d.id); }
+    })
+    .on('contextmenu', (e, d) => { e.preventDefault(); e.stopPropagation(); showOvContextMenu(e, d.id); });
+
+  node.append('circle').attr('r', rOf).attr('fill', d => colorOf(d.grp)).attr('stroke', '#fff').attr('stroke-width', 1);
+  node.append('text').attr('text-anchor', 'middle').attr('dy', d => rOf(d) + 9)
+    .attr('fill', d => colorOf(d.grp)).attr('opacity', 0.85)
+    .text(d => { const s = basename(d.id).replace(/\.anatella$/i, ''); return s.length > 15 ? s.slice(0, 14) + '…' : s; });
+
+  const sliderEl = document.getElementById('ov-spread-slider');
+  const s0 = sliderEl ? +sliderEl.value : 1;
+  const sim = d3.forceSimulation(nodes)
+    .force('link',    d3.forceLink(links).id(d => d.id).distance(38).strength(0.9))
+    .force('charge',  d3.forceManyBody().strength(-70))
+    .force('collide', d3.forceCollide(d => rOf(d) + 2))
+    .force('gx',      d3.forceX(d => gPos[d.grp].x * s0).strength(0.12))
+    .force('gy',      d3.forceY(d => gPos[d.grp].y * s0).strength(0.12))
+    .on('tick', () => {
+      link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+        .attr('x2', d => d.target.x - (rOf(d.target) + 3) * Math.cos(Math.atan2(d.target.y - d.source.y, d.target.x - d.source.x)))
+        .attr('y2', d => d.target.y - (rOf(d.target) + 3) * Math.sin(Math.atan2(d.target.y - d.source.y, d.target.x - d.source.x)));
+      node.attr('transform', d => `translate(${d.x},${d.y})`);
+      drawHulls();
+    });
+
+  ovSimulation = sim;
+  ovRefs = { node, link, nodes, links, colorOf, rOf, sim, gPos, zoom, svgEl, W, H };
+  sim.on('end', () => highlightFocalInOverview());
+
+  if (sliderEl) {
+    sliderEl.oninput = function() {
+      if (!ovRefs) return;
+      const s = +this.value;
+      ovRefs.sim.force('gx').x(d => ovRefs.gPos[d.grp].x * s);
+      ovRefs.sim.force('gy').y(d => ovRefs.gPos[d.grp].y * s);
+      ovRefs.sim.alpha(0.5).restart();
+    };
+  }
+
+  const groupStats = d3.rollups(nodes, v => v.length, d => d.grp).sort((a, b) => b[1] - a[1]);
+  document.getElementById('ov-group-count').textContent = `(${groupStats.length})`;
+  const gList = document.getElementById('ov-group-list');
+  gList.innerHTML = groupStats.map(([g, cnt]) => {
+    const label = groupLabels[g] || groupLabels[String(g)] || ('Group ' + g);
+    return `<div class="ov-group-item" data-grp="${g}"><div class="ov-group-swatch" style="background:${colorOf(g)}"></div><span class="ov-group-label">${escHtml(label)}</span><span class="ov-group-size">${cnt}</span></div>`;
+  }).join('');
+  gList.querySelectorAll('.ov-group-item').forEach(el => { el.addEventListener('click', () => filterOverviewByGroup(+el.dataset.grp, el)); });
+  document.getElementById('ov-search').oninput = function() { searchOverview(this.value); };
+  setOvStatus('Click a node to highlight connections &nbsp;·&nbsp; Right-click for details');
+  highlightFocalInOverview();
+}
+
+function highlightNodeNeighbors(nodeId) {
+  if (!ovRefs) return;
+  const { node, link, links } = ovRefs;
+  const neighbors = new Set([nodeId]);
+  links.forEach(l => {
+    const s = l.source.id !== undefined ? l.source.id : l.source;
+    const t = l.target.id !== undefined ? l.target.id : l.target;
+    if (s === nodeId) neighbors.add(t);
+    if (t === nodeId) neighbors.add(s);
+  });
+  node.classed('dimmed', d => !neighbors.has(d.id)).classed('active', d => neighbors.has(d.id));
+  link.classed('active', l => {
+    const s = l.source.id !== undefined ? l.source.id : l.source;
+    const t = l.target.id !== undefined ? l.target.id : l.target;
+    return s === nodeId || t === nodeId;
+  }).classed('dimmed', l => {
+    const s = l.source.id !== undefined ? l.source.id : l.source;
+    const t = l.target.id !== undefined ? l.target.id : l.target;
+    return s !== nodeId && t !== nodeId;
+  });
+}
+
+function clearOvSelection() {
+  if (!ovRefs) return;
+  ovRefs.node.classed('dimmed', false).classed('active', false);
+  ovRefs.link.classed('dimmed', false).classed('active', false);
+}
+
+function showOvContextMenu(e, nodeId) {
+  const menu = document.getElementById('ov-ctx-menu');
+  menu._nodeId = nodeId;
+  document.getElementById('ov-ctx-name').textContent = basename(nodeId).replace(/\.anatella$/i, '');
+  menu.style.display = 'block';
+  const mw = 170, mh = 70;
+  menu.style.left = Math.min(e.clientX + 2, window.innerWidth  - mw) + 'px';
+  menu.style.top  = Math.min(e.clientY + 2, window.innerHeight - mh) + 'px';
+}
+
+function hideOvContextMenu() { document.getElementById('ov-ctx-menu').style.display = 'none'; }
+
+document.getElementById('ov-ctx-goto').addEventListener('click', () => {
+  const id = document.getElementById('ov-ctx-menu')._nodeId;
+  hideOvContextMenu();
+  if (id) selectFromOverview(id);
+});
+document.addEventListener('click', e => { if (!e.target.closest('#ov-ctx-menu')) hideOvContextMenu(); });
+
+function setOvStatus(html) { document.getElementById('ov-status').innerHTML = html; }
+
+function filterOverviewByGroup(grp, el) {
+  if (!ovRefs) return;
+  const { node, link } = ovRefs;
+  if (ovActiveGroup === grp) {
+    ovActiveGroup = null;
+    document.querySelectorAll('.ov-group-item').forEach(e => e.classList.remove('active'));
+    node.classed('dimmed', false).classed('active', false);
+    link.classed('dimmed', false).classed('active', false);
+    return;
+  }
+  ovActiveGroup = grp;
+  document.querySelectorAll('.ov-group-item').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+  node.classed('dimmed', d => d.grp !== grp).classed('active', d => d.grp === grp);
+  link.classed('dimmed', d => d.grp !== grp).classed('active', d => d.grp === grp);
+}
+
+function searchOverview(q) {
+  if (!ovRefs) return;
+  const { node, link } = ovRefs;
+  if (!q) { node.classed('dimmed', false).classed('active', false); link.classed('dimmed', false).classed('active', false); return; }
+  const ql = q.toLowerCase();
+  node.classed('dimmed', d => !basename(d.id).toLowerCase().includes(ql)).classed('active', d => basename(d.id).toLowerCase().includes(ql));
+  link.classed('dimmed', true).classed('active', false);
+}
+
+function highlightFocalInOverview() {
+  if (!ovRefs) return;
+  const { node, rOf, nodes, zoom, svgEl, W, H } = ovRefs;
+  const fbn = selectedFocal ? basename(selectedFocal) : null;
+  node.classed('focal', false);
+  node.select('circle').attr('r', rOf);
+  if (!fbn) { clearOvSelection(); return; }
+  const focalNode = nodes.find(d => basename(d.id) === fbn);
+  if (!focalNode) return;
+  node.classed('focal', d => basename(d.id) === fbn);
+  node.select('circle').attr('r', d => basename(d.id) === fbn ? rOf(d) + 5 : rOf(d));
+  ovClickedNode = focalNode.id;
+  highlightNodeNeighbors(focalNode.id);
+  if (isNaN(focalNode.x) || isNaN(focalNode.y) || focalNode.x == null || focalNode.y == null) return;
+  const svgW = (svgEl && svgEl.clientWidth)  || W || 900;
+  const svgH = (svgEl && svgEl.clientHeight) || H || 600;
+  const scale = 1.8;
+  const ftx = svgW / 2 - scale * focalNode.x;
+  const fty = svgH / 2 - scale * focalNode.y;
+  if (isNaN(ftx) || isNaN(fty)) return;
+  d3.select(svgEl).transition().duration(650).call(zoom.transform, d3.zoomIdentity.translate(ftx, fty).scale(scale));
+}
+
+async function selectFromOverview(scriptId) {
+  if (ovSimulation) { ovSimulation.stop(); }
+  if (_context === 'workflow') {
+    // Navigate the parent frame
+    window.parent.postMessage({ type: 'lineage-navigate', path: scriptId }, '*');
+    return;
+  }
+  switchView('graph');
+  await viewerSelectScript(scriptId);
+}
+
+// ── Overview sidebar expand/collapse ─────────────────────────────────────────
+document.getElementById('ov-expand-btn').addEventListener('click', () => {
+  ovSidebarExpanded = !ovSidebarExpanded;
+  document.querySelector('.ov-sidebar').classList.toggle('collapsed', !ovSidebarExpanded);
+  const btn = document.getElementById('ov-expand-btn');
+  btn.textContent = ovSidebarExpanded ? '⛶' : '⊠';
+  btn.title = ovSidebarExpanded ? 'Expand graph / hide sidebar' : 'Restore sidebar';
+});
+
+// ── Maximize (paths list only) ────────────────────────────────────────────────
+function openMaximize() {
+  const overlay = document.getElementById('max-overlay');
+  const body    = document.getElementById('max-body');
+  overlay.style.display = 'flex';
+  body.innerHTML = '';
+  body.className = 'scrollable';
+  document.getElementById('max-title').textContent = 'All Paths  ' + document.getElementById('path-count').textContent;
+  const clone = document.getElementById('paths-scroll').cloneNode(true);
+  clone.style.cssText = 'display:block;max-height:none;padding:12px 20px;overflow:visible';
+  body.appendChild(clone);
+}
+function closeMaximize() { document.getElementById('max-overlay').style.display = 'none'; }
+
+document.getElementById('max-close').addEventListener('click', closeMaximize);
+document.getElementById('paths-max-btn').addEventListener('click', openMaximize);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('max-overlay').style.display !== 'none') closeMaximize();
+});
+
+// ══════════════════════════════════════════════════════════════════════════
+// PIPELINE EXPLORER TAB
+// Renders the .anatella pipeline (fileViewer.js) with the Ask-AI panel,
+// per-node details and the variable inspector from the lineage app.
+// ══════════════════════════════════════════════════════════════════════════
+let currentVarRows     = [];
+let _currentIoData     = null;
+let _pipelineLoadedFor = null;   // script path currently shown in the tab
+
+async function openPipelineTab() {
+  // Explore the selected script if one is focal, otherwise the page's script
+  const script = (selectedFocal && /\.anatella$/i.test(selectedFocal)) ? selectedFocal : _script;
+  if (!script || _pipelineLoadedFor === script) return;
+  _pipelineLoadedFor = script;
+  // Vars first: onAnatellaLoaded() (fired by loadAnatellaPanel) merges
+  // Calculator vars from the pipeline XML into the loaded list.
+  try { await loadVarsForScript(script, null); } catch (e) { console.error('loadVarsForScript:', e); }
+  loadAnatellaPanel(script);
+}
+
+// ── Variable inspector (same behaviour as the lineage app) ────────────────
+async function loadVarsForScript(scriptPath, highlightVar) {
+  const title = document.getElementById('var-panel-title');
+  const list  = document.getElementById('var-list');
+  const ioDiv = document.getElementById('var-io');
+
+  title.textContent = basename(scriptPath);
+  title.title       = scriptPath;
+  list.innerHTML    = '<div style="padding:16px;color:var(--text-muted);font-size:.83rem">Loading…</div>';
+  ioDiv.innerHTML   = '';
+
+  const [varRes, ioRes] = await Promise.all([
+    fetch(`${API}?action=actions&script=${encodeURIComponent(scriptPath)}`),
+    fetch(`${API}?action=script_io&script=${encodeURIComponent(scriptPath)}`)
+  ]);
+  currentVarRows = await varRes.json();
+  const ioData   = await ioRes.json();
+  _currentIoData = ioData;
+
+  // Meta badge: show active-node ratio, warn if < 80 %
+  const metaBadge = document.getElementById('var-meta-badge');
+  const meta = ioData && ioData.meta ? ioData.meta : null;
+  if (meta && meta.total_nodes) {
+    const connected = meta.connected_nodes || 0;
+    const total     = meta.total_nodes;
+    const pct       = total > 0 ? Math.round(connected / total * 100) : 100;
+    metaBadge.textContent = connected + '/' + total + ' active';
+    metaBadge.className   = 'var-meta-badge' + (pct < 80 ? ' warn' : '');
+    metaBadge.style.display = '';
+  } else {
+    metaBadge.style.display = 'none';
+  }
+
+  renderScriptIO(ioData);
+  document.getElementById('var-filter').value = highlightVar || '';
+  renderVarList(highlightVar || '');
+}
+
+function renderScriptIO(data) {
+  const div = document.getElementById('var-io');
+  if (!data) { div.innerHTML = ''; return; }
+  const inputs  = data.inputs  || [];
+  const outputs = data.outputs || [];
+  const calls   = data.calls   || [];
+  if (!inputs.length && !outputs.length && !calls.length) { div.innerHTML = ''; return; }
+
+  const LIMIT = 6;
+  function ioSection(label, items, cls) {
+    if (!items.length) return '';
+    const shown = items.slice(0, LIMIT);
+    const extra = items.length - shown.length;
+    const rows  = shown.map(function(item) {
+      const fp   = item.file_path || '';
+      const name = item.is_db_query == 1 ? '(DB query)' : fp.replace(/^.*[\\/]/, '') || fp;
+      const dbBadge = item.is_db_query == 1 ? '<span class="vr-op db">DB</span>' : '';
+      return '<div class="var-io-item ' + cls + '" title="' + escHtml(fp) + '">' + dbBadge + escHtml(name) + '</div>';
+    }).join('');
+    const more = extra > 0 ? '<div class="var-io-more">+' + extra + ' more</div>' : '';
+    return '<div class="var-io-section"><div class="var-io-head">' + label + '</div>' + rows + more + '</div>';
+  }
+
+  div.innerHTML = ioSection('Reads', inputs, 'inp') +
+                  ioSection('Writes', outputs, 'out') +
+                  ioSection('Calls', calls, 'call');
+}
+
+function renderVarList(filter) {
+  const list   = document.getElementById('var-list');
+  const counts = document.getElementById('var-counts');
+  const q = filter.toLowerCase();
+
+  // Group by node ID
+  const byNode = {};
+  currentVarRows.forEach(function(r) {
+    const id = r.ID || '?';
+    if (!byNode[id]) byNode[id] = [];
+    byNode[id].push(r);
+  });
+
+  let totalShown = 0, totalRows = currentVarRows.length;
+  let html = '';
+
+  Object.keys(byNode).forEach(function(id) {
+    const rows = byNode[id];
+
+    var ops = rows.map(function(r) {
+      return r.op || ((!r.Before || r.Before === '') ? 'create' : 'rename');
+    });
+    var uniq = ops.filter(function(v, i, a) { return a.indexOf(v) === i; });
+    var badge = uniq.length > 1 ? 'mixed' : (uniq[0] || 'create');
+
+    var rowsHtml = rows.map(function(r) {
+      var op     = r.op || ((!r.Before || r.Before === '') ? 'create' : 'rename');
+      var after  = r.After  || '';
+      var before = r.Before || '';
+      var expr   = r.expression || '';
+      var matchQ = q === '' || after.toLowerCase().indexOf(q) >= 0 || before.toLowerCase().indexOf(q) >= 0;
+      if (!matchQ) return '';
+      totalShown++;
+      var hl = q && (after.toLowerCase().indexOf(q) >= 0 || before.toLowerCase().indexOf(q) >= 0) ? ' highlight' : '';
+
+      var inner;
+      if (op === 'rename') {
+        inner = '<span class="vr-before">' + escHtml(before) + '</span>' +
+                '<span class="vr-arrow">&#x2192;</span>' +
+                '<span class="vr-after">' + escHtml(after) + '</span>';
+      } else {
+        var opLabel = op === 'update' ? 'UPD' : 'NEW';
+        inner = '<span class="vr-op ' + op + '">' + opLabel + '</span>' +
+                '<span class="vr-after">' + escHtml(after) + '</span>';
+      }
+
+      var exprHtml = '';
+      if (expr) {
+        var short = expr.length > 70 ? expr.substring(0, 70) + '…' : expr;
+        exprHtml = '<div class="vr-expr" title="' + escHtml(expr) + '">' + escHtml(short) + '</div>';
+      }
+
+      var filesHtml = '';
+      if (r.target_files && r.target_files.length) {
+        var chips = r.target_files.map(function(f) {
+          var isDynamic = /[{$%]/.test(f) || !f || f.indexOf('?') >= 0;
+          var cls = isDynamic ? 'vr-target-file dynamic' : 'vr-target-file';
+          var label = f ? basename(f) : '(dynamic)';
+          return '<span class="' + cls + '" title="' + escHtml(f) + '">' + escHtml(label) + '</span>';
+        }).join('');
+        filesHtml = '<div class="vr-targets">' + chips + '</div>';
+      }
+
+      return '<div class="var-row' + hl + '">' + inner + exprHtml + filesHtml + '</div>';
+    }).join('');
+
+    if (rowsHtml.trim()) {
+      html += '<div class="vnode-heading" onclick="highlightAnatellaNode(' + id + ')">Node&nbsp;' + escHtml(String(id)) +
+              ' <span class="vnode-badge ' + badge + '">' + escHtml(badge) + '</span></div>' +
+              rowsHtml;
+    }
+  });
+
+  if (!html) html = '<div style="padding:16px;color:var(--text-muted);font-size:.83rem">No matching variables</div>';
+  list.innerHTML = html;
+  counts.textContent = q
+    ? 'Showing ' + totalShown + ' of ' + totalRows + ' variables'
+    : totalRows + ' variables across ' + Object.keys(byNode).length + ' nodes';
+}
+
+document.getElementById('var-filter').addEventListener('input', function() {
+  renderVarList(this.value);
+});
+
+// ── Enrich var-panel from pipeline XML: merge Calculator vars + annotate target files ──
+// Called by loadAnatellaPanel() (fileViewer.js) once the pipeline XML is in.
+function onAnatellaLoaded() {
+  if (!_anatellaXmlCache) return;
+  const { nodes: xmlNodes, conns } = parseAnatellaXML(_anatellaXmlCache);
+  let dirty = false;
+
+  // 1. Merge Calculator / CalculatorVectorized OutputVars not already from DB
+  const existing = new Set(currentVarRows.map(r => r.ID + '|' + r.After));
+  const fresh = [];
+  for (const n of xmlNodes) {
+    if (n.tag !== 'Calculator' && n.tag !== 'CalculatorVectorized') continue;
+    const tmpDoc = new DOMParser().parseFromString('<r>' + n.xml + '</r>', 'text/xml');
+    const el = tmpDoc.documentElement.firstElementChild;
+    if (!el) continue;
+    for (const ov of el.querySelectorAll('OutputVar')) {
+      const after = ov.getAttribute('name') || '';
+      if (!after || existing.has(n.idx + '|' + after)) continue;
+      existing.add(n.idx + '|' + after);
+      fresh.push({ ID: n.idx, After: after, Before: '',
+        op: ov.getAttribute('meta') === 'U' ? 'update' : 'create',
+        expression: ov.textContent.trim() });
+    }
+  }
+  if (fresh.length) { currentVarRows = [...currentVarRows, ...fresh]; dirty = true; }
+
+  // 2. Annotate each var row with the output files reachable downstream in the DAG
+  const outputs = (_currentIoData && _currentIoData.outputs || [])
+    .filter(o => o.node_idx != null && o.file_path);
+  if (outputs.length && conns.length) {
+    const adj = {};
+    for (const c of conns) (adj[c.src] || (adj[c.src] = [])).push(c.dst);
+
+    currentVarRows = currentVarRows.map(r => {
+      const start = parseInt(r.ID);
+      if (isNaN(start)) return r;
+      const visited = new Set([start]);
+      const q = [start];
+      while (q.length) {
+        const n = q.shift();
+        for (const d of (adj[n] || [])) {
+          if (!visited.has(d)) { visited.add(d); q.push(d); }
+        }
+      }
+      const files = outputs
+        .filter(o => visited.has(parseInt(o.node_idx)))
+        .map(o => o.file_path);
+      return files.length ? { ...r, target_files: files } : r;
+    });
+    dirty = true;
+  }
+
+  if (dirty) renderVarList(document.getElementById('var-filter').value);
+}
+
+// ── AI description panel ───────────────────────────────────────────────────
+document.getElementById('ai-desc-strip').addEventListener('click', () => {
+  document.getElementById('ai-desc-panel').classList.remove('collapsed');
+});
+document.getElementById('ai-desc-close').addEventListener('click', () => {
+  document.getElementById('ai-desc-panel').classList.add('collapsed');
+});
+
+// ── Variable inspector panel ────────────────────────────────────────────────
+document.getElementById('var-panel-strip').addEventListener('click', () => {
+  document.getElementById('var-panel').classList.remove('collapsed');
+});
+document.getElementById('var-panel-close').addEventListener('click', () => {
+  document.getElementById('var-panel').classList.add('collapsed');
+});
+document.getElementById('ai-desc-gen-btn').addEventListener('click', async () => {
+  const path = _anatellaRequestedPath;
+  if (!path) return;
+  // The real call prefills (and caches) this prompt itself, so cancel any
+  // pending dwell-prewarm and mark it primed to avoid a redundant request.
+  if (_prewarmTimer) { clearTimeout(_prewarmTimer); _prewarmTimer = null; }
+  _prewarmedPath = path;
+  const btn    = document.getElementById('ai-desc-gen-btn');
+  const textEl = document.getElementById('ai-desc-text');
+  btn.disabled    = true;
+  btn.textContent = '…';
+  textEl.classList.remove('ai-desc-empty');
+  textEl.contentEditable = 'false';
+  textEl.textContent = 'Generating…';
+  let _aiSuccess = false;
+  try {
+    const prompt = buildDescPrompt(path, _anatellaXmlCache);
+    await callLocalLLM(prompt, function(text) { textEl.textContent = text; });
+    _aiSuccess = true;
+  } catch (e) {
+    textEl.textContent = '✗ ' + e.message;
+  }
+  btn.disabled  = false;
+  btn.innerHTML = '&#9654; Ask';
+  if (_aiSuccess) {
+    textEl.contentEditable = 'true';
+    document.getElementById('ai-desc-save-btn').style.display = '';
+  }
+});
+
+// ── Save AI description to parent Long Description ────────────────────────
+document.getElementById('ai-desc-save-btn').addEventListener('click', () => {
+  const textEl = document.getElementById('ai-desc-text');
+  const text = (textEl.innerText || textEl.textContent || '').trim();
+  if (!text) return;
+  const btn = document.getElementById('ai-desc-save-btn');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+  window.parent.postMessage({ type: 'lineage-save-description', text }, '*');
+  setTimeout(() => { btn.disabled = false; btn.innerHTML = '&#128190; Save'; }, 600);
+});
+
+// ── Open in Anatella ───────────────────────────────────────────────────────
+document.getElementById('anatella-open-btn').addEventListener('click', async () => {
+  if (!_anatellaCurrentPath) return;
+  const btn    = document.getElementById('anatella-open-btn');
+  const status = document.getElementById('anatella-status');
+  btn.disabled = true;
+  btn.textContent = 'Opening…';
+  status.style.display = '';
+  status.className = 'anatella-status';
+  status.textContent = '';
+  try {
+    const res  = await fetch(`${API}?action=open_script&path=${encodeURIComponent(_anatellaCurrentPath)}`);
+    const data = await res.json();
+    if (data.ok) {
+      status.textContent = '✓ Anatella launched';
+      status.className   = 'anatella-status ok';
+    } else {
+      status.textContent = '✗ ' + (data.error || 'Error');
+      status.className   = 'anatella-status err';
+    }
+  } catch (e) {
+    status.textContent = '✗ ' + e.message;
+    status.className   = 'anatella-status err';
+  }
+  btn.disabled = false;
+  btn.textContent = '▶ Open in Anatella';
+});
+
+// ── Pipeline zoom controls ─────────────────────────────────────────────────
+document.getElementById('an-zoom-in').addEventListener('click', () => {
+  if (_anatellaZoom) d3.select('#anatella-svg').transition().duration(220).call(_anatellaZoom.scaleBy, 1.35);
+});
+document.getElementById('an-zoom-out').addEventListener('click', () => {
+  if (_anatellaZoom) d3.select('#anatella-svg').transition().duration(220).call(_anatellaZoom.scaleBy, 0.74);
+});
+document.getElementById('an-zoom-fit').addEventListener('click', () => {
+  if (_anatellaZoom && _anatellaFitTx)
+    d3.select('#anatella-svg').transition().duration(280).call(_anatellaZoom.transform, _anatellaFitTx);
+});
+
+// ── Auto-select script or file from URL param ─────────────────────────────────
+if (_script) {
+  const _initial = _kind === 'file'
+    ? (async () => { selectedFocal = _script; setDagTitle(_script, 'dest'); await selectFileNode(_script); })()
+    : viewerSelectScript(_script);
+  _initial.catch(err => {
+    document.getElementById('empty-msg').textContent = 'Failed to load: ' + err.message;
+  });
+} else {
+  document.getElementById('empty-msg').textContent = 'No script specified';
+}
+</script>
+</body>
+</html>

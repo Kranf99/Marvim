@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.07'>
+<GlobalParameters wDirLoc='0' dataDirRead='D:/ProdAnatella/Gel_DataLake/Extraccion/DNI' dataDirWrite='D:/ProdAnatella/DM3_EnEvaluacion/LDPK_PROCESO_ABIS'>
+<Parameters>
+<Par name='C_CO_PROCESO'>03</Par>
+<Par name='P_DFE_DATA'>20230827</Par>
+<Par name='C_TIPO_CLIENTE'>01</Par>
+<Par name='C_IN_ENVIO_AGENCIA'>D</Par>
+<Par name='C_IN_ENVIO_REIMPR'>F</Par>
+<Par name='C_IN_APROB_ABIS'>6</Par>
+<Par name='C_CO_CORE'>01</Par>
+<Par name='C_CO_SUBP_INGRESOS'>01</Par>
+<Par name='C_CO_SUBP_DIGITALIZACION'>02</Par>
+<Par name='C_CO_SUBP_ASIGNACION'>03</Par>
+<Par name='C_CO_SUBP_EVALUACION'>04</Par>
+<Par name='C_CO_ETP_RECEPCION'>02</Par>
+<Par name='C_TIPO_MANUAL'>00</Par>
+<Par name='C_IN_PENDIENTE'>4</Par>
+<Par name='C_TIPO_WEB'>02</Par>
+<Par name='comillas'>&quot;</Par>
+<Par name='C_IN_DESAP_ANALISTA'>0</Par>
+<Par name='C_IN_APROB_ANALISTA'>1</Par>
+<Par name='C_IN_APROB_PERITO'>3</Par>
+<Par name='slash'>\</Par>
+</Parameters>
+<ODBCConnections>
+<odbc name='' link='' hasPass='0'/>
+<odbc name='DNI185' type='1' ep='1' cstring='3AAAAO0AAADsAAAAOhnV4YCH6ERbTeL7DT5y6lClp7zqRGr/yrDstwXLMnQg7gvJx26jCLXidXw3K7Tl5zJaLvMUpIcVTR2Qqe6Oe5R0XUFKh0U0kbGg5GPZjnppC3OUlztqBK2bcJclIBwrs8msvcYizGpp5KqTDRNaXMT6yNVed6wJPcQYSnxJFZ3/AcBpWDyuEbP40TshRMiJxEd+0eOaA2k6KPmSqS6mwKspXA/BYvN6Z0YgfLA25JSAYEBO1rfgmgWaqiDFqCH30vWU5pHGEWOVPXdkGoUzSw=='/>
+</ODBCConnections>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAACHvwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACHgAAAHgA////AAAAAwAAB4AAAAF+/AEAAAAB/AAAAAAAAAeAAAAD2QD////8AQAAAAL7AAAAKABBAGMAdABpAG8AbgBQAHIAbwBwAGUAcgB0AGkAZQBzAEQAbwBjAGsBAAAAAAAABLMAAAJBAP////wAAAS3AAACyQAAAZQA////+gAAAAACAAAAAvsAAAAaAEQAYQB0AGEAVABhAGIAbABlAEQAbwBjAGsBAAAAAP////8AAAB5AP////sAAAAOAEwAbwBnAEQAbwBjAGsBAAACewAAAX4AAAB5AP///wAABnwAAAIeAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAMAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAAAAADigAAAAAAAAAAAAAAFgB0AGUAeAB0AFQAbwBvAGwAQgBhAHIBAAADigAAAjMAAAAAAAAAAAAAAB4AZwByAG8AdQBwAEIAbwB4AFQAbwBvAGwAQgBhAHIBAAAFvf////8AAAAAAAAAAA==</WorkingSpace>
+<ACTIONS>
+<ReadColumnarGel keyHD='169325694607212973' forceHDBuffering='1' module='MathParser' idx='1' x='-4992' y='-396' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.ctTV_FICHA_REGISTRAL.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c><c>CO_RUTA</c><c>CO_LOCAL_CAPTURA</c><c>CO_LOCAL_ENTREGA</c><c>CO_TIPO_TRAMITE</c><c>CO_SUBTIPO_TRAMITE</c><c>CO_TIPO_PAGO</c><c>IN_DNIE</c><c>DE_GENERO</c><c>CO_CONTINENTE_DOMICILIO</c><c>CO_PAIS_DOMICILIO</c><c>CO_DEPARTAMENTO_DOMICILIO</c><c>CO_PROVINCIA_DOMICILIO</c><c>CO_DISTRITO_DOMICILIO</c><c>FE_NACI</c><c>US_CREA_AUDI</c><c>FE_REGI</c><c>IN_RECUPERADO</c><c>NU_DNI_TITULAR</c><c>ES_FICHA_REG</c><c>CO_TIPO_CAPTURA</c><c>IN_ABIS</c><c>FE_MODI_AUDI</c><c>US_MODI_AUDI</c><c>FE_CREA_AUDI</c><c>CO_ESTADO_CIVIL</c><c>CO_NIVEL_EDUCA</c><c>IN_DON_ORG</c><c>ES_TRAMITE</c><c>NU_SOL_WEB</c><c>IN_DECADACTILAR_ABIS</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<Calculator module='MathParser' idx='6' x='-4728' y='-396'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' label='a' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='b' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='llave' meta='U'>a//"-"//b</OutputVar>
+  </OutputVars>
+</Calculator>
+<FilterRows module='MathParser' idx='8' x='-4860' y='-396'>
+ <Expression>substr(f,0,8)&lt;=itoa(P_DFE_DATA) &amp;&amp; 
+(CO_RUTA=1||CO_RUTA=2||CO_RUTA=3||CO_RUTA=4) &amp;&amp;
+(ES_FICHA_REG=1) &amp;&amp;
+(CO_TIPO_CAPTURA=1||CO_TIPO_CAPTURA=2||CO_TIPO_CAPTURA=3||CO_TIPO_CAPTURA=4)</Expression>
+ <InputVars>
+    <InputVar column='FE_MODI_AUDI' label='f' isNumber='0'/>
+    <InputVar column='CO_RUTA'/>
+    <InputVar column='ES_FICHA_REG'/>
+    <InputVar column='CO_TIPO_CAPTURA'/>
+ </InputVars>
+</FilterRows>
+<writeColumnarGel module='MathParser' idx='435' x='-3228' y='-396' file='Cruce_Inventarios.cgel_anatella'/>
+<ReadColumnarGel module='MathParser' idx='436' x='-5052' y='-84' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOTABMAESTRA.GETM_ANI.cgel_anatella'>
+ <ColumnsToRead>
+  <c>CO_CONTINENTE_DOMICILIO</c><c>CO_PAIS_DOMICILIO</c><c>CO_DEPARTAMENTO_DOMICILIO</c><c>CO_PROVINCIA_DOMICILIO</c><c>CO_DISTRITO_DOMICILIO</c><c>FE_NACIMIENTO</c><c>FE_CADUCIDAD</c><c>NU_DNI</c><c>DE_GENERO</c><c>CO_ESTADO_CIVIL</c><c>CO_NIVEL_EDUCA</c><c>CO_RESTRI</c><c>IN_DONA_ORGANO</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<sort idx='437' v='3.06' x='-4320' y='-396' action='S'>
+  <field type='A'>NU_DNI_TITULAR</field>
+</sort>
+<sort idx='438' v='3.06' x='-4380' y='-84' action='S'>
+  <field type='A'>NU_DNI</field>
+</sort>
+<Join module='DefaultActions' idx='439' x='-4176' y='-396' joinMode='0' keyA='NU_DNI_TITULAR'>
+<SlaveKeys><c>NU_DNI</c></SlaveKeys>
+<Prefixes><c></c><c>U_</c></Prefixes>
+</Join>
+<sort idx='440' x='-4032' y='-384' action='S' allowEmpty='0'>
+  <field type='A'>llave</field>
+</sort>
+<ReadColumnarGel module='MathParser' idx='441' x='-5052' y='24' columnSelection='1' fileName=':/../DOC_ADJUNTO_TRAMITE_cttx.cgel_anatella'>
+ <ColumnsToRead>
+  <c>IM_DOC_ADJ</c><c>CO_DOC_ADJ</c><c>TI_DOC_REG_FICHA</c><c>NU_FICHA_REG</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<Calculator module='MathParser' idx='442' x='-4920' y='24'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' label='a' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='b' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='llave' meta='U'>a//"-"//b</OutputVar>
+  </OutputVars>
+</Calculator>
+<sort idx='443' x='-4764' y='24' action='S' allowEmpty='0'>
+  <field type='A'>llave</field>
+</sort>
+<NaiveDeduplicate module='DefaultActions' idx='444' x='-4152' y='24'>
+<c>llave</c>
+</NaiveDeduplicate>
+<ReadColumnarGel module='MathParser' idx='445' x='-4356' y='168' fileName=':/../LDFU_FE_ENVIO0.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<sort idx='446' x='-4104' y='168' action='S' allowEmpty='0'>
+  <field type='A'>llave</field>
+  <field type='0'>P_CIN_IST</field>
+</sort>
+<ReadColumnarGel module='MathParser' idx='447' x='-4356' y='276' fileName=':/../LDFU_FE_RECE_PROC0.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<sort idx='448' x='-4080' y='276' action='S' allowEmpty='0'>
+  <field type='A'>llave</field>
+  <field type='0'>P_CIN_IST</field>
+</sort>
+<ReadColumnarGel module='MathParser' idx='449' x='-4356' y='384' fileName=':/../LDFU_FE_APROB_PROC0.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<sort idx='450' x='-4044' y='384' action='S' allowEmpty='0'>
+  <field type='A'>llave</field>
+  <field type='0'>P_CIN_IST</field>
+</sort>
+<Join module='DefaultActions' idx='451' x='-3732' y='192' joinMode='0' keyA='llave'>
+<SlaveKeys><c>llave</c><c>llave</c><c>llave</c><c>llave</c><c></c></SlaveKeys>
+<Prefixes><c></c><c>D_</c><c>FEE_</c><c>FER_</c><c>FEA_</c><c>T5_</c></Prefixes>
+</Join>
+<RowCounter idx='452' x='-3072' y='-394' label='CounterID_453' compact='0'/>
+<RunToFinishLine idx='466' x='-2892' y='-396' nPinIn='11'/>
+<ReadColumnarGel keyHD='169315911406516546' forceHDBuffering='1' module='MathParser' idx='467' x='-5196' y='-228' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.CTTX_ESTACION_TRAMITE.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<sort idx='469' v='3.06' x='-4596' y='-396' action='S'>
+  <field type='A'>llave</field>
+</sort>
+<Join module='DefaultActions' idx='471' x='-4464' y='-396' joinMode='1' keyA='llave'>
+<SlaveKeys><c>llave</c></SlaveKeys>
+<Prefixes><c></c><c>E_</c></Prefixes>
+</Join>
+<Calculator module='MathParser' idx='472' x='-5064' y='-228'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' label='a' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='b' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='llave' meta='U'>a//"-"//b</OutputVar>
+  </OutputVars>
+</Calculator>
+<sort idx='482' v='3.06' x='-4932' y='-228' action='S' maxNTape='0'>
+  <field type='A'>llave</field>
+  <field type='9'>NU_SEC_ESTACION</field>
+</sort>
+<FilterRows module='MathParser' idx='493' x='-4656' y='-228'>
+ <Expression>ES_FINAL="C"||ES_FINAL="P"||ES_FINAL="M"||ES_FINAL="+"||ES_FINAL=comillas||ES_FINAL="?"||ES_FINAL="4"||ES_FINAL="#"</Expression>
+ <InputVars>
+    <InputVar column='ES_FINAL' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<NaiveDeduplicate module='DefaultActions' idx='494' x='-4800' y='-228'>
+<c>llave</c>
+</NaiveDeduplicate>
+<ReadColumnarGel keyHD='169315851806516246' module='MathParser' idx='496' x='-4320' y='516' abortIfMissing='0' fileName=':/../../Gel_Datalake/Extraccion/DNI/IDOCAPTURA.CTTR_SECUENCIA_FICHA_DECA.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows keyHD='169315856906516231' module='MathParser' idx='498' x='-4188' y='516'>
+ <Expression>ES_RANGO_FICHA=1</Expression>
+ <InputVars>
+    <InputVar column='ES_RANGO_FICHA'/>
+ </InputVars>
+</FilterRows>
+<sort idx='502' v='3.06' x='-4032' y='516' action='S'>
+  <field type='A'>TI_FICHA</field>
+</sort>
+<FilterRows keyHD='169325694607212973' module='MathParser' idx='503' x='-3636' y='-480'>
+ <Expression>(NU_FICHA_REG//"-"//TI_DOC_REG)="68191734-F"</Expression>
+ <InputVars>
+    <InputVar column='NU_FICHA_REG' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='TI_DOC_REG' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='1' idxDest='8'/>
+<Connection idxSrc='8' idxDest='6'/>
+<Connection idxSrc='436' idxDest='438'/>
+<Connection idxSrc='437' idxDest='439'/>
+<Connection idxSrc='438' idxDest='439' idxPinIn='1'/>
+<Connection idxSrc='439' idxDest='440'/>
+<Connection idxSrc='443' idxDest='444'/>
+<Connection idxSrc='441' idxDest='442'/>
+<Connection idxSrc='442' idxDest='443'/>
+<Connection idxSrc='445' idxDest='446'/>
+<Connection idxSrc='447' idxDest='448'/>
+<Connection idxSrc='449' idxDest='450'/>
+<Connection idxSrc='440' idxDest='451'/>
+<Connection idxSrc='444' idxDest='451' idxPinIn='1'/>
+<Connection idxSrc='446' idxDest='451' idxPinIn='2'/>
+<Connection idxSrc='448' idxDest='451' idxPinIn='3'/>
+<Connection idxSrc='450' idxDest='451' idxPinIn='4'/>
+<Connection idxSrc='435' idxDest='452'/>
+<Connection idxSrc='452' idxDest='466'/>
+<Connection idxSrc='6' idxDest='469'/>
+<Connection idxSrc='469' idxDest='471'/>
+<Connection idxSrc='471' idxDest='437'/>
+<Connection idxSrc='472' idxDest='482'/>
+<Connection idxSrc='467' idxDest='472'/>
+<Connection idxSrc='482' idxDest='494'/>
+<Connection idxSrc='494' idxDest='493'/>
+<Connection idxSrc='493' idxDest='471' idxPinIn='1'/>
+<Connection idxSrc='451' idxDest='435'/>
+<Connection idxSrc='496' idxDest='498'/>
+<Connection idxSrc='498' idxDest='502'/>
+<Connection idxSrc='8' idxDest='503'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-5292' y='-360' size='10' bold='1' color='#228b22' anchor='1'>IDOCAPTURA.ctTV_FICHA_REGISTRAL F</Annotation>
+  <Annotation x='-4728' y='-312' size='10' anchor='6'>Crear LLave
+NU_FICHA_REG
+TI_DOC_REG_FICHA</Annotation>
+  <Annotation x='-5292' y='-48' size='10' bold='1' color='#228b22' anchor='436'>IDOTABMAESTRA.GETM_ANI U</Annotation>
+  <Annotation x='-5388' y='48' size='10' bold='1' color='#228b22' anchor='441'>DOC_ADJUNTO_TRAMITE_cttx.cgel_anatella D</Annotation>
+  <Annotation x='-4512' y='192' size='10' bold='1' color='#228b22' anchor='445'>LDFU_FE_ENVIO FEE</Annotation>
+  <Annotation x='-4524' y='312' size='10' bold='1' color='#228b22' anchor='447'>LDFU_FE_RECE FER_</Annotation>
+  <Annotation x='-4584' y='408' size='10' bold='1' color='#228b22' anchor='449'>LDFU_FE_APROB_PROC FEA</Annotation>
+  <Annotation x='-3324' y='-444' size='14' anchor='435'>Cruce_Inventarios.cgel_anatella</Annotation>
+  <Annotation x='-5076' y='-492' size='10' anchor='8'>substr(f,0,8)&lt;=itoa(P_DFE_DATA) &amp;&amp; 
+(CO_RUTA=1||CO_RUTA=2||CO_RUTA=3||CO_RUTA=4) &amp;&amp;
+(ES_FICHA_REG=1) &amp;&amp;
+(CO_TIPO_CAPTURA=1||CO_TIPO_CAPTURA=2||CO_TIPO_CAPTURA=3||CO_TIPO_CAPTURA=4)</Annotation>
+  <Annotation x='-5832' y='-204' size='10' bold='1' color='#228b22' anchor='467'>:/../../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.CTTX_ESTACION_TRAMITE.cgel_anatella</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

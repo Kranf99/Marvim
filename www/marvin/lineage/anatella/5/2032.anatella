@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.20'>
+<GlobalParameters wDirLoc='0' otherDir='D:/ProdAnatella/DM3_EnEvaluacion/LDPK_PROCESO_PRE_PRENSA'>
+<Parameters>
+<Par name='P_DFE_DATA'>20240406</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAAByvwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAABygAAAHgA////AAAAAwAABEAAAAEL/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAJEAAAAZwD////8AAACSAAAAfgAAAGUAP////oAAAABAQAAAAL7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAYAD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD///8AAAM8AAABygAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAAA/H/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<parallelRun idx='1' x='-228' y='-408' maxConcurrentRun='4' abort='1'>
+<RunData><anatellaGraph>:/02_PRE_PRENSA_01.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/02_PRE_PRENSA_02.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/02_PRE_PRENSA_03.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/02_PRE_PRENSA_04.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<RunToFinishLine idx='5' x='-12' y='-516' nPinIn='35'/>
+<parallelRun idx='6' x='-228' y='-312' maxConcurrentRun='2' abort='1'>
+<RunData><anatellaGraph>:/03_PRE_PRENSA_LDTT_PROCESO_DNI_GTI.anatella</anatellaGraph></RunData>
+</parallelRun>
+<ListFiles keyHD='171261581502212328' module='DefaultActions' idx='7' v='2.37' x='-396' y='-516' filter='*.*_anatella'/>
+<Generic keyHD='171261581902212093' idx='8' x='-228' y='-516' id='simpleFileOps'
+  longName='Simple File Operations'
+  le='1648063873179'
+  abortOnMissingColumn='0'
+  shape='3'
+  keywords='file copy move rename delete'
+  image='/fileOps.svg'
+  author='Frank Vanden Berghen'
+  revision='0.09'
+  tags='600_System Tools'>
+<Description>
+</Description>
+<Parameters>
+  <Parameter id='idMode' text='Mode' type='combobox'><meta>&lt;i&gt;Copy Files&lt;/i&gt;&lt;i&gt;Move (or Rename) Files&lt;/i&gt;&lt;i&gt;Delete Files&lt;/i&gt;&lt;i&gt;Create Dir&lt;/i&gt;</meta><data>2</data></Parameter>
+  <Parameter id='idSource' text='Source File' type='onecolumn'><meta>0</meta><data>fileName</data></Parameter>
+  <Parameter id='idDestination' text='Destination File' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='idNAttempts' text='Maximum number of attempts' type='double'>2</Parameter>
+  <Parameter id='msToSleep' text='Wait for X milliseconds between each attempt. X=?' type='double'>5000</Parameter>
+  <Parameter id='idAbort' text='Abort if this still fails after all the attempts' type='bool'>1</Parameter>
+  <Parameter id='idOverwrite' text='Overwrite destination File (for copy/move ops.)' type='bool'>1</Parameter>
+</Parameters>
+<Script>
+var mr,attemptNumber,attemptLeft;
+function parallelRun(v) { return true; }
+function init()
+{
+    var r=getCurrentRow();
+    if (r.isNull) return 0;
+    setOutputRowSize(0,r.nColumn+1);
+    idNAttempts--;
+    if (!(idNAttempts>=0)) idNAttempts=0;
+    mr=new Row(1);
+    rowSetColumnName(mr,0,"Op_Status");
+    rowSetMetaType(mr,0,'K');
+    switch(idMode)
+    {
+    case 0:
+    case 1:
+        if (idSource&lt;0) throw "SimpleFileOps: no source?";
+        if (idDestination&lt;0) throw "SimpleFileOps: no destination?";
+        break;
+    case 2:
+    case 3:
+        if (idSource&lt;0) throw "SimpleFileOps: no source?";
+        break;
+    }
+    return 0;
+}
+function doWait(s)
+{
+    attemptLeft--;
+    print(s+" Failed: Waiting "+msToSleep+"ms before next attempt...");
+    sleep(msToSleep);
+    attemptNumber++;
+    print("Sleep finished: Attempting "+s+" again ("+attemptNumber+")...");
+}
+function overwrite(s)
+{
+    if (!idOverwrite) return 0;
+    for(;;)
+    {
+        a=fileDelete(s,true);
+        if (a&amp;&amp;(!fileExist(s))) break;
+        if (!attemptLeft)
+        {
+            if (idAbort)  throw "Error Overwriting File "+s;
+            break;
+        }
+        doWait("Overwrite");
+        if (userAskedAbort()) return 1;
+    }
+    return 0;
+}
+function run()
+{
+    var r=getNextRow();
+    if (r.isNull) return 1;
+    var a;
+    attemptNumber=1;
+    attemptLeft=idNAttempts;
+    switch(idMode)
+    {
+    case 0:
+        {
+            var s=r.col(idSource),d=r.col(idDestination);
+            if (overwrite(d)) return 1;
+            for(;;)
+            {
+                a=fileCopy(s,d,true);
+                if (a) break;
+                if (!attemptLeft)
+                {
+                    if (idAbort)  throw "Error Copying File "+s;
+                    break;
+                }
+                doWait("Copy");
+                if (userAskedAbort()) return 1;
+            }
+            break;
+        }
+    case 1:
+        {
+            var s=r.col(idSource),d=r.col(idDestination);
+            if (overwrite(d)) return 1;
+            for(;;)
+            {
+                a=fileMove(s,d,true);
+                if (a) break;
+                if (!attemptLeft)
+                {
+                    if (idAbort)  throw "Error Moving File "+s;
+                    break;
+                }
+                doWait("Move");
+                if (userAskedAbort()) return 1;
+            }
+            break;
+        }
+    case 2:
+        {
+            var s=r.col(idSource);
+            for(;;)
+            {
+                a=fileDelete(s,true);
+                if (a&amp;&amp;(!fileExist(s))) break;
+                if (!attemptLeft)
+                {
+                    if (idAbort)  throw "Error Deleting File "+s;
+                    break;
+                }
+                doWait("Delete");
+                if (userAskedAbort()) return 1;
+            }
+            break;
+        }
+    case 3:
+        {
+            var s=r.col(idSource);
+            mkDir(s);
+            a=fileExist(s);
+            break;
+        }
+    }
+    r.write(); 
+    mr.setColumn(0,a?1:0);
+    mr.write();
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='7' idxDest='8'/>
+<Connection idxSrc='8' idxDest='5'/>
+<Connection idxSrc='1' idxDest='5' idxPinIn='9'/>
+<Connection idxSrc='6' idxDest='5' idxPinIn='17'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-504' y='-384' size='14' anchor='1'>02_PRE_PRENSA_01-04.anatella</Annotation>
+  <Annotation x='-552' y='-672' size='14'>CREATE OR REPLACE PACKAGE LDPK_PROCESO_PRE_PRENSA IS</Annotation>
+  <Annotation x='-564' y='-636' size='14'>-- NOMBRE         : IDO_DATA_BI.LDPK_PROCESO_PRE_PRENSA</Annotation>
+  <Annotation x='-552' y='-600' size='14'>-- PURPOSE        : CONTIENE LOS PROCEDIMIENTOS DEL ETL DE LA LINEA DE DNI PROCESO DE PRE-PRENSA PARA LOS DNI CONVENCIONALES</Annotation>
+  <Annotation x='-468' y='-276' size='14' anchor='6'>LDTT_PROCESO_DNI_GTI</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

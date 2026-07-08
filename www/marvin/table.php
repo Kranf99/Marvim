@@ -232,6 +232,18 @@ echo '</div><div class="extradata">&#128336; <em>Last update</em>: '.
 ?>
     </div>
 </div>
+
+<!-- Lineage graph embed ──────────────────────────────────────────────── -->
+<div class="history-section" id="lineage-embed-section">
+<h2>Lineage Graph</h2>
+<div style="border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
+  <iframe id="lineage-iframe"
+    src="lineage/lineage_viewer.html?context=workflow&kind=file&script=<?php echo urlencode(rtrim($rowAsset['schema_new'], '/') . '/' . $rowAsset['name']); ?>"
+    style="width:100%;height:600px;border:none;display:block;"
+    allow="same-origin">
+  </iframe>
+</div>
+</div>
 <!-- History -->
 <div class="history-section">
 <h2>All Columns</h2>
@@ -352,5 +364,21 @@ if ((isset($_REQUEST['advEdit']))||($newAsset))
        'enableAdvEdit(document.getElementById("advEditButton"));';
 }
 ?>
+// for lineage:
+// ── Lineage iframe navigation (click on a .anatella script node in the graph) ──
+window.addEventListener('message', async function(ev) {
+  if (!ev.data || ev.data.type !== 'lineage-navigate' || !ev.data.path) return;
+  try {
+    var r = await fetch('lineage/find_asset.php?path=' + encodeURIComponent(ev.data.path), {cache:'no-store'});
+    var d = await r.json();
+    if (d && d.id) {
+      window.location.href = 'oneWorkflow.php?idasset=' + d.id;
+    } else {
+      alert('This script is not registered as a Marvin asset yet: ' + ev.data.path);
+    }
+  } catch (e) {
+    alert('Could not navigate to script: ' + e.message);
+  }
+});
 </script>
 </body>

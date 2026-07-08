@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.07'>
+<GlobalParameters wDirLoc='0' dataDirRead='D:/ProdAnatella/Gel_DataLake/DM3' dataDirWrite='D:/ProdAnatella/Gel_DataLake/DM3'>
+<Parameters>
+<Par name='P_DFE_DATA'>20230223</Par>
+<Par name='SELECTED_GRAPH'>0</Par>
+<Par name='C_CO_PROCESO'>08</Par>
+<Par name='C_CO_SUBP_ENVIO'>01</Par>
+<Par name='C_CO_SUBP_IMPRESION'>02</Par>
+<Par name='C_CO_SUBP_CORTE'>03</Par>
+<Par name='C_CO_SUBP_BOLEADO'>04</Par>
+<Par name='C_CO_SUBP_LAMINADO'>05</Par>
+<Par name='C_CO_SUBP_ASIGNACIONTNP'>06</Par>
+<Par name='C_CO_SUBP_PERSONALIZACION'>07</Par>
+<Par name='C_CO_SUBP_CCALIDAD'>08</Par>
+<Par name='C_IN_APROBADO'>A</Par>
+<Par name='C_NUM_TRANS'>50000</Par>
+<Par name='C_TIPO_CLIENTE'>01</Par>
+<Par name='C_CO_CORE'>01</Par>
+<Par name='C_CO_ETP_PRODUCCION'>03</Par>
+<Par name='C_IN_ACTUALIZADO_ANI'>8</Par>
+<Par name='C_TIPO_WEB'>02</Par>
+<Par name='C_TIPO_MANUAL'>00</Par>
+<Par name='C_CO_SUBP_ASIGNACIONTNP'>06</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAABVvwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAABVgAAAHgA////AAAAAwAABEEAAAEF/AEAAAAB/AAAAAAAAARBAAABlAD////6AAAAAgIAAAAD+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAD/////AAAAlgD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAeQD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAAAeQD///8AAAM9AAABVgAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAAA/L/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<ReadColumnarGel keyHD='168975408814984854' module='MathParser' idx='166' x='-972' y='-120' abortIfMissing='0' fileName=':/../../Gel_DataLake/DM3/LDSP_PRODUCCION_ASIG_TNP_DNIE.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='167' x='-972' y='0' abortIfMissing='0' fileName=':/../../Gel_DataLake/DM3/LDSP_PRODUCCION_ASIG_TNP_DNIEWEB.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<Append module='DefaultActions' idx='170' x='-708' y='12' output='2'>
+  </Append>
+<Calculator module='MathParser' idx='171' x='-564' y='12' addNowS='1' elapsedTimeUnit='3' dateFormat='yyyyMMdd hh:mm:ss'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='C_CO_CORE' meta='U'>"0"//itoa(C_CO_CORE)</OutputVar>
+    <OutputVar name='C_CO_PROCESO' meta='U'>"0"//itoa(C_CO_PROCESO)</OutputVar>
+    <OutputVar name='C_CO_SUBP_ASIGNACIONTNP' meta='U'>"0"//itoa(C_CO_SUBP_ASIGNACIONTNP)</OutputVar>
+    <OutputVar name='C_CO_ETP_PRODUCCION' meta='U'>"0"//itoa(C_CO_ETP_PRODUCCION)</OutputVar>
+    <OutputVar name='SYSDATE' meta='U'>_nowS</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='172' x='1020' y='12'>
+  <InputVars>
+    <InputVar column='F.CO_TIPO_CAPTURA' label='CO_TIPO_CAPTURA' isNumber='0'/>
+    <InputVar column='LDFU_IN_MPV' isNumber='0'/>
+    <InputVar column='IN_RECTIFICACION' isNumber='0'/>
+    <InputVar column='IN_CANAL' isNumber='0'/>
+    <InputVar column='LDFU_GET_ORIGEN_IMPR' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='V_VCO_TIPO_CAPTURA' meta='U'>(CO_TIPO_CAPTURA="1"?(LDFU_IN_MPV="1"?"3":"1"):CO_TIPO_CAPTURA)</OutputVar>
+    <OutputVar name='V_VIN_RECTIFICACION' meta='U'>(CO_TIPO_CAPTURA="1"?(LDFU_IN_MPV="1"?"MP":"NN"):IN_RECTIFICACION)</OutputVar>
+    <OutputVar name='V_VIN_CANAL' meta='U'>(CO_TIPO_CAPTURA="1"?(LDFU_IN_MPV="1"?"0"//itoa(C_TIPO_WEB):"0"//itoa(C_TIPO_MANUAL)):IN_CANAL)</OutputVar>
+    <OutputVar name='V_CIN_ORI_IMPR' meta='U'>(LDFU_GET_ORIGEN_IMPR=_nullS?"0":LDFU_GET_ORIGEN_IMPR)</OutputVar>
+  </OutputVars>
+</Calculator>
+<ReadColumnarGel module='MathParser' idx='174' x='-360' y='288' columnSelection='1' abortIfMissing='0' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.PRTV_TRAMITES_MPV.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_FICHA</c><c>TI_FICHA</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<Calculator module='MathParser' idx='175' x='-216' y='288'>
+  <InputVars>
+    <InputVar column='NU_FICHA' isNumber='0'/>
+    <InputVar column='TI_FICHA' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='key' meta='U'>NU_FICHA//"-"//TI_FICHA</OutputVar>
+    <OutputVar name='LDFU_IN_MPV' meta='U'>"1"</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator keyHD='169119049912048595' module='MathParser' idx='181' x='-348' y='12'>
+  <InputVars>
+    <InputVar column='F.NU_FICHA_REG' label='NU_FICHA' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='TI_FICHA' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='key' meta='U'>NU_FICHA//"-"//TI_FICHA</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='182' x='-180' y='144' keep='1'>
+ <c>F.NU_FICHA_REG</c>
+ <c>TI_DOC_REG_FICHA</c>
+ <c>key</c>
+</SelectColumns>
+<ReadColumnarGel keyHD='168023791414108420' module='MathParser' idx='185' x='-360' y='408' columnSelection='1' fileName=':/../../Gel_DataLake/Extraccion/DNI/IDOIMPRESION.IMTC_DNIS_IMPRESION.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_FICHA_REG</c><c>TI_DOC_REG</c><c>IN_DEVO_REPR</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows keyHD='168023791514108904' module='MathParser' idx='186' x='-216' y='408'>
+ <Expression>IN_DEVO_REPR="1" || IN_DEVO_REPR = "2"</Expression>
+ <InputVars>
+    <InputVar column='IN_DEVO_REPR' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='188' x='-96' y='408'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' label='NU_FICHA' isNumber='0'/>
+    <InputVar column='TI_DOC_REG' label='TI_FICHA' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='key' meta='U'>NU_FICHA//"-"//TI_FICHA</OutputVar>
+    <OutputVar name='LDFU_GET_ORIGEN_IMPR' meta='U'>"1"</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='190' x='1692' y='12' keep='1'>
+ <c>CO_CORE</c>
+ <c>CO_PROCESO</c>
+ <c>CO_SUBPROCESO</c>
+ <c>CO_ETAPA</c>
+ <c>NU_FICHA_REG</c>
+ <c>TI_DOC_REG_FICHA</c>
+ <c>CO_RUTA</c>
+ <c>CO_LOCAL_CAPTURA</c>
+ <c>CO_LOCAL_ENTREGA</c>
+ <c>CO_TIPO_TRAMITE</c>
+ <c>CO_SUBTIPO_TRAMITE</c>
+ <c>CO_TIPO_CAPTURA</c>
+ <c>IN_RECTIFICACION</c>
+ <c>CO_TIPO_PAGO</c>
+ <c>CO_TIPO_DNI</c>
+ <c>CO_GENERO</c>
+ <c>IN_ABIS</c>
+ <c>CO_CONTINENTE_DOMICILIO</c>
+ <c>CO_PAIS_DOMICILIO</c>
+ <c>CO_DEPARTAMENTO_DOMICILIO</c>
+ <c>CO_PROVINCIA_DOMICILIO</c>
+ <c>CO_DISTRITO_DOMICILIO</c>
+ <c>FE_NACIMIENTO</c>
+ <c>CO_SERV_CAPTURA</c>
+ <c>IN_CANAL</c>
+ <c>FE_CAPTURA</c>
+ <c>NU_HORA</c>
+ <c>IM_RECIBO</c>
+ <c>FE_CARGA_BI</c>
+ <c>FE_DATA</c>
+ <c>FE_ENVIO_PROC</c>
+ <c>FE_RECE_PROC</c>
+ <c>CO_SERVIDOR</c>
+ <c>IN_RECUPERADO</c>
+ <c>IN_DECA</c>
+ <c>FE_APROB_PROC</c>
+ <c>IN_PRIORI_IMPR</c>
+ <c>FE_ACT_ANI</c>
+ <c>CO_GRUPO_IMPRESION</c>
+ <c>IN_ORIGEN_IMPR</c>
+ <c>FE_GENERA_LOTE</c>
+ <c>CO_LOCAL_IMPRESION</c>
+ <c>IN_APROBADO</c>
+ <c>CO_MOTIVO</c>
+ <c>CO_ESTADO_CIVIL</c>
+ <c>CO_GRADO_INSTRUCCION</c>
+ <c>CO_RESTRICCION</c>
+ <c>IN_DONA_ORGANO</c>
+ <c>FE_CADUCIDAD</c>
+</SelectColumns>
+<ColumnRename module='DefaultActions' idx='191' x='1260' y='12'><before>
+</before><after>
+</after>
+<QuickRename  search='F.'><c>F.NU_FICHA_REG</c><c>F.CO_RUTA</c><c>F.CO_LOCAL_CAPTURA</c><c>F.CO_LOCAL_ENTREGA</c><c>F.CO_TIPO_TRAMITE</c><c>F.CO_SUBTIPO_TRAMITE</c><c>F.CO_TIPO_PAGO</c><c>F.IN_RECUPERADO</c></QuickRename>
+</ColumnRename>
+<ColumnRename module='DefaultActions' idx='198' x='1392' y='12'><before>
+</before><after>
+</after>
+<QuickRename  search='U.'><c>U.DE_GENERO</c><c>U.CO_CONTINENTE_DOMICILIO</c><c>U.CO_PAIS_DOMICILIO</c><c>U.CO_DEPARTAMENTO_DOMICILIO</c><c>U.CO_PROVINCIA_DOMICILIO</c><c>U.CO_DISTRITO_DOMICILIO</c><c>U.CO_ESTADO_CIVIL</c><c>U.CO_NIVEL_EDUCA</c><c>U.CO_RESTRI</c><c>U.IN_DONA_ORGANO</c></QuickRename>
+</ColumnRename>
+<ColumnRename module='DefaultActions' idx='200' x='1548' y='12'><before>
+<c>C_CO_CORE</c><c>C_CO_PROCESO</c><c>C_CO_ETP_PRODUCCION</c><c>V_VCO_TIPO_CAPTURA</c><c>V_VIN_RECTIFICACION</c><c>IN_DNIE</c><c>DE_GENERO</c><c>FE_NACI</c><c>V_VIN_CANAL</c><c>FE_REGI</c><c>HORA</c><c>SYSDATE</c><c>P_DFE_DATA</c><c>V_CIN_ORI_IMPR</c><c>CO_RESTRI</c><c>CO_NIVEL_EDUCA</c><c>C_CO_SUBP_ASIGNACIONTNP</c><c>IN_APROBACION</c></before><after>
+<c>CO_CORE</c><c>CO_PROCESO</c><c>CO_ETAPA</c><c>CO_TIPO_CAPTURA</c><c>IN_RECTIFICACION</c><c>CO_TIPO_DNI</c><c>CO_GENERO</c><c>FE_NACIMIENTO</c><c>IN_CANAL</c><c>FE_CAPTURA</c><c>NU_HORA</c><c>FE_CARGA_BI</c><c>FE_DATA</c><c>IN_ORIGEN_IMPR</c><c>CO_RESTRICCION</c><c>CO_GRADO_INSTRUCCION</c><c>CO_SUBPROCESO</c><c>IN_APROBADO</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<SelectColumns module='DefaultActions' idx='202' x='1140' y='12' keep='0'>
+ <c>IN_RECTIFICACION</c>
+ <c>IN_CANAL</c>
+</SelectColumns>
+<writeColumnarGel module='MathParser' idx='203' x='1812' y='12' file=':/../../Gel_DataLake/DM3/IDO_DATA_BI.LDTT_PROCESO_DNI_IMPR_ASIG_TNP.cgel_anatella'/>
+<RunToFinishLine idx='204' x='1932' y='12'/>
+<Join module='DefaultActions' idx='207' x='228' y='144' joinMode='0' keyA='key'>
+<SlaveKeys><c>key</c></SlaveKeys>
+<Prefixes><c></c><c></c></Prefixes>
+</Join>
+<sort idx='208' x='-48' y='144' action='S' allowEmpty='0'>
+  <field type='A'>key</field>
+</sort>
+<NaiveDeduplicate keyHD='169119049912048611' module='DefaultActions' idx='209' x='84' y='144'>
+<c>key</c>
+</NaiveDeduplicate>
+<sort idx='210' x='-48' y='288' action='S' allowEmpty='0'>
+  <field type='A'>key</field>
+</sort>
+<NaiveDeduplicate module='DefaultActions' idx='211' x='84' y='288'>
+<c>key</c>
+</NaiveDeduplicate>
+<Calculator module='MathParser' idx='212' x='504' y='144'>
+  <InputVars>
+    <InputVar column='LDFU_IN_MPV' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='LDFU_IN_MPV' meta='U' update='1'>(strlen(LDFU_IN_MPV)=0?"0":LDFU_IN_MPV)</OutputVar>
+  </OutputVars>
+</Calculator>
+<sort idx='213' x='24' y='408' action='S' allowEmpty='0'>
+  <field type='A'>key</field>
+</sort>
+<NaiveDeduplicate keyHD='168023792514108982' module='DefaultActions' idx='214' x='156' y='408'>
+<c>key</c>
+</NaiveDeduplicate>
+<Join module='DefaultActions' idx='215' x='228' y='288' joinMode='0' keyA='key'>
+<SlaveKeys><c>key</c></SlaveKeys>
+<Prefixes><c></c><c></c></Prefixes>
+</Join>
+<Calculator module='MathParser' idx='216' x='504' y='288'>
+  <InputVars>
+    <InputVar column='LDFU_GET_ORIGEN_IMPR' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='LDFU_GET_ORIGEN_IMPR' meta='U' update='1'>(strlen(LDFU_GET_ORIGEN_IMPR)=0?"0":LDFU_GET_ORIGEN_IMPR)</OutputVar>
+  </OutputVars>
+</Calculator>
+<ColumnRename module='DefaultActions' idx='356' x='360' y='144'><before>
+</before><after>
+</after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<inlineTable idx='357' x='228' y='60'>
+<ColumnNames><c>C1</c><c>C2</c></ColumnNames>
+<Rows>
+ <r><c>LDFU_IN_MPV</c><c>LDFU_IN_MPV</c></r>
+</Rows>
+</inlineTable>
+<SelectColumns module='DefaultActions' idx='358' x='636' y='144' keep='1'>
+ <c>LDFU_IN_MPV</c>
+ <c>key</c>
+</SelectColumns>
+<SelectColumns module='DefaultActions' idx='359' x='636' y='288' keep='1'>
+ <c>LDFU_GET_ORIGEN_IMPR</c>
+ <c>key</c>
+</SelectColumns>
+<sort idx='361' v='3.06' x='756' y='144' action='S'>
+  <field type='A'>key</field>
+</sort>
+<sort idx='362' v='3.06' x='756' y='288' action='S'>
+  <field type='A'>key</field>
+</sort>
+<sort idx='363' v='3.06' x='756' y='12' action='S'>
+  <field type='A'>key</field>
+</sort>
+<Join module='DefaultActions' idx='364' x='888' y='12' joinMode='0' keyA='key'>
+<SlaveKeys><c>key</c><c>key</c></SlaveKeys>
+<Prefixes><c></c><c></c><c></c></Prefixes>
+</Join>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='166' idxDest='170'/>
+<Connection idxSrc='167' idxDest='170' idxPinIn='1'/>
+<Connection idxSrc='170' idxDest='171'/>
+<Connection idxSrc='174' idxDest='175'/>
+<Connection idxSrc='171' idxDest='181'/>
+<Connection idxSrc='181' idxDest='182'/>
+<Connection idxSrc='185' idxDest='186'/>
+<Connection idxSrc='186' idxDest='188'/>
+<Connection idxSrc='191' idxDest='198'/>
+<Connection idxSrc='198' idxDest='200'/>
+<Connection idxSrc='200' idxDest='190'/>
+<Connection idxSrc='172' idxDest='202'/>
+<Connection idxSrc='202' idxDest='191'/>
+<Connection idxSrc='190' idxDest='203'/>
+<Connection idxSrc='203' idxDest='204'/>
+<Connection idxSrc='182' idxDest='208'/>
+<Connection idxSrc='208' idxDest='209'/>
+<Connection idxSrc='209' idxDest='207'/>
+<Connection idxSrc='175' idxDest='210'/>
+<Connection idxSrc='210' idxDest='211'/>
+<Connection idxSrc='211' idxDest='207' idxPinIn='1'/>
+<Connection idxSrc='188' idxDest='213'/>
+<Connection idxSrc='213' idxDest='214'/>
+<Connection idxSrc='209' idxDest='215'/>
+<Connection idxSrc='214' idxDest='215' idxPinIn='1'/>
+<Connection idxSrc='215' idxDest='216'/>
+<Connection idxSrc='207' idxDest='356'/>
+<Connection idxSrc='356' idxDest='212'/>
+<Connection idxSrc='357' idxDest='356' idxPinIn='1'/>
+<Connection idxSrc='212' idxDest='358'/>
+<Connection idxSrc='216' idxDest='359'/>
+<Connection idxSrc='358' idxDest='361'/>
+<Connection idxSrc='359' idxDest='362'/>
+<Connection idxSrc='181' idxDest='363'/>
+<Connection idxSrc='363' idxDest='364'/>
+<Connection idxSrc='364' idxDest='172'/>
+<Connection idxSrc='361' idxDest='364' idxPinIn='1'/>
+<Connection idxSrc='362' idxDest='364' idxPinIn='2'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-1404' y='-84' size='14' anchor='166'>LDSP_PRODUCCION_ASIG_TNP_DNIE</Annotation>
+  <Annotation x='-1452' y='12' size='14' anchor='167'>LDSP_PRODUCCION_ASIG_TNP_DNIEWEB</Annotation>
+  <Annotation x='-624' y='-72' size='6' anchor='171'>SE CREAN LAS VARIABLES PROVENIENTES DE VALORES CONSTANTES
+C_CO_CORE
+C_CO_PROCESO
+C_CO_SUBP_ENVIO
+C_CO_ETP_PRODUCCION
+C_IN_ACTUALIZADO_ANI
+SYSDATE</Annotation>
+  <Annotation x='-348' y='-72' size='6' anchor='181'>SE CREA EL CAMPO KEY PARA LOS PROCESOS POSTERIORES
+NU_FICHA//&quot;-&quot;//TI_FICHA</Annotation>
+  <Annotation x='-204' y='264' size='6' anchor='175'>SE CREA EL CAMPO LDFU_IN_MPV</Annotation>
+  <Annotation x='-540' y='324' size='6' anchor='174'>IDOCAPTURA.PRTV_TRAMITES_MPV</Annotation>
+  <Annotation x='-312' y='240' size='6' anchor='175'>SE CREA EL CAMPO KEY PARA LOS PROCESOS POSTERIORES
+NU_FICHA//&quot;-&quot;//TI_FICHA</Annotation>
+  <Annotation x='-552' y='444' size='6' anchor='185'>IDOIMPRESION.IMTC_DNIS_IMPRESION</Annotation>
+  <Annotation x='-228' y='516' size='6' anchor='186'>SE FILTRA CON
+ID_DEVO_REPR IGUAL A 1 Ó 2</Annotation>
+  <Annotation x='-84' y='492' size='6' anchor='188'>LDFU_GET_ORIGEN_IMPR</Annotation>
+  <Annotation x='1008' y='-84' size='6' anchor='172'>SE CONSTRUYEN LAS VARIABLES
+V_VCO_TIPO_CAPTURA
+V_VIN_RECTIFICACION
+V_VIN_CANAL
+V_CIN_ORI_IMPR</Annotation>
+  <Annotation x='1116' y='120' size='6' anchor='202'>SE ELIMINAN LOS CAMPOS 
+IN_RECTIFICACION
+IN_CANAL
+YA QUE SON REEMPLAZADOS POR OTROS</Annotation>
+  <Annotation x='1248' y='-36' size='6' anchor='191'>SE ELIMINA EL PREFIJO F.</Annotation>
+  <Annotation x='1380' y='-48' size='6' anchor='198'>SE ELIMINA EL PREFIJO U.</Annotation>
+  <Annotation x='1512' y='132' size='6' anchor='200'>SE RENOMBRAN LOS CAMPOS DE ACUERDO
+AL INSERT DEL SCRIPT</Annotation>
+  <Annotation x='1644' y='-60' size='6' anchor='190'>SE SELECCIONAN LOS CAMPOS PARA ASEGURAR
+QUE NO FALTE NINGUNO</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

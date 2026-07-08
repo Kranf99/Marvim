@@ -1,0 +1,1807 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.20'>
+<GlobalParameters wDirLoc='0' dataDirRead='D:/ProdAnatella/Gel_DataLake/DM3' dataDirWrite=':/../../Gel_DataLake/DM3'>
+<Parameters>
+<Par name='dia'>12</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAABZ/wCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAABZwAAAHgA////AAAAAwAABVYAAAD9/AEAAAAB/AAAAAAAAAVWAAAEKQD////8AQAAAAL7AAAAKABBAGMAdABpAG8AbgBQAHIAbwBwAGUAcgB0AGkAZQBzAEQAbwBjAGsBAAAAAAAAA0IAAAKRAP////wAAANGAAACEAAAAZQA////+gAAAAECAAAAAvsAAAAOAEwAbwBnAEQAbwBjAGsBAAAAAP////8AAAB5AP////sAAAAaAEQAYQB0AGEAVABhAGIAbABlAEQAbwBjAGsBAAADHgAAANsAAAB5AP///wAABFIAAAFnAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAMAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAAAAAAFgB0AGUAeAB0AFQAbwBvAGwAQgBhAHIBAAADfv////8AAAAAAAAAAAAAAB4AZwByAG8AdQBwAEIAbwB4AFQAbwBvAGwAQgBhAHIBAAAFB/////8AAAAAAAAAAA==</WorkingSpace>
+<ACTIONS>
+<ReadColumnarGel keyHD='171886130211672839' module='MathParser' idx='1' x='-1200' y='-1584' fileName=':/../../Gel_DataLake/DM3/IDO_DATA_BI.LDTT_PROCESO_DNI_CAPT.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<OracleOCI module='Oracle' idx='146' v='2.54' x='-588' y='-1308' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAAA0AgAAYKvrh9FBZokgoc2hjL+8sI94WSO3IVdcxTNN/eD7DTk=' newMode='0'>
+<SQL>
+Select * FROM IDO_DATA_BI.LDTT_PROCESO_DNI_CAPT
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='148' v='2.54' x='-588' y='-1224' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+Select * FROM IDO_DATA_BI.LDTT_PROCESO_DNI_PROC
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='150' v='2.54' x='-588' y='-1128' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+Select * FROM IDO_DATA_BI.LDTT_PROCESO_DNI_GTI
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='152' v='2.54' x='-588' y='-1044' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+Select * FROM IDO_DATA_BI.LDTT_PROCESO_DNI_IMPR
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='154' v='2.54' x='-588' y='-936' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+Select * FROM IDO_DATA_BI.LDTT_PROCESO_DNI_DESP
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='201' v='2.54' x='-2184' y='-1452' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select F.NU_FICHA_REG, F.TI_DOC_REG_FICHA,E.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;6&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;) ---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA IN (&apos;1&apos;, &apos;2&apos;)
+         AND F.ES_FICHA_REG IN (&apos;1&apos;, &apos;4&apos;)
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+         AND NOT EXISTS ---QUE NO SEA MESA DE PARTES
+       (SELECT 1
+                FROM IDOCAPTURA.PRTV_TRAMITES_MPV V
+               WHERE V.NU_FICHA = F.NU_FICHA_REG
+                 AND V.TI_FICHA = F.TI_DOC_REG_FICHA)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='202' v='2.54' x='-2184' y='-1368' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select F.NU_FICHA_REG, F.TI_DOC_REG_FICHA,E.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.PRTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.PRTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;6&apos;
+         AND TRUNC(E.FE_CREA_AUDI) =  to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA IN (&apos;1&apos;, &apos;2&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;1&apos;
+         AND NOT EXISTS
+       (SELECT 1
+                FROM IDOCAPTURA.PRTV_TRAMITES_MPV V
+               WHERE V.NU_FICHA = F.NU_FICHA_REG
+                 AND V.TI_FICHA = F.TI_DOC_REG_FICHA)
+</SQL>
+</OracleOCI>
+<Append module='DefaultActions' idx='203' x='-1620' y='-1284' output='0' nPinIn='6'>
+  </Append>
+<RowCounter idx='205' x='-1800' y='-1354' label='CounterID_206' compact='0'/>
+<RowCounter idx='206' x='-1800' y='-1306' label='CounterID_207' compact='0'/>
+<RowCounter keyHD='169322724223184527' idx='214' x='-432' y='-1294' label='CounterID_215' compact='0'/>
+<RunToFinishLine idx='219' x='-1356' y='-1452' nPinIn='310'/>
+<aggregate idx='295' x='-636' y='-1584' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_ETAPA'/>
+   <v name='CO_PROCESO'/>
+   <v name='CO_TIPO_CAPTURA'/>
+   <v name='CO_TIPO_TRAMITE'/>
+   <v name='IN_CANAL'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<aggregate idx='296' x='168' y='-1356' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_ETAPA'/>
+   <v name='CO_PROCESO'/>
+   <v name='CO_TIPO_CAPTURA'/>
+   <v name='CO_TIPO_TRAMITE'/>
+   <v name='IN_CANAL'/>
+   <v name='FE_CARGA_BI'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<RowCounter idx='298' x='-1068' y='-1594' label='CounterID_299' compact='0'/>
+<RowCounter idx='300' x='-276' y='-1354' label='CounterID_301' compact='0'/>
+<sort idx='304' v='3.06' x='-108' y='-1356' action='S'>
+  <field type='A'>CO_ETAPA</field>
+  <field type='A'>CO_PROCESO</field>
+</sort>
+<sort idx='305' v='3.06' x='-924' y='-1584' action='S'>
+  <field type='0'>CO_ETAPA</field>
+  <field type='0'>CO_PROCESO</field>
+</sort>
+<aggregate idx='306' x='-1044' y='-1428' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_ETAPA'/>
+   <v name='CO_PROCESO'/>
+   <v name='CO_TIPO_CAPTURA'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<FilterRows module='MathParser' idx='308' x='-912' y='-1428'>
+ <Expression>1</Expression>
+ <InputVars>
+    <InputVar column='CO_ETAPA'/>
+    <InputVar column='CO_PROCESO'/>
+ </InputVars>
+</FilterRows>
+<sort idx='309' v='3.06' x='-780' y='-1428' action='S'>
+  <field type='A'>CO_ETAPA</field>
+  <field type='A'>CO_PROCESO</field>
+</sort>
+<aggregate idx='310' x='-1056' y='-1524' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_ETAPA'/>
+   <v name='CO_PROCESO'/>
+   <v name='CO_TIPO_DNI'/>
+   <v name='CO_TIPO_CAPTURA'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<FilterRows module='MathParser' idx='432' x='-780' y='-1584'>
+ <Expression>CO_ETAPA=4 &amp;&amp; CO_TIPO_CAPTURA=3</Expression>
+ <InputVars>
+    <InputVar column='CO_ETAPA'/>
+    <InputVar column='CO_TIPO_CAPTURA'/>
+ </InputVars>
+</FilterRows>
+<FilterRows module='MathParser' idx='433' x='24' y='-1356'>
+ <Expression>CO_ETAPA=4 &amp;&amp; CO_TIPO_CAPTURA=3</Expression>
+ <InputVars>
+    <InputVar column='CO_ETAPA'/>
+    <InputVar column='CO_TIPO_CAPTURA'/>
+ </InputVars>
+</FilterRows>
+<ReadColumnarGel keyHD='171886131811672236' module='MathParser' idx='477' x='-1056' y='-1320' fileName=':/../../Gel_DataLake/DM3/IDO_DATA_BI.LDTT_PROCESO_DNI_impr.cgel_anatella'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<RowCounter keyHD='169322714323184167' idx='482' x='-444' y='-1210' label='CounterID_483' compact='0'/>
+<RowCounter keyHD='169322725623184167' idx='483' x='-444' y='-1138' label='CounterID_484' compact='0'/>
+<RowCounter idx='484' x='-444' y='-1042' label='CounterID_485' compact='0'/>
+<RowCounter idx='485' x='-444' y='-946' label='CounterID_486' compact='0'/>
+<OracleOCI module='Oracle' idx='486' v='2.54' x='-2184' y='-1272' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select F.NU_FICHA_REG, F.TI_DOC_REG_FICHA,E.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;6&apos; ---MANUALES
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;) ---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA IN (&apos;1&apos;, &apos;2&apos;)
+         AND F.ES_FICHA_REG IN (&apos;1&apos;, &apos;4&apos;)
+         AND F.CO_TIPO_CAPTURA = &apos;1&apos;
+         AND EXISTS (SELECT 1
+                FROM IDOCAPTURA.PRTV_TRAMITES_MPV V
+               WHERE V.NU_FICHA = F.NU_FICHA_REG
+                 AND V.TI_FICHA = F.TI_DOC_REG_FICHA)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='487' v='2.54' x='-2184' y='-1176' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select F.NU_FICHA_REG, F.TI_DOC_REG_FICHA,E.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.PRTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.PRTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;6&apos; --MANUAL
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;) ---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA IN (&apos;1&apos;, &apos;2&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;1&apos;
+         AND EXISTS (SELECT 1
+                FROM IDOCAPTURA.PRTV_TRAMITES_MPV V
+               WHERE V.NU_FICHA = F.NU_FICHA_REG
+                 AND V.TI_FICHA = F.TI_DOC_REG_FICHA)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='488' v='2.54' x='-2184' y='-1080' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select c.NU_FICHA_REG, c.TI_DOC_REG_FICHA,t.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL C
+       INNER JOIN CTTX_ESTACION_TRAMITE T
+          ON C.NU_FICHA_REG = T.NU_FICHA_REG
+         AND C.TI_DOC_REG_FICHA = T.TI_DOC_REG_FICHA
+         AND T.ES_FINAL = &apos;5&apos;
+         AND TRUNC(T.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+       INNER JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = C.NU_SOL_WEB
+       INNER JOIN IDOTABMAESTRA.GETM_ANI A
+          ON C.NU_DNI_TITULAR = A.NU_DNI
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON C.NU_FICHA_REG = D.NU_FICHA_REG
+         AND C.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+       WHERE C.CO_TIPO_CAPTURA = &apos;3&apos;
+         AND C.CO_RUTA = &apos;2&apos;
+         AND C.ES_FICHA_REG = &apos;1&apos;
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='489' v='2.54' x='-2184' y='-972' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select c.NU_FICHA_REG, c.TI_DOC_REG_FICHA,t.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL C
+       INNER JOIN PRTX_ESTACION_TRAMITE T
+          ON C.NU_FICHA_REG = T.NU_FICHA_REG
+         AND C.TI_DOC_REG_FICHA = T.TI_DOC_REG_FICHA
+         AND T.ES_FINAL = &apos;5&apos;
+         AND TRUNC(T.FE_CREA_AUDI) =  to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+       INNER JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = C.NU_SOL_WEB
+       INNER JOIN IDOTABMAESTRA.GETM_ANI A
+          ON C.NU_DNI_TITULAR = A.NU_DNI
+        LEFT JOIN IDOCAPTURA.PRTX_DOC_ADJUNTO_TRAMITE D
+          ON C.NU_FICHA_REG = D.NU_FICHA_REG
+         AND C.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+       WHERE C.CO_TIPO_CAPTURA = &apos;3&apos;
+         AND C.CO_RUTA = &apos;2&apos;
+         AND C.ES_FICHA_REG = &apos;1&apos;
+</SQL>
+</OracleOCI>
+<RowCounter idx='490' x='-1800' y='-1258' label='CounterID_491' compact='0'/>
+<RowCounter idx='491' x='-1800' y='-1210' label='CounterID_492' compact='0'/>
+<RowCounter idx='492' x='-1800' y='-1162' label='CounterID_493' compact='0'/>
+<RowCounter idx='493' x='-1800' y='-1114' label='CounterID_494' compact='0'/>
+<RowCounter idx='494' x='-1512' y='-1282' label='CounterID_495' compact='0'/>
+<OracleOCI module='Oracle' idx='495' v='2.54' x='-2208' y='-768' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;7&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;1&apos;
+         AND F.ES_FICHA_REG IN (&apos;1&apos;, &apos;4&apos;)
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='496' v='2.54' x='-2208' y='-672' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,e.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.PRTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.PRTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;7&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;1&apos;
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='497' v='2.54' x='-2208' y='-576' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,e.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;A&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='498' v='2.54' x='-2208' y='-480' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,e.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.PRTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.PRTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;A&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='499' v='2.54' x='-2208' y='-384' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,e.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = F.NU_SOL_WEB
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;A&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;3&apos;
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='500' v='2.54' x='-2208' y='-288' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,e.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL F
+        JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = F.NU_SOL_WEB
+        LEFT JOIN IDOCAPTURA.PRTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.PRTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;A&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;3&apos;
+</SQL>
+</OracleOCI>
+<RowCounter idx='501' x='-1968' y='-682' label='CounterID_502' compact='0'/>
+<RowCounter idx='502' x='-1968' y='-634' label='CounterID_503' compact='0'/>
+<RowCounter idx='503' x='-1968' y='-586' label='CounterID_504' compact='0'/>
+<RowCounter idx='504' x='-1968' y='-538' label='CounterID_505' compact='0'/>
+<RowCounter idx='505' x='-1968' y='-490' label='CounterID_506' compact='0'/>
+<RowCounter idx='506' x='-1968' y='-442' label='CounterID_507' compact='0'/>
+<Append module='DefaultActions' idx='507' x='-1812' y='-612' nPinIn='6'>
+  <c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c><c>FE_CREA_AUDI</c></Append>
+<RowCounter idx='508' x='-1680' y='-598' label='CounterID_509' compact='0'/>
+<OracleOCI module='Oracle' idx='509' v='2.54' x='-2364' y='-72' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA IN (&apos;1&apos;, &apos;2&apos;)
+         AND F.ES_TRAMITE IN (&apos;5&apos;, &apos;6&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+         AND TRUNC(F.FE_MODI_AUDI) &lt;= to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='510' v='2.54' x='-2352' y='24' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = F.NU_SOL_WEB
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; 
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_TRAMITE IN (&apos;5&apos;, &apos;6&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;3&apos;
+         AND TRUNC(F.FE_MODI_AUDI) &lt;= to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+</SQL>
+</OracleOCI>
+<RowCounter idx='513' x='-2076' y='-58' label='CounterID_514' compact='0'/>
+<RowCounter idx='514' x='-2076' y='26' label='CounterID_515' compact='0'/>
+<Append module='DefaultActions' idx='515' x='-1896' y='-24'>
+  <c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c><c>FE_CREA_AUDI</c></Append>
+<RowCounter idx='516' x='-1764' y='-22' label='CounterID_517' compact='0'/>
+<OracleOCI module='Oracle' idx='517' v='2.54' x='-2412' y='264' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,e.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;8&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-11&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;1&apos;
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='518' v='2.54' x='-2424' y='360' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,e.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.PRTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.PRTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;8&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-11&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;1&apos;
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+</SQL>
+</OracleOCI>
+<RowCounter idx='519' x='-2100' y='266' label='CounterID_520' compact='0'/>
+<RowCounter idx='520' x='-2100' y='374' label='CounterID_521' compact='0'/>
+<Append module='DefaultActions' idx='521' x='-1920' y='300'>
+  <c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c><c>FE_CREA_AUDI</c></Append>
+<RowCounter idx='522' x='-1788' y='314' label='CounterID_523' compact='0'/>
+<writeColumnarGel module='MathParser' idx='525' v='3.19' x='-2028' y='-1452' file='p01.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='526' v='3.19' x='-2016' y='-1356' file='p02.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='527' v='3.19' x='-2016' y='-1272' file='p03.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='528' v='3.19' x='-2016' y='-1188' file='p04.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='529' v='3.19' x='-2016' y='-1104' file='p05.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='530' v='3.19' x='-2016' y='-1008' file='p06.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='531' v='3.19' x='-2064' y='-744' file='p07.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='532' v='3.19' x='-2064' y='-660' file='p08.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='533' v='3.19' x='-2064' y='-576' file='p09.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='534' v='3.19' x='-2064' y='-492' file='p10.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='535' v='3.19' x='-2076' y='-396' file='p11.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='536' v='3.19' x='-2064' y='-300' file='p12.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='537' v='3.19' x='-2208' y='-72' file='p13.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='538' v='3.19' x='-2208' y='24' file='p14.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='539' v='3.19' x='-2256' y='264' file='p15.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='540' v='3.19' x='-2268' y='372' file='p16.cgel_anatella'/>
+<OracleOCI module='Oracle' idx='541' v='2.54' x='-2424' y='576' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.PRTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.PRTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;B&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA IN (&apos;1&apos;, &apos;2&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='542' v='2.54' x='-2412' y='684' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = F.NU_SOL_WEB
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;B&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;3&apos;
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='543' v='2.54' x='-2412' y='792' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL F
+        JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = F.NU_SOL_WEB
+        LEFT JOIN IDOCAPTURA.PRTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.PRTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;B&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;3&apos;
+</SQL>
+</OracleOCI>
+<writeColumnarGel module='MathParser' idx='544' v='3.19' x='-2268' y='576' file='p17.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='545' v='3.19' x='-2256' y='684' file='p18.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='546' v='3.19' x='-2268' y='792' file='p19.cgel_anatella'/>
+<Append module='DefaultActions' idx='547' x='-1824' y='648' nPinIn='3'>
+  <c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c><c>FE_CREA_AUDI</c></Append>
+<RowCounter idx='548' x='-1680' y='650' label='CounterID_549' compact='0'/>
+<RowCounter idx='549' x='-2076' y='602' label='CounterID_550' compact='0'/>
+<RowCounter idx='550' x='-2076' y='686' label='CounterID_551' compact='0'/>
+<RowCounter idx='551' x='-2064' y='770' label='CounterID_552' compact='0'/>
+<OracleOCI module='Oracle' idx='552' v='2.54' x='-2448' y='1020' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL IN (&apos;C&apos;, &apos;P&apos;, &apos;M&apos;, &apos;+&apos;, &apos;&quot;&apos;, &apos;I&apos;)
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA IN (&apos;1&apos;, &apos;2&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='553' v='2.54' x='-2448' y='1116' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.PRTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.PRTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL IN (&apos;C&apos;, &apos;P&apos;, &apos;M&apos;, &apos;+&apos;, &apos;&quot;&apos;, &apos;I&apos;)
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA IN (&apos;1&apos;, &apos;2&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='554' v='2.54' x='-2448' y='1212' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_INICIAL IN (&apos;C&apos;, &apos;P&apos;, &apos;M&apos;, &apos;+&apos;, &apos;&quot;&apos;)
+         AND E.ES_FINAL = &apos;?&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA IN (&apos;1&apos;, &apos;2&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+         AND EXISTS
+       (SELECT 1
+                FROM IDOCAPTURA.CTTX_ESTACION_TRAMITE
+               WHERE TI_DOC_REG_FICHA = E.TI_DOC_REG_FICHA
+                 AND NU_FICHA_REG = E.NU_FICHA_REG
+                 AND ES_FINAL IN (&apos;@&apos;, &apos;$&apos;)
+                 AND NU_SEC_ESTACION = E.NU_SEC_ESTACION - 1)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='555' v='2.54' x='-2448' y='1308' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.PRTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.PRTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_INICIAL IN (&apos;C&apos;, &apos;P&apos;, &apos;M&apos;, &apos;+&apos;, &apos;&quot;&apos;)
+         AND E.ES_FINAL = &apos;?&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA IN (&apos;1&apos;, &apos;2&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+         AND EXISTS
+       (SELECT 1
+                FROM IDOCAPTURA.PRTX_ESTACION_TRAMITE
+               WHERE TI_DOC_REG_FICHA = E.TI_DOC_REG_FICHA
+                 AND NU_FICHA_REG = E.NU_FICHA_REG
+                 AND ES_FINAL IN (&apos;@&apos;, &apos;$&apos;)
+                 AND NU_SEC_ESTACION = E.NU_SEC_ESTACION - 1)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='556' v='2.54' x='-2448' y='1404' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = F.NU_SOL_WEB
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL IN (&apos;C&apos;, &apos;P&apos;, &apos;M&apos;, &apos;+&apos;, &apos;&quot;&apos;, &apos;I&apos;)
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;3&apos;
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='557' v='2.54' x='-2448' y='1488' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL F
+        JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = F.NU_SOL_WEB
+        LEFT JOIN IDOCAPTURA.PRTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.PRTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_FINAL IN (&apos;C&apos;, &apos;P&apos;, &apos;M&apos;, &apos;+&apos;, &apos;&quot;&apos;, &apos;I&apos;)
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;3&apos;
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='558' v='2.54' x='-2448' y='1584' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = F.NU_SOL_WEB
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_INICIAL IN (&apos;C&apos;, &apos;P&apos;, &apos;M&apos;, &apos;+&apos;, &apos;&quot;&apos;)
+         AND E.ES_FINAL = &apos;?&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;3&apos;
+         AND EXISTS
+       (SELECT 1
+                FROM IDOCAPTURA.CTTX_ESTACION_TRAMITE
+               WHERE TI_DOC_REG_FICHA = E.TI_DOC_REG_FICHA
+                 AND NU_FICHA_REG = E.NU_FICHA_REG
+                 AND ES_FINAL IN (&apos;@&apos;, &apos;$&apos;)
+                 AND NU_SEC_ESTACION = E.NU_SEC_ESTACION - 1)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='559' v='2.54' x='-2448' y='1680' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL F
+        JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = F.NU_SOL_WEB
+        LEFT JOIN IDOCAPTURA.PRTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        JOIN IDOCAPTURA.PRTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.ES_INICIAL IN (&apos;C&apos;, &apos;P&apos;, &apos;M&apos;, &apos;+&apos;, &apos;&quot;&apos;)
+         AND E.ES_FINAL = &apos;?&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)---FECHA CALCULO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;3&apos;
+         AND EXISTS
+       (SELECT 1
+                FROM IDOCAPTURA.PRTX_ESTACION_TRAMITE
+               WHERE TI_DOC_REG_FICHA = E.TI_DOC_REG_FICHA
+                 AND NU_FICHA_REG = E.NU_FICHA_REG
+                 AND ES_FINAL IN (&apos;@&apos;, &apos;$&apos;)
+                 AND NU_SEC_ESTACION = E.NU_SEC_ESTACION - 1)
+</SQL>
+</OracleOCI>
+<writeColumnarGel module='MathParser' idx='560' v='3.19' x='-2304' y='1008' file='p20.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='561' v='3.19' x='-2316' y='1116' file='p21.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='562' v='3.19' x='-2304' y='1212' file='p22.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='563' v='3.19' x='-2292' y='1308' file='p23.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='564' v='3.19' x='-2304' y='1416' file='p24.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='565' v='3.19' x='-2304' y='1500' file='p25.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='566' v='3.19' x='-2292' y='1596' file='p26.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='567' v='3.19' x='-2292' y='1692' file='p27.cgel_anatella'/>
+<Append module='DefaultActions' idx='568' x='-1968' y='1296' nPinIn='8'>
+  <c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c><c>FE_CREA_AUDI</c></Append>
+<RowCounter idx='569' x='-1776' y='1322' label='CounterID_570' compact='0'/>
+<OracleOCI module='Oracle' idx='570' v='2.54' x='-2448' y='1944' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select a.NU_FICHA_REG, a.TI_DOC_REG_FICHA,a.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL A
+       INNER JOIN IDCWEB.ICTV_TRAMITE_WEB C
+          ON C.NU_SOLICITUD = A.NU_SOL_WEB
+         AND C.IN_RECTIFICACION IN
+             (&apos;07&apos;, &apos;08&apos;, &apos;09&apos;, &apos;10&apos;, &apos;11&apos;, &apos;12&apos;, &apos;13&apos;, &apos;14&apos;)
+        LEFT JOIN IDCWEB.ICTV_CTA_CTE_CIUDADANO_WEB X
+          ON X.NU_SOLICITUD = A.NU_SOL_WEB
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON A.NU_DNI_TITULAR = U.NU_DNI
+       WHERE TRUNC(A.FE_MODI_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+         AND A.ES_FICHA_REG = &apos;0&apos;
+         AND A.IN_EVALUACION_FOTO = &apos;3&apos;
+         AND A.CO_TIPO_CAPTURA = &apos;3&apos;
+         AND A.CO_RUTA = &apos;4&apos;
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='571' v='2.54' x='-2448' y='2040' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select a.NU_FICHA_REG, a.TI_DOC_REG_FICHA,a.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL A
+       INNER JOIN IDCWEB.ICTV_TRAMITE_WEB C
+          ON C.NU_SOLICITUD = A.NU_SOL_WEB
+         AND C.IN_RECTIFICACION IN
+             (&apos;07&apos;, &apos;08&apos;, &apos;09&apos;, &apos;10&apos;, &apos;11&apos;, &apos;12&apos;, &apos;13&apos;, &apos;14&apos;)
+       INNER JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = A.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = A.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;?&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+        LEFT JOIN IDCWEB.ICTV_CTA_CTE_CIUDADANO_WEB X
+          ON X.NU_SOLICITUD = A.NU_SOL_WEB
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON A.NU_DNI_TITULAR = U.NU_DNI
+       WHERE A.ES_FICHA_REG = &apos;1&apos;
+         AND A.CO_TIPO_CAPTURA = &apos;3&apos;
+         AND A.CO_RUTA = &apos;4&apos;
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='572' v='2.54' x='-2448' y='2136' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select a.NU_FICHA_REG, a.TI_DOC_REG_FICHA,a.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL A
+       INNER JOIN IDCWEB.ICTV_TRAMITE_WEB C
+          ON C.NU_SOLICITUD = A.NU_SOL_WEB
+         AND C.IN_RECTIFICACION IN
+             (&apos;07&apos;, &apos;08&apos;, &apos;09&apos;, &apos;10&apos;, &apos;11&apos;, &apos;12&apos;, &apos;13&apos;, &apos;14&apos;)
+       INNER JOIN IDOCAPTURA.PRTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = A.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = A.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;?&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+        LEFT JOIN IDCWEB.ICTV_CTA_CTE_CIUDADANO_WEB X
+          ON X.NU_SOLICITUD = A.NU_SOL_WEB
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON A.NU_DNI_TITULAR = U.NU_DNI
+       WHERE A.ES_FICHA_REG = &apos;1&apos;
+         AND A.CO_TIPO_CAPTURA = &apos;3&apos;
+         AND CO_RUTA = &apos;4&apos;
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='573' v='2.54' x='-2448' y='2220' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select a.NU_FICHA_REG, a.TI_DOC_REG_FICHA,a.FE_CREA_AUDI 
+FROM IDOCAPTURA.PRTV_FICHA_REGISTRAL A
+       INNER JOIN IDCWEB.ICTV_TRAMITE_WEB C
+          ON C.NU_SOLICITUD = A.NU_SOL_WEB
+         AND C.IN_RECTIFICACION IN
+             (&apos;07&apos;, &apos;08&apos;, &apos;09&apos;, &apos;10&apos;, &apos;11&apos;, &apos;12&apos;, &apos;13&apos;, &apos;14&apos;)
+       INNER JOIN IDOCAPTURA.PRTX_ESTACION_TRAMITE E
+          ON E.NU_FICHA_REG = A.NU_FICHA_REG
+         AND E.TI_DOC_REG_FICHA = A.TI_DOC_REG_FICHA
+         AND E.ES_FINAL = &apos;H&apos;
+         AND TRUNC(E.FE_CREA_AUDI) = to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+        LEFT JOIN IDCWEB.ICTV_CTA_CTE_CIUDADANO_WEB X
+          ON X.NU_SOLICITUD = A.NU_SOL_WEB
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON A.NU_DNI_TITULAR = U.NU_DNI
+       WHERE A.ES_FICHA_REG = &apos;1&apos;
+         AND A.CO_TIPO_CAPTURA = &apos;3&apos;
+         AND A.CO_RUTA = &apos;4&apos;
+         AND NOT EXISTS (SELECT 1
+                FROM IDOCAPTURA.PRTX_ESTACION_TRAMITE
+               WHERE NU_FICHA_REG = A.NU_FICHA_REG
+                 AND TI_DOC_REG_FICHA = A.TI_DOC_REG_FICHA
+                 AND ES_FINAL = &apos;?&apos;)
+</SQL>
+</OracleOCI>
+<writeColumnarGel module='MathParser' idx='574' v='3.19' x='-2304' y='1944' file='p28.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='575' v='3.19' x='-2292' y='2040' file='p29.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='576' v='3.19' x='-2292' y='2136' file='p30.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='577' v='3.19' x='-2292' y='2232' file='p31.cgel_anatella'/>
+<Append module='DefaultActions' idx='578' x='-2052' y='2064' nPinIn='8'>
+  <c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c><c>FE_CREA_AUDI</c></Append>
+<RowCounter idx='579' x='-1896' y='2066' label='CounterID_580' compact='0'/>
+<OracleOCI module='Oracle' idx='580' v='2.54' x='-2400' y='2544' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;1&apos;
+         AND F.ES_TRAMITE = &apos;7&apos;
+         AND F.ES_FICHA_REG IN (&apos;1&apos;, &apos;4&apos;)
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+         AND TRUNC(F.FE_MODI_AUDI) &lt;= to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+</SQL>
+</OracleOCI>
+<writeColumnarGel module='MathParser' idx='581' v='3.19' x='-2256' y='2556' file='p32.cgel_anatella'/>
+<RowCounter idx='582' x='-2124' y='2570' label='CounterID_583' compact='0'/>
+<OracleOCI module='Oracle' idx='583' v='2.54' x='-2568' y='2760' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;1&apos;
+         AND F.ES_TRAMITE IN (&apos;8&apos;, &apos;9&apos;, &apos;A&apos;, &apos;S&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+         AND TRUNC(F.FE_MODI_AUDI) &lt;= to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='585' v='2.54' x='-2568' y='2856' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_TRAMITE IN (&apos;A&apos;, &apos;S&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+         AND TRUNC(F.FE_MODI_AUDI) &lt;= to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='586' v='2.54' x='-2568' y='2964' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = F.NU_SOL_WEB
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_TRAMITE IN (&apos;A&apos;, &apos;S&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;3&apos;
+         AND TRUNC(F.FE_MODI_AUDI) &lt;= to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+</SQL>
+</OracleOCI>
+<writeColumnarGel module='MathParser' idx='588' v='3.19' x='-2412' y='2760' file='p33.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='589' v='3.19' x='-2412' y='2868' file='p34.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='590' v='3.19' x='-2412' y='2976' file='p35.cgel_anatella'/>
+<Append module='DefaultActions' idx='591' x='-2064' y='2844' nPinIn='8'>
+  <c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c><c>FE_CREA_AUDI</c></Append>
+<RowCounter idx='592' x='-1920' y='2858' label='CounterID_593' compact='0'/>
+<OracleOCI module='Oracle' idx='593' v='2.54' x='-2424' y='3180' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA IN (&apos;1&apos;, &apos;2&apos;)
+         AND F.ES_TRAMITE IN (&apos;!&apos;,
+                              &apos;-&apos;,
+                              &apos;.&apos;,
+                              &apos;&lt;&apos;,
+                              &apos;&gt;&apos;,
+                              &apos;B&apos;,
+                              &apos;D&apos;,
+                              &apos;E&apos;,
+                              &apos;F&apos;,
+                              &apos;K&apos;,
+                              &apos;L&apos;,
+                              &apos;N&apos;,
+                              &apos;Q&apos;,
+                              &apos;R&apos;,
+                              &apos;W&apos;,
+                              &apos;\&apos;,
+                              &apos;¡&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+         AND TRUNC(F.FE_MODI_AUDI) &lt;= to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='594' v='2.54' x='-2412' y='3288' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = F.NU_SOL_WEB
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_TRAMITE IN (&apos;!&apos;,
+                              &apos;-&apos;,
+                              &apos;.&apos;,
+                              &apos;&lt;&apos;,
+                              &apos;&gt;&apos;,
+                              &apos;B&apos;,
+                              &apos;D&apos;,
+                              &apos;E&apos;,
+                              &apos;F&apos;,
+                              &apos;K&apos;,
+                              &apos;L&apos;,
+                              &apos;N&apos;,
+                              &apos;Q&apos;,
+                              &apos;R&apos;,
+                              &apos;W&apos;,
+                              &apos;\&apos;,
+                              &apos;¡&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;3&apos;
+         AND TRUNC(F.FE_MODI_AUDI) &lt;= to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='595' v='2.54' x='-2424' y='3396' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+        JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = F.NU_SOL_WEB
+         AND W.IN_RECTIFICACION IN
+             (&apos;07&apos;, &apos;08&apos;, &apos;09&apos;, &apos;10&apos;, &apos;11&apos;, &apos;12&apos;, &apos;13&apos;, &apos;14&apos;)
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;4&apos;
+         AND F.ES_TRAMITE = &apos;4&apos;
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;3&apos;
+         AND NOT EXISTS
+       (SELECT 1
+                FROM IDOCAPTURA.CTTX_ESTACION_TRAMITE
+               WHERE NU_FICHA_REG = F.NU_FICHA_REG
+                 AND TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+                 AND ES_FINAL = &apos;?&apos;
+                 AND TRUNC(FE_CREA_AUDI) &gt; to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;))
+         AND TRUNC(F.FE_MODI_AUDI) &lt;= to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='596' v='2.54' x='-2412' y='3492' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+       INNER JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.ES_FINAL IN (&apos;@&apos;, &apos;$&apos;, &apos;|&apos;)
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA IN (&apos;1&apos;, &apos;2&apos;)
+         AND F.ES_TRAMITE IN (&apos;C&apos;, &apos;P&apos;, &apos;M&apos;, &apos;+&apos;, &apos;&quot;&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+         AND E.NU_SEC_ESTACION =
+             (SELECT MAX(NU_SEC_ESTACION)
+                FROM IDOCAPTURA.CTTX_ESTACION_TRAMITE
+               WHERE TI_DOC_REG_FICHA = E.TI_DOC_REG_FICHA
+                 AND NU_FICHA_REG = E.NU_FICHA_REG
+                 AND TRUNC(FE_CREA_AUDI) &lt;= to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;))
+         AND TRUNC(F.FE_MODI_AUDI) &lt;= to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+</SQL>
+</OracleOCI>
+<OracleOCI module='Oracle' idx='597' v='2.54' x='-2424' y='3588' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,f.FE_CREA_AUDI
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+       INNER JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.ES_FINAL IN (&apos;@&apos;, &apos;$&apos;, &apos;|&apos;)
+        JOIN IDCWEB.ICTV_TRAMITE_WEB W
+          ON W.NU_SOLICITUD = F.NU_SOL_WEB
+        LEFT JOIN IDOCAPTURA.CTTX_DOC_ADJUNTO_TRAMITE D
+          ON F.NU_FICHA_REG = D.NU_FICHA_REG
+         AND F.TI_DOC_REG_FICHA = D.TI_DOC_REG_FICHA
+         AND D.CO_DOC_ADJ = &apos;165&apos; --165 RECIBO
+        LEFT JOIN IDOTABMAESTRA.GETM_ANI U
+          ON F.NU_DNI_TITULAR = U.NU_DNI
+       WHERE F.CO_RUTA = &apos;2&apos;
+         AND F.ES_TRAMITE IN (&apos;C&apos;, &apos;P&apos;, &apos;M&apos;, &apos;+&apos;, &apos;&quot;&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA = &apos;3&apos;
+         AND E.NU_SEC_ESTACION =
+             (SELECT MAX(NU_SEC_ESTACION)
+                FROM IDOCAPTURA.CTTX_ESTACION_TRAMITE
+               WHERE TI_DOC_REG_FICHA = E.TI_DOC_REG_FICHA
+                 AND NU_FICHA_REG = E.NU_FICHA_REG
+                 AND TRUNC(FE_CREA_AUDI) &lt;= to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;))
+         AND TRUNC(F.FE_MODI_AUDI) &lt;= to_date(&apos;2023-07-17&apos;,&apos;yyyy-MM-dd&apos;)
+</SQL>
+</OracleOCI>
+<writeColumnarGel module='MathParser' idx='598' v='3.19' x='-2136' y='3192' file='p36.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='599' v='3.19' x='-2136' y='3300' file='p37.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='600' v='3.19' x='-2124' y='3408' file='p38.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='601' v='3.19' x='-2136' y='3504' file='p39.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='602' v='3.19' x='-2148' y='3600' file='p40.cgel_anatella'/>
+<Append module='DefaultActions' idx='603' x='-1920' y='3396' nPinIn='8'>
+  <c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c><c>FE_CREA_AUDI</c></Append>
+<RowCounter idx='604' x='-2280' y='3194' label='CounterID_605' compact='0'/>
+<RowCounter idx='605' x='-2280' y='3290' label='CounterID_606' compact='0'/>
+<RowCounter idx='606' x='-2280' y='3398' label='CounterID_607' compact='0'/>
+<RowCounter idx='607' x='-2268' y='3506' label='CounterID_608' compact='0'/>
+<RowCounter idx='608' x='-2280' y='3602' label='CounterID_609' compact='0'/>
+<RowCounter idx='609' x='-1776' y='3278' label='CounterID_610' compact='0'/>
+<RowCounter idx='610' x='-2160' y='1994' label='CounterID_611' compact='0'/>
+<RowCounter idx='611' x='-2184' y='2054' label='CounterID_612' compact='0'/>
+<RowCounter idx='612' x='-2172' y='2126' label='CounterID_613' compact='0'/>
+<RowCounter idx='613' x='-2196' y='2222' label='CounterID_614' compact='0'/>
+<RowCounter idx='614' x='-2148' y='1094' label='CounterID_615' compact='0'/>
+<RowCounter idx='615' x='-2172' y='1166' label='CounterID_616' compact='0'/>
+<RowCounter idx='616' x='-2172' y='1238' label='CounterID_617' compact='0'/>
+<RowCounter idx='617' x='-2160' y='1322' label='CounterID_618' compact='0'/>
+<RowCounter idx='618' x='-2160' y='1406' label='CounterID_619' compact='0'/>
+<RowCounter idx='619' x='-2172' y='1478' label='CounterID_620' compact='0'/>
+<RowCounter idx='620' x='-2160' y='1562' label='CounterID_621' compact='0'/>
+<RowCounter idx='621' x='-2148' y='1634' label='CounterID_622' compact='0'/>
+<RowCounter idx='622' x='-2268' y='2786' label='CounterID_623' compact='0'/>
+<RowCounter idx='623' x='-2280' y='2870' label='CounterID_624' compact='0'/>
+<RowCounter idx='624' x='-2280' y='2966' label='CounterID_625' compact='0'/>
+<aggregate idx='625' x='-420' y='-900' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_PROCESO'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<writeColumnarGel module='MathParser' idx='626' v='3.19' x='-708' y='-1212' file=':/../../Gel_DataLake/DM3/IDO_DATA_BI.LDTT_PROCESO_DNI_PROC_SQL.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='627' v='3.19' x='-720' y='-1116' file=':/../..D:/ProdAnatella/Gel_DataLake/DM3/IDO_DATA_BI.LDTT_PROCESO_DNI_GTI_SQL.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='628' v='3.19' x='-720' y='-936' file=':/../../Gel_DataLake/DM3/IDO_DATA_BI.LDTT_PROCESO_DNI_DESP_SQL.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='630' v='3.19' x='-708' y='-1320' file=':/../../Gel_DataLake/DM3/IDO_DATA_BI.LDTT_PROCESO_DNI_CAPT_SQL.cgel_anatella'/>
+<aggregate idx='631' x='-420' y='-1500' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_ETAPA'/>
+   <v name='CO_PROCESO'/>
+   <v name='CO_TIPO_CAPTURA'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<sort idx='634' v='3.06' x='-264' y='-1488' action='S'>
+  <field type='A'>CO_ETAPA</field>
+  <field type='A'>CO_PROCESO</field>
+</sort>
+<OracleOCI module='Oracle' idx='638' v='2.54' x='-1056' y='-552' connString='(DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = PRODUCCION)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = IDDLEM01)
+        (SERVER=DEDICATED)
+    )
+  )' user='idu_data_bi' passwordc='LAAAAMgBAADIAQAAKwlsP/sDVmzdbdQ/NjuwvuZp0o4avm94fZCzSpM33kU=' newMode='0'>
+<SQL>
+select f.NU_FICHA_REG, f.TI_DOC_REG_FICHA,e.FE_CREA_AUDI 
+FROM IDOCAPTURA.CTTV_FICHA_REGISTRAL F
+       INNER JOIN IDOCAPTURA.CTTX_ESTACION_TRAMITE E
+          ON E.TI_DOC_REG_FICHA = F.TI_DOC_REG_FICHA
+         AND E.NU_FICHA_REG = F.NU_FICHA_REG
+         AND E.ES_FINAL IN (&apos;@&apos;, &apos;$&apos;, &apos;|&apos;)
+         AND TRUNC(F.FE_CREA_AUDI) &lt;= to_date(&apos;2023-08-16&apos;,&apos;yyyy-MM-dd&apos;)
+       WHERE F.CO_RUTA IN (&apos;1&apos;, &apos;2&apos;)
+         AND F.ES_TRAMITE IN (&apos;C&apos;, &apos;P&apos;, &apos;M&apos;, &apos;+&apos;, &apos;&quot;&apos;)
+         AND F.ES_FICHA_REG = &apos;1&apos;
+         AND F.CO_TIPO_CAPTURA IN (&apos;1&apos;, &apos;2&apos;, &apos;4&apos;)
+         AND E.NU_SEC_ESTACION =
+             (SELECT MAX(NU_SEC_ESTACION)
+                FROM IDOCAPTURA.CTTX_ESTACION_TRAMITE
+               WHERE TI_DOC_REG_FICHA = E.TI_DOC_REG_FICHA
+                 AND NU_FICHA_REG = E.NU_FICHA_REG
+                 AND TRUNC(FE_CREA_AUDI) &lt;= to_date(&apos;2023-08-16&apos;,&apos;yyyy-MM-dd&apos;))
+         AND TRUNC(F.FE_CREA_AUDI) &lt;= to_date(&apos;2023-08-16&apos;,&apos;yyyy-MM-dd&apos;)
+</SQL>
+</OracleOCI>
+<aggregate idx='640' x='-276' y='-1140' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='CO_PROCESO'/>
+   <v name='CO_ETAPA'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<sort idx='641' v='3.06' x='-132' y='-1140' action='S'>
+  <field type='A'>CO_PROCESO</field>
+  <field type='A'>CO_ETAPA</field>
+</sort>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='205' idxDest='203'/>
+<Connection idxSrc='206' idxDest='203' idxPinIn='1'/>
+<Connection idxSrc='146' idxDest='214'/>
+<Connection idxSrc='1' idxDest='298'/>
+<Connection idxSrc='146' idxDest='300'/>
+<Connection idxSrc='300' idxDest='304'/>
+<Connection idxSrc='298' idxDest='305'/>
+<Connection idxSrc='306' idxDest='308'/>
+<Connection idxSrc='308' idxDest='309'/>
+<Connection idxSrc='1' idxDest='306'/>
+<Connection idxSrc='305' idxDest='432'/>
+<Connection idxSrc='432' idxDest='295'/>
+<Connection idxSrc='304' idxDest='433'/>
+<Connection idxSrc='433' idxDest='296'/>
+<Connection idxSrc='148' idxDest='482'/>
+<Connection idxSrc='150' idxDest='483'/>
+<Connection idxSrc='152' idxDest='484'/>
+<Connection idxSrc='154' idxDest='485'/>
+<Connection idxSrc='490' idxDest='203' idxPinIn='2'/>
+<Connection idxSrc='491' idxDest='203' idxPinIn='3'/>
+<Connection idxSrc='492' idxDest='203' idxPinIn='4'/>
+<Connection idxSrc='493' idxDest='203' idxPinIn='5'/>
+<Connection idxSrc='203' idxDest='494'/>
+<Connection idxSrc='494' idxDest='219' idxPinIn='14'/>
+<Connection idxSrc='501' idxDest='507'/>
+<Connection idxSrc='502' idxDest='507' idxPinIn='1'/>
+<Connection idxSrc='503' idxDest='507' idxPinIn='2'/>
+<Connection idxSrc='504' idxDest='507' idxPinIn='3'/>
+<Connection idxSrc='505' idxDest='507' idxPinIn='4'/>
+<Connection idxSrc='506' idxDest='507' idxPinIn='5'/>
+<Connection idxSrc='507' idxDest='508'/>
+<Connection idxSrc='508' idxDest='219' idxPinIn='72'/>
+<Connection idxSrc='513' idxDest='515'/>
+<Connection idxSrc='514' idxDest='515' idxPinIn='1'/>
+<Connection idxSrc='515' idxDest='516'/>
+<Connection idxSrc='516' idxDest='219' idxPinIn='119'/>
+<Connection idxSrc='519' idxDest='521'/>
+<Connection idxSrc='520' idxDest='521' idxPinIn='1'/>
+<Connection idxSrc='521' idxDest='522'/>
+<Connection idxSrc='522' idxDest='219' idxPinIn='147'/>
+<Connection idxSrc='201' idxDest='525'/>
+<Connection idxSrc='525' idxDest='205'/>
+<Connection idxSrc='202' idxDest='526'/>
+<Connection idxSrc='526' idxDest='206'/>
+<Connection idxSrc='486' idxDest='527'/>
+<Connection idxSrc='527' idxDest='490'/>
+<Connection idxSrc='487' idxDest='528'/>
+<Connection idxSrc='528' idxDest='491'/>
+<Connection idxSrc='488' idxDest='529'/>
+<Connection idxSrc='529' idxDest='492'/>
+<Connection idxSrc='489' idxDest='530'/>
+<Connection idxSrc='530' idxDest='493'/>
+<Connection idxSrc='495' idxDest='531'/>
+<Connection idxSrc='531' idxDest='501'/>
+<Connection idxSrc='496' idxDest='532'/>
+<Connection idxSrc='532' idxDest='502'/>
+<Connection idxSrc='497' idxDest='533'/>
+<Connection idxSrc='533' idxDest='503'/>
+<Connection idxSrc='498' idxDest='534'/>
+<Connection idxSrc='534' idxDest='504'/>
+<Connection idxSrc='499' idxDest='535'/>
+<Connection idxSrc='535' idxDest='505'/>
+<Connection idxSrc='500' idxDest='536'/>
+<Connection idxSrc='536' idxDest='506'/>
+<Connection idxSrc='509' idxDest='537'/>
+<Connection idxSrc='537' idxDest='513'/>
+<Connection idxSrc='510' idxDest='538'/>
+<Connection idxSrc='538' idxDest='514'/>
+<Connection idxSrc='517' idxDest='539'/>
+<Connection idxSrc='539' idxDest='519'/>
+<Connection idxSrc='518' idxDest='540'/>
+<Connection idxSrc='540' idxDest='520'/>
+<Connection idxSrc='547' idxDest='548'/>
+<Connection idxSrc='548' idxDest='219' idxPinIn='174'/>
+<Connection idxSrc='541' idxDest='544'/>
+<Connection idxSrc='542' idxDest='545'/>
+<Connection idxSrc='543' idxDest='546'/>
+<Connection idxSrc='544' idxDest='549'/>
+<Connection idxSrc='549' idxDest='547'/>
+<Connection idxSrc='545' idxDest='550'/>
+<Connection idxSrc='550' idxDest='547' idxPinIn='1'/>
+<Connection idxSrc='546' idxDest='551'/>
+<Connection idxSrc='551' idxDest='547' idxPinIn='2'/>
+<Connection idxSrc='552' idxDest='560'/>
+<Connection idxSrc='553' idxDest='561'/>
+<Connection idxSrc='554' idxDest='562'/>
+<Connection idxSrc='555' idxDest='563'/>
+<Connection idxSrc='556' idxDest='564'/>
+<Connection idxSrc='557' idxDest='565'/>
+<Connection idxSrc='558' idxDest='566'/>
+<Connection idxSrc='559' idxDest='567'/>
+<Connection idxSrc='568' idxDest='569'/>
+<Connection idxSrc='569' idxDest='219' idxPinIn='231'/>
+<Connection idxSrc='570' idxDest='574'/>
+<Connection idxSrc='571' idxDest='575'/>
+<Connection idxSrc='572' idxDest='576'/>
+<Connection idxSrc='573' idxDest='577'/>
+<Connection idxSrc='578' idxDest='579'/>
+<Connection idxSrc='579' idxDest='219' idxPinIn='283'/>
+<Connection idxSrc='580' idxDest='581'/>
+<Connection idxSrc='581' idxDest='582'/>
+<Connection idxSrc='582' idxDest='219' idxPinIn='286'/>
+<Connection idxSrc='583' idxDest='588'/>
+<Connection idxSrc='585' idxDest='589'/>
+<Connection idxSrc='586' idxDest='590'/>
+<Connection idxSrc='591' idxDest='592'/>
+<Connection idxSrc='592' idxDest='219' idxPinIn='297'/>
+<Connection idxSrc='598' idxDest='603'/>
+<Connection idxSrc='599' idxDest='603' idxPinIn='1'/>
+<Connection idxSrc='600' idxDest='603' idxPinIn='2'/>
+<Connection idxSrc='601' idxDest='603' idxPinIn='3'/>
+<Connection idxSrc='602' idxDest='603' idxPinIn='4'/>
+<Connection idxSrc='593' idxDest='604'/>
+<Connection idxSrc='604' idxDest='598'/>
+<Connection idxSrc='594' idxDest='605'/>
+<Connection idxSrc='605' idxDest='599'/>
+<Connection idxSrc='595' idxDest='606'/>
+<Connection idxSrc='606' idxDest='600'/>
+<Connection idxSrc='596' idxDest='607'/>
+<Connection idxSrc='607' idxDest='601'/>
+<Connection idxSrc='597' idxDest='608'/>
+<Connection idxSrc='608' idxDest='602'/>
+<Connection idxSrc='603' idxDest='609'/>
+<Connection idxSrc='609' idxDest='219' idxPinIn='302'/>
+<Connection idxSrc='574' idxDest='610'/>
+<Connection idxSrc='610' idxDest='578'/>
+<Connection idxSrc='575' idxDest='611'/>
+<Connection idxSrc='611' idxDest='578' idxPinIn='1'/>
+<Connection idxSrc='576' idxDest='612'/>
+<Connection idxSrc='612' idxDest='578' idxPinIn='2'/>
+<Connection idxSrc='577' idxDest='613'/>
+<Connection idxSrc='613' idxDest='578' idxPinIn='3'/>
+<Connection idxSrc='560' idxDest='614'/>
+<Connection idxSrc='614' idxDest='568'/>
+<Connection idxSrc='561' idxDest='615'/>
+<Connection idxSrc='615' idxDest='568' idxPinIn='1'/>
+<Connection idxSrc='562' idxDest='616'/>
+<Connection idxSrc='616' idxDest='568' idxPinIn='2'/>
+<Connection idxSrc='563' idxDest='617'/>
+<Connection idxSrc='617' idxDest='568' idxPinIn='3'/>
+<Connection idxSrc='564' idxDest='618'/>
+<Connection idxSrc='618' idxDest='568' idxPinIn='4'/>
+<Connection idxSrc='565' idxDest='619'/>
+<Connection idxSrc='619' idxDest='568' idxPinIn='5'/>
+<Connection idxSrc='566' idxDest='620'/>
+<Connection idxSrc='620' idxDest='568' idxPinIn='6'/>
+<Connection idxSrc='567' idxDest='621'/>
+<Connection idxSrc='621' idxDest='568' idxPinIn='7'/>
+<Connection idxSrc='588' idxDest='622'/>
+<Connection idxSrc='622' idxDest='591'/>
+<Connection idxSrc='589' idxDest='623'/>
+<Connection idxSrc='623' idxDest='591' idxPinIn='1'/>
+<Connection idxSrc='590' idxDest='624'/>
+<Connection idxSrc='624' idxDest='591' idxPinIn='2'/>
+<Connection idxSrc='154' idxDest='625'/>
+<Connection idxSrc='148' idxDest='626'/>
+<Connection idxSrc='150' idxDest='627'/>
+<Connection idxSrc='154' idxDest='628'/>
+<Connection idxSrc='146' idxDest='630'/>
+<Connection idxSrc='631' idxDest='634'/>
+<Connection idxSrc='146' idxDest='631'/>
+<Connection idxSrc='483' idxDest='640'/>
+<Connection idxSrc='640' idxDest='641'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-2268' y='-1512' size='14'>LDSP_RECEPCION_INGRESOS*****************************************************************</Annotation>
+  <Annotation x='-2172' y='-852' size='14'>*****************************************************************</Annotation>
+  <Annotation x='-2292' y='-816' size='14'>LDSP_PRODUCCION_INGRESOS*****************************************************************</Annotation>
+  <Annotation x='480' y='-1644' size='14'>CO_ETAPA	CO_PROCESO	CO_TIPO_CAPTURA	count
+4	1	1	10809
+4	1	2	5846
+4	1	4	821
+4	1	3	820
+4	2	2	21652
+4	2	1	6518
+4	2	4	6085</Annotation>
+  <Annotation x='444' y='-1404' size='14'>CO_ETAPA	CO_PROCESO	CO_TIPO_CAPTURA	count
+04	01	1	10809
+04	01	2	5846
+04	01	4	821
+04	01	3	380
+04	02	1	6518
+04	02	2	21652
+04	02	4	6085</Annotation>
+  <Annotation x='-780' y='-1632' size='14'>133803</Annotation>
+  <Annotation x='-696' y='-1632' size='14'>133346</Annotation>
+  <Annotation x='-2508' y='-1416' size='14' anchor='201'>INGRESOS REGISTROS MANUALES</Annotation>
+  <Annotation x='-2520' y='-1248' size='14' anchor='486'>INGRESOS POR MESA DE PARTES</Annotation>
+  <Annotation x='-2388' y='-1056' size='14' anchor='488'>RECEPCCION WEB</Annotation>
+  <Annotation x='-2292' y='-372' size='14' anchor='499'>web</Annotation>
+  <Annotation x='-2292' y='-108' size='14'>LDSP_INV_FINAL_INGRESOS*****************************************************************</Annotation>
+  <Annotation x='-2196' y='-192' size='14'>*****************************************************************</Annotation>
+  <Annotation x='-2460' y='48' size='14' anchor='510'>---WEB</Annotation>
+  <Annotation x='-2124' y='156' size='14'>*****************************************************************</Annotation>
+  <Annotation x='-2340' y='204' size='14'>LDSP_PRODUCCION_DIGITALIZACION*****************************************************************</Annotation>
+  <Annotation x='-2340' y='516' size='14'>LDSP_PRODUCCION_ASIGNACION*****************************************************************</Annotation>
+  <Annotation x='-2232' y='456' size='14'>*****************************************************************</Annotation>
+  <Annotation x='-2256' y='912' size='14'>*****************************************************************</Annotation>
+  <Annotation x='-2532' y='960' size='14'>LDSP_PRODUCCION_EVALUACION*************************************************************************************</Annotation>
+  <Annotation x='-2172' y='1848' size='14'>*****************************************************************</Annotation>
+  <Annotation x='-2412' y='1896' size='14'>PRODUCCION WEB RUTA 4 NO PASA POR EVALUACION****************************************************</Annotation>
+  <Annotation x='-2376' y='2676' size='14'>*****************************************************************</Annotation>
+  <Annotation x='-2400' y='2484' size='14'>LDSP_INV_FINAL_DIGITALIZACION****************************************************************</Annotation>
+  <Annotation x='-2412' y='2724' size='14'>LDSP_INV_FINAL_ASIGNACION*****************************************************</Annotation>
+  <Annotation x='-2400' y='3108' size='14'>*****************************************************************</Annotation>
+  <Annotation x='-2460' y='3144' size='14'>LDSP_INV_FINAL_EVALUACION****************************************************************</Annotation>
+  <Annotation x='-2448' y='3684' size='14'>*****************************************************************</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

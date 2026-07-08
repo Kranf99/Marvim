@@ -1,0 +1,2365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='4.20'>
+<GlobalParameters wDirLoc='1' dataDirRead='C:/soft/uwamp/www/Aggregate/DataLake' fileParameterDir='C:/soft/uwamp/www/Aggregate'>
+<Parameters>
+<Par name='fileOut'>cache_4ef462f6b39638f807a26d38b8874640.json</Par>
+<Par name='fileName'>./dashboards/Pricing Bank/pricing_bank_dash.cgel_anatella</Par>
+<Par name='cGel'>1</Par>
+<Par name='pX'>DES_PRO</Par>
+<Par name='myData'></Par>
+<Par name='maxRow'>0</Par>
+<Par name='pY'>Int_Rate</Par>
+<Par name='dmin'>null</Par>
+<Par name='dmax'>null</Par>
+<Par name='pFilter'>[{&quot;var&quot;:&quot;Categoria&quot;,&quot;op&quot;:&quot;=&quot;,&quot;value&quot;:&quot;&apos;Controled&apos;&quot;,&quot;logic&quot;:&quot;&quot;}]</Par>
+<Par name='filterVal'>a = &quot;Controled&quot;</Par>
+<Par name='varNum'>0</Par>
+<Par name='pOp'>sum</Par>
+<Par name='countDistinct'></Par>
+<Par name='pBins'>90</Par>
+<Par name='jsonBins'>[]</Par>
+<Par name='pSplit'>[]</Par>
+<Par name='runClust'>0</Par>
+<Par name='pClustNum'>30</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace zoom='0.460674' x='-534' y='103'>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAABzPwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAABzAAAAHgA////AAAAAwAABxgAAAFr/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAI2AAAAZwD////8AAACOgAABN4AAAGUAP////oAAAABAQAAAAL7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAYAD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD///8AAAYUAAABzAAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABfT/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<readGel idx='1' x='-2028' y='540' fileName='&gt;&quot;:/&quot; + fileName'/>
+<RunToFinishLine idx='4' x='1860' y='-708' nPinIn='116'/>
+<inlineTable idx='11' x='1272' y='-708'>
+<ColumnNames><c>C1</c></ColumnNames>
+<Rows>
+ <r><c></c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='12' x='1416' y='-708'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='cGel'>contains(fileName, ".cgel")</OutputVar>
+  </OutputVars>
+</Calculator>
+<Generic idx='13' v='3.17' x='1560' y='-708' id='setGlobalParameters'
+  longName='set the value of some global Parameters'
+  le='1729847485040'
+  abortOnMissingColumn='0'
+  shape='3'
+  keywords='set global parameter'
+  image='/setGlobalParameters.svg'
+  author='Frank Vanden Berghen'
+  revision='0.11'
+  tags='800_Other'>
+<Description>
+Set the value of some Global Parameters.&lt;br/&gt;
+&lt;br/&gt;
+The input table has many columns and one row (if there are more rows, they are ignored).&lt;br/&gt;
+Each input column defines the value of a different Global Parameter:&lt;ol&gt;
+&lt;li&gt;The name of the Global Parameter to set is the name of the column.&lt;/li&gt;
+&lt;li&gt;The new value of the Global Parameter to set is the content of the column (on the first row).&lt;/li&gt;&lt;/ol&gt;
+</Description>
+<Parameters>
+  <Parameter id='idSkip' text='Skip the first X columns. X=?' type='double'>1</Parameter>
+  <Parameter id='setOnlyIfEmpty' text='Only set value if Global Parameter is empty' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+function init(){return 0;}
+
+function setGP2(name,v)
+{
+    var transient=false;
+    if (name[0]=='*') { name=name.substr(1); transient=true; }
+    if ((name[0]>='0')&amp;&amp;(name[0]&lt;='9')) throw "ERROR:Global Parameter's Names cannot start with a digit(here:'"+name+"').";
+    if (name.indexOf(".")>=0) throw "ERROR:Global Parameter's Names cannot contain a dot.";
+    if (!(name in this)) { newGlobalVar(name,"",transient); }
+    else
+    {
+        if (setOnlyIfEmpty) 
+        { 
+            var getValue=new Function("return "+name+";");
+            if (getValue()!="") return;
+        }
+    }
+    v=v.replace(new RegExp("\\\\", 'g'), "\\\\");
+    v=v.replace(new RegExp("\"", 'g'), "\\\"");
+    v=v.replace(new RegExp("\n", 'g'), "");
+    v=v.replace(new RegExp("\r", 'g'), "");
+    t=name+"=\""+v+"\";"
+    var assign=new Function(t);
+    assign();
+}
+
+function run()
+{    
+    var r=getNextRow();
+    if (r.isNull) return 1;
+    
+    var i,n=r.nColumn;
+    for(i=idSkip;i&lt;n;i++)
+        setGP2(rowGetColumnName(r,i),""+r.col(i));
+
+    return 1;
+}
+</Script>
+</Generic>
+<runSelectedPin idx='14' v='3.16' x='1668' y='672' mode='1' pinToRun='&gt; cGel'/>
+<ReadColumnarGel module='MathParser' idx='15' x='-1680' y='720' columnSelection='2' fileName='&gt;&quot;:/&quot; + fileName'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<writeJSON module='WriteReport' idx='20' v='2.8' x='1368' y='720' fileName='&gt;&quot;:/tmp/&quot; + fileOut' checkNameCollision='0' createDir='1' nullString='1' nullNumber='0' specialBool='1'>
+	<Levels>
+		<Level>
+			<Item text='{'/>
+			<Item type='1'/>
+			<Item text='}'/>
+		</Level>
+	</Levels>
+</writeJSON>
+<FilterRows module='MathParser' idx='1762' x='-1248' y='540' truncate='1'>
+ <Expression>(maxRow>0)?_n&lt;maxRow:1</Expression>
+ <InputVars>
+ </InputVars>
+</FilterRows>
+<FilterRows module='MathParser' idx='1816' x='-1248' y='720' truncate='1'>
+ <Expression>(maxRow>0)?_n&lt;maxRow:1</Expression>
+ <InputVars>
+ </InputVars>
+</FilterRows>
+<Generic idx='1829' x='1692' y='1416' id='doWebServiceBridge'
+  longName='do the Web Service Bridge'
+  nPinIn='0'
+  le='1754928885398'
+  keywords='webservice service php bridge browser microservice internet cloud'
+  image='/serverPHP.svg'
+  author='Frank Vanden Berghen'
+  revision='0.02'
+  tags='600_System Tools'
+  pdfDestination='9_2_1_javascript_integration_in'>
+<Description>
+If the &quot;Anatella Engine Install Dir&quot; parameter is empty, then we&apos;ll use the current location of the Anatella engine (i.e. usually, it&apos;s &quot;c:/soft/TIMi&quot;).
+</Description>
+<Parameters>
+  <Parameter id='idVars' text='List of Input Variables for the Webservice (comma separated)' type='string'>fileName,pX,pY,maxRow</Parameter>
+  <Parameter id='idREs' text='Regular Expression to validate Input Variables (comma separated)' type='string'>[a-zA-Z0-9 ]+,[a-zA-Z0-9 ]+,[a-zA-Z0-9 ]+,[0-9]+</Parameter>
+  <Parameter id='idMaxSize' text='Input Variables Max Size (comma separated)' type='string'>200,200,200,200</Parameter>
+  <Parameter id='idMinSize' text='Input Variables Min Size (comma separated)' type='string'>1,1,0,0</Parameter>
+  <Parameter id='idGraph' text='Anatella Graph to run inside the webservice' type='onefileopen'><meta>*.anatella</meta><data>:/GetVarDetails.anatella</data></Parameter>
+  <Parameter id='idPhpFile' text='Final Web Service Brige (Php-&gt;Anatella)' type='onefilesave'><meta>*.php</meta><data>:/web_GetVarDetails.php</data></Parameter>
+  <Parameter id='idTemp' text='Temp Directory (optional)' type='onedir'><data>C:/soft/uwamp/www/TimeSeries/tmp</data></Parameter>
+  <Parameter id='idADir' text='Anatella Engine Install Dir (optional)' type='onedir'><data></data></Parameter>
+  <Parameter id='idReset' text='If an Input Variable is missing:' type='combobox'><meta>&lt;i&gt;Use default value&lt;/i&gt;&lt;i&gt;reset it to empty&lt;/i&gt;&lt;i&gt;reset it to zero&lt;/i&gt;</meta><data>1</data></Parameter>
+  <Parameter id='idDebug' text='Development Mode (display errors)?' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+function init(){ getCurrentRow(); return 0; }
+
+function makeRelative(s)
+{
+    if (s.indexOf(currentDir)==0)
+        return s.substring(currentDir.length,99999);
+    return s;
+}
+
+function run()
+{
+   var myVars=idVars.split(","),
+        myREs=idREs.split(","),
+        myMaxSize=idMaxSize.split(","),
+        myMinSize=idMinSize.split(",");
+   if (myVars.length!=myREs.length) throw "The number of input variables and the number of Regular Expression for validation do not match";
+   if (myVars.length!=myMaxSize.length) throw "The number of input variables and the number of Upper boundaries on variables's sizes do not match";
+   if (myVars.length!=myMinSize.length) throw "The number of input variables and the number of Lower boundaries on variables's sizes do not match";
+
+   if (idGraph=="") throw "Please give the filepath to the Anatella graph to execute inside the Webservice";
+   if (idPhpFile=="") throw "Please give the filepath to the PHP script that calls your Anatella graph as a Webservice";
+
+   print("We have "+myVars.length+" input parameters inside the PHP script/WebService '"+idPhpFile+"' that runs the Anatella graph '"+idGraph+"'");
+
+   {
+       // check that each variable only contains "easy" chars
+       var simplevarsRE=/^[_a-zA-Z][_a-zA-Z0-9]*$/
+       for(i=0;i&lt;myVars.length;i++)
+            if (!simplevarsRE.test(myVars[i]))
+                throw "The variable '"+myVars[i]+"' contains invalid chars.";
+   }
+   var s="&lt;?php\n",v;
+
+   // check that each parameter is given in PHP
+   // also check size
+   for(i=0;i&lt;myVars.length;i++)
+   {
+        mv=myVars[i];
+        v="$_REQUEST['"+mv+"']";
+        if (myMinSize[i]>0)
+        {
+            s+="if (!array_key_exists('"+mv+"', $_REQUEST)){\n"+
+                 "   http_response_code(400);\n"+
+                 "   echo \"Parameter '"+mv+"' is missing\";\n"+
+                 "   die;\n"+
+                 "}\n"+
+                 "$len=strlen("+v+");\n"+
+                 "if ($len&lt;"+myMinSize[i]+") {\n"+
+                 "   http_response_code(400);\n"+
+                 "   echo \"Parameter '"+mv+"' is too short\";\n"+
+                 "   die;\n"+
+                 "}\n"+
+                 "if ($len>="+myMaxSize[i]+") {\n"+
+                 "   http_response_code(400);\n"+
+                 "   echo \"Parameter '"+mv+"' is too long\";\n"+
+                 "   die;\n"+
+                 "}\n";
+        } else
+        {
+            s+="if (array_key_exists('"+mv+"', $_REQUEST)){\n"+
+                 "  $len=strlen("+v+");\n"+
+                 "  if ($len>="+myMaxSize[i]+") {\n"+
+                 "    http_response_code(400);\n"+
+                 "    echo \"Parameter '"+mv+"' is too long\";\n"+
+                 "    die;\n"+
+                 "  }\n"+
+                 "}\n";
+        }
+   }
+
+   // check regular expresssions
+   for(i=0;i&lt;myVars.length;i++)
+   {
+        if (!myREs[i].length) continue;
+        mv=myVars[i];
+        v="$_REQUEST['"+mv+"']";
+        if (myMinSize[i]>0)
+        {
+            s+="if (!preg_match('/^"+myREs[i]+"$/',"+v+")) {\n";
+        } else
+        {
+            s+="if ((array_key_exists('"+mv+"', $_REQUEST))&amp;&amp;\n"+
+                 "    (!preg_match('/^"+myREs[i]+"$/',"+v+"))) {\n";
+        }
+        s+="   http_response_code(400);\n"+
+             "   echo \"Regular Expression Test failed for parameter '"+mv+"'\";\n"+
+ 	  "   die;\n"+
+             "}\n";
+     }
+
+   s+="$toExec='';\n";
+   for(i=0;i&lt;myVars.length;i++)
+   {
+        v=myVars[i];
+        if (myMinSize[i]==0)
+            s+="if (array_key_exists('"+v+"', $_REQUEST)) ";
+        s+="$toExec.=' '.escapeshellarg('-D"+v+"='.$_REQUEST['"+v+"']);\n";
+        if ((myMinSize[i]==0)&amp;&amp;idReset)
+        {
+            s+="else $toExec.=' \"-D"+v+"=";
+            if (idReset==1) s+="\"';\n"; else s+="0\"';\n"; 
+        }
+   }
+
+   if (idTemp=="")
+   {
+        idTemp=currentDir+"tmp";
+        mkDir(idTemp);
+   }
+   if (idADir=="") idADir=anatellaDir;
+   else idADir+="/bin";
+
+   s+="\ndate_default_timezone_set(\"UTC\");\n"+
+      "$id=uniqid(\"ws_\".date(\"Ymd_\"));\n"+
+      "exec('\""+idADir+"/AnatellaConsole.exe\" \""+makeRelative(idGraph)+"\" '.$toExec.' -DfileOut='.$id.'.json";
+    if (!idDebug) s+="');\n";
+    else
+    {
+        s+=" 2>&amp;1',$fake,$result_code);\n"+
+            "if ($result_code>1) {\n"+
+            "   http_response_code(400);\n"+
+            "   echo '&lt;html>&lt;body>&lt;PRE>Error running Anatella (errorLevel='.$result_code.\")&lt;br>\".implode(\"&lt;br>\",$fake);\n"+
+            "   die;\n"+
+            "}\n";
+    }
+    s+="header('Content-type: application/json');\n"+
+      "@readfile(\""+makeRelative(idTemp)+"/$id.json\");\n"+
+      "?>";
+
+   fileSave(idPhpFile,s,3);
+   return 1;
+}
+</Script>
+</Generic>
+<readGel idx='1852' x='156' y='-324' fileName='&gt; fileName'/>
+<aggregate idx='1854' x='756' y='-324' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+ <OneAggregate>
+  <GroupBy>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<FilterRows module='MathParser' idx='1860' x='288' y='-324' truncate='1'>
+ <Expression>(maxRow>0)?_n&lt;maxRow:1</Expression>
+ <InputVars>
+ </InputVars>
+</FilterRows>
+<Generic idx='1861' x='888' y='-288' id='get_meta-data'
+  longName='Get meta-data'
+  le='1760543422492'
+  abortOnMissingColumn='0'
+  keywords='meta data extract get'
+  image='/getMetaData.svg'
+  author='Frank Vanden Berghen'
+  revision='0.05'
+  tags='150_Standard'
+  pdfDestination='5_5_14_get_meta_data'>
+<Description>
+Get meta-data: column name &amp; type + sort meta-data.&lt;br/&gt;&lt;br/&gt;
+Do not enable the option &quot;pump all rows from input&quot; unless you know what you are doing
+</Description>
+<Parameters>
+  <Parameter id='idMeta2' text='meta-data type column contains:' type='combobox'><meta>&lt;i&gt;U,K,F&lt;/i&gt;&lt;i&gt;STRING,KEY,FLOAT&lt;/i&gt;</meta><data>0</data></Parameter>
+  <Parameter id='readAll' text='pump all rows from input' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+var rIn,rOut,i,ak,at;
+function init()
+{
+    rIn=getCurrentRow();
+    if (rIn.isNull) return 0;
+    rIn=rowDeepCopy(rIn);
+    setOutputRowSize(0,5);
+    i=0;
+    rOut=new Row(5);
+    rowSetColumnName(rOut,0,"Before");
+    rowSetColumnName(rOut,1,"After");
+    rowSetColumnName(rOut,2,"Type");
+    rowSetColumnName(rOut,3,"SortPriority");
+    rowSetColumnName(rOut,4,"SortType");
+    
+    var j=rIn.nColumn,k=0;
+    ak=new Array(j); at=new Array(j);
+    while(j--) { ak[j]=null; at[j]=null; }
+    for(;;)
+    {
+        var j=rowGetSortColumnIdx(rIn,k);
+        if (j&lt;0) break;
+        ak[j]=k;
+        at[j]=rowGetSortType(rIn,k);
+        k++;
+    }
+    return 0;
+}
+
+function run()
+{
+    if (rIn.isNull) return 1;
+    if (i==rIn.nColumn) 
+    {
+        if (readAll)
+        {
+            var r;
+            for(;;)
+            {
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                r=getNextRow();
+                if (r.isNull||userAskedAbort()) return 1;
+            }
+        }
+        return 1;
+    }
+    var cn=rowGetColumnName(rIn,i);
+    rOut.setColumn(0,cn);
+    rOut.setColumn(1,cn);
+    if (!idMeta2) rOut.setColumn(2,rowGetMetaType(rIn,i));
+    else
+    {
+        var mt=rowGetMetaType(rIn,i);
+        if (mt=="U") mt="STRING";
+        else if (mt=="K") mt="KEY";
+        else if (mt=="F") mt="FLOAT";
+        rOut.setColumn(2,mt);
+    }
+    rOut.setColumn(3,ak[i]);
+    rOut.setColumn(4,at[i]);
+    i++;
+    rOut.write(); 
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<Calculator module='MathParser' idx='1862' x='1008' y='-288'>
+  <InputVars>
+    <InputVar column='After' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='After' meta='U' update='1'>replace(After, pX//"_","")</OutputVar>
+  </OutputVars>
+</Calculator>
+<ColumnRename module='DefaultActions' idx='1863' v='3.87' x='1152' y='-324' mode='1'><before>
+</before><after>
+</after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<Generic idx='1864' v='3.17' x='1548' y='-324' id='setGlobalParameters'
+  longName='set the value of some global Parameters'
+  le='1729847485040'
+  abortOnMissingColumn='0'
+  shape='3'
+  keywords='set global parameter'
+  image='/setGlobalParameters.svg'
+  author='Frank Vanden Berghen'
+  revision='0.11'
+  tags='800_Other'>
+<Description>
+Set the value of some Global Parameters.&lt;br/&gt;
+&lt;br/&gt;
+The input table has many columns and one row (if there are more rows, they are ignored).&lt;br/&gt;
+Each input column defines the value of a different Global Parameter:&lt;ol&gt;
+&lt;li&gt;The name of the Global Parameter to set is the name of the column.&lt;/li&gt;
+&lt;li&gt;The new value of the Global Parameter to set is the content of the column (on the first row).&lt;/li&gt;&lt;/ol&gt;
+</Description>
+<Parameters>
+  <Parameter id='idSkip' text='Skip the first X columns. X=?' type='double'>0</Parameter>
+  <Parameter id='setOnlyIfEmpty' text='Only set value if Global Parameter is empty' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+function init(){return 0;}
+
+function setGP2(name,v)
+{
+    var transient=false;
+    if (name[0]=='*') { name=name.substr(1); transient=true; }
+    if ((name[0]>='0')&amp;&amp;(name[0]&lt;='9')) throw "ERROR:Global Parameter's Names cannot start with a digit(here:'"+name+"').";
+    if (name.indexOf(".")>=0) throw "ERROR:Global Parameter's Names cannot contain a dot.";
+    if (!(name in this)) { newGlobalVar(name,"",transient); }
+    else
+    {
+        if (setOnlyIfEmpty) 
+        { 
+            var getValue=new Function("return "+name+";");
+            if (getValue()!="") return;
+        }
+    }
+    v=v.replace(new RegExp("\\\\", 'g'), "\\\\");
+    v=v.replace(new RegExp("\"", 'g'), "\\\"");
+    v=v.replace(new RegExp("\n", 'g'), "");
+    v=v.replace(new RegExp("\r", 'g'), "");
+    t=name+"=\""+v+"\";"
+    var assign=new Function(t);
+    assign();
+}
+
+function run()
+{    
+    var r=getNextRow();
+    if (r.isNull) return 1;
+    
+    var i,n=r.nColumn;
+    for(i=idSkip;i&lt;n;i++)
+        setGP2(rowGetColumnName(r,i),""+r.col(i));
+
+    return 1;
+}
+</Script>
+</Generic>
+<runSelectedPin idx='1865' v='3.16' x='1716' y='-312' mode='1' pinToRun='&gt; cGel'/>
+<Calculator module='MathParser' idx='1871' x='-288' y='-456'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Values' meta='U' update='1'>strlen(pFilter)>0?pFilter:"[]"</OutputVar>
+  </OutputVars>
+</Calculator>
+<readJSON module='WriteReport' idx='1872' v='3.92' x='120' y='-456' colJSON='Values' fromInputPin='1' fileName=''>
+ <Level initialPath=''>
+  <e path='var'/>
+  <e path='op'/>
+  <e path='value'/>
+  <e path='logic'/>
+ </Level>
+</readJSON>
+<inlineTable idx='1873' x='-420' y='-456'>
+<ColumnNames><c>Values</c></ColumnNames>
+<Rows>
+ <r><c></c></r>
+</Rows>
+</inlineTable>
+<sort idx='1874' v='3.06' x='264' y='-456' action='S'>
+  <field type='Z'>logic</field>
+</sort>
+<InsertKey module='DefaultActions' idx='1875' x='384' y='-456' startCount='0' columnName='Key'/>
+<Generic keyHD='178249093450632207' idx='1876' x='516' y='-456' id='create1Var'
+ deprecated='1'
+  longName='create one new var'
+  image='create1var.png'
+  author='Frank Vanden Berghen - Didier Baclin'
+  revision='0.21'
+  tags='150_Standard'>
+<Description>
+This action is deprecated: use the &quot;Calculator&quot; action instead.&lt;br/&gt;&lt;br/&gt;
+Create one new derivate column using mathematical operations on columns.
+</Description>
+<Parameters>
+  <Parameter id='colName' text='name of the new column to create' type='string'>NewVar</Parameter>
+  <Parameter id='myMetaType' text='type of the new column' type='combobox'><meta>&lt;i&gt;Meta-Type of New Column is &quot;string&quot; or &quot;unknown&quot;&lt;/i&gt;&lt;i&gt;Meta-Type of New Column is &quot;Number&quot;&lt;/i&gt;</meta><data>0</data></Parameter>
+  <Parameter id='myoperation' text='mathematical expression defining the new column' type='string'>String.fromCharCode(97+x)</Parameter>
+  <Parameter id='varAreNumbers' text='All variables (X,Y,Z,A,B,C,D,...) are numbers?' type='bool'>0</Parameter>
+  <Parameter id='myVar1' text='X = which column ?' type='onecolumn'><meta>0</meta><data>Key</data></Parameter>
+  <Parameter id='myVar2' text='Y = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar3' text='Z = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar4' text='A = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar5' text='B = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar6' text='C = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar7' text='D = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar8' text='E = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar9' text='F = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar10' text='G = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+</Parameters>
+<Script>
+var myrow,nVars,myfunc,n;
+
+function parallelRun(v) { return true; }
+
+function init()
+{
+   var r=getCurrentRow();
+   if (r.isNull) return 1;
+   setOutputRowSize(0,r.nColumn+1);
+   myrow=new Row(1);
+   rowSetColumnName(myrow,0,colName);
+   if (myMetaType==1) rowSetMetaType(myrow,0,'F');
+          if (myVar10>=0) { nVars=10;myfunc=new Function( "x","y","z","a","b","c","d","e","f","g", "return "+myoperation);  }
+   else if (myVar9>=0)  { nVars=9;  myfunc=new Function( "x","y","z","a","b","c","d","e","f", "return "+myoperation);  }
+   else if (myVar8>=0)  { nVars=8;  myfunc=new Function( "x","y","z","a","b","c","d","e", "return "+myoperation);  }
+   else if (myVar7>=0)  { nVars=7;  myfunc=new Function( "x","y","z","a","b","c","d", "return "+myoperation);  }
+   else if (myVar6>=0)  { nVars=6;  myfunc=new Function( "x","y","z","a","b","c", "return "+myoperation);  }
+   else if (myVar5>=0)  { nVars=5;  myfunc=new Function( "x","y","z","a","b", "return "+myoperation);  }
+   else if (myVar4>=0)  { nVars=4;  myfunc=new Function( "x","y","z","a", "return "+myoperation);  }
+   else if (myVar3>=0)  { nVars=3;  myfunc=new Function( "x","y","z", "return "+myoperation);  }
+   else if (myVar2>=0)  { nVars=2;  myfunc=new Function( "x","y", "return "+myoperation);  }
+   else if (myVar1>=0)  { nVars=1;  myfunc=new Function( "x", "return "+myoperation);  }
+   else                            { nVars=0;  myfunc=new Function( "return "+myoperation);  }
+   n=0;
+   return 0;
+}
+
+function run()
+{
+   var r=getNextRow();
+   if (r.isNull) return 1;
+   
+   var res;
+   if (varAreNumbers)
+   {
+       switch(nVars)
+       {
+       case 0: res=myfunc(); break;
+       case 1: res=myfunc(Number(r.col(myVar1))); break;
+       case 2: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2))); break;
+       case 3: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3))); break;
+       case 4: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3)),Number(r.col(myVar4))); break;
+       case 5: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3)),Number(r.col(myVar4)),Number(r.col(myVar5))); break;
+       case 6: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3)),Number(r.col(myVar4)),Number(r.col(myVar5)),Number(r.col(myVar6))); break;
+       case 7: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3)),Number(r.col(myVar4)),Number(r.col(myVar5)),Number(r.col(myVar6)),Number(r.col(myVar7))); break;
+       case 8: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3)),Number(r.col(myVar4)),Number(r.col(myVar5)),Number(r.col(myVar6)),Number(r.col(myVar7)),Number(r.col(myVar8))); break;
+       case 9: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3)),Number(r.col(myVar4)),Number(r.col(myVar5)),Number(r.col(myVar6)),Number(r.col(myVar7)),Number(r.col(myVar8)),Number(r.col(myVar9))); break;
+       case 10: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3)),Number(r.col(myVar4)),Number(r.col(myVar5)),Number(r.col(myVar6)),Number(r.col(myVar7)),Number(r.col(myVar8)),Number(r.col(myVar9)),Number(r.col(myVar10))); break;
+       }
+   } else
+   {
+       switch(nVars)
+       {
+       case 0: res=myfunc(); break;
+       case 1: res=myfunc(r.col(myVar1)); break;
+       case 2: res=myfunc(r.col(myVar1),r.col(myVar2)); break;
+       case 3: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3)); break;
+       case 4: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3),r.col(myVar4)); break;
+       case 5: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3),r.col(myVar4),r.col(myVar5)); break;
+       case 6: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3),r.col(myVar4),r.col(myVar5),r.col(myVar6)); break;
+       case 7: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3),r.col(myVar4),r.col(myVar5),r.col(myVar6),r.col(myVar7)); break;
+       case 8: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3),r.col(myVar4),r.col(myVar5),r.col(myVar6),r.col(myVar7),r.col(myVar8)); break;
+       case 9: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3),r.col(myVar4),r.col(myVar5),r.col(myVar6),r.col(myVar7),r.col(myVar8),r.col(myVar9)); break;
+       case 10: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3),r.col(myVar4),r.col(myVar5),r.col(myVar6),r.col(myVar7),r.col(myVar8),r.col(myVar9),r.col(myVar10)); break;
+       }
+   }
+   myrow.setColumn(0,res);
+   myrow.write(0);
+   r.write(0);
+   writeEOL();
+   n++;
+   return 0;
+}
+</Script>
+</Generic>
+<SelectColumns module='DefaultActions' idx='1877' v='4.16' x='828' y='-420' keep='1'>
+<c>NewVar</c><c>var</c></SelectColumns>
+<ReplaceStrings module='DefaultActions' idx='1878' x='636' y='-516'>
+<Global>
+</Global><String>
+<Group><vars><c>value</c></vars>
+<replacements>
+<r><s>&#32;AND&#32;</s><d>&#32;&amp;&amp;&#32;</d></r>
+<r><s>&#32;OR&#32;</s><d>&#32;||&#32;</d></r>
+<r><s>'</s><d>"</d></r>
+<r><s>&#32;and&#32;</s><d>&#32;&amp;&amp;&#32;</d></r>
+<r><s>&#32;And&#32;</s><d>&#32;&amp;&amp;&#32;</d></r>
+<r><s>&#32;Or&#32;</s><d>&#32;||&#32;</d></r>
+<r><s>&#32;or&#32;</s><d>&#32;||&#32;</d></r>
+</replacements></Group>
+<Group><vars><c>logic</c></vars>
+<replacements>
+<r><s>AND</s><d>&amp;&amp;</d></r>
+<r><s>OR</s><d>||</d></r>
+</replacements></Group>
+</String><RegExp>
+</RegExp>
+<Processing>
+</Processing></ReplaceStrings>
+<Generic idx='1879' x='840' y='-516' id='aggregateInOneCell'
+  longName='aggregate in one cell'
+  le='1435426090426'
+  keywords='aggregate one cell'
+  image='/aggregateIn1Cell.png'
+  author='Frank Vanden Berghen'
+  revision='0.02'
+  tags='500_Formatter'>
+<Description>
+This operator aggregates many rows and columns inside one cell.&lt;br&gt;
+The columns are separated with tabs.&lt;br&gt;
+The rows are separated with carriage returns.
+</Description>
+<Parameters>
+  <Parameter id='idAgg' text='columns to aggregate in one cell' type='manycolumns'><meta>0</meta><data><c>var</c><c>op</c><c>value</c><c>logic</c></data></Parameter>
+  <Parameter id='idMax' text='compute maximum of:' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='addNames' text='include column names in aggregation' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+function fullTableRequiredToComputeMetas(idxPinIn) { return false; }
+
+function init()
+{
+    if (idAgg.length==0) throw "nothing to aggregate?";
+    if (idMax>=0)  setOutputRowSize(0,2);
+    else setOutputRowSize(0,1);
+    return 0;
+}
+
+function run()
+{
+    var s="",isFirstRun=true,myMax,d;
+    for(;;)
+    {
+        if (userAskedAbort()) break;
+        var r=getNextRow();
+        if (r.isNull) 
+        {
+            if (idMax>=0) 
+            {
+                var mr=new Row(2);
+                rowSetColumnName(mr,0,"AggregatedCells");
+                rowSetColumnName(mr,1,"MaxValue");
+                rowSetMetaType(mr,1,'F');
+                mr.setColumn(0,s);
+                mr.setColumn(1,myMax);
+                mr.write();
+            } else
+            {
+                var mr=new Row(1);
+                rowSetColumnName(mr,0,"AggregatedCells");
+                mr.setColumn(0,s);
+                mr.write();
+            }
+            writeEOL();
+            return 1;
+        }
+        if (isFirstRun) 
+        {
+            isFirstRun=false;
+            if (idMax>=0) myMax=Number(r.col(idMax));
+            if (addNames)
+            {
+                s=rowGetColumnName(r,idAgg[0]);
+                for(i=1;i&lt;idAgg.length;i++) s+="\t"+rowGetColumnName(r,idAgg[i]);
+                s+="\n";
+            }
+        } else
+        {
+            s+="\n";
+            if (idMax>=0) 
+            {
+                d=Number(r.col(idMax));
+                if (d>myMax) myMax=d;
+            }
+        }
+        s+=r.col(idAgg[0]);
+        for(i=1;i&lt;idAgg.length;i++) s+="\t"+r.col(idAgg[i]);
+    }
+    return 1;
+}
+</Script>
+</Generic>
+<ColumnRename module='DefaultActions' idx='1880' v='3.87' x='960' y='-516' mode='1'><before>
+<c>AggregatedCells</c></before><after>
+<c>filterVal</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<Calculator module='MathParser' idx='1882' x='1092' y='-516'>
+  <InputVars>
+    <InputVar column='filterVal' label='x' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='filterVal' meta='U' update='1'>replace(x,"null","")</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='1883' x='960' y='-420'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Var' meta='U'>"filterVal"</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='1884' v='4.16' x='1092' y='-420' keep='1'>
+<c>Var</c><c>var</c><c>NewVar</c></SelectColumns>
+<ReplaceStrings module='DefaultActions' idx='1885' x='1248' y='-480'>
+<Global>
+</Global><String>
+</String><RegExp>
+</RegExp>
+<Processing trim='1' simplify='1'>
+<c>filterVal</c></Processing></ReplaceStrings>
+<Calculator module='MathParser' idx='1886' x='1409.73' y='-482.09'>
+  <InputVars>
+    <InputVar column='filterVal' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='filterVal' meta='U' update='1'>filterVal="a"?"1":filterVal</OutputVar>
+  </OutputVars>
+</Calculator>
+<Generic idx='1887' v='3.17' x='1548' y='-480' id='setGlobalParameters'
+  longName='set the value of some global Parameters'
+  le='1729847485040'
+  abortOnMissingColumn='0'
+  shape='3'
+  keywords='set global parameter'
+  image='/setGlobalParameters.svg'
+  author='Frank Vanden Berghen'
+  revision='0.11'
+  tags='800_Other'>
+<Description>
+Set the value of some Global Parameters.&lt;br/&gt;
+&lt;br/&gt;
+The input table has many columns and one row (if there are more rows, they are ignored).&lt;br/&gt;
+Each input column defines the value of a different Global Parameter:&lt;ol&gt;
+&lt;li&gt;The name of the Global Parameter to set is the name of the column.&lt;/li&gt;
+&lt;li&gt;The new value of the Global Parameter to set is the content of the column (on the first row).&lt;/li&gt;&lt;/ol&gt;
+</Description>
+<Parameters>
+  <Parameter id='idSkip' text='Skip the first X columns. X=?' type='double'>0</Parameter>
+  <Parameter id='setOnlyIfEmpty' text='Only set value if Global Parameter is empty' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+function init(){return 0;}
+
+function setGP2(name,v)
+{
+    var transient=false;
+    if (name[0]=='*') { name=name.substr(1); transient=true; }
+    if ((name[0]>='0')&amp;&amp;(name[0]&lt;='9')) throw "ERROR:Global Parameter's Names cannot start with a digit(here:'"+name+"').";
+    if (name.indexOf(".")>=0) throw "ERROR:Global Parameter's Names cannot contain a dot.";
+    if (!(name in this)) { newGlobalVar(name,"",transient); }
+    else
+    {
+        if (setOnlyIfEmpty) 
+        { 
+            var getValue=new Function("return "+name+";");
+            if (getValue()!="") return;
+        }
+    }
+    v=v.replace(new RegExp("\\\\", 'g'), "\\\\");
+    v=v.replace(new RegExp("\"", 'g'), "\\\"");
+    v=v.replace(new RegExp("\n", 'g'), "");
+    v=v.replace(new RegExp("\r", 'g'), "");
+    t=name+"=\""+v+"\";"
+    var assign=new Function(t);
+    assign();
+}
+
+function run()
+{    
+    var r=getNextRow();
+    if (r.isNull) return 1;
+    
+    var i,n=r.nColumn;
+    for(i=idSkip;i&lt;n;i++)
+        setGP2(rowGetColumnName(r,i),""+r.col(i));
+
+    return 1;
+}
+</Script>
+</Generic>
+<inlineTable idx='1888' x='-3696' y='1752'>
+<ColumnNames><c>Values</c></ColumnNames>
+<Rows>
+ <r><c></c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='1889' x='-3576' y='1752'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Values' meta='U' update='1'>strlen(pFilter)>0?pFilter:"[]"</OutputVar>
+  </OutputVars>
+</Calculator>
+<readJSON module='WriteReport' idx='1890' v='3.92' x='-3168' y='1752' colJSON='Values' fromInputPin='1' fileName='' ignoreErrors='1'>
+ <Level initialPath=''>
+  <e path='var'/>
+  <e path='op'/>
+  <e path='value'/>
+  <e path='logic'/>
+ </Level>
+</readJSON>
+<sort idx='1891' v='3.06' x='-3048' y='1752' action='S'>
+  <field type='Z'>logic</field>
+</sort>
+<InsertKey module='DefaultActions' idx='1892' x='-2928' y='1752' startCount='0' columnName='Key'/>
+<Generic idx='1893' x='-2808' y='1752' id='create1Var'
+ deprecated='1'
+  longName='create one new var'
+  image='create1var.png'
+  author='Frank Vanden Berghen - Didier Baclin'
+  revision='0.21'
+  tags='150_Standard'>
+<Description>
+This action is deprecated: use the &quot;Calculator&quot; action instead.&lt;br/&gt;&lt;br/&gt;
+Create one new derivate column using mathematical operations on columns.
+</Description>
+<Parameters>
+  <Parameter id='colName' text='name of the new column to create' type='string'>NewVar</Parameter>
+  <Parameter id='myMetaType' text='type of the new column' type='combobox'><meta>&lt;i&gt;Meta-Type of New Column is &quot;string&quot; or &quot;unknown&quot;&lt;/i&gt;&lt;i&gt;Meta-Type of New Column is &quot;Number&quot;&lt;/i&gt;</meta><data>0</data></Parameter>
+  <Parameter id='myoperation' text='mathematical expression defining the new column' type='string'>String.fromCharCode(97+x)</Parameter>
+  <Parameter id='varAreNumbers' text='All variables (X,Y,Z,A,B,C,D,...) are numbers?' type='bool'>0</Parameter>
+  <Parameter id='myVar1' text='X = which column ?' type='onecolumn'><meta>0</meta><data>Key</data></Parameter>
+  <Parameter id='myVar2' text='Y = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar3' text='Z = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar4' text='A = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar5' text='B = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar6' text='C = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar7' text='D = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar8' text='E = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar9' text='F = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='myVar10' text='G = which column ?' type='onecolumn'><meta>0</meta><data></data></Parameter>
+</Parameters>
+<Script>
+var myrow,nVars,myfunc,n;
+
+function parallelRun(v) { return true; }
+
+function init()
+{
+   var r=getCurrentRow();
+   if (r.isNull) return 1;
+   setOutputRowSize(0,r.nColumn+1);
+   myrow=new Row(1);
+   rowSetColumnName(myrow,0,colName);
+   if (myMetaType==1) rowSetMetaType(myrow,0,'F');
+          if (myVar10>=0) { nVars=10;myfunc=new Function( "x","y","z","a","b","c","d","e","f","g", "return "+myoperation);  }
+   else if (myVar9>=0)  { nVars=9;  myfunc=new Function( "x","y","z","a","b","c","d","e","f", "return "+myoperation);  }
+   else if (myVar8>=0)  { nVars=8;  myfunc=new Function( "x","y","z","a","b","c","d","e", "return "+myoperation);  }
+   else if (myVar7>=0)  { nVars=7;  myfunc=new Function( "x","y","z","a","b","c","d", "return "+myoperation);  }
+   else if (myVar6>=0)  { nVars=6;  myfunc=new Function( "x","y","z","a","b","c", "return "+myoperation);  }
+   else if (myVar5>=0)  { nVars=5;  myfunc=new Function( "x","y","z","a","b", "return "+myoperation);  }
+   else if (myVar4>=0)  { nVars=4;  myfunc=new Function( "x","y","z","a", "return "+myoperation);  }
+   else if (myVar3>=0)  { nVars=3;  myfunc=new Function( "x","y","z", "return "+myoperation);  }
+   else if (myVar2>=0)  { nVars=2;  myfunc=new Function( "x","y", "return "+myoperation);  }
+   else if (myVar1>=0)  { nVars=1;  myfunc=new Function( "x", "return "+myoperation);  }
+   else                            { nVars=0;  myfunc=new Function( "return "+myoperation);  }
+   n=0;
+   return 0;
+}
+
+function run()
+{
+   var r=getNextRow();
+   if (r.isNull) return 1;
+   
+   var res;
+   if (varAreNumbers)
+   {
+       switch(nVars)
+       {
+       case 0: res=myfunc(); break;
+       case 1: res=myfunc(Number(r.col(myVar1))); break;
+       case 2: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2))); break;
+       case 3: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3))); break;
+       case 4: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3)),Number(r.col(myVar4))); break;
+       case 5: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3)),Number(r.col(myVar4)),Number(r.col(myVar5))); break;
+       case 6: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3)),Number(r.col(myVar4)),Number(r.col(myVar5)),Number(r.col(myVar6))); break;
+       case 7: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3)),Number(r.col(myVar4)),Number(r.col(myVar5)),Number(r.col(myVar6)),Number(r.col(myVar7))); break;
+       case 8: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3)),Number(r.col(myVar4)),Number(r.col(myVar5)),Number(r.col(myVar6)),Number(r.col(myVar7)),Number(r.col(myVar8))); break;
+       case 9: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3)),Number(r.col(myVar4)),Number(r.col(myVar5)),Number(r.col(myVar6)),Number(r.col(myVar7)),Number(r.col(myVar8)),Number(r.col(myVar9))); break;
+       case 10: res=myfunc(Number(r.col(myVar1)),Number(r.col(myVar2)),Number(r.col(myVar3)),Number(r.col(myVar4)),Number(r.col(myVar5)),Number(r.col(myVar6)),Number(r.col(myVar7)),Number(r.col(myVar8)),Number(r.col(myVar9)),Number(r.col(myVar10))); break;
+       }
+   } else
+   {
+       switch(nVars)
+       {
+       case 0: res=myfunc(); break;
+       case 1: res=myfunc(r.col(myVar1)); break;
+       case 2: res=myfunc(r.col(myVar1),r.col(myVar2)); break;
+       case 3: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3)); break;
+       case 4: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3),r.col(myVar4)); break;
+       case 5: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3),r.col(myVar4),r.col(myVar5)); break;
+       case 6: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3),r.col(myVar4),r.col(myVar5),r.col(myVar6)); break;
+       case 7: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3),r.col(myVar4),r.col(myVar5),r.col(myVar6),r.col(myVar7)); break;
+       case 8: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3),r.col(myVar4),r.col(myVar5),r.col(myVar6),r.col(myVar7),r.col(myVar8)); break;
+       case 9: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3),r.col(myVar4),r.col(myVar5),r.col(myVar6),r.col(myVar7),r.col(myVar8),r.col(myVar9)); break;
+       case 10: res=myfunc(r.col(myVar1),r.col(myVar2),r.col(myVar3),r.col(myVar4),r.col(myVar5),r.col(myVar6),r.col(myVar7),r.col(myVar8),r.col(myVar9),r.col(myVar10)); break;
+       }
+   }
+   myrow.setColumn(0,res);
+   myrow.write(0);
+   r.write(0);
+   writeEOL();
+   n++;
+   return 0;
+}
+</Script>
+</Generic>
+<Calculator module='MathParser' idx='1894' x='-2568' y='1752'>
+  <InputVars>
+    <InputVar column='value' label='x' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Type' meta='U'>isNumberStrict(x)|| contains(x,">") || contains(x,"&lt;") ?"F":"U"</OutputVar>
+  </OutputVars>
+</Calculator>
+<FilterRows keyHD='178249093450632317' module='MathParser' idx='1895' x='-2436' y='1752'>
+ <Expression>not(isNull(var))</Expression>
+ <InputVars>
+    <InputVar column='var' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<SelectColumns keyHD='178249093450632338' module='DefaultActions' idx='1896' v='4.16' x='-1788' y='1745.58' keep='1'>
+<c>NewVar</c><c>var</c><c>Type</c></SelectColumns>
+<FilterRows module='MathParser' idx='1898' x='-1392' y='720' elapsedTimeUnit='0' dateFormat='yyyy-MM-dd hh:mm:ss'>
+ <Expression>>filterVal</Expression>
+ <InputVars>
+ </InputVars>
+</FilterRows>
+<FilterRows module='MathParser' idx='1899' x='-1392' y='540' elapsedTimeUnit='0' dateFormat='yyyy-MM-dd hh:mm:ss'>
+ <Expression>>filterVal</Expression>
+ <InputVars>
+ </InputVars>
+</FilterRows>
+<FilterRows module='MathParser' idx='1901' x='300' y='-144' truncate='1'>
+ <Expression>(maxRow>0)?_n&lt;maxRow:1</Expression>
+ <InputVars>
+ </InputVars>
+</FilterRows>
+<aggregate keyHD='178249093450632230' idx='1902' x='756' y='-144' inRAMAlgo='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<Generic idx='1903' x='900' y='-120' id='get_meta-data'
+  longName='Get meta-data'
+  le='1760543422492'
+  abortOnMissingColumn='0'
+  keywords='meta data extract get'
+  image='/getMetaData.svg'
+  author='Frank Vanden Berghen'
+  revision='0.05'
+  tags='150_Standard'
+  pdfDestination='5_5_14_get_meta_data'>
+<Description>
+Get meta-data: column name &amp; type + sort meta-data.&lt;br/&gt;&lt;br/&gt;
+Do not enable the option &quot;pump all rows from input&quot; unless you know what you are doing
+</Description>
+<Parameters>
+  <Parameter id='idMeta2' text='meta-data type column contains:' type='combobox'><meta>&lt;i&gt;U,K,F&lt;/i&gt;&lt;i&gt;STRING,KEY,FLOAT&lt;/i&gt;</meta><data>0</data></Parameter>
+  <Parameter id='readAll' text='pump all rows from input' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+var rIn,rOut,i,ak,at;
+function init()
+{
+    rIn=getCurrentRow();
+    if (rIn.isNull) return 0;
+    rIn=rowDeepCopy(rIn);
+    setOutputRowSize(0,5);
+    i=0;
+    rOut=new Row(5);
+    rowSetColumnName(rOut,0,"Before");
+    rowSetColumnName(rOut,1,"After");
+    rowSetColumnName(rOut,2,"Type");
+    rowSetColumnName(rOut,3,"SortPriority");
+    rowSetColumnName(rOut,4,"SortType");
+    
+    var j=rIn.nColumn,k=0;
+    ak=new Array(j); at=new Array(j);
+    while(j--) { ak[j]=null; at[j]=null; }
+    for(;;)
+    {
+        var j=rowGetSortColumnIdx(rIn,k);
+        if (j&lt;0) break;
+        ak[j]=k;
+        at[j]=rowGetSortType(rIn,k);
+        k++;
+    }
+    return 0;
+}
+
+function run()
+{
+    if (rIn.isNull) return 1;
+    if (i==rIn.nColumn) 
+    {
+        if (readAll)
+        {
+            var r;
+            for(;;)
+            {
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                getNextRow();getNextRow();getNextRow();getNextRow();
+                r=getNextRow();
+                if (r.isNull||userAskedAbort()) return 1;
+            }
+        }
+        return 1;
+    }
+    var cn=rowGetColumnName(rIn,i);
+    rOut.setColumn(0,cn);
+    rOut.setColumn(1,cn);
+    if (!idMeta2) rOut.setColumn(2,rowGetMetaType(rIn,i));
+    else
+    {
+        var mt=rowGetMetaType(rIn,i);
+        if (mt=="U") mt="STRING";
+        else if (mt=="K") mt="KEY";
+        else if (mt=="F") mt="FLOAT";
+        rOut.setColumn(2,mt);
+    }
+    rOut.setColumn(3,ak[i]);
+    rOut.setColumn(4,at[i]);
+    i++;
+    rOut.write(); 
+    writeEOL();
+    return 0;
+}
+</Script>
+</Generic>
+<Calculator module='MathParser' idx='1904' x='1020' y='-120'>
+  <InputVars>
+    <InputVar column='After' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='After' meta='U' update='1'>replace(After, pX//"_","")</OutputVar>
+  </OutputVars>
+</Calculator>
+<ColumnRename module='DefaultActions' idx='1905' v='3.87' x='1164' y='-144' mode='1'><before>
+</before><after>
+</after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<Generic idx='1907' v='3.17' x='1548' y='-144' id='setGlobalParameters'
+  longName='set the value of some global Parameters'
+  le='1729847485040'
+  abortOnMissingColumn='0'
+  shape='3'
+  keywords='set global parameter'
+  image='/setGlobalParameters.svg'
+  author='Frank Vanden Berghen'
+  revision='0.11'
+  tags='800_Other'>
+<Description>
+Set the value of some Global Parameters.&lt;br/&gt;
+&lt;br/&gt;
+The input table has many columns and one row (if there are more rows, they are ignored).&lt;br/&gt;
+Each input column defines the value of a different Global Parameter:&lt;ol&gt;
+&lt;li&gt;The name of the Global Parameter to set is the name of the column.&lt;/li&gt;
+&lt;li&gt;The new value of the Global Parameter to set is the content of the column (on the first row).&lt;/li&gt;&lt;/ol&gt;
+</Description>
+<Parameters>
+  <Parameter id='idSkip' text='Skip the first X columns. X=?' type='double'>0</Parameter>
+  <Parameter id='setOnlyIfEmpty' text='Only set value if Global Parameter is empty' type='bool'>0</Parameter>
+</Parameters>
+<Script>
+function init(){return 0;}
+
+function setGP2(name,v)
+{
+    var transient=false;
+    if (name[0]=='*') { name=name.substr(1); transient=true; }
+    if ((name[0]>='0')&amp;&amp;(name[0]&lt;='9')) throw "ERROR:Global Parameter's Names cannot start with a digit(here:'"+name+"').";
+    if (name.indexOf(".")>=0) throw "ERROR:Global Parameter's Names cannot contain a dot.";
+    if (!(name in this)) { newGlobalVar(name,"",transient); }
+    else
+    {
+        if (setOnlyIfEmpty) 
+        { 
+            var getValue=new Function("return "+name+";");
+            if (getValue()!="") return;
+        }
+    }
+    v=v.replace(new RegExp("\\\\", 'g'), "\\\\");
+    v=v.replace(new RegExp("\"", 'g'), "\\\"");
+    v=v.replace(new RegExp("\n", 'g'), "");
+    v=v.replace(new RegExp("\r", 'g'), "");
+    t=name+"=\""+v+"\";"
+    var assign=new Function(t);
+    assign();
+}
+
+function run()
+{    
+    var r=getNextRow();
+    if (r.isNull) return 1;
+    
+    var i,n=r.nColumn;
+    for(i=idSkip;i&lt;n;i++)
+        setGP2(rowGetColumnName(r,i),""+r.col(i));
+
+    return 1;
+}
+</Script>
+</Generic>
+<inlineTable idx='1908' x='180' y='-36'>
+<ColumnNames><c>C1</c></ColumnNames>
+<Rows>
+ <r><c></c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='1909' x='324' y='-36'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='C1' meta='U' update='1'>pX</OutputVar>
+    <OutputVar name='NewVar' meta='U'>"min"</OutputVar>
+  </OutputVars>
+</Calculator>
+<Append keyHD='178249093450632230' module='DefaultActions' idx='1910' x='468' y='-36' output='0' nPinIn='4'>
+  </Append>
+<inlineTable idx='1911' x='180' y='60'>
+<ColumnNames><c>C1</c></ColumnNames>
+<Rows>
+ <r><c></c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='1912' x='324' y='60'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='C1' meta='U' update='1'>pX</OutputVar>
+    <OutputVar name='NewVar' meta='U'>"max"</OutputVar>
+  </OutputVars>
+</Calculator>
+<ReadColumnarGel module='MathParser' idx='1913' x='168' y='-144' columnSelection='2' fileName='&gt;&quot;:/&quot; + fileName'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<inlineTable idx='1914' x='-264' y='-336'>
+<ColumnNames><c>C1</c><c>C1</c><c>C2</c></ColumnNames>
+<Rows>
+ <r><c>Values</c><c>%7B</c><c>{</c></r>
+ <r><c>Values</c><c>%7D</c><c>}</c></r>
+ <r><c>Values</c><c>%5B</c><c>[</c></r>
+ <r><c>Values</c><c>%5D</c><c>]</c></r>
+ <r><c>Values</c><c>%3A</c><c>:</c></r>
+ <r><c>Values</c><c>%2C</c><c>,</c></r>
+ <r><c>Values</c><c>%22</c><c>"</c></r>
+ <r><c>Values</c><c>%3E</c><c>></c></r>
+ <r><c>Values</c><c>%3C</c><c>&lt;</c></r>
+ <r><c>Values</c><c>%3D</c><c>=</c></r>
+ <r><c>Values</c><c>%21</c><c>!</c></r>
+ <r><c>Values</c><c>%2B</c><c>&#32;</c></r>
+ <r><c>Values</c><c>%3F</c><c>?</c></r>
+ <r><c>Values</c><c>%27</c><c>'</c></r>
+ <r><c>Values</c><c>%20</c><c>+</c></r>
+</Rows>
+</inlineTable>
+<ReplaceStrings module='DefaultActions' idx='1915' x='-144' y='-456'>
+<Global>
+</Global><String>
+</String><RegExp>
+</RegExp>
+<Processing>
+</Processing></ReplaceStrings>
+<ReplaceStrings module='DefaultActions' idx='1916' x='-12' y='-456'>
+<Global>
+</Global><String>
+<Group><vars><c>Values</c></vars>
+<replacements>
+<r><s>+</s><d>&#32;</d></r>
+</replacements></Group>
+</String><RegExp>
+</RegExp>
+<Processing>
+</Processing></ReplaceStrings>
+<ReplaceStrings module='DefaultActions' idx='1917' x='-3444' y='1752'>
+<Global>
+</Global><String>
+</String><RegExp>
+</RegExp>
+<Processing>
+</Processing></ReplaceStrings>
+<inlineTable idx='1918' x='-3564' y='1848'>
+<ColumnNames><c>C1</c><c>C1</c><c>C2</c></ColumnNames>
+<Rows>
+ <r><c>Values</c><c>%7B</c><c>{</c></r>
+ <r><c>Values</c><c>%7D</c><c>}</c></r>
+ <r><c>Values</c><c>%5B</c><c>[</c></r>
+ <r><c>Values</c><c>%5D</c><c>]</c></r>
+ <r><c>Values</c><c>%3A</c><c>:</c></r>
+ <r><c>Values</c><c>%2C</c><c>,</c></r>
+ <r><c>Values</c><c>%22</c><c>"</c></r>
+ <r><c>Values</c><c>%3E</c><c>></c></r>
+ <r><c>Values</c><c>%3C</c><c>&lt;</c></r>
+ <r><c>Values</c><c>%3D</c><c>=</c></r>
+ <r><c>Values</c><c>%21</c><c>!</c></r>
+ <r><c>Values</c><c>%2B</c><c>&#32;</c></r>
+ <r><c>Values</c><c>%3F</c><c>?</c></r>
+ <r><c>Values</c><c>%27</c><c>'</c></r>
+ <r><c>Values</c><c>%20</c><c>+</c></r>
+</Rows>
+</inlineTable>
+<ReplaceStrings module='DefaultActions' idx='1919' x='-3312' y='1752'>
+<Global>
+</Global><String>
+<Group><vars><c>Values</c></vars>
+<replacements>
+<r><s>+</s><d>&#32;</d></r>
+</replacements></Group>
+</String><RegExp>
+</RegExp>
+<Processing>
+</Processing></ReplaceStrings>
+<inlineTable idx='1923' x='180' y='156'>
+<ColumnNames><c>C1</c></ColumnNames>
+<Rows>
+ <r><c></c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='1924' x='324' y='156'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='C1' meta='U' update='1'>pX</OutputVar>
+    <OutputVar name='NewVar' meta='U'>"mostCommonModality"</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='1925' x='1284' y='-144'>
+  <InputVars>
+    <InputVar column='mostCommonModality' label='x' isNumber='0'/>
+    <InputVar column='countDistinct' label='y'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='varNum' meta='K'>isNumberStrict(x) &amp;&amp; y>5?1:0</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns keyHD='178249112350632847' module='DefaultActions' idx='1926' v='4.16' x='1416' y='-144' keep='1'>
+<c>varNum</c><c>dmin</c><c>dmax</c></SelectColumns>
+<inlineTable idx='1931' x='-348' y='-132'>
+<ColumnNames><c>C1</c></ColumnNames>
+<Rows>
+ <r><c></c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='1932' x='-216' y='-132'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='C1' meta='U' update='1'>pX</OutputVar>
+  </OutputVars>
+</Calculator>
+<FilterRows module='MathParser' idx='1933' x='36' y='-132'>
+ <Expression>strlen(C1)>0</Expression>
+ <InputVars>
+    <InputVar column='C1' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<inlineTable keyHD='178249093450632240' forceHDBuffering='1' idx='1939' x='-468' y='-24'>
+<ColumnNames><c>Values</c></ColumnNames>
+<Rows>
+ <r><c></c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='1940' x='-336' y='-24'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Values' meta='U' update='1'>strlen(pY)>0?
+contains(pY,"[")?pY:"[\""//pY//"\"]":
+"[]"</OutputVar>
+  </OutputVars>
+</Calculator>
+<readJSON module='WriteReport' idx='1941' v='3.92' x='-216' y='-24' colJSON='Values' fromInputPin='1' fileName=''>
+ <Level initialPath=''>
+  <e name='C1' path=''/>
+ </Level>
+</readJSON>
+<Append module='DefaultActions' idx='1942' x='-84' y='-132' output='0'>
+  </Append>
+<inlineTable idx='1947' x='180' y='252'>
+<ColumnNames><c>C1</c></ColumnNames>
+<Rows>
+ <r><c></c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='1948' x='324' y='252'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='C1' meta='U' update='1'>pX</OutputVar>
+    <OutputVar name='NewVar' meta='U'>"countDistinct"</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='1949' v='4.16' x='1416' y='-324' keep='1'>
+<c>varNum</c><c>dmin</c><c>dmax</c></SelectColumns>
+<Calculator module='MathParser' idx='1950' x='1284' y='-324'>
+  <InputVars>
+    <InputVar column='mostCommonModality' label='x' isNumber='0'/>
+    <InputVar column='countDistinct' label='y'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='varNum' meta='K'>isNumberStrict(x) &amp;&amp; y>5?1:0</OutputVar>
+  </OutputVars>
+</Calculator>
+<ReadColumnarGel module='MathParser' idx='1985' x='36' y='-264' columnSelection='2' fileName='&gt;&quot;:/&quot; + fileName'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<inlineTable idx='2014' x='-2004' y='300'>
+<ColumnNames><c>C1</c><c>C1</c><c>C2</c></ColumnNames>
+<Rows>
+ <r><c>Values</c><c>%7B</c><c>{</c></r>
+ <r><c>Values</c><c>%7D</c><c>}</c></r>
+ <r><c>Values</c><c>%5B</c><c>[</c></r>
+ <r><c>Values</c><c>%5D</c><c>]</c></r>
+ <r><c>Values</c><c>%3A</c><c>:</c></r>
+ <r><c>Values</c><c>%2C</c><c>,</c></r>
+ <r><c>Values</c><c>%22</c><c>"</c></r>
+ <r><c>Values</c><c>%3E</c><c>></c></r>
+ <r><c>Values</c><c>%3C</c><c>&lt;</c></r>
+ <r><c>Values</c><c>%3D</c><c>=</c></r>
+ <r><c>Values</c><c>%21</c><c>!</c></r>
+ <r><c>Values</c><c>%2B</c><c>&#32;</c></r>
+ <r><c>Values</c><c>%3F</c><c>?</c></r>
+ <r><c>Values</c><c>%27</c><c>'</c></r>
+ <r><c>Values</c><c>%20</c><c>+</c></r>
+</Rows>
+</inlineTable>
+<ReplaceStrings module='DefaultActions' idx='2015' x='-1836' y='228'>
+<Global>
+</Global><String>
+</String><RegExp>
+</RegExp>
+<Processing>
+</Processing></ReplaceStrings>
+<inlineTable idx='2016' x='-2004' y='180'>
+<ColumnNames><c>Values</c></ColumnNames>
+<Rows>
+ <r><c>http://localhost/aggregate/webGetBarChartData.php?fileName=.%2FDataLake%2FCensus%20with%20Wealth.gel_anatella&amp;pX=age&amp;pY=%5B%22weeks%2Bworked%2Bin%2Byear%22%2C%22wage%2Bper%2Bhour%22%5D&amp;pOp=mean&amp;maxRow=0&amp;pFilter=&amp;pSplit=</c></r>
+</Rows>
+</inlineTable>
+<readGel idx='2017' x='168' y='-552' fileName=':/DataLake/Census with Wealth.gel_anatella'/>
+<FilterRows module='MathParser' idx='1851' x='-2712' y='1980' truncate='1'>
+ <Expression>_n&lt;pBins</Expression>
+ <InputVars>
+ </InputVars>
+</FilterRows>
+<InsertKey module='DefaultActions' idx='1850' x='-2832' y='1980' isInfinite='1' startCount='0' columnName='Key'/>
+<readJSON module='WriteReport' idx='1960' v='3.92' x='-1680' y='1980' colJSON='json' fromInputPin='1' fileName=''>
+ <Level initialPath=''>
+  <e path='high'/>
+ </Level>
+</readJSON>
+<Calculator module='MathParser' idx='1956' x='-2448' y='1980'>
+  <InputVars>
+    <InputVar column='High' isNumber='0' meta='F'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='NewVar' meta='U'>"{\"high\":"//High//"}"</OutputVar>
+  </OutputVars>
+</Calculator>
+<Generic idx='1959' x='-2328' y='1980' id='concatString'
+  longName='concatenate strings'
+  le='1758730637982'
+  abortOnMissingColumn='0'
+  keywords='concatenate string aggregate'
+  image='/concatV.svg'
+  author='Frank Vanden Berghen'
+  revision='0.06'
+  tags='500_Formatter'
+  pdfDestination='5_19_1_concat'>
+<Description>
+This operator concatenate strings over several rows.
+</Description>
+<Parameters>
+  <Parameter id='idKey' text='key column (partition column)' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='idConcat' text='columns to concatenate' type='manycolumns'><meta>0</meta><data><c>NewVar</c></data></Parameter>
+  <Parameter id='sepChar' text='separation string' type='string'>,</Parameter>
+  <Parameter id='sPrefix' text='prefix string' type='string'></Parameter>
+  <Parameter id='sSuffix' text='suffix string' type='string'></Parameter>
+  <Parameter id='idSkip' text='Skip (do not concat) empty cells' type='bool'>0</Parameter>
+  <Parameter id='idCheck' text='Check that the input table is properly sorted
+(do not change unless you know what you are doing)' type='bool'>1</Parameter>
+</Parameters>
+<Script>
+var s,prevKey,mr,r,n;
+function parallelRun(v) { return v==idKey; }
+
+function init()
+{
+    r=getCurrentRow();
+    if (r.isNull) return 1;
+    n=idConcat.length;
+    mr=new Row(1+n);
+    if (idKey>=0)
+    {
+        if (idCheck&amp;&amp;(rowGetSortColumnIdx(r,0)!=idKey))
+            throw "The input table must be sorted on the partition column '"+rowGetColumnName(r,idKey)+"'.";
+        prevKey=r.col(idKey);
+        rowSetColumnName(mr,0,rowGetColumnName(r,idKey));
+    } else 
+    {    
+        prevKey="";
+        rowSetColumnName(mr,0,"No_partition");
+    }
+    var i=n;
+    while(i--) rowSetColumnName(mr,1+i,rowGetColumnName(r,idConcat[i]));
+    setOutputRowSize(0,1+n);
+    s=new Array(n);
+    getNextRow();
+    return 0;
+}
+
+function outputARow()
+{
+    var i=n,t;
+    while(i--) 
+    {
+        t=s[i].join(sepChar);
+        if ((idSkip)&amp;&amp;(t.length>0)&amp;&amp;(t[0]==sepChar)) 
+            t=t.substring(1);
+        mr.setColumn(1+i,t);
+    }
+    mr.write(); 
+    writeEOL();
+}
+
+function run()
+{
+//    if (r.isNull) return 1;
+    mr.setColumn(0,prevKey);
+    var i=n,t;
+    if (idSkip)
+    {
+        while(i--) 
+        {
+            t=String(r.col(idConcat[i]))
+            if (t.length>0) s[i]=[sPrefix+t+sSuffix];
+            else s[i]=[];
+        }
+    } else
+    {
+        while(i--) s[i]=[sPrefix+r.col(idConcat[i])+sSuffix];
+    }
+    for(;;)
+    {
+         r=getNextRow();
+         if (r.isNull)
+         {
+            outputARow();
+            return 1;
+         }
+         if (userAskedAbort()) return 1;
+         if (idKey>=0)
+         {
+             curKey=r.col(idKey);
+             if (curKey!=prevKey) break;
+         }
+        i=n;
+        if (idSkip)
+        {
+            while(i--) 
+            {
+                t=String(r.col(idConcat[i]))
+                if (t.length>0) s[i].push(sPrefix+t+sSuffix);
+            }
+        } else
+        {
+            while(i--) s[i].push(sPrefix+r.col(idConcat[i])+sSuffix);
+        }
+    }
+    outputARow();
+    prevKey=curKey; 
+    return 0;
+}
+</Script>
+</Generic>
+<Calculator module='MathParser' idx='1958' x='-2208' y='1980'>
+  <InputVars>
+    <InputVar column='NewVar' label='x' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='NewVar' meta='U' update='1'>"["// x// "]"</OutputVar>
+    <OutputVar name='Key'>1</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='1866' x='-2580' y='1980'>
+  <InputVars>
+    <InputVar column='Key' meta='K'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='High'>varNum=1?dmin+Key*((dmax-dmin)/pBins) + (dmax-dmin)/pBins:1</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='1868' x='-1752' y='2256'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='After' meta='U'>"CleverQuantile_"//pX</OutputVar>
+  </OutputVars>
+</Calculator>
+<ReplaceStrings module='DefaultActions' idx='2013' x='-1824' y='1980'>
+<Global>
+</Global><String>
+<Group><vars><c>Values</c></vars>
+<replacements>
+<r><s>+</s><d>&#32;</d></r>
+</replacements></Group>
+</String><RegExp>
+</RegExp>
+<Processing>
+</Processing></ReplaceStrings>
+<inlineTable forceHDBuffering='1' idx='1951' x='-2340' y='2076'>
+<ColumnNames><c>Values</c></ColumnNames>
+<Rows>
+ <r><c></c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='1952' x='-2208' y='2076'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Values' meta='U' update='1'>strlen(jsonBins)>0?jsonBins:"[]"</OutputVar>
+    <OutputVar name='Key'>1</OutputVar>
+  </OutputVars>
+</Calculator>
+<inlineTable idx='1867' x='-1872' y='2256'>
+<ColumnNames><c>C1</c></ColumnNames>
+<Rows>
+ <r><c>high</c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='1962' x='-1944' y='1980'>
+  <InputVars>
+    <InputVar column='Values' isNumber='0'/>
+    <InputVar column='NewVar' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='json' meta='U'>Values="[]"?NewVar:Values</OutputVar>
+  </OutputVars>
+</Calculator>
+<ChangeDataType idx='1965' x='-1548' y='1980'>
+<toDouble><c>high</c></toDouble>
+</ChangeDataType>
+<MultiJoin module='DefaultActions' idx='1961' v='4.18' x='-2064' y='1980'>
+  <Join pin='1' mainKey='Key' slaveKey='Key' prefix=''>
+    </Join>
+</MultiJoin>
+<ColumnRename module='DefaultActions' idx='1869' v='3.87' x='-1416' y='1980' mode='1'><before>
+</before><after>
+</after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<sort idx='2022' v='3.06' x='-924' y='540' action='S'>
+</sort>
+<Calculator module='MathParser' idx='2028' x='-804' y='540'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Row'>1</OutputVar>
+  </OutputVars>
+</Calculator>
+<NaiveDeduplicate keyHD='178308763803928598' module='DefaultActions' idx='2030' x='-672' y='540' n='999999999' counterName='index'>
+<c>pX</c>
+</NaiveDeduplicate>
+<MultiJoin module='DefaultActions' idx='2031' v='4.18' x='-240' y='540'>
+  <Join pin='1' mainKey='pX' slaveKey='pX' prefix=''>
+    </Join>
+</MultiJoin>
+<aggregate idx='2032' v='3.24' x='-504' y='600' inRAMAlgo='1' keyCount='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='pX'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='pY' imin='1' imax='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<Calculator module='MathParser' idx='2038' x='-108' y='540'>
+  <InputVars>
+    <InputVar column='index' meta='K'/>
+    <InputVar column='count'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='BoxGroup' meta='U'>index=round(count/4)?"Q1":
+index=round(count/2) ?"Median":
+index=round(3*count/4) ?"Q3":_nullS</OutputVar>
+  </OutputVars>
+</Calculator>
+<FilterRows module='MathParser' idx='2039' x='36' y='540'>
+ <Expression>not(isNull(x))</Expression>
+ <InputVars>
+    <InputVar column='BoxGroup' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<inlineTable keyHD='178249093450632386' idx='2040' x='-132' y='1044'>
+<ColumnNames><c>C1</c></ColumnNames>
+<Rows>
+ <r><c>Q1</c></r>
+ <r><c>Median</c></r>
+ <r><c>Q3</c></r>
+</Rows>
+</inlineTable>
+<Flatten module='DefaultActions' idx='2041' v='2.39' x='180' y='540' alternativeNaming='2' key='pX' category='BoxGroup'>
+ <ToTranspose><c>pY</c></ToTranspose>
+ <ToKeep><c>pY_dmin</c><c>pY_dmax</c></ToKeep>
+</Flatten>
+<ColumnRename module='DefaultActions' idx='2044' v='3.87' x='336' y='540' mode='1'><before>
+</before><after>
+</after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<writeJSON module='WriteReport' idx='2045' v='2.8' x='1368' y='540' fileName='&gt;&quot;:/tmp/&quot; + fileOut' specialBool='1'>
+	<Levels>
+		<Level>
+			<Item text='{'/>
+			<Item type='1'/>
+			<Item text='}'/>
+		</Level>
+	</Levels>
+</writeJSON>
+<inlineTable keyHD='178249093450632299' forceHDBuffering='1' idx='2046' x='-2724' y='1392'>
+<ColumnNames><c>Values</c></ColumnNames>
+<Rows>
+ <r><c></c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='2047' x='-2604' y='1392'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Values' meta='U' update='1'>strlen(pY)>0?
+contains(pY,"[")?pY:"[\""//pY//"\"]":
+"[]"</OutputVar>
+  </OutputVars>
+</Calculator>
+<readJSON module='WriteReport' idx='2048' v='3.92' x='-2316' y='1392' colJSON='Values' fromInputPin='1' fileName=''>
+ <Level initialPath=''>
+  <e name='C1' path=''/>
+ </Level>
+</readJSON>
+<inlineTable idx='2049' x='-2724' y='1296'>
+<ColumnNames><c>C1</c></ColumnNames>
+<Rows>
+ <r><c></c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='2050' x='-2604' y='1296'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='C1' meta='U' update='1'>strlen(pX)>0?
+contains(pX,"[")?pX:"[\""//pX//"\"]":
+"[]"</OutputVar>
+  </OutputVars>
+</Calculator>
+<Append module='DefaultActions' idx='2051' x='-2160' y='1296' output='4' nPinIn='4'>
+  </Append>
+<SelectColumns module='DefaultActions' idx='2052' v='4.16' x='-2316' y='1692' keep='1'>
+<c>var</c></SelectColumns>
+<aggregate idx='2053' x='-2016' y='732' inRAMAlgo='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='C1'/>
+  </GroupBy>
+  <OutputVars>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<FilterRows keyHD='178249093450632298' module='MathParser' idx='2054' x='-1884' y='732'>
+ <Expression>strlen(C1)>0</Expression>
+ <InputVars>
+    <InputVar column='C1' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<SelectColumns module='DefaultActions' idx='2055' v='4.16' x='-1548' y='540' keep='1'>
+</SelectColumns>
+<inlineTable keyHD='178249093450632307' forceHDBuffering='1' idx='2069' x='-2724' y='1488'>
+<ColumnNames><c>Values</c></ColumnNames>
+<Rows>
+ <r><c></c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='2070' x='-2604' y='1488'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Values' meta='U' update='1'>strlen(pSplit)>0?
+contains(pSplit,"[")?pSplit:"[\""//pSplit//"\"]":
+"[]"</OutputVar>
+  </OutputVars>
+</Calculator>
+<readJSON module='WriteReport' idx='2071' v='3.92' x='-2316' y='1488' colJSON='Values' fromInputPin='1' fileName=''>
+ <Level initialPath=''>
+  <e name='C1' path=''/>
+ </Level>
+</readJSON>
+<Calculator module='MathParser' idx='2074' x='-1848' y='1296'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='After' meta='U'>_n=0?"pX":
+_n=1?"pY":"pSplit"</OutputVar>
+  </OutputVars>
+</Calculator>
+<ColumnRename module='DefaultActions' idx='2076' v='3.87' x='-1116' y='720' mode='1'><before>
+</before><after>
+</after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<ColumnRename module='DefaultActions' idx='2077' v='3.87' x='-1128' y='540' mode='1'><before>
+</before><after>
+</after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<inlineTable idx='2082' x='-60' y='1188'>
+<ColumnNames><c>C1</c></ColumnNames>
+<Rows>
+ <r><c>pX</c></r>
+</Rows>
+</inlineTable>
+<Calculator keyHD='178249093450632396' module='MathParser' idx='2083' x='60' y='1188'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='After' meta='U'>pX</OutputVar>
+  </OutputVars>
+</Calculator>
+<NaiveDeduplicate keyHD='178249093450632279' module='DefaultActions' idx='2084' x='-672' y='720' n='999999999' counterName='index'>
+<c>pX</c>
+</NaiveDeduplicate>
+<aggregate idx='2085' v='3.24' x='-540' y='768' inRAMAlgo='1' keyCount='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='pX'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='pY' imin='1' imax='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<MultiJoin module='DefaultActions' idx='2087' v='4.18' x='-396' y='720'>
+  <Join pin='1' mainKey='pX' slaveKey='pX' prefix=''>
+    </Join>
+</MultiJoin>
+<Calculator module='MathParser' idx='2088' x='-204' y='720'>
+  <InputVars>
+    <InputVar column='index' meta='K'/>
+    <InputVar column='count'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='BoxGroup' meta='U'>index=round(count/4)?"Q1":
+index=round(count/2) ?"Median":
+index=round(3*count/4) ?"Q3":_nullS</OutputVar>
+  </OutputVars>
+</Calculator>
+<FilterRows module='MathParser' idx='2089' x='-24' y='720'>
+ <Expression>not(isNull(x))</Expression>
+ <InputVars>
+    <InputVar column='BoxGroup' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Flatten module='DefaultActions' idx='2090' v='2.39' x='156' y='720' alternativeNaming='2' key='pX' category='BoxGroup'>
+ <ToTranspose><c>pY</c></ToTranspose>
+ <ToKeep><c>pY_dmin</c><c>pY_dmax</c></ToKeep>
+</Flatten>
+<ColumnRename module='DefaultActions' idx='2091' v='3.87' x='324' y='720' mode='1'><before>
+</before><after>
+</after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<sort idx='2092' v='3.06' x='-924' y='720' action='S'>
+</sort>
+<Calculator module='MathParser' idx='2093' x='-804' y='720'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='Row'>1</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator keyHD='178249093450632278' module='MathParser' idx='2096' x='468' y='720'>
+  <InputVars>
+    <InputVar column='Q1' meta='F'/>
+    <InputVar column='Q3' meta='F'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IQR' isInput='1'>Q3 - Q1</OutputVar>
+    <OutputVar name='lower_fence'>Q1 - (1.5 * IQR)</OutputVar>
+    <OutputVar name='upper_fence'>Q1 + (1.5 * IQR)</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator module='MathParser' idx='2097' x='468' y='540'>
+  <InputVars>
+    <InputVar column='Q1' meta='F'/>
+    <InputVar column='Q3' meta='F'/>
+    <InputVar column='Median' meta='F'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='IQR' isInput='1'>Q3 - Q1</OutputVar>
+    <OutputVar name='Median' update='1'>isNull(Median)?(Q1+Q3)/2:Median</OutputVar>
+    <OutputVar name='lower_fence'>Q1 - (1.5 * IQR)</OutputVar>
+    <OutputVar name='upper_fence'>Q1 + (1.5 * IQR)</OutputVar>
+  </OutputVars>
+</Calculator>
+<inlineTable idx='2098' x='-1980' y='1188'>
+<ColumnNames><c>After</c></ColumnNames>
+<Rows>
+ <r><c>pX</c></r>
+ <r><c>pY</c></r>
+ <r><c>pSplit</c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='2099' x='-1860' y='1188'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='C1' meta='U'>_n=0?pX:
+_n=1?pY:
+contains(pSplit,"[")?substr(pSplit, 2 , strlen(pSplit)-2):
+pSplit</OutputVar>
+  </OutputVars>
+</Calculator>
+<FilterRows module='MathParser' idx='2100' x='-1668' y='1188'>
+ <Expression>not(isNull(x))</Expression>
+ <InputVars>
+    <InputVar column='C1' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<SelectColumns keyHD='178249093450632280' module='DefaultActions' idx='2101' v='4.16' x='-1536' y='1188' keep='1'>
+<c>C1</c><c>After</c></SelectColumns>
+<Calculator keyHD='178249093450632279' module='MathParser' idx='2102' x='-1260' y='1188'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='C1' meta='U' update='1'>_n=0?(varNum=1?"0..9":"A..Za..z"):
+_n=1?"0..9":"A..Za..z"</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='2104' v='4.16' x='-1392' y='1188' keep='1'>
+<c>After</c><c>C1</c></SelectColumns>
+<Calculator module='MathParser' idx='2105' x='-1092' y='1188'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='C1' meta='U' update='1'>_n=0?pX:
+_n=1?pY:pSplit</OutputVar>
+  </OutputVars>
+</Calculator>
+<aggregate idx='2106' x='648' y='-420' inRAMAlgo='1' omitSuffix='1'>
+ <OneAggregate>
+  <GroupBy>
+   <v name='var'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='NewVar' first='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<R idx='2107' x='588' y='384' finalize='1' middleWorkStart='43' udpt='1' id='My_R_KMEANS'
+  orignalId='R_KMEANS'
+  longName='K-Means Clustering'
+ crypted='1'
+  isVariableNPinIn='1'
+  isVariableNPinOut='1'
+  nPinInMax='2'
+  nPinOutMax='4'
+  le='1765465709124'
+  abortOnMissingColumn='0'
+  shape='4'
+  color='#d4ffe8'
+  keywords='kmeans k-mean clustering discovery segmentation'
+  image='/R_KMEANS.svg'
+  author='Daniel Soto Zeevaert'
+  revision='0.39'
+  tags='375_R Discovery Analytics'
+  pdfDestination='5_13_3_k_means_clustering__ac'>
+<Description>
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:14px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;Input Pins:&lt;br /&gt;0: Main Table&lt;br /&gt;1: Variable List&lt;br /&gt;&lt;br /&gt;Output Pins:&lt;br /&gt;0: Table with cluster assignment&lt;br /&gt;1: Cluster Centers&lt;br /&gt;2: WSS&lt;br /&gt;3: Output File Information&lt;br /&gt;&lt;br /&gt;References:&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;Forgy, E. W. (1965) Cluster analysis of multivariate data: efficiency vs interpretability of classifications. &lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;Hartigan, J. A. and Wong, M. A. (1979). A K-means clustering algorithm. Applied Statistics&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;Lloyd, S. P. (1957, 1982) Least squares quantization in PCM. Technical Note, Bell Laboratories. Published in 1982 in IEEE Transactions on Information Theory&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;MacQueen, J. (1967) Some methods for classification and analysis of multivariate observations. In &amp;quot;Proceedings of the Fifth Berkeley Symposium on Mathematical Statistics and Probability&amp;quot; ; eds L. M. Le Cam &amp;amp; J. Neyman, ; pp. 281–297. Berkeley, CA: University of California Press. &lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+</Description>
+<Parameters>
+  <Parameter id='mytable' text='whole table' type='allcolumns'></Parameter>
+  <Parameter id='Predictors' text='Variables to include in Cluster Solution' type='manycolumns'><meta>0</meta><data><c>pY_dmin</c><c>pY_dmax</c><c>Q1</c><c>Median</c><c>Q3</c></data></Parameter>
+  <Parameter id='idxMethod' text='ALGO: Method' type='combobox'><meta>&lt;i&gt;Hartigan-Wong&lt;/i&gt;&lt;i&gt;Lloyd&lt;/i&gt;&lt;i&gt;Forgy&lt;/i&gt;&lt;i&gt;MacQueen&lt;/i&gt;</meta><data>0</data></Parameter>
+  <Parameter id='idwss' text='ALGO: WSS Optimal Number Selection' type='combobox'><meta>&lt;i&gt;Do not compute&lt;/i&gt;&lt;i&gt;Compute and Display Only&lt;/i&gt;&lt;i&gt;Set with Elbow&lt;/i&gt;&lt;i&gt;Set with Silhouette&lt;/i&gt;</meta><data>0</data></Parameter>
+  <Parameter id='idxScale' text='ALGO: Scale Matrix before clustering?' type='bool'>0</Parameter>
+  <Parameter id='idxSeed' text='ALGO: Seed' type='double'>0</Parameter>
+  <Parameter id='idxSegNum' text='ALGO: Number of Segments' type='double'>30</Parameter>
+  <Parameter id='idxMax' text='ALGO: Maximum number of iterations' type='double'>500</Parameter>
+  <Parameter id='idxStart' text='ALGO: Number of start' type='double'>15</Parameter>
+  <Parameter id='idxMissing' text='ALGO: Numerical Missing Values Inputation' type='combobox'><meta>&lt;i&gt;Ignore&lt;/i&gt;&lt;i&gt;Replace by Mean&lt;/i&gt;&lt;i&gt;Predictive Mean Matching&lt;/i&gt;&lt;i&gt;Logistic Regression&lt;/i&gt;&lt;i&gt;Polynomial Regression&lt;/i&gt;&lt;i&gt;Proportional Odds Model&lt;/i&gt;&lt;i&gt;Cart&lt;/i&gt;</meta><data>1</data></Parameter>
+  <Parameter id='idxName' text='OUT: Cluster Name' type='string'>K-Means Clusters</Parameter>
+  <Parameter id='idxPlot' text='CHT: Plot Results?' type='combobox'><meta>&lt;i&gt;No Plot&lt;/i&gt;&lt;i&gt;Plot first 2 PCA&lt;/i&gt;</meta><data>1</data></Parameter>
+  <Parameter id='idxDensity' text='CHT: Plot density' type='combobox'><meta>&lt;i&gt;None&lt;/i&gt;&lt;i&gt;Density 2D&lt;/i&gt;</meta><data>1</data></Parameter>
+  <Parameter id='idxBorder' text='CHT: Cluster Borders' type='combobox'><meta>&lt;i&gt;None&lt;/i&gt;&lt;i&gt;Limits&lt;/i&gt;&lt;i&gt;Ellipse&lt;/i&gt;</meta><data>2</data></Parameter>
+  <Parameter id='idOutput' text='OUT: Display output as:' type='combobox'><meta>&lt;i&gt;None&lt;/i&gt;&lt;i&gt;Chart Window&lt;/i&gt;&lt;i&gt;Static HTML Document&lt;/i&gt;&lt;i&gt;Dynamic HTML Document&lt;/i&gt;</meta><data>0</data></Parameter>
+  <Parameter id='idxRun' text='OUT: Run Only (do not show plots)' type='bool'>1</Parameter>
+  <Parameter id='centers' text='OUT: Include distance from center?' type='bool'>0</Parameter>
+  <Parameter id='idxSave' text='OUT: Save Outputs and Model' type='bool'>0</Parameter>
+  <Parameter id='idxDir' text='OUT: Output Directory' type='onedir'><data>:/</data></Parameter>
+  <Parameter id='VarNames' text='Variable List' type='allcolumns'>1</Parameter>
+  <Parameter id='RowLabels' text='Optional Row Labels' type='onecolumn'><meta>0</meta><data></data></Parameter>
+  <Parameter id='idxColor1' text='Default Point Color' type='color'>#00bfff</Parameter>
+</Parameters>
+<Script>
+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
+</Script>
+</R>
+<aggregate idx='2108' x='1032' y='624' inRAMAlgo='1' omitSuffix='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='X.Cluster.cluster'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='pY_dmin' imin='1'/>
+   <v name='pY_dmax' imax='1'/>
+   <v name='Q1' mean='1'/>
+   <v name='Median' mean='1'/>
+   <v name='Q3' mean='1'/>
+   <v name='IQR' mean='1'/>
+   <v name='lower_fence' imin='1'/>
+   <v name='upper_fence' imax='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<R idx='2109' x='816' y='624' id='My_rTemplate'
+  orignalId='rTemplate'
+ deprecated='1'
+  longName='this operator simply &quot;pass by&quot; the rows without doing anything'
+  image=''
+  author='Frank Vanden Berghen'
+  revision='0.01'
+  tags='370_R'
+  pdfDestination='9_2_2_r_integration_inside_anat'>
+<Description>
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:14px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;This operator simply &amp;quot;pass by&amp;quot; the rows from the input pin to the output pin without doing any treatment.&lt;br /&gt;This operator is simply a &amp;quot;Basic Template&amp;quot; that you can can &amp;quot;tweak&amp;quot; to create your own, complex operator.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+</Description>
+<Parameters>
+  <Parameter id='mytable' text='whole table' type='allcolumns'></Parameter>
+  <Parameter id='Predictors' text='a short description' type='manycolumns'><meta>0</meta><data><c>pY_dmin</c><c>pY_dmax</c><c>Q1</c><c>Median</c><c>Q3</c></data></Parameter>
+  <Parameter id='idxSegNum' text='a short description' type='double'>30</Parameter>
+  <Parameter id='idxMethod' text='a short description' type='combobox'><meta>&lt;i&gt;Hartigan-Wong&lt;/i&gt;&lt;i&gt;Lloyd&lt;/i&gt;&lt;i&gt;Forgy&lt;/i&gt;&lt;i&gt;MacQueen&lt;/i&gt;</meta><data>0</data></Parameter>
+  <Parameter id='idxStart' text='a short description' type='double'>15</Parameter>
+  <Parameter id='idxMax' text='a short description' type='double'>500</Parameter>
+  <Parameter id='idxSeed' text='a short description' type='double'>0</Parameter>
+</Parameters>
+<Script>
+packages &lt;- c("stats","cluster","reshape2","scales", "mice")
+# Install packages not yet installed
+installed_packages &lt;- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+    print("The following packages have not been found in the R installation")
+    print(packages[!installed_packages])
+    print("With older versions of R, this may destroy some functionalities. If R fails to work, go to UPDATE TIMI, and select the INCREMENTAL UPDATE of R to restore the damage libraries")
+    install.packages(packages[!installed_packages],repos=RemoteRepository, dependencies =TRUE)
+}
+invisible(lapply(packages, library, character.only = TRUE))
+col_means &lt;- colMeans(Predictors, na.rm = TRUE)
+Predictors[] &lt;- lapply(seq_along(Predictors), function(j) {
+  x &lt;- Predictors[[j]]
+  x[is.infinite(x) | is.nan(x) | is.na(x)] &lt;- col_means[j]
+  x
+})
+X &lt;-apply (as.matrix (Predictors), 2, as.numeric)
+X.Cluster &lt;- kmeans(X, idxSegNum, iter.max = idxMax, nstart = idxStart, algorithm =switch(idxMethod+1,"Hartigan-Wong", "Lloyd", "Forgy","MacQueen"))
+Y &lt;- data.frame(X.Cluster$cluster)
+R_Output &lt;- cbind(mytable,Y)
+</Script>
+</R>
+<writeJSON module='WriteReport' idx='2110' v='2.8' x='1368' y='624' fileName='&gt;&quot;:/tmp/&quot; + fileOut' specialBool='1'>
+	<Levels>
+		<Level>
+			<Item text='{'/>
+			<Item type='1'/>
+			<Item text='}'/>
+		</Level>
+	</Levels>
+</writeJSON>
+<R keyHD='178249095050632776' idx='2111' x='792' y='804' id='My_rTemplate'
+  orignalId='rTemplate'
+ deprecated='1'
+  longName='this operator simply &quot;pass by&quot; the rows without doing anything'
+  image=''
+  author='Frank Vanden Berghen'
+  revision='0.01'
+  tags='370_R'
+  pdfDestination='9_2_2_r_integration_inside_anat'>
+<Description>
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:14px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;This operator simply &amp;quot;pass by&amp;quot; the rows from the input pin to the output pin without doing any treatment.&lt;br /&gt;This operator is simply a &amp;quot;Basic Template&amp;quot; that you can can &amp;quot;tweak&amp;quot; to create your own, complex operator.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+</Description>
+<Parameters>
+  <Parameter id='mytable' text='whole table' type='allcolumns'></Parameter>
+  <Parameter id='Predictors' text='a short description' type='manycolumns'><meta>0</meta><data><c>pY_dmin</c><c>pY_dmax</c><c>Q1</c><c>Median</c><c>Q3</c></data></Parameter>
+  <Parameter id='idxSegNum' text='a short description' type='double'>30</Parameter>
+  <Parameter id='idxMethod' text='a short description' type='combobox'><meta>&lt;i&gt;Hartigan-Wong&lt;/i&gt;&lt;i&gt;Lloyd&lt;/i&gt;&lt;i&gt;Forgy&lt;/i&gt;&lt;i&gt;MacQueen&lt;/i&gt;</meta><data>0</data></Parameter>
+  <Parameter id='idxStart' text='a short description' type='double'>15</Parameter>
+  <Parameter id='idxMax' text='a short description' type='double'>500</Parameter>
+  <Parameter id='idxSeed' text='a short description' type='double'>0</Parameter>
+</Parameters>
+<Script>
+packages &lt;- c("stats","cluster","reshape2","scales", "mice")
+# Install packages not yet installed
+installed_packages &lt;- packages %in% rownames(installed.packages())
+if (any(installed_packages == FALSE)) {
+    print("The following packages have not been found in the R installation")
+    print(packages[!installed_packages])
+    print("With older versions of R, this may destroy some functionalities. If R fails to work, go to UPDATE TIMI, and select the INCREMENTAL UPDATE of R to restore the damage libraries")
+    install.packages(packages[!installed_packages],repos=RemoteRepository, dependencies =TRUE)
+}
+invisible(lapply(packages, library, character.only = TRUE))
+col_means &lt;- colMeans(Predictors, na.rm = TRUE)
+Predictors[] &lt;- lapply(seq_along(Predictors), function(j) {
+  x &lt;- Predictors[[j]]
+  x[is.infinite(x) | is.nan(x) | is.na(x)] &lt;- col_means[j]
+  x
+})
+X &lt;-apply (as.matrix (Predictors), 2, as.numeric)
+X.Cluster &lt;- kmeans(X, idxSegNum, iter.max = idxMax, nstart = idxStart, algorithm =switch(idxMethod+1,"Hartigan-Wong", "Lloyd", "Forgy","MacQueen"))
+Y &lt;- data.frame(X.Cluster$cluster)
+R_Output &lt;- cbind(mytable,Y)
+</Script>
+</R>
+<aggregate idx='2112' x='996' y='804' inRAMAlgo='1' omitSuffix='1'>
+ <OneAggregate counts='1'>
+  <GroupBy>
+   <v name='X.Cluster.cluster'/>
+  </GroupBy>
+  <OutputVars>
+   <v name='pY_dmin' imin='1'/>
+   <v name='pY_dmax' imax='1'/>
+   <v name='Q1' mean='1'/>
+   <v name='Median' mean='1'/>
+   <v name='Q3' mean='1'/>
+   <v name='IQR' mean='1'/>
+   <v name='lower_fence' imin='1'/>
+   <v name='upper_fence' imax='1'/>
+  </OutputVars>
+ </OneAggregate>
+</aggregate>
+<writeJSON module='WriteReport' idx='2113' v='2.8' x='1368' y='804' fileName='&gt;&quot;:/tmp/&quot; + fileOut' specialBool='1'>
+	<Levels>
+		<Level>
+			<Item text='{'/>
+			<Item type='1'/>
+			<Item text='}'/>
+		</Level>
+	</Levels>
+</writeJSON>
+<runSelectedPin idx='2114' v='3.16' x='1536' y='552' mode='1' pinToRun='&gt; runClust'/>
+<runSelectedPin idx='2115' v='3.16' x='1536' y='756' mode='1' pinToRun='&gt; runClust'/>
+<FilterRows keyHD='178308763803928597' module='MathParser' idx='2116' x='624' y='540'>
+ <Expression>pY_dmin&lt;pY_dmax</Expression>
+ <InputVars>
+    <InputVar column='Q1' isNumber='0' meta='F'/>
+    <InputVar column='pY_dmin' isNumber='0' meta='F'/>
+    <InputVar column='pY_dmax' isNumber='0' meta='F'/>
+ </InputVars>
+</FilterRows>
+<FilterRows keyHD='178249094750632812' module='MathParser' idx='2117' x='612' y='720'>
+ <Expression>not(isNull(Q1))</Expression>
+ <InputVars>
+    <InputVar column='Q1' meta='F'/>
+ </InputVars>
+</FilterRows>
+<FilterRows module='MathParser' idx='2118' x='24' y='444'>
+ <Expression>pX="001000007810"</Expression>
+ <InputVars>
+    <InputVar column='pX' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator keyHD='178249161350632041' module='MathParser' idx='2119' x='696' y='-612' dateFormat='yyyy-MM-dd'>
+  <InputVars>
+    <InputVar column='value' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='value' meta='U' update='1'>isNumberStrict(left(value, indexOf(value, " "))) ?  value :
+  (contains(value, " || ") ?value :
+    (isNumberStrict(left((left(value,1)="\"" ? mid(value,2,999) : value), 4)) &amp;&amp;
+     mid((left(value,1)="\"" ? mid(value,2,999) : value), 5, 1) = "-" ?
+      (left(value,1)="\"" ? "toET(" // value // ")" : "toET(\"" // value // "\")") :
+      (left(value,1)="\"" ? value : "\"" // value // "\"")))</OutputVar>
+  </OutputVars>
+</Calculator>
+<Calculator keyHD='178249161650632512' module='MathParser' idx='2120' x='828' y='-612' dateFormat='yyyy-MM-dd'>
+  <InputVars>
+    <InputVar column='var' isNumber='0'/>
+    <InputVar column='value' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='value' meta='U' update='1'>contains(value,"toET")?
+replace(replace(value,var, "toET("//var //")"),"=","=toET(\""):value</OutputVar>
+    <OutputVar name='var' meta='U' update='1'>contains(value,"toET")?
+"toET("//var //")":var</OutputVar>
+  </OutputVars>
+</Calculator>
+<ReadColumnarGel module='MathParser' idx='2121' x='-2388' y='792' fileName='&gt;&quot;:/&quot; + fileName'>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<SelectColumns module='DefaultActions' idx='2122' v='4.16' x='-2256' y='804' keep='1'>
+<c>Tax_Score</c><c>Tax_Score_major occupation code</c><c>Tax_Score_dividends from stocks</c><c>Tax_Score_age</c><c>Tax_Score_sex</c><c>Tax_Score_Wealth</c></SelectColumns>
+<readJSON module='WriteReport' idx='2123' v='3.92' x='-2316' y='1296' colJSON='C1' fromInputPin='1' fileName=''>
+ <Level initialPath=''>
+  <e name='C1' path=''/>
+ </Level>
+</readJSON>
+<ReplaceStrings module='DefaultActions' idx='2124' x='-2688' y='1752'>
+<Global>
+</Global><String>
+<Group><vars><c>value</c></vars>
+<replacements>
+<r><s>'</s><d>after</d></r>
+</replacements></Group>
+</String><RegExp>
+</RegExp>
+<Processing>
+</Processing></ReplaceStrings>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='11' idxDest='12'/>
+<Connection idxSrc='12' idxDest='13'/>
+<Connection idxSrc='13' idxDest='4'/>
+<Connection idxSrc='1852' idxDest='1860'/>
+<Connection idxSrc='1860' idxDest='1854'/>
+<Connection idxSrc='1854' idxDest='1861'/>
+<Connection idxSrc='1861' idxDest='1862'/>
+<Connection idxSrc='1854' idxDest='1863'/>
+<Connection idxSrc='1862' idxDest='1863' idxPinIn='1'/>
+<Connection idxSrc='1864' idxDest='1865'/>
+<Connection idxSrc='1872' idxDest='1874'/>
+<Connection idxSrc='1874' idxDest='1875'/>
+<Connection idxSrc='1875' idxDest='1876'/>
+<Connection idxSrc='1876' idxDest='1878'/>
+<Connection idxSrc='1879' idxDest='1880'/>
+<Connection idxSrc='1877' idxDest='1883'/>
+<Connection idxSrc='1883' idxDest='1884'/>
+<Connection idxSrc='1882' idxDest='1885'/>
+<Connection idxSrc='1884' idxDest='1885' idxPinIn='2'/>
+<Connection idxSrc='1885' idxDest='1886'/>
+<Connection idxSrc='1886' idxDest='1887'/>
+<Connection idxSrc='1888' idxDest='1889'/>
+<Connection idxSrc='1890' idxDest='1891'/>
+<Connection idxSrc='1891' idxDest='1892'/>
+<Connection idxSrc='1892' idxDest='1893'/>
+<Connection idxSrc='1894' idxDest='1895'/>
+<Connection idxSrc='1895' idxDest='1896'/>
+<Connection idxSrc='1873' idxDest='1871'/>
+<Connection idxSrc='1880' idxDest='1882'/>
+<Connection idxSrc='1887' idxDest='4' idxPinIn='19'/>
+<Connection idxSrc='15' idxDest='1898'/>
+<Connection idxSrc='1898' idxDest='1816'/>
+<Connection idxSrc='1896' idxDest='1898' idxPinIn='1'/>
+<Connection idxSrc='1899' idxDest='1762'/>
+<Connection idxSrc='1901' idxDest='1902'/>
+<Connection idxSrc='1902' idxDest='1903'/>
+<Connection idxSrc='1903' idxDest='1904'/>
+<Connection idxSrc='1902' idxDest='1905'/>
+<Connection idxSrc='1904' idxDest='1905' idxPinIn='1'/>
+<Connection idxSrc='1907' idxDest='1865' idxPinIn='1'/>
+<Connection idxSrc='1908' idxDest='1909'/>
+<Connection idxSrc='1909' idxDest='1910'/>
+<Connection idxSrc='1911' idxDest='1912'/>
+<Connection idxSrc='1912' idxDest='1910' idxPinIn='1'/>
+<Connection idxSrc='1910' idxDest='1902' idxPinIn='2'/>
+<Connection idxSrc='1913' idxDest='1901'/>
+<Connection idxSrc='1865' idxDest='4' idxPinIn='33'/>
+<Connection idxSrc='1871' idxDest='1915'/>
+<Connection idxSrc='1914' idxDest='1915' idxPinIn='2'/>
+<Connection idxSrc='1915' idxDest='1916'/>
+<Connection idxSrc='1916' idxDest='1872'/>
+<Connection idxSrc='1917' idxDest='1919'/>
+<Connection idxSrc='1918' idxDest='1917' idxPinIn='2'/>
+<Connection idxSrc='1889' idxDest='1917'/>
+<Connection idxSrc='1919' idxDest='1890'/>
+<Connection idxSrc='1923' idxDest='1924'/>
+<Connection idxSrc='1924' idxDest='1910' idxPinIn='2'/>
+<Connection idxSrc='1910' idxDest='1854' idxPinIn='2'/>
+<Connection idxSrc='1905' idxDest='1925'/>
+<Connection idxSrc='1925' idxDest='1926'/>
+<Connection idxSrc='1926' idxDest='1907'/>
+<Connection idxSrc='1931' idxDest='1932'/>
+<Connection idxSrc='1933' idxDest='1913' idxPinIn='1'/>
+<Connection idxSrc='1939' idxDest='1940'/>
+<Connection idxSrc='1940' idxDest='1941'/>
+<Connection idxSrc='1932' idxDest='1942'/>
+<Connection idxSrc='1942' idxDest='1933'/>
+<Connection idxSrc='1941' idxDest='1942' idxPinIn='1'/>
+<Connection idxSrc='1947' idxDest='1948'/>
+<Connection idxSrc='1948' idxDest='1910' idxPinIn='3'/>
+<Connection idxSrc='1949' idxDest='1864'/>
+<Connection idxSrc='1863' idxDest='1950'/>
+<Connection idxSrc='1950' idxDest='1949'/>
+<Connection idxSrc='1914' idxDest='1985'/>
+<Connection idxSrc='2016' idxDest='2015'/>
+<Connection idxSrc='2014' idxDest='2015' idxPinIn='2'/>
+<Connection idxSrc='2013' idxDest='1960'/>
+<Connection idxSrc='1962' idxDest='2013'/>
+<Connection idxSrc='1965' idxDest='1869'/>
+<Connection idxSrc='1960' idxDest='1965'/>
+<Connection idxSrc='1961' idxDest='1962'/>
+<Connection idxSrc='1952' idxDest='1961' idxPinIn='1'/>
+<Connection idxSrc='1958' idxDest='1961'/>
+<Connection idxSrc='1959' idxDest='1958'/>
+<Connection idxSrc='1956' idxDest='1959'/>
+<Connection idxSrc='1866' idxDest='1956'/>
+<Connection idxSrc='1951' idxDest='1952'/>
+<Connection idxSrc='1868' idxDest='1869' idxPinIn='1'/>
+<Connection idxSrc='1867' idxDest='1868'/>
+<Connection idxSrc='1851' idxDest='1866'/>
+<Connection idxSrc='1850' idxDest='1851'/>
+<Connection idxSrc='2022' idxDest='2028'/>
+<Connection idxSrc='2028' idxDest='2030'/>
+<Connection idxSrc='2030' idxDest='2031'/>
+<Connection idxSrc='2030' idxDest='2032'/>
+<Connection idxSrc='2032' idxDest='2031' idxPinIn='1'/>
+<Connection idxSrc='2031' idxDest='2038'/>
+<Connection idxSrc='2038' idxDest='2039'/>
+<Connection idxSrc='2039' idxDest='2041'/>
+<Connection idxSrc='2040' idxDest='2041' idxPinIn='1'/>
+<Connection idxSrc='2041' idxDest='2044'/>
+<Connection idxSrc='2046' idxDest='2047'/>
+<Connection idxSrc='2047' idxDest='2048'/>
+<Connection idxSrc='2049' idxDest='2050'/>
+<Connection idxSrc='2048' idxDest='2051' idxPinIn='1'/>
+<Connection idxSrc='1895' idxDest='2052'/>
+<Connection idxSrc='2051' idxDest='2053'/>
+<Connection idxSrc='2053' idxDest='2054'/>
+<Connection idxSrc='2054' idxDest='15' idxPinIn='1'/>
+<Connection idxSrc='1' idxDest='2055'/>
+<Connection idxSrc='2055' idxDest='1899'/>
+<Connection idxSrc='2054' idxDest='2055' idxPinIn='1'/>
+<Connection idxSrc='2069' idxDest='2070'/>
+<Connection idxSrc='2070' idxDest='2071'/>
+<Connection idxSrc='2071' idxDest='2051' idxPinIn='2'/>
+<Connection idxSrc='2052' idxDest='2051' idxPinIn='3'/>
+<Connection idxSrc='2051' idxDest='2074'/>
+<Connection idxSrc='1816' idxDest='2076'/>
+<Connection idxSrc='1762' idxDest='2077'/>
+<Connection idxSrc='2077' idxDest='2022'/>
+<Connection idxSrc='2082' idxDest='2083'/>
+<Connection idxSrc='2083' idxDest='2044' idxPinIn='1'/>
+<Connection idxSrc='2084' idxDest='2085'/>
+<Connection idxSrc='2084' idxDest='2087'/>
+<Connection idxSrc='2085' idxDest='2087' idxPinIn='1'/>
+<Connection idxSrc='2087' idxDest='2088'/>
+<Connection idxSrc='2088' idxDest='2089'/>
+<Connection idxSrc='2089' idxDest='2090'/>
+<Connection idxSrc='2040' idxDest='2090' idxPinIn='1'/>
+<Connection idxSrc='2090' idxDest='2091'/>
+<Connection idxSrc='2083' idxDest='2091' idxPinIn='1'/>
+<Connection idxSrc='14' idxDest='4' idxPinIn='115'/>
+<Connection idxSrc='2076' idxDest='2092'/>
+<Connection idxSrc='2092' idxDest='2093'/>
+<Connection idxSrc='2093' idxDest='2084'/>
+<Connection idxSrc='2091' idxDest='2096'/>
+<Connection idxSrc='2044' idxDest='2097'/>
+<Connection idxSrc='2098' idxDest='2099'/>
+<Connection idxSrc='2099' idxDest='2100'/>
+<Connection idxSrc='2100' idxDest='2101'/>
+<Connection idxSrc='2101' idxDest='2076' idxPinIn='1'/>
+<Connection idxSrc='2101' idxDest='2077' idxPinIn='1'/>
+<Connection idxSrc='2101' idxDest='2104'/>
+<Connection idxSrc='2104' idxDest='2102'/>
+<Connection idxSrc='2102' idxDest='2092' idxPinIn='1'/>
+<Connection idxSrc='2102' idxDest='2022' idxPinIn='1'/>
+<Connection idxSrc='2102' idxDest='2105'/>
+<Connection idxSrc='1876' idxDest='2106'/>
+<Connection idxSrc='2106' idxDest='1877'/>
+<Connection idxSrc='1896' idxDest='1899' idxPinIn='1'/>
+<Connection idxSrc='2097' idxDest='2107'/>
+<Connection idxSrc='2109' idxDest='2108'/>
+<Connection idxSrc='2108' idxDest='2110'/>
+<Connection idxSrc='2096' idxDest='2111'/>
+<Connection idxSrc='2111' idxDest='2112'/>
+<Connection idxSrc='2112' idxDest='2113'/>
+<Connection idxSrc='2045' idxDest='2114'/>
+<Connection idxSrc='2114' idxDest='14'/>
+<Connection idxSrc='2110' idxDest='2114' idxPinIn='1'/>
+<Connection idxSrc='20' idxDest='2115'/>
+<Connection idxSrc='2115' idxDest='14' idxPinIn='1'/>
+<Connection idxSrc='2113' idxDest='2115' idxPinIn='1'/>
+<Connection idxSrc='2097' idxDest='2116'/>
+<Connection idxSrc='2116' idxDest='2045'/>
+<Connection idxSrc='2096' idxDest='2117'/>
+<Connection idxSrc='2117' idxDest='20'/>
+<Connection idxSrc='2116' idxDest='2109'>
+  <Point x='818.858' y='635.692'/>
+</Connection>
+<Connection idxSrc='2038' idxDest='2118'/>
+<Connection idxSrc='2119' idxDest='2120'/>
+<Connection idxSrc='1878' idxDest='2119'/>
+<Connection idxSrc='2121' idxDest='2122'/>
+<Connection idxSrc='2050' idxDest='2123'/>
+<Connection idxSrc='2123' idxDest='2051'/>
+<Connection idxSrc='1893' idxDest='2124'/>
+<Connection idxSrc='2124' idxDest='1894'/>
+<Connection idxSrc='1878' idxDest='1879'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='1668' y='-432' size='14'>filterVal</Annotation>
+  <Annotation x='1680' y='-672' size='14'>cgel</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

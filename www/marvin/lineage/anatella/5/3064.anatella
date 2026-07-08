@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.06'>
+<GlobalParameters wDirLoc='1' dataDirRead='D:/ProdAnatella/Extraccion/DM8' dataDirWrite='D:/ProdAnatella'>
+<Parameters>
+<Par name='TableName'>EXPEDIENTE</Par>
+<Par name='pDate'>20230315</Par>
+</Parameters>
+<ODBCConnections>
+<odbc name='MP' link='MP' login='IDU_DATA_BI' ep='1' password='LAAAABMBAAB0AQAACInYM2lMPSDGHNHWvJUuueKyFHFu6AYzcYEMGRqIiL0='/>
+</ODBCConnections>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAAB6vwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAAB6gAAAHgA////AAAAAwAABEEAAAGp/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAKpAAACqQD////8AAACrQAAAZQAAAGUAP////oAAAABAQAAAAL7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAYAD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD///8AAAM9AAAB6gAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAAA/L/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<OracleOCI module='Oracle' idx='3' v='2.54' x='-936' y='-192' connString=' (DESCRIPTION =
+(ADDRESS = (PROTOCOL = TCP)(HOST = bdsigedqa.reniec.gob.pe)(PORT = 1521))
+
+    (CONNECT_DATA =
+
+      (SERVER = DEDICATED)
+
+      (SERVICE_NAME = qsigedpdb.reniec.gob.pe)
+
+    )
+
+  )
+
+ ' user='IDU_DATA_BI' passwordc='LAAAABQBAAAlAQAA1BtgO20MP7/+xL53gILodtZo56Sf7zLSVn4YN3n6bRI=' newMode='0'>
+<SQL>
+SELECT *from IDOSIGED.EXPEDIENTE
+</SQL>
+</OracleOCI>
+<RunToFinishLine idx='33' x='-336' y='-192' nPinIn='26'/>
+<RowCounter idx='321' x='-768' y='-190' label='CounterID_322' compact='0'/>
+<writeCSV idx='322' x='-468' y='-192' sep=',' filename='D:/ProdAnatella/Conexion MP.txt'/>
+<inlineTable idx='323' x='-732' y='-120'>
+<ColumnNames><c>C1</c></ColumnNames>
+<Rows>
+ <r><c>Conexión DNI realizada conectamente.</c></r>
+</Rows>
+</inlineTable>
+<Append module='DefaultActions' idx='324' x='-600' y='-192' output='4'>
+  </Append>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='3' idxDest='321'/>
+<Connection idxSrc='322' idxDest='33'/>
+<Connection idxSrc='321' idxDest='324'/>
+<Connection idxSrc='324' idxDest='322'/>
+<Connection idxSrc='323' idxDest='324' idxPinIn='1'/>
+</CONNECTORS>
+</ANATELLA>

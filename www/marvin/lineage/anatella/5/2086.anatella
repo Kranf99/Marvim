@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.07'>
+<GlobalParameters wDirLoc='0' dataDirRead='D:/ProdAnatella/Gel_DataLake/Extraccion/DNI' dataDirWrite=':/'>
+<Parameters>
+<Par name='P_DFE_DATA'>20230810</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAACkfwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACkQAAAHgA////AAAAAwAAB4AAAAEL/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAASzAAACPgD////8AAAEtwAAAskAAAGUAP////oAAAABAgAAAAL7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAAAeQD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAA2sAAACOAAAAeQD///8AAAZ8AAACkQAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<FilterRows forceHDBuffering='1' module='MathParser' idx='30' x='-2136' y='-396'>
+ <Expression>x="C" || x="B" || x="M" || x="+" || x="" || x="I"</Expression>
+ <InputVars>
+    <InputVar column='ES_FINAL' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='32' x='-2004' y='-396'>
+  <InputVars>
+    <InputVar column='NU_FICHA_REG' label='a' isNumber='0'/>
+    <InputVar column='TI_DOC_REG_FICHA' label='b' isNumber='0'/>
+    <InputVar column='FE_CREA_AUDI' label='f' isNumber='0'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='llave' meta='U'>a//"-"//b</OutputVar>
+    <OutputVar name='V_DFE_DATA' meta='U'>substr(f,0,8)</OutputVar>
+    <OutputVar name='P_CIN_IST'>0</OutputVar>
+  </OutputVars>
+</Calculator>
+<SelectColumns module='DefaultActions' idx='34' x='-1872' y='-396' keep='1'>
+ <c>llave</c>
+ <c>V_DFE_DATA</c>
+ <c>P_CIN_IST</c>
+</SelectColumns>
+<ReadColumnarGel module='MathParser' idx='202' x='-2664' y='-444' columnSelection='1' fileName=':/../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.CTTX_ESTACION_TRAMITE.cgel_anatella'>
+ <ColumnsToRead>
+  <c>US_CREA_AUDI</c><c>FE_CREA_AUDI</c><c>ES_INICIAL</c><c>ES_FINAL</c><c>NU_SEC_ESTACION</c><c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<RowCounter idx='228' x='-1452' y='-298' label='CounterID_229' compact='0'/>
+<RowCounter idx='252' x='-1464' y='-394' label='CounterID_253' compact='0'/>
+<writeColumnarGel module='MathParser' idx='253' x='-1308' y='-396' createDir='1' file=':/LDFU_FE_APROB_PROC0.cgel_anatella'/>
+<RowCounter idx='261' x='-2544' y='-442' label='CounterID_262' compact='0'/>
+<writeColumnarGel module='MathParser' idx='274' x='-852' y='-396' createDir='1' file=':/../Gel_DataLake/DM3/LDFU_FE_APROB_PROC0.cgel_anatella'/>
+<ColumnRename module='DefaultActions' idx='280' x='-1164' y='-396'><before>
+<c>llave</c><c>V_DFE_DATA</c><c>P_CIN_IST</c></before><after>
+<c>fkey</c><c>FE_CREA_AUDI_smax</c><c>P_CIN_IST</c></after>
+<QuickRename ></QuickRename>
+</ColumnRename>
+<sort idx='285' v='3.06' x='-1716' y='-396' action='S'>
+  <field type='A'>llave</field>
+  <field type='Z'>V_DFE_DATA</field>
+</sort>
+<NaiveDeduplicate module='DefaultActions' idx='298' x='-1584' y='-396'>
+<c>llave</c>
+</NaiveDeduplicate>
+<RunToFinishLine idx='11' x='-684' y='-588' nPinIn='40'/>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='30' idxDest='32'/>
+<Connection idxSrc='32' idxDest='34'/>
+<Connection idxSrc='252' idxDest='253'/>
+<Connection idxSrc='202' idxDest='261'/>
+<Connection idxSrc='280' idxDest='274'/>
+<Connection idxSrc='253' idxDest='280'/>
+<Connection idxSrc='34' idxDest='285'/>
+<Connection idxSrc='285' idxDest='298'/>
+<Connection idxSrc='298' idxDest='252'/>
+<Connection idxSrc='274' idxDest='11' idxPinIn='16'/>
+<Connection idxSrc='261' idxDest='30'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-2868' y='-396' size='10' bold='1' color='#228b22' anchor='202'>CTTX_ESTACION_TRAMITE</Annotation>
+  <Annotation x='-1020' y='-360' size='10' anchor='274'>LDFU_FE_APROB_PROC0</Annotation>
+  <Annotation x='-2256' y='-456' size='14' anchor='30'>x=&quot;C&quot; || x=&quot;B&quot; || x=&quot;M&quot; || x=&quot;+&quot; || x=&quot;&quot; || x=&quot;I&quot;</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.20'>
+<GlobalParameters wDirLoc='0' dataDirRead='D:/ProdAnatella/Gel_DataLake/DM3' dataDirWrite='D:/ProdAnatella/Gel_DataLake/DM3' otherDir='D:/ProdAnatella/DM3_EnEvaluacion/LDPK_PROCESO_IMPRESION'>
+<Parameters>
+<Par name='P_DFE_DATA'>20230829</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAABUfwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAABUQAAAHgA////AAAAAwAABEEAAAEK/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAKRAAACYAD////8AAAClQAAAawAAAGUAP////oAAAAAAQAAAAL7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAYAD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD///8AAAM9AAABUQAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAAA/L/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<RunToFinishLine idx='2' x='516' y='-672' nPinIn='80'/>
+<parallelRun idx='5' x='180' y='-132' maxConcurrentRun='5' abort='1' displayLogSubGraphs='1'>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_CORTE.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_BOLEADO.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_LAMINADO.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_ASIG_TNP_DNIE.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_ASIG_TNP_DNIEWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<parallelRun idx='6' x='180' y='-36' maxConcurrentRun='4' abort='1' displayLogSubGraphs='1'>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_PERSONALIZA_DNIE.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_PERSONALIZA_DNIEWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_CCALIDAD_CONVENCIONAL.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_CCALIDAD_DNIE.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<parallelRun idx='10' x='180' y='-228' maxConcurrentRun='5' abort='1' displayLogSubGraphs='1'>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_ENVIO_CONVENCIONAL.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_ENVIO_CONVENCIONALWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_ENVIO_DNIE.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_ENVIO_DNIEWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_IMPRESION.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<parallelRun idx='14' x='180' y='156' maxConcurrentRun='2' abort='1' displayLogSubGraphs='1'>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<parallelRun idx='16' x='180' y='-564' maxConcurrentRun='6' abort='1' displayLogSubGraphs='1'>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_BOLEADO.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_LAMINADO.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_ASIG_TNP_DNIE.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_ASIG_TNP_DNIEWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_PERSONALIZA_DNIE.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_PERSONALIZA_DNIEWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<parallelRun idx='17' x='180' y='-444' maxConcurrentRun='6' abort='1' displayLogSubGraphs='1'>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_CCALIDAD_CONVENCIONAL.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_CCALIDAD_CONVENCIONALWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_CCALIDAD_OBSERVADOS.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_CCALIDAD_OBSERVADOSWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_CCALIDAD_DNIE.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_CCALIDAD_DNIEWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_CCALIDAD_DNIEOBSERVADOS.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_CCALIDAD_DNIEOBSERVADOSWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<parallelRun idx='19' x='180' y='-672' maxConcurrentRun='6' abort='1' displayLogSubGraphs='1'>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_ENVIO_CONVENCIONAL.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_ENVIO_CONVENCIONALWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_ENVIO_DNIE.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_ENVIO_DNIEWEB.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_IMPRESION.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_CORTE.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<parallelRun idx='25' x='180' y='264' maxConcurrentRun='1' abort='1' displayLogSubGraphs='1'>
+<RunData><anatellaGraph>:/LDSP_IMPRESION.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<parallelRun idx='27' x='180' y='60' maxConcurrentRun='3' abort='1' displayLogSubGraphs='1'>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_ENVIO.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_ASIG_TNP.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_INV_FINAL_PERSONALIZA.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+<parallelRun idx='31' x='180' y='-336' maxConcurrentRun='4' abort='1' displayLogSubGraphs='1'>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_ENVIO.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_ASIG_TNP.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_PERSONALIZA.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+<RunData><anatellaGraph>:/LDSP_PRODUCCION_CCALIDAD.anatella</anatellaGraph><parameters>&gt;&quot;-DP_DFE_DATA=&quot; + P_DFE_DATA</parameters></RunData>
+</parallelRun>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='31' idxDest='2' idxPinIn='28'/>
+<Connection idxSrc='10' idxDest='2' idxPinIn='37'/>
+<Connection idxSrc='5' idxDest='2' idxPinIn='45'/>
+<Connection idxSrc='6' idxDest='2' idxPinIn='53'/>
+<Connection idxSrc='27' idxDest='2' idxPinIn='61'/>
+<Connection idxSrc='14' idxDest='2' idxPinIn='69'/>
+<Connection idxSrc='25' idxDest='2' idxPinIn='78'/>
+<Connection idxSrc='17' idxDest='2' idxPinIn='19'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-120' y='-144' size='14' anchor='5'>LDSP_INV_FINAL_CORTE
+LDSP_INV_FINAL_BOLEADO
+LDSP_INV_FINAL_LAMINADO
+LDSP_INV_FINAL_ASIG_TNP</Annotation>
+  <Annotation x='-144' y='-24' size='14' anchor='6'>LDSP_INV_FINAL_PERSONALIZA
+LDSP_INV_FINAL_CCALIDAD</Annotation>
+  <Annotation x='-120' y='-216' size='14' anchor='10'>LDSP_INV_FINAL_ENVIO
+LDSP_INV_FINAL_IMPRESION</Annotation>
+  <Annotation x='-60' y='168' size='14' bold='1' anchor='14'>LDSP_PRODUCCION
+LDSP_INV_FINAL</Annotation>
+  <Annotation x='-180' y='-576' size='14' anchor='16'>LDSP_PRODUCCION_BOLEADO
+LDSP_PRODUCCION_LAMINADO
+LDSP_PRODUCCION_ASIG_TNP
+LDSP_PRODUCCION_PERSONALIZA</Annotation>
+  <Annotation x='-108' y='-420' size='14' anchor='17'>LDSP_PRODUCCION_CCALIDAD</Annotation>
+  <Annotation x='-144' y='-672' size='14' anchor='19'>LDSP_PRODUCCION_ENVIO
+LDSP_PRODUCCION_IMPRESION
+LDSP_PRODUCCION_CORTE</Annotation>
+  <Annotation x='-60' y='288' size='14' bold='1' color='#0000ff' anchor='25'>LDSP_IMPRESION</Annotation>
+  <Annotation x='-60' y='-324' size='14' anchor='31'>UNION SUBPROCESOS
+PRODUCCION</Annotation>
+  <Annotation x='-60' y='72' size='14' anchor='27'>UNION SUBPROCESOS
+INV FINAL</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>

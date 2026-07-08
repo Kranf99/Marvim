@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.20'>
+<GlobalParameters wDirLoc='0' dataDirWrite=':/../Gel_DataLake/DM3'>
+<Parameters>
+<Par name='P_DFE_DATA'>20240202</Par>
+<Par name='P_DFE_DATA180'>20231007</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAACY/wCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACYwAAAHgA////AAAAAwAAB4AAAAE5/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAPPAAACqQD////8AAAD0wAAA60AAAGUAP////oAAAAAAQAAAAL7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAYAD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAABlAD///8AAAZ8AAACYwAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<ReadColumnarGel module='MathParser' idx='322' x='-504' y='-180' fileName=':/../Gel_DataLake/Extraccion/DNI/IDOIMPRESION.IMTV_CONTROL_PROCESO_DNI.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_LOTE</c><c>NU_DNI</c><c>US_CREA_AUDI</c><c>CO_PROCESO</c><c>CO_SUBPROCESO</c><c>NU_MOVI</c><c>ES_DNI_PROC</c><c>FE_CREA_AUDI</c> </ColumnsToRead>
+ <CFilterRows  elapsedTimeUnit='0'>
+  <Expression>_n_min&lt;1000000</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='323' x='-504' y='-96' fileName=':/../Gel_DataLake/Extraccion/DNI/IDOIMPRESION.IMTV_CONTROL_PROCESO_DNI.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_LOTE</c><c>NU_DNI</c><c>US_CREA_AUDI</c><c>CO_PROCESO</c><c>CO_SUBPROCESO</c><c>NU_MOVI</c><c>ES_DNI_PROC</c><c>FE_CREA_AUDI</c> </ColumnsToRead>
+ <CFilterRows  elapsedTimeUnit='0'>
+  <Expression>_n_min&lt;1000000</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<ReadColumnarGel module='MathParser' idx='324' x='-504' y='-12' fileName=':/../Gel_DataLake/Extraccion/DNI/IDOIMPRESION.IMTV_CONTROL_PROCESO_DNIE.cgel_anatella'>
+ <ColumnsToRead>
+  <c>NU_LOTE</c><c>NU_DNI</c><c>US_CREA_AUDI</c><c>CO_PROCESO</c><c>CO_SUBPROCESO</c><c>NU_MOVI</c><c>ES_DNI_PROC</c><c>FE_CREA_AUDI</c> </ColumnsToRead>
+ <CFilterRows  elapsedTimeUnit='0'>
+  <Expression>_n_min&lt;1000000</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<FilterRows module='MathParser' idx='327' x='-360' y='-96' elapsedTimeUnit='3' isUTC='0' referenceTime='18991230 00:00:00' dateFormat='yyyyMMdd'>
+ <Expression>CO_PROCESO ="A" &amp;&amp; 
+ceil(FE_CREA_AUDI) &lt;= P_DFE_DATA</Expression>
+ <InputVars>
+    <InputVar column='CO_PROCESO' isNumber='0'/>
+    <InputVar column='FE_CREA_AUDI' value='9.22182e-315'/>
+ </InputVars>
+</FilterRows>
+<writeColumnarGel module='MathParser' idx='329' v='3.19' x='-216' y='-180' file=':/../Gel_DataLake/DM3/IDOIMPRESION.IMTV_CONTROL_PROCESO_DNI_6Meses.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='330' v='3.19' x='-216' y='-96' file=':/../Gel_DataLake/DM3/IDOIMPRESION.IMTV_CONTROL_PROCESO_DNI_FILTRADO.cgel_anatella'/>
+<writeColumnarGel module='MathParser' idx='331' v='3.19' x='-216' y='-12' file=':/../Gel_DataLake/DM3/IDOIMPRESION.IMTV_CONTROL_PROCESO_DNIE_6Meses.cgel_anatella'/>
+<MultithreadRun idx='490' x='24' y='-108' name='Multithread_id_490' nPinIn='3'/>
+<RunToFinishLine idx='491' x='192' y='-276' nPinIn='2'/>
+<FilterRows module='MathParser' idx='500' x='-360' y='-180' elapsedTimeUnit='3' isUTC='0' referenceTime='18991230 00:00:00' dateFormat='yyyyMMdd'>
+ <Expression>ceil(FE_CREA_AUDI) >= P_DFE_DATA180 &amp;&amp; ceil(FE_CREA_AUDI) &lt;= P_DFE_DATA</Expression>
+ <InputVars>
+    <InputVar column='FE_CREA_AUDI'/>
+ </InputVars>
+</FilterRows>
+<inlineTable idx='504' x='-948' y='-276'>
+<ColumnNames><c>C1</c><c>C2</c></ColumnNames>
+<Rows>
+ <r><c></c><c>P_DFE_DATA</c></r>
+ <r><c></c><c>P_DFE_DATA180</c></r>
+</Rows>
+</inlineTable>
+<Calculator module='MathParser' idx='505' x='-804' y='-276'>
+  <InputVars>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='C1' meta='K' update='1'>_n=0?P_DFE_DATA:P_DFE_DATA</OutputVar>
+  </OutputVars>
+</Calculator>
+<ChangeDataType idx='506' x='-660' y='-276' elapsedTimeUnitIn='3' dateFormatIn='yyyyMMdd' referenceTimeIn='18991230 00:00:00' UTCKey='0'>
+<toElapsedTime><c>C1</c></toElapsedTime>
+</ChangeDataType>
+<Calculator module='MathParser' idx='507' x='-504' y='-276'>
+  <InputVars>
+    <InputVar column='C1'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='C1' meta='K' update='1'>_n=0?C1:C1-180</OutputVar>
+  </OutputVars>
+</Calculator>
+<ChangeDataType idx='508' x='-360' y='-276' elapsedTimeUnitIn='3' elapsedTimeUnitOut='3' dateFormatIn='YYYYMMDD' referenceTimeIn='18991230 00:00:00' dateFormatOut='yyyyMMdd' referenceTimeOut='18991230 00:00:00' UTCKey='0'>
+<toStringFromET><c>C1</c></toStringFromET>
+</ChangeDataType>
+<Generic idx='509' v='3.17' x='-216' y='-276' id='setGlobalParameters'
+  longName='set the value of some global Parameters'
+  le='1692127096655'
+  abortOnMissingColumn='0'
+  shape='3'
+  keywords='set global paramater'
+  image='/setGlobalParameters.svg'
+  author='Frank Vanden Berghen'
+  revision='0.10'
+  tags='800_Other'>
+<Description>
+&lt;html&gt;
+Set the value of some Global Parameters.&lt;br /&gt;&lt;br /&gt;
+The input table contains 2 columns:&lt;ol&gt;
+&lt;li&gt;The name of the Global Parameters to set.&lt;/li&gt;
+&lt;li&gt;The new value of the Global Parameter.&lt;/li&gt;&lt;/ol&gt;
+If the second column is omitted, the Global Parameter is reset to an empty string.&lt;br /&gt;
+&lt;br /&gt;
+The behavior is:&lt;ol&gt;
+&lt;li&gt;NEW: Set or Update all Global Paramaters and then continue. The input table is not forwarded to the ouput.&lt;/li&gt;
+&lt;li&gt;OLD: Set one Global Paramaters and directly forward the input row to the ouput&lt;/li&gt;&lt;/ol&gt;
+</Description>
+<Parameters>
+  <Parameter id='parName' text='The Global Parameter Names' type='onecolumn'><meta>0</meta><data>C2</data></Parameter>
+  <Parameter id='parValue' text='The Global Parameter Values' type='onecolumn'><meta>0</meta><data>C1</data></Parameter>
+  <Parameter id='setOnlyIfEmpty' text='Only set value if Global Parameter is empty' type='bool'>0</Parameter>
+  <Parameter id='behavior' text='Behavior' type='combobox'><meta>&lt;i&gt;New Behavior&lt;/i&gt;&lt;i&gt;Old Behavior&lt;/i&gt;</meta><data>0</data></Parameter>
+</Parameters>
+<Script>
+function init()
+{
+    var r=getCurrentRow();
+    if (r.isNull) return 0;
+	setOutputRowSize(0,r.nColumn);
+    if (parName&lt;0) throw "Error: No column to define the \"names\" of the Global Parameters?";
+    if (parValue&lt;0) throw "Error: No column to define the \"values\" of the Global Parameters?";
+    if (behavior==0) return 0;
+    return 0;
+}
+function setGP(name,r)
+{
+    if (parValue&lt;0)
+    {
+        var assign=new Function(name+"=\"\";");
+        assign();
+    } else
+    {
+        var t=""+r.col(parValue);
+        t=t.replace(new RegExp("\\\\", 'g'), "\\\\");
+        t=t.replace(new RegExp("\"", 'g'), "\\\"");
+        t=t.replace(new RegExp("\n", 'g'), "");
+        t=t.replace(new RegExp("\r", 'g'), "");
+        t=name+"=\""+t+"\";"
+        var assign=new Function(t);
+        assign();
+    }
+}
+function setGP2(r)
+{
+    var name=r.col(parName), transient=false;
+    if (name[0]=='*') { name=name.substr(1); transient=true; }
+    var testIfExists=new Function("return typeof("+name+");");
+    var t=testIfExists();
+    if (t=="undefined") { newGlobalVar(name,"",transient); setGP(name,r); return;  }
+    if (t=="number") throw "Error: a global parameter NAME cannot be a number (i.e. you used \""+name+"\")";
+    if (!setOnlyIfEmpty) { setGP(name,r); return; }
+    var getValue=new Function("return "+name+";");
+    if (getValue()!="") setGP(name,r);
+}
+function run()
+{
+    if (behavior==0)
+    {
+        for(;;)
+        {
+            var r=getNextRow();
+            if (r.isNull) return 1;
+            if (userAskedAbort()) return 1;
+            setGP2(r);
+        }
+    }
+    
+    var r=getNextRow();
+    if (r.isNull) return 1;
+    r.write(); 
+    writeEOL();
+    setGP2(r);
+    return 0;
+}
+</Script>
+</Generic>
+<FilterRows module='MathParser' idx='510' x='-360' y='-12' elapsedTimeUnit='3' isUTC='0' referenceTime='18991230 00:00:00' dateFormat='yyyyMMdd'>
+ <Expression>ceil(FE_CREA_AUDI) >= P_DFE_DATA180 &amp;&amp; ceil(FE_CREA_AUDI) &lt;= P_DFE_DATA</Expression>
+ <InputVars>
+    <InputVar column='FE_CREA_AUDI'/>
+ </InputVars>
+</FilterRows>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='323' idxDest='327'/>
+<Connection idxSrc='327' idxDest='330'/>
+<Connection idxSrc='329' idxDest='490'/>
+<Connection idxSrc='330' idxDest='490' idxPinIn='1'/>
+<Connection idxSrc='331' idxDest='490' idxPinIn='2'/>
+<Connection idxSrc='322' idxDest='500'/>
+<Connection idxSrc='500' idxDest='329'/>
+<Connection idxSrc='504' idxDest='505'/>
+<Connection idxSrc='505' idxDest='506'/>
+<Connection idxSrc='506' idxDest='507'/>
+<Connection idxSrc='507' idxDest='508'/>
+<Connection idxSrc='508' idxDest='509'/>
+<Connection idxSrc='509' idxDest='491'/>
+<Connection idxSrc='490' idxDest='491' idxPinIn='1'/>
+<Connection idxSrc='324' idxDest='510'/>
+<Connection idxSrc='510' idxDest='331'/>
+</CONNECTORS>
+</ANATELLA>

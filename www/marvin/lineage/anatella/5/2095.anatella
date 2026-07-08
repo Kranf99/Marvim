@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ANATELLA version='3.07'>
+<GlobalParameters wDirLoc='0' dataDirRead='D:/ProdAnatella/Gel_DataLake/Extraccion/DNI' dataDirWrite=':/'>
+<Parameters>
+<Par name='P_DFE_DATA'>20230810</Par>
+</Parameters>
+</GlobalParameters>
+<WorkingSpace>AAAA/wAAAAD9AAAAAgAAAAEAAAEAAAACkfwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABZAAACkQAAAHgA////AAAAAwAAB4AAAAEL/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAASzAAACPgD////8AAAEtwAAAskAAAGUAP////oAAAABAgAAAAL7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAAAeQD////7AAAADgBMAG8AZwBEAG8AYwBrAQAAA2sAAACOAAAAeQD///8AAAZ8AAACkQAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA37/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABb3/////AAAAAAAAAAA=</WorkingSpace>
+<ACTIONS>
+<ReadColumnarGel module='MathParser' idx='202' x='-2664' y='-444' columnSelection='1' fileName=':/../Gel_DataLake/Extraccion/DNI/IDOCAPTURA.CTTX_ESTACION_TRAMITE.cgel_anatella'>
+ <ColumnsToRead>
+  <c>US_CREA_AUDI</c><c>FE_CREA_AUDI</c><c>ES_INICIAL</c><c>ES_FINAL</c><c>NU_SEC_ESTACION</c><c>NU_FICHA_REG</c><c>TI_DOC_REG_FICHA</c> </ColumnsToRead>
+ <CFilterRows >
+  <Expression>1</Expression>
+  <InputVars>
+  </InputVars>
+ </CFilterRows>
+</ReadColumnarGel>
+<RowCounter idx='261' x='-2544' y='-442' label='CounterID_262' compact='0'/>
+<RunToFinishLine idx='11' x='-684' y='-588' nPinIn='40'/>
+<FilterRows forceHDBuffering='1' module='MathParser' idx='299' x='-2148' y='-72'>
+ <Expression>x="@"</Expression>
+ <InputVars>
+    <InputVar column='ES_FINAL' label='x' isNumber='0'/>
+ </InputVars>
+</FilterRows>
+<Calculator module='MathParser' idx='300' x='-2016' y='-72'>
+  <InputVars>
+    <InputVar column='NU_SEC_ESTACION' meta='F'/>
+  </InputVars>
+  <OutputVars>
+    <OutputVar name='NU_SEC_ESTACION_MEN1'>NU_SEC_ESTACION-1</OutputVar>
+    <OutputVar name='NU_SEC_ESTACION_MAS1'>NU_SEC_ESTACION+1</OutputVar>
+  </OutputVars>
+</Calculator>
+<writeColumnarGel module='MathParser' idx='301' x='-852' y='-72' createDir='1' file=':/ESTACION_TRAMITE_CTX_ARROBA.cgel_anatella'/>
+<RowCounter idx='302' x='-1884' y='-70' label='CounterID_303' compact='0'/>
+</ACTIONS>
+<CONNECTORS>
+<Connection idxSrc='202' idxDest='261'/>
+<Connection idxSrc='299' idxDest='300'/>
+<Connection idxSrc='301' idxDest='11' idxPinIn='32'/>
+<Connection idxSrc='302' idxDest='301'/>
+<Connection idxSrc='300' idxDest='302'/>
+<Connection idxSrc='261' idxDest='299'/>
+</CONNECTORS>
+<TEXTANNOTATIONS>
+  <Annotation x='-2868' y='-396' size='10' bold='1' color='#228b22' anchor='202'>CTTX_ESTACION_TRAMITE</Annotation>
+  <Annotation x='-1308' y='-24' size='14' anchor='301'>:/ESTACION_TRAMITE_CTX_ARROBA.cgel_anatella</Annotation>
+  <Annotation x='-2124' y='-144' size='14'>x=&quot;@&quot;</Annotation>
+</TEXTANNOTATIONS>
+</ANATELLA>
