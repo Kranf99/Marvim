@@ -27,6 +27,7 @@ function enableDisableEdit2(a)
         for (i=0; i<editables.length; i++)
             editables[i].style.display="none";
     }
+    if (typeof _updateAutoCompleteBtn === 'function') _updateAutoCompleteBtn();
 }
 </script>
 </head>

@@ -292,6 +292,7 @@ function initEditAllCells()
 {
   setTimeout(() => {
     enableDisableEdit(null);
+    if (typeof _updateAutoCompleteBtn === 'function') _updateAutoCompleteBtn();
     var a=document.querySelector('.tox-statusbar__help-text');
     if (a) a.textContent="";
     a=document.querySelector('.tox-statusbar__branding');
