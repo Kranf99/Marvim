@@ -34,7 +34,8 @@ window.addEventListener('message', async function(ev) {
     _llmHasData = (data.rows && data.rows.length > 0) ||
                   (data.rel_before && data.rel_before.length > 0) ||
                   (data.rel_after  && data.rel_after.length  > 0) ||
-                  (data.db_inputs  && data.db_inputs.length  > 0);
+                  (data.db_inputs  && data.db_inputs.length  > 0) ||
+                  (data.called_scripts && data.called_scripts.length > 0);
     _updateAutoCompleteBtn();
     if (window.hugerte) {
       hugerte.on('AddEditor', function(e) {
@@ -94,7 +95,9 @@ async function llmAutoComplete() {
     if (outputs.length) parts.push('\nOutput destinations:\n' + outputs.map(function(f){return '- '+f;}).join('\n'));
     if ((linData.rel_before||[]).length) parts.push('\nUpstream scripts (produce inputs):\n' + linData.rel_before.slice(0,8).map(function(f){return '- '+f;}).join('\n'));
     if ((linData.rel_after||[]).length)  parts.push('\nDownstream scripts (consume outputs):\n' + linData.rel_after.slice(0,8).map(function(f){return '- '+f;}).join('\n'));
-    parts.push('\nWrite 2–4 paragraphs describing: (1) purpose and role of this workflow, (2) what data it reads and from where, (3) what it produces and where it goes, (4) how it fits in the broader pipeline. Be specific about file names. Professional style, English only.');
+    var calledScripts = linData.called_scripts || [];
+    if (calledScripts.length) parts.push('\nScripts executed by this pipeline:\n' + calledScripts.map(function(f){return '- '+f;}).join('\n'));
+    parts.push('\nWrite 2–4 paragraphs describing: (1) purpose and role of this workflow, (2) what data it reads and from where, (3) what it produces and where it goes, (4) how it fits in the broader pipeline.' + (calledScripts.length ? ' (5) the scripts it executes.' : '') + ' Be specific about file names. Professional style, English only.');
 
     // 4. Stream into HugeRTE
     btn.textContent = '⏳ Generating…';
@@ -159,9 +162,10 @@ async function llmAutoComplete() {
       saveContent(t, ed.getContent({ format: 'text' }), ta, ed);
     }
 
-    // 5. Short description — built from pipeline outputs
+    // 5. Short description — outputs generated, else scripts executed
     var outNames = outputs.map(function(p){ return p.replace(/\\/g,'/').split('/').pop(); });
-    var shortText = outNames.length ? 'Generate ' + outNames.join(', ') + '.' : '';
+    var shortText = outNames.length ? 'Generates the following files: ' + outNames.join(', ') + '.' :
+                    calledScripts.length ? 'Executes ' + calledScripts.length + ' scripts.' : '';
     if (shortText) {
       var sdEl = document.querySelector('.editable[data-columnname="shortDescription"]');
       if (sdEl) 

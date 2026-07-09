@@ -179,6 +179,7 @@ switch ($action) {
 
         $depRows = array(); $rel_before = array(); $rel_after = array();
         $up_edges = array(); $down_edges = array(); $dbIns = array();
+        $calledScripts = array();
 
         if ($fid !== null) {
             $inputs  = lapi_ioOf($pdo, $fid, 1, 0);
@@ -284,6 +285,7 @@ switch ($action) {
             foreach ($calleeStmt->fetchAll(PDO::FETCH_COLUMN) as $p) {
                 if ((int)$p === $fid) continue;
                 $rel_after[] = lapi_displayOfId($pdo, (int)$p);
+                $calledScripts[] = lapi_displayOfId($pdo, (int)$p);
             }
         }
 
@@ -292,6 +294,7 @@ switch ($action) {
             'rel_before' => array_values(array_unique($rel_before)),
             'rel_after'  => array_values(array_unique($rel_after)),
             'db_inputs'  => $dbIns,
+            'called_scripts' => array_values(array_unique($calledScripts)),
             'up_edges' => $up_edges, 'down_edges' => $down_edges, 'depth' => $depth,
         ));
         break;
