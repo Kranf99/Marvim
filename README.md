@@ -8,6 +8,9 @@
 
 Data Governance & Lineage Solution - **Automated**, Agnostic (and Self-documenting if used from Anatella/TIMi)
 
+Demo on Youtube here (in French):
+https://www.youtube.com/watch?v=r2OHaXUbltQ
+
 -- **work in progress**
 
 <hr>
