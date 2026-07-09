@@ -258,9 +258,9 @@ function initHugeRTEEditMain(bgcolor)
   highlight_on_focus: true,
   readonly: true,
   setup: function (editor) {
-    myMainEditorContent=editor.getContent();
     editor.on('init', function () {
       var content = editor.getContent();
+      myMainEditorContent=content;
       var linked = upgradeGlossary(content);
       if (linked !== content) editor.setContent(linked);
     });
