@@ -122,38 +122,66 @@ $stmt->close();
 </div>
 <!-- History -->
 <div class="history-section" style="overflow-x: auto;">
-                        
+
 <?php
 if ($idUserRight==0) echo '<h2>All Users</h2>';
 $db->exec("attach database '" . __DIR__ . "/../../db/MarvinUsers.sqlite' as dbu;");
 $hiddenUrlParameters='<input type="hidden" name="rights" value="'.$idUserRight.'">';
 $sql='SELECT a.*, ud.rights as rights, a.superadmin from dbu.Users a '.
-    'LEFT JOIN userDepartmentRights ud ON ud.idUser=a.id ';
-if ($isSuperAdmin)
-{
- 	$sql.=" WHERE a.deleted=0 AND (a.superadmin=1 OR (1=1 ";
+    'LEFT JOIN userDepartmentRights ud ON ud.idUser=a.id WHERE a.deleted=0 AND (a.superadmin=1 OR (1=1';
+// if ($isSuperAdmin)
+// {
     if ($idUserRight>0) $sql.=' and COALESCE(ud.rights,16)>='.$idUserRight;
     if ($idDpt>0) $sql.=' and ud.idDepartment='.$idDpt;
     $sql.='))';
-} else
-{
-    $sql.=
-        ' INNER JOIN userDepartmentRights ud2 ON ud2.idDepartment=a.idDepartment '.
-        ' where a.deleted=0 AND ud2.idUser='.$myid;
-    if ($idUserRight>0) $sql.=' and ud.rights>='.$idUserRight;
-}
-$filterOnAssetTable=false;
-$sortcol='name ASC, id ASC, rights DESC';
-require "_pe_filters.php";
-?>
-<div class="server-cards-grid">
-<?php
-for($i=0;$i<count($array_rows);$i++)
-{
-    $row=$array_rows[$i];
-    if (($i>0)&&($array_rows[$i-1]['id']==$row['id']))
-        continue;
+// } else
+// {
+//     $sql.=
+//         'INNER JOIN userDepartmentRights ud2 ON ud2.idDepartment=a.idDepartment '.
+//         ' where ud2.idUser='.$myid;
+//     if ($idUserRight>0) $sql.=' and ud.rights>='.$idUserRight;
+// }
 
+$f1='';
+if (isset($_REQUEST['filter1'])) $f1=$_REQUEST['filter1'];
+?>
+<div class="filters">
+    <form style="display: contents;" method="GET" action="" id="filterForm">
+    <input type="text" class="filter-input" id="filterInput1" name="filter1" placeholder="Search names"
+<?php
+echo ' value="'.$f1.'"'
+?>
+        >
+    <input type="hidden" id="filterInput2" name="filter2">
+    <input type="hidden" id="filterInput3" name="filter3">
+</form>
+<button class="clear-btn" onclick="clearFilter()">CLEAR</button>
+</div>
+<div class="server-cards-grid">
+
+<?php
+// todo: create cards on table for small screens
+if ($f1!='')
+{
+//    $sql=$sql.' AND name LIKE \'%'.$f1.'%\''; // todo: use bind with dad
+    $sql.=' AND a.name LIKE :f1'; // todo: use bind with dad
+}
+$sql.=' ORDER BY name ASC, id ASC, rights DESC';
+//echo $sql;
+$stmt = $db->prepare($sql);
+if ($f1!='') $stmt->bindValue(':f1', '%'.$f1.'%');
+$results=$stmt->execute();
+$rowPrev['id']=-1;
+
+while(1)
+{
+	$row=$results->fetchArray(SQLITE3_ASSOC);
+	if (!$row) break;
+
+    if ($rowPrev['id']==$row['id'])
+        continue;
+	$rowPrev=$row;
+	
     echo '<div class="server-card">';
     if ($isSuperAdmin)
         echo '<a style="text-decoration:none;" href="oneUserDelete.php?iduser='.$row['id'].'">'.
@@ -182,8 +210,6 @@ $db->close();
 <script>
 enableDisableUserEdit(null);
 const handleMobileView=null;
-document.getElementById('filterInput2').style.display = 'none';
-document.getElementById('filterInput3').style.display = 'none';
 </script>
 <?php require '_pe_tableJSFilter.html'; ?>
 </body>
