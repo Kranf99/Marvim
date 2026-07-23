@@ -67,11 +67,27 @@ function buildDescPrompt(scriptPath, xmlStr) {
     parts.join('\n\n') + '\n\nDescription:';
 }
 
+// LLM config (url/model/bearer) comes from llmSettings.php, which reads it
+// from the llmSettings DB table — cached after the first fetch per page load.
+let _llmCfgPromise = null;
+function getLlmConfig() {
+  if (!_llmCfgPromise) {
+    _llmCfgPromise = fetch('../llmSettings.php', { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (cfg) { return (cfg && cfg.llm) || {}; });
+  }
+  return _llmCfgPromise;
+}
+
 async function callLocalLLM(prompt, onToken) {
-  const res = await fetch('http://localhost:8080/v1/chat/completions', {
+  const cfg = await getLlmConfig();
+  if (!cfg.url) throw new Error('LLM not configured — see LLM Admin.');
+  const headers = { 'Content-Type': 'application/json' };
+  if (cfg.bearer) headers['Authorization'] = 'Bearer ' + cfg.bearer;
+  const res = await fetch(cfg.url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model: 'local', messages: [{ role: 'user', content: prompt }], temperature: 0.3, max_tokens: 8000, stream: true }),
+    headers: headers,
+    body: JSON.stringify({ model: cfg.model || 'local-model', messages: [{ role: 'user', content: prompt }], temperature: 0.3, max_tokens: cfg.max_tokens || 8000, stream: true }),
   });
   if (!res.ok) {
     let detail = '';
@@ -106,14 +122,20 @@ async function callLocalLLM(prompt, onToken) {
 // Fire a tiny request to load model weights into RAM / OS page cache so the
 // user's first real "Ask" doesn't pay the cold-start penalty. Runs at most once.
 let _llmWarmed = false;
-function warmupLLM() {
+async function warmupLLM() {
   if (_llmWarmed) return;
   _llmWarmed = true;
-  fetch('http://localhost:8080/v1/chat/completions', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model: 'local', messages: [{ role: 'user', content: 'hi' }], max_tokens: 1, stream: false }),
-  }).catch(function () { _llmWarmed = false; });  // allow a retry if the server was down
+  try {
+    const cfg = await getLlmConfig();
+    if (!cfg.url) { _llmWarmed = false; return; }
+    const headers = { 'Content-Type': 'application/json' };
+    if (cfg.bearer) headers['Authorization'] = 'Bearer ' + cfg.bearer;
+    await fetch(cfg.url, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({ model: cfg.model || 'local-model', messages: [{ role: 'user', content: 'hi' }], max_tokens: 1, stream: false }),
+    });
+  } catch (e) { _llmWarmed = false; }  // allow a retry if the server was down
 }
 
 // Per-script prefill warmup.
@@ -137,11 +159,15 @@ function schedulePrewarm(path) {
 async function prewarmDescription(path) {
   try {
     if (path !== _anatellaRequestedPath || !_anatellaXmlCache) return;  // navigated away
+    const cfg = await getLlmConfig();
+    if (!cfg.url) return;
     const prompt = buildDescPrompt(path, _anatellaXmlCache);
-    const r = await fetch('http://localhost:8080/v1/chat/completions', {
+    const headers = { 'Content-Type': 'application/json' };
+    if (cfg.bearer) headers['Authorization'] = 'Bearer ' + cfg.bearer;
+    const r = await fetch(cfg.url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'local', messages: [{ role: 'user', content: prompt }], temperature: 0.3, max_tokens: 1, stream: false }),
+      headers: headers,
+      body: JSON.stringify({ model: cfg.model || 'local-model', messages: [{ role: 'user', content: prompt }], temperature: 0.3, max_tokens: 1, stream: false }),
     });
     if (r.ok) _prewarmedPath = path;   // mark primed only if the server accepted it
   } catch (e) { /* server down/busy — leave unprimed; the real Ask will prefill */ }

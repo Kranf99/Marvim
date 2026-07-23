@@ -1,5 +1,6 @@
 <?php
 require '_pe_checkSession.php';
+date_default_timezone_set('Europe/Brussels');
 
 $db = new SQLite3('../../db/MarvinDB.sqlite', SQLITE3_OPEN_READONLY);
 $db->busyTimeout(5000);

@@ -12,7 +12,7 @@ $data = json_decode($json, true);
 // UPDATE assets SET description=%1 where id=%2
 $checkCN= array(
     'Assets'=>'likesAssets',
-    'columns'=>'likesColumns',
+    'Columns'=>'likesColumns',
     'KPI'=>'likesKPI',
     'Glossary'=>'likesGlossary',
     'Tasks'=>'likesTasks'

@@ -128,19 +128,20 @@ if ($idUserRight==0) echo '<h2>All Users</h2>';
 $db->exec("attach database '" . __DIR__ . "/../../db/MarvinUsers.sqlite' as dbu;");
 $hiddenUrlParameters='<input type="hidden" name="rights" value="'.$idUserRight.'">';
 $sql='SELECT a.*, ud.rights as rights, a.superadmin from dbu.Users a '.
-    'LEFT JOIN userDepartmentRights ud ON ud.idUser=a.id WHERE a.deleted=0 AND (a.superadmin=1 OR (1=1';
-// if ($isSuperAdmin)
-// {
+    'LEFT JOIN userDepartmentRights ud ON ud.idUser=a.id ';
+if ($isSuperAdmin)
+{
+ 	$sql.=" WHERE a.deleted=0 AND (a.superadmin=1 OR (1=1 ";
     if ($idUserRight>0) $sql.=' and COALESCE(ud.rights,16)>='.$idUserRight;
     if ($idDpt>0) $sql.=' and ud.idDepartment='.$idDpt;
     $sql.='))';
-// } else
-// {
-//     $sql.=
-//         'INNER JOIN userDepartmentRights ud2 ON ud2.idDepartment=a.idDepartment '.
-//         ' where ud2.idUser='.$myid;
-//     if ($idUserRight>0) $sql.=' and ud.rights>='.$idUserRight;
-// }
+} else
+{
+    $sql.=
+        ' INNER JOIN userDepartmentRights ud2 ON ud2.idDepartment=a.idDepartment '.
+        ' where a.deleted=0 AND ud2.idUser='.$myid;
+    if ($idUserRight>0) $sql.=' and ud.rights>='.$idUserRight;
+}
 $filterOnAssetTable=false;
 $sortcol='name ASC, id ASC, rights DESC';
 require "_pe_filters.php";

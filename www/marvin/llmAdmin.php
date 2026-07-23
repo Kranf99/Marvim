@@ -1,10 +1,25 @@
-<?php 
+<?php
 require '_pe_checkSession.php';
 
 if (!$isSuperAdmin) {
     echo '<!DOCTYPE html><html><head><title>Access Denied</title></head><body style="font-family:sans-serif;padding:40px;color:#c00">Access denied — super-admin only.</body></html>';
     exit;
 }
+
+$db = new SQLite3(__DIR__ . '/../../db/MarvinDB.sqlite', SQLITE3_OPEN_READONLY);
+$db->busyTimeout(5000);
+$settings = $db->querySingle('SELECT * FROM llmSettings', true);
+$db->close();
+if (!is_array($settings)) $settings = array();
+
+$srvExe       = isset($settings['srvExe'])       ? $settings['srvExe']       : '';
+$srvGguf      = isset($settings['srvGguf'])      ? $settings['srvGguf']      : '';
+$srvPort      = isset($settings['srvPort'])      ? $settings['srvPort']      : 8081;
+$srvCtx       = isset($settings['srvCtx'])       ? $settings['srvCtx']       : 8192;
+$llmUrl       = isset($settings['llmUrl'])       ? $settings['llmUrl']       : '';
+$llmModel     = isset($settings['llmModel'])     ? $settings['llmModel']     : '';
+$llmMaxTokens = isset($settings['llmMaxTokens']) ? $settings['llmMaxTokens'] : 4096;
+$llmBearer    = isset($settings['llmBearer'])    ? $settings['llmBearer']    : '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -140,9 +155,8 @@ if (!$isSuperAdmin) {
 <!-- Content -->
 <div class="content">
   <div class="main-section">
-
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-      <h1 style="font-size:28px;color:#333;margin:0;">⚙️ LLM Administration</h1>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <img src="ressources/gear.svg" height="48px"/><h1 style="font-size:28px;color:#333;margin:0;"> LLM Administration</h1>
     </div>
     <div class="breadcrumb">
       <a href="home.php">Home</a> / LLM Admin
@@ -154,14 +168,14 @@ if (!$isSuperAdmin) {
 
       <div class="llm-row">
         <label>Executable path</label>
-        <input type="text" id="srvExe" placeholder="C:/soft/TIMi/llama/cpu/llama-server.exe">
+        <input type="text" id="srvExe" placeholder="C:/soft/TIMi/llama/cpu/llama-server.exe" value="<?php echo htmlspecialchars($srvExe); ?>">
         <div class="llm-hint">Full path to llama-server.exe</div>
       </div>
 
       <div class="llm-row">
         <label>GGUF model file</label>
         <input type="text" id="srvGguf" list="ggufList"
-               placeholder="C:/soft/TIMi/llama/model.gguf">
+               placeholder="C:/soft/TIMi/llama/model.gguf" value="<?php echo htmlspecialchars($srvGguf); ?>">
         <datalist id="ggufList"></datalist>
         <div class="llm-hint" id="ggufHint">Type a path or pick a file detected on disk</div>
       </div>
@@ -169,11 +183,11 @@ if (!$isSuperAdmin) {
       <div class="llm-row-inline">
         <div class="llm-row">
           <label>Port</label>
-          <input type="number" id="srvPort" placeholder="8081" min="1024" max="65535">
+          <input type="number" id="srvPort" placeholder="8081" min="1024" max="65535" value="<?php echo htmlspecialchars($srvPort); ?>">
         </div>
         <div class="llm-row">
           <label>Context size (tokens)</label>
-          <input type="number" id="srvCtx" placeholder="8192" min="256" max="131072">
+          <input type="number" id="srvCtx" placeholder="8192" min="256" max="131072" value="<?php echo htmlspecialchars($srvCtx); ?>">
         </div>
       </div>
 
@@ -182,7 +196,7 @@ if (!$isSuperAdmin) {
         <div class="llm-radio-group">
           <label>
             <input type="radio" name="srvConsole" value="persistent" checked>
-            Persistent (cmd window stays open)
+            Visible (cmd window stays open)
           </label>
           <label>
             <input type="radio" name="srvConsole" value="hidden">
@@ -206,23 +220,23 @@ if (!$isSuperAdmin) {
       <div class="llm-row">
         <label>API URL (OpenAI-compatible)</label>
         <input type="text" id="llmUrl"
-               placeholder="http://localhost:8081/v1/chat/completions">
+               placeholder="http://localhost:8081/v1/chat/completions" value="<?php echo htmlspecialchars($llmUrl); ?>">
       </div>
 
       <div class="llm-row-inline">
         <div class="llm-row">
           <label>Model name</label>
-          <input type="text" id="llmModel" placeholder="local-model">
+          <input type="text" id="llmModel" placeholder="local-model" value="<?php echo htmlspecialchars($llmModel); ?>">
         </div>
         <div class="llm-row">
           <label>Max tokens</label>
-          <input type="number" id="llmMaxTokens" placeholder="4096" min="100" max="32000">
+          <input type="number" id="llmMaxTokens" placeholder="4096" min="100" max="32000" value="<?php echo htmlspecialchars($llmMaxTokens); ?>">
         </div>
       </div>
 
       <div class="llm-row">
         <label>Bearer token / API key (optional)</label>
-        <input type="password" id="llmBearer" placeholder="sk-… or leave blank">
+        <input type="password" id="llmBearer" placeholder="sk-… or leave blank" value="<?php echo htmlspecialchars($llmBearer); ?>">
       </div>
 
       <div class="llm-actions">
@@ -248,32 +262,6 @@ if (!$isSuperAdmin) {
 </div><!-- container -->
 
 <script>
-// ── Load config on page load ─────────────────────────────────────────────────
-async function loadConfig() {
-  try {
-    const res = await fetch('llmSettings.php', { cache: 'no-store' });
-    const cfg = await res.json();
-
-    const srv = cfg.server || {};
-    document.getElementById('srvExe').value  = srv.exe   || '';
-    document.getElementById('srvGguf').value = srv.gguf  || '';
-    document.getElementById('srvPort').value = srv.port  || 8081;
-    document.getElementById('srvCtx').value  = srv.ctx   || 8192;
-    const mode = srv.console || 'persistent';
-    const radio = document.querySelector('input[name="srvConsole"][value="' + mode + '"]');
-    if (radio) radio.checked = true;
-
-    const llm = cfg.llm || {};
-    document.getElementById('llmUrl').value       = llm.url        || '';
-    document.getElementById('llmModel').value     = llm.model      || '';
-    document.getElementById('llmMaxTokens').value = llm.max_tokens || 4096;
-    document.getElementById('llmBearer').value    = llm.bearer     || '';
-
-  } catch (e) {
-    setStatus('saveStatus', 'Could not load config: ' + e.message, 'err');
-  }
-}
-
 // ── Launch llama-server.exe ──────────────────────────────────────────────────
 async function launchServer() {
   const btn = document.getElementById('launchBtn');
@@ -412,7 +400,6 @@ function escHtml(s) {
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-loadConfig();
 </script>
 </body>
 </html>

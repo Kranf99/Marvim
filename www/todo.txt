@@ -1,7 +1,5 @@
 Todo:
 =====
-* Global search bar to search simultaneously inside reports, storage,
-  workflows, Glossary (and Tasks).
 * Finalize the Anatella API to populate Marvin Automatically.
   Currently, you can already use Anatella's reflection boxes to write directly
   the required data inside MarvinDB.sqlite but we intend to provide a more
@@ -20,6 +18,8 @@ Todo:
 
 Done:
 =====
+* Global search bar to search simultaneously inside reports, storage,
+  workflows, Glossary (and Tasks).
 * update activity table with all the changes
 * check: accept/reject changes
 * accept/reject changes for status buttons
