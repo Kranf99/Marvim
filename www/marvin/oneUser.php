@@ -22,9 +22,9 @@ if ($idUser == 0)
 
 $db = new SQLite3('../../db/MarvinDB.sqlite', SQLITE3_OPEN_READONLY);
 $db->busyTimeout(5000);
-$isAdmin = (bool) $db->querySingle('SELECT 1 FROM userDepartmentRights WHERE idUser='.$myid.' AND rights>=8 LIMIT 1');
+$myRights = (int) $db->querySingle('SELECT MAX(rights) FROM userDepartmentRights WHERE idUser='.$myid.' LIMIT 1');
 
-if (!$isSuperAdmin && !$isAdmin && $idUser != $myid)
+if (!$isSuperAdmin && ($myRights<8) && $idUser != $myid)
 {
     echo '<div class="specialcontent"><p>Access denied: You are not admin in any department.</p></div>';
     die;

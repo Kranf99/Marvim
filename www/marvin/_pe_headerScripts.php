@@ -29,11 +29,13 @@ async function handleStatusClick(event)
 }
 
 var editing=true;
+var _llmHasData = false;
 function enableDisableEdit(b) 
 {
   const menubar = document.querySelector('.tox-editor-header');
   const statusbar = document.querySelector('.tox-statusbar');
   const radios = document.querySelectorAll('.toxradio');
+  var llmbtn = document.getElementById('llm-autocomplete-btn');
   var eMain=hugerte.get('editorMain');
   if (editing) 
   {
@@ -60,6 +62,7 @@ function enableDisableEdit(b)
       editables[i].style.display="none";
     for (i=0; i<radios.length; i++) 
       radios[i].disabled = true;
+    if (llmbtn&&_llmHasData)      llmbtn.style.display = 'none';
   } else 
   {
     if (menubar) menubar.style.display = '';
@@ -84,6 +87,7 @@ function enableDisableEdit(b)
 
     for (i=0; i<radios.length; i++) 
       radios[i].disabled = false;
+    if (llmbtn) llmbtn.style.display = 'inline-block';
   }
   editing=!editing;
 }

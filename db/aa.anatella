@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ANATELLA version='4.18'>
-<GlobalParameters wDirLoc='1' dataDirWrite='F:/soft/_Marvin/db'>
+<ANATELLA version='4.24'>
+<GlobalParameters wDirLoc='1' dataDirWrite='F:/soft/_Marvin/db' fileParameterDir='F:/soft/_Marvin/db'>
 </GlobalParameters>
-<WorkingSpace zoom='1.5' x='-769' y='24'>AAAA/wAAAAD9AAAAAgAAAAEAAAEPAAABCPwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABeAAABCAAAAHgA////AAAAAwAABUMAAAHQ/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAMbAAADGwD////8AAADIQAAAiIAAAIiAP////oAAAABAQAAAAL7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAhQD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAACIgD///8AAAQuAAABCAAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA7L/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABOr/////AAAAAAAAAAA=</WorkingSpace>
+<WorkingSpace zoom='1.5' y='24'>AAAA/wAAAAD9AAAAAgAAAAEAAAEPAAAB6vwCAAAAAfsAAAAcAEEAbABsAEEAYwB0AGkAbwBuAHMARABvAGMAawEAAABeAAAB6gAAAHgA////AAAAAwAACIEAAAHQ/AEAAAAC+wAAACgAQQBjAHQAaQBvAG4AUAByAG8AcABlAHIAdABpAGUAcwBEAG8AYwBrAQAAAAAAAAMbAAADGwD////8AAADIQAABWAAAAIiAP////oAAAABAQAAAAL7AAAADgBMAG8AZwBEAG8AYwBrAQAAAAD/////AAAAhQD////7AAAAGgBEAGEAdABhAFQAYQBiAGwAZQBEAG8AYwBrAQAAAAD/////AAACIgD///8AAAdsAAAB6gAAAAQAAAAEAAAACAAAAAj8AAAAAQAAAAIAAAADAAAAFgBtAGEAaQBuAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAAAAAAAAAABYAdABlAHgAdABUAG8AbwBsAEIAYQByAQAAA7L/////AAAAAAAAAAAAAAAeAGcAcgBvAHUAcABCAG8AeABUAG8AbwBsAEIAYQByAQAABr7/////AAAAAAAAAAA=</WorkingSpace>
 <ACTIONS>
 <readSQLite keyHD='177681201216552641' module='DBConnectors' idx='1' x='-336' y='108' fileName=':/MarvinDB.sqlite' spatialite='0'>
 <sql>
@@ -21,6 +21,19 @@ select * from columns
 <readSQLite keyHD='177814940616416686' module='DBConnectors' idx='5' x='-24' y='12' fileName=':/MarvinDB.sqlite' spatialite='0'>
 <sql>
 select * from Columns
+</sql>
+</readSQLite>
+<readSQLite keyHD='178482877020564610' module='DBConnectors' idx='6' x='-192' y='216' fileName=':/MarvinDB.sqlite' spatialite='0'>
+<sql>
+SELECT a.*, ud.rights as rights, a.superadmin from dbu.Users a LEFT JOIN userDepartmentRights ud ON ud.idUser=a.id WHERE a.deleted=0 AND (a.superadmin=1 OR (1=1 and COALESCE(ud.rights,16)>=8)) ORDER BY name ASC, id ASC, rights DESC
+</sql>
+<attach>
+  <db f=':/MarvinUsers.sqlite' a='dbu'/>
+</attach>
+</readSQLite>
+<readSQLite keyHD='178482880520564138' module='DBConnectors' idx='7' x='-408' y='216' fileName=':/MarvinDB.sqlite' spatialite='0'>
+<sql>
+SELECT * from userDepartmentRights
 </sql>
 </readSQLite>
 </ACTIONS>

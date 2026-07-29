@@ -2,3 +2,15 @@ www/marvin/hugeRTE/
 www/marvin/Avatar/cron.log
 www/marvin/Avatar/cron_daemon.pid
 www/marvin/.claude/
+*.anatella_bak01
+*.anatella_bak02
+*.anatella_bak03
+*.anatella_bak04
+*.anatella_bak05
+*.anatella_bak06
+*.anatella_bak07
+*.anatella_bak08
+*.anatella_bak09
+*.anatella_bak10
+*.sqlite-shm
+*.sqlite-wal

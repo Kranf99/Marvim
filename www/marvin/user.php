@@ -131,7 +131,7 @@ $sql='SELECT a.*, ud.rights as rights, a.superadmin from dbu.Users a '.
     'LEFT JOIN userDepartmentRights ud ON ud.idUser=a.id WHERE a.deleted=0 AND (a.superadmin=1 OR (1=1';
 // if ($isSuperAdmin)
 // {
-    if ($idUserRight>0) $sql.=' and COALESCE(ud.rights,16)>='.$idUserRight;
+    if ($idUserRight>0) $sql.=' and COALESCE(ud.rights,0)>='.$idUserRight;
     if ($idDpt>0) $sql.=' and ud.idDepartment='.$idDpt;
     $sql.='))';
 // } else
@@ -198,7 +198,7 @@ while(1)
         if ($uright==8) echo '&#9889; ';
         else if ($uright==4) echo '&#10133;	';
         else if ($uright==2) echo '&#9998; ';
-        else echo '&#128065; ';
+        else if ($uright==1) echo '&#128065; ';
     }
     echo htmlspecialchars($row['name']).'</div>'.
             '</a></div>'."\n";

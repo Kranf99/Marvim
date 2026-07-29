@@ -27,7 +27,6 @@ function enableDisableEdit2(a)
         for (i=0; i<editables.length; i++)
             editables[i].style.display="none";
     }
-    if (typeof _updateAutoCompleteBtn === 'function') _updateAutoCompleteBtn();
 }
 </script>
 </head>
@@ -148,7 +147,7 @@ echo '<div class="status-buttons" data-columnname="status" data-tablename="Asset
             
     <div class="edit-field edit-field--stacked">
    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;"><label>Long Description</label>
- <button id="llm-autocomplete-btn" onclick="llmAutoComplete()"
+ <button id="llm-autocomplete-btn" onclick="llmAutoCompleteWorkflow()"
         style="display:none;padding:3px 12px;border:1px solid #10B981;border-radius:5px;
             background:#D1FAE5;color:#065F46;font-size:12px;font-weight:600;cursor:pointer;
             white-space:nowrap;line-height:1.6;">&#10024; Auto Complete</button>
@@ -323,7 +322,8 @@ if ((isset($_REQUEST['advEdit']))||($newAsset))
   echo 'enableDisableEdit(document.getElementById("enableDisableButton")); '.
        'enableAdvEdit(document.getElementById("advEditButton"));';
 }
-require 'lineage/lineageScript.js'; 
+require 'lineage/llmCommon.js';
+require 'lineage/llmWorkFlow.js';
 ?>
 </script>
 </body>

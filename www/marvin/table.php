@@ -41,6 +41,7 @@ function enableDisableEdit2(a)
         }
     }
 }
+var columns = []; // for the LLM
 </script>
 </head>
 <body>
@@ -185,7 +186,13 @@ echo '<div class="status-buttons" data-columnname="status" data-tablename="Asset
     </div>
             
     <div class="edit-field edit-field--stacked">
-        <label>Long Description</label>
+   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;"><label>Long Description</label>
+ <button id="llm-autocomplete-btn" onclick="llmAutoCompleteTable()"
+        style="display:none;padding:3px 12px;border:1px solid #10B981;border-radius:5px;
+            background:#D1FAE5;color:#065F46;font-size:12px;font-weight:600;cursor:pointer;
+            white-space:nowrap;line-height:1.6;">&#10024; Auto Complete</button>
+            <span id="llm-autocomplete-status" style="font-size:12px;color:#64748b;"></span>
+</div>
 <?php
 echo '<textarea id="editorMain" rows="1" data-columnname="longDescription" data-tablename="Assets" data-id="'.
     $idAsset.'">'.$rowAsset['longDescription_new'].'</textarea></div>';
@@ -302,7 +309,7 @@ for($i=0;$i<count($array_rows);$i++)
             '" data-columnname2="name" data-tablename="Columns">'.($row['name']).
             '</div></div></td><td><div class="editable" data-id="'.$row['id'].
             '" data-columnname="shortDescription" data-tablename="Columns">'.
-        	($row['shortDescription']).' </div></td><td style="text-align: center;"><div class="statusEdit" data-id="'.$row['id'].
+        	($row['shortDescription_new']).' </div></td><td style="text-align: center;"><div class="statusEdit" data-id="'.$row['id'].
             '" data-status="'.$row['status'].'" data-tablename="Columns">'.
             getStatusDisplay($row['status']).'</div></td><td style="width: 80px;"><div class="popularity-bar">'.
             '<div class="popularity-fill" style="width: '.$row['popularity'].
@@ -311,6 +318,10 @@ for($i=0;$i<count($array_rows);$i++)
     if ($row['liketype']==1) echo '<img src="ressources/like.svg" height="15px"/>';
     else  echo '<img src="ressources/nolike.svg" height="15px"/>';
     echo '</div></td><td>'.$row['completeness'].'</td><td>'.$row['cleanliness'].'</td></tr>'."\n";   
+
+    echo '<script>columns.push({name:'.json_encode($row['name_new']).',type:'.
+            json_encode($row['datatype']).',description:'.
+            json_encode($row['shortDescription_new']).'});</script>';
 }
 $results->finalize();
 ?>
@@ -363,22 +374,8 @@ if ((isset($_REQUEST['advEdit']))||($newAsset))
   echo 'enableDisableEdit(document.getElementById("enableDisableButton")); '.
        'enableAdvEdit(document.getElementById("advEditButton"));';
 }
+require 'lineage/llmCommon.js'; 
+require 'lineage/llmTable.js';
 ?>
-// for lineage:
-// ── Lineage iframe navigation (click on a .anatella script node in the graph) ──
-window.addEventListener('message', async function(ev) {
-  if (!ev.data || ev.data.type !== 'lineage-navigate' || !ev.data.path) return;
-  try {
-    var r = await fetch('lineage/find_asset.php?path=' + encodeURIComponent(ev.data.path), {cache:'no-store'});
-    var d = await r.json();
-    if (d && d.id) {
-      window.location.href = 'oneWorkflow.php?idasset=' + d.id;
-    } else {
-      alert('This script is not registered as a Marvin asset yet: ' + ev.data.path);
-    }
-  } catch (e) {
-    alert('Could not navigate to script: ' + e.message);
-  }
-});
 </script>
 </body>

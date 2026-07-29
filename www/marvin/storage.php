@@ -112,8 +112,6 @@ if ($dt!="")
 <?php } ?>
                     <!-- History -->
                     <div class="history-section" style="overflow-x: auto;">
-
-                        
 <?php
 if ($dt=="") echo '<h2>All Schemas, Tables and Views</h2>';
 

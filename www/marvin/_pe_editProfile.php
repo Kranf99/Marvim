@@ -63,6 +63,23 @@ echo '<input type="text" id="Name" name="name" value="' . htmlspecialchars($targ
     </div>
 </div>
 
+<?php if (($idUser== $myid)||($isSuperAdmin)) { ?>
+<div class="form-section">
+    <h3>API Token</h3>
+    <div class="form-grid">
+        <div class="form-group full-width">
+            <label for="apiToken">API Token</label>
+            <div class="password-input-wrapper" style="gap:8px;">
+                <input type="text" id="apiToken" value="***" readonly onclick="copyApiToken()" title="Click to copy" style="cursor:pointer; border-radius:6px; border-right:1px solid #d1d5db;">
+                <button type="button" class="password-toggle" id="apiTokenToggle" onclick="toggleApiToken()" style="border-radius:6px; border-left:1px solid #d1d5db;">Display API Key</button>
+                <button type="button" class="password-toggle" id="apiTokenReset" onclick="resetApiToken()" style="border-radius:6px; border-left:1px solid #d1d5db;">Generate New Key</button>
+            </div>
+            <span class="help-text" id="apiTokenHelp">Use this token to authenticate API requests as this user.</span>
+        </div>
+    </div>
+</div>
+<?php } ?>
+
 <div class="form-section">
 <?php if ($editPersonalPass){ ?>
     <h3>Set New Password</h3>
@@ -109,6 +126,66 @@ if ($isSuperAdmin||$editPersonalPass)
 </form>
 
 <script>
+let apiTokenRevealed = false;
+<?php
+if (($idUser==$myid)||($isSuperAdmin)) 
+    echo 'let apit= '.json_encode($targetUser['apitoken']).';';
+else
+    echo 'let apit= "";';
+?>
+function toggleApiToken() {
+    const field = document.getElementById('apiToken');
+    const btn = document.getElementById('apiTokenToggle');
+    if (apiTokenRevealed) {
+        field.value = '***';
+        btn.textContent = 'Display API Key';
+        apiTokenRevealed = false;
+        return;
+    }
+    field.value=apit;
+    btn.textContent = 'Hide API Key';
+    apiTokenRevealed = true;
+}
+
+function copyApiToken() {
+    if (!apit) return;
+    navigator.clipboard.writeText(apit).then(function() {
+        const help = document.getElementById('apiTokenHelp');
+        const original = help.textContent;
+        const originalColor = help.style.color;
+        help.textContent = 'Copied to clipboard!';
+        help.style.color = 'red';
+        setTimeout(function() { help.textContent = original; help.style.color = originalColor; }, 1500);
+    }).catch(function(err) {
+        console.error('Failed to copy API token:', err);
+    });
+}
+
+async function resetApiToken() {
+    if (!confirm('Generate a new API key? The current key will stop working immediately.')) return;
+    try {
+        const response = await fetch('oneUserResetApiToken.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({iduser: <?php echo $idUser; ?>})
+        });
+        const result = await response.json();
+        if (result.error) {
+            alert(result.error);
+            return;
+        }
+        const field = document.getElementById('apiToken');
+        const btn = document.getElementById('apiTokenToggle');
+        apit = result.apitoken;
+        field.value = result.apitoken;
+        btn.textContent = 'Hide API Key';
+        apiTokenRevealed = true;
+    } catch (err) {
+        console.error('Failed to reset API token:', err);
+        alert('Failed to reset API token.');
+    }
+}
+
 function togglePassword(inputId) {
     const input = document.getElementById(inputId);
     input.type = input.type === 'password' ? 'text' : 'password';
