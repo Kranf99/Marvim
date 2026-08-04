@@ -1,0 +1,101 @@
+<i>#200# Unspecified Workflow Category</i>
+<i>#210# Ingestion &amp; Collection — Getting data into the system</i>
+<i>* (211) Data extraction — from databases, files (CSV, Excel, JSON, XML)</i>
+<i>* (212) Cloud REST API data collection</i>
+<i>* (213) Web scraping / crawling</i>
+<i>* (214) Real-time streaming / event capture (IoT, webhooks)</i>
+<i>* (215) File watching / folder monitoring (BPA)</i>
+<i>* (216) Other</i>
+<i>* (217) Change Data Capture (CDC)</i>
+<i>* (218) Scheduled Batch file ingestion</i>
+<i>#230# Storage &amp; Organization — Persisting and structuring raw data</i>
+<i>* (231) Data staging — raw landing zone, untouched</i>
+<i>* (232) Data archiving — long-term cold storage</i>
+<i>* (233) Data partitioning / indexing — for performance</i>
+<i>* (234) Computing Cleanliness &amp; Emptiness on Raw data for Marvin</i>
+<i>* (235) Other</i>
+<i>* (236) Data lake itself</i>
+<i>* (237) Data versioning</i>
+<i>* (238) schema management</i>
+<i>* (239) metadata extraction</i>
+<i>#250# Quality &amp; Governance — Ensuring data is trustworthy before use</i>
+<i>* (251) Data profiling — understanding distributions, nulls, anomalies</i>
+<i>* (252) Data validation — format checks, business rules, referential integrity</i>
+<i>* (253) Data cleaning — fixing nulls, typos, invalid values</i>
+<i>* (254) Data deduplication — identifying and removing duplicate records</i>
+<i>* (255) Data normalization / standardization — harmonizing formats, units, codes</i>
+<i>* (256) Data reconciliation — comparing source vs. target, or current vs. previous version</i>
+<i>* (257) Data masking / anonymization / tokenization — GDPR, privacy compliance</i>
+<i>* (258) Audit logging — tracking who changed what and when</i>
+<i>* (259) Computing Cleanliness &amp; Emptiness on Cleaned data for Marvin</i>
+<i>* (261) Other</i>
+<i>* (262) Compliance check (GDPR, retention policies)</i>
+<i>#280# Transformation &amp; Processing — Reshaping and combining data</i>
+<i>* (281) Computing Cleanliness &amp; Emptiness on Enriched data for Marvin</i>
+<i>* (282) Data enrichment — adding context via lookups, reference tables, external APIs</i>
+<i>* (283) Data aggregation — grouping, summing, pivoting, rolling windows</i>
+<i>* (284) Geospatial transformation — reprojection (GIS), Geocoding</i>
+<i>* (284) Data Consolidation — create customer view, process views, etc.</i>
+<i>* (286) Create analytical dataset for BI</i>
+<i>* (287) Create analytical dataset for ML</i>
+<i>* (288) Other</i>
+<i>* (289) Join/merges</i>
+<i>* (291) Filtering/row selection/column selection</i>
+<i>* (292) Column derivation (calculated field)</i>
+<i>#300# Business Logic &amp; Process Automation — Applying rules, decisions, and automated actions</i>
+<i>* (301) Business rule application — applying company-specific logic and conditions</i>
+<i>* (302) KPI computation — calculating metrics from prepared data</i>
+<i>* (303) KPI validation — verifying results against known references</i>
+<i>* (304) Refresh scores for BI</i>
+<i>* (305) Create Analytical Datasets for Data Viz</i>
+<i>* (306) Process automation — triggering actions, approvals, notifications (BPA)</i>
+<i>* (307) Document generation — producing reports, invoices, contracts (BPA)</i>
+<i>* (308) Computing Cleanliness &amp; Emptiness on KPI for Marvin</i>
+<i>* (309) Other</i>
+<i>* (311) Slowly Changing Dimension handling</i>
+<i>#320# Analytics &amp; Machine Learning — Deriving insight and predictions from data</i>
+<i>* (321) Exploratory data analysis (EDA) — profiling for modeling purposes</i>
+<i>* (322) Feature engineering 1— creating ML-ready variables</i>
+<i>* (323) Feature engineering 2— creating ML-ready variables</i>
+<i>* (324) Feature engineering 3— creating ML-ready variables</i>
+<i>* (325) Feature engineering 4— creating ML-ready variables (why there are 4 ?) Feature engineering and feature selection</i>
+<i>* (326) Create Analytical dataset for ML</i>
+<i>* (327) Model training — fitting a model (regression, classification, clustering, etc.)</i>
+<i>* (328) Model Drift evaluation — does the model holds over time ?</i>
+<i>* (329) Model Refresh — retraining a model when it’s obsolete</i>
+<i>* (331) Model scoring / inference — applying a trained model to new data to refresh scores</i>
+<i>* (332) Spatial analysis — buffer, proximity, overlay, heatmap (GIS)</i>
+<i>* (333) Computing Cleanliness &amp; Emptiness on ML data for Marvin</i>
+<i>* (334) Other</i>
+<i>* (335) Model explainability</i>
+<i>#350# Visualization &amp; Reporting — Making data understandable through charts</i>
+<i>* (351) Quick &amp; Dirty Data visualizations — charts, graphs, maps</i>
+<i>* (352) Client-facing Static Data reports — excel charts, powerpoint presentations, PDF</i>
+<i>* (353) Web Dashboard / report feeding — structuring output for Dataviz tools</i>
+<i>* (354) Map rendering / cartographic output (GIS)</i>
+<i>* (355) Statistical summary — descriptive stats, distributions</i>
+<i>* (355) Narrative generation — automated text from data (BPA / AI)</i>
+<i>* (357) Other</i>
+<i>* (358) Semantic model/data mart preparation</i>
+<i>#370# Distribution &amp; Delivery — Getting output to consumers</i>
+<i>* (371) Data export — to file (CSV, Excel, JSON, Gel, Shapefile)</i>
+<i>* (372) Exportation to Datalake</i>
+<i>* (373) Exportation to DatlaWarehouse</i>
+<i>* (374) Exportation to Operational System</i>
+<i>* (375) Data publishing — to BI tools, APIs, databases</i>
+<i>* (376) Data replication / synchronization — keeping systems in sync</i>
+<i>* (377) API exposure — serving data via an endpoint</i>
+<i>* (378) Notification &amp; messaging — email, Slack, SMS triggered by workflow (BPA)</i>
+<i>* (379) Publishing Success rates of exportation to Marvin</i>
+<i>* (381) Other</i>
+<i>* (382) Reverse ETL – back to operational system</i>
+<i>#400# Orchestration &amp; Operations — Managing workflow execution and reliability</i>
+<i>* (401) Scheduling / triggering — cron, event-based, dependency-based</i>
+<i>* (402) Pipeline monitoring — tracking run status, duration, row counts</i>
+<i>* (403) Error handling / retry logic — managing failures gracefully</i>
+<i>* (404) Data lineage tracking — documenting data origin and transformations</i>
+<i>* (405) Performance optimization — query tuning, caching, parallelism</i>
+<i>* (405) Publishing metadata to Marvin  </i>
+<i>* (407) Other</i>
+<i>* (408) Version control integration</i>
+<i>* (409) CI/CD for pipelines (DEV, UAT, PROD)</i>

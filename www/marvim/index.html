@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Marvim - Login</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Palette lifted straight from marvim.svg's own gradients, so the
+       logo and the chrome around it are provably the same blue family. */
+    --ink: #04436c;
+    --blue: #00ade6;
+    --cyan: #17ecff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--ink) 0%, var(--blue) 65%, var(--cyan) 130%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-container {
+    position: relative;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(4, 67, 108, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+    width: 100%;
+    max-width: 400px;
+    backdrop-filter: blur(10px);
+}
+
+.logo-glow {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(23, 236, 255, 0.35) 0%, rgba(0, 173, 230, 0) 70%);
+    pointer-events: none;
+}
+
+h2 {
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0, 173, 230, 0.12);
+}
+
+.submit-container {
+    margin-top: 30px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--ink) 0%, var(--blue) 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 173, 230, 0.3);
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, var(--ink) 0%, var(--cyan) 100%);
+    box-shadow: 0 6px 20px rgba(0, 173, 230, 0.45);
+}
+
+input[type="submit"]:active {
+    transform: translateY(0);
+}
+
+.decorative-circle {
+    position: fixed;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(23, 236, 255, 0.18), rgba(255, 255, 255, 0.06));
+    pointer-events: none;
+}
+
+.circle-1 {
+    width: 300px;
+    height: 300px;
+    top: -150px;
+    right: -150px;
+}
+
+.circle-2 {
+    width: 200px;
+    height: 200px;
+    bottom: -100px;
+    left: -100px;
+}
+</style>
+</head>
+<body>
+<div class="decorative-circle circle-1"></div>
+<div class="decorative-circle circle-2"></div>
+
+<div class="login-container">
+    <div class="logo-glow"></div>
+    <img style="display: block; margin: 0 auto 10px auto; margin-top:-20px; position: relative;" src="ressources/marvim.svg" height="100px"/>
+    <h2>Marvim Login</h2>
+    <form action="dologin.php" method="post">
+        <div class="form-group">
+            <label for="login">E-Mail</label>
+            <input type="text" id="login" name="login" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        
+        <div class="submit-container">
+            <input type="submit" value="Log In">
+        </div>
+    </form>
+</div>
+</body>
+</html>

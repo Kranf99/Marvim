@@ -1,7 +1,8 @@
-www/marvin/hugeRTE/
-www/marvin/Avatar/cron.log
-www/marvin/Avatar/cron_daemon.pid
-www/marvin/.claude/
+www/marvim/hugeRTE/
+www/marvim/Avatar/cron.log
+www/marvim/Avatar/cron_daemon.pid
+www/marvim/.claude/
+www/marvim/lineage/anatella/
 *.anatella_bak01
 *.anatella_bak02
 *.anatella_bak03
