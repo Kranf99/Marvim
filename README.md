@@ -8,6 +8,9 @@
 
 Data Documentation, Governance & Lineage Solution - **Automated**, Agnostic
 
+Demo on Youtube here (in French):
+https://www.youtube.com/watch?v=r2OHaXUbltQ
+
 -- **work in progress**
 
 <hr>
