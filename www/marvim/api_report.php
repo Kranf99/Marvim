@@ -34,28 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') sendError(405, 'Only POST is supporte
 
 // --- Authenticate via "Authorization: Bearer <token>" ---
 $authHeader = '';
-if (function_exists('getallheaders'))
-{
-    foreach (getallheaders() as $k => $v)
-        if (strcasecmp($k, 'Authorization') === 0) { $authHeader = $v; break; }
-}
-if ($authHeader === '' && isset($_SERVER['HTTP_AUTHORIZATION'])) $authHeader = $_SERVER['HTTP_AUTHORIZATION'];
-if ($authHeader === '' && isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) $authHeader = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
-
-$authHeader = trim($authHeader);
-$token = '';
-if (strcasecmp(substr($authHeader, 0, 7), 'Bearer ') === 0) $token = trim(substr($authHeader, 7));
-if ($token === '') sendError(401, 'Missing or malformed Authorization: Bearer header.');
-
-$dbu = new SQLite3(__DIR__.'/../../db/MarvimUsers.sqlite', SQLITE3_OPEN_READONLY);
-$dbu->busyTimeout(5000);
-$stmt = $dbu->prepare('SELECT id, superadmin FROM users WHERE apitoken=:tok AND (deleted IS NULL OR deleted=0)');
-$stmt->bindValue(':tok', $token);
-$userRow = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
-$dbu->close();
-if (!$userRow) sendError(401, 'Invalid Authorization Token.');
-$myid = (int)$userRow['id'];
-$isSuperAdmin = ($userRow['superadmin'] == 1);
+require __DIR__.'/_pe_checkBearerToken.php';
 
 // --- Parse and validate the JSON payload ---
 $payload = json_decode(file_get_contents('php://input'), true);

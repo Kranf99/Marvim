@@ -1,5 +1,20 @@
 <?php
-require '_pe_apiAuth.php';
+// --- Authentication ---
+// If an "Authorization" header is present, authenticate via Bearer token (same as
+// api_report.php). Otherwise, fall back to the regular session-based authentication.
+$authHeader = '';
+if (function_exists('getallheaders'))
+{
+    foreach (getallheaders() as $k => $v)
+        if (strcasecmp($k, 'Authorization') === 0) { $authHeader = $v; break; }
+}
+if ($authHeader === '' && isset($_SERVER['HTTP_AUTHORIZATION'])) $authHeader = $_SERVER['HTTP_AUTHORIZATION'];
+if ($authHeader === '' && isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) $authHeader = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+$authHeader=trim($authHeader);
+if ($authHeader === '')
+    require __DIR__.'/_pe_apiAuth.php';
+else
+    require __DIR__.'/_pe_checkBearerToken.php';
 
 $q = isset($_REQUEST['q']) ? trim($_REQUEST['q']) : '';
 if ($q === '') {
