@@ -12,7 +12,7 @@ if ($authHeader === '' && isset($_SERVER['HTTP_AUTHORIZATION'])) $authHeader = $
 if ($authHeader === '' && isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) $authHeader = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
 $authHeader=trim($authHeader);
 if ($authHeader === '')
-    require __DIR__.'/_pe_apiAuth.php';
+    require __DIR__.'/_pe_checkSessionApi.php';
 else
     require __DIR__.'/_pe_checkBearerToken.php';
 

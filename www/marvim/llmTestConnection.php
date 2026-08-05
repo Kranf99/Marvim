@@ -1,5 +1,5 @@
 <?php
-require '_pe_apiAuth.php';
+require '_pe_checkSessionApi.php';
 
 if (!$isSuperAdmin) {
 	echo '{"ok":false,"error":"Access denied — super-admin only."}';

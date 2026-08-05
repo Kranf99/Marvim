@@ -4,7 +4,7 @@
 // saves it (super-admin only). Both read/write the llmSettings table of
 // MarvimDB.sqlite. JSON output on every code path (no HTML redirects, so the
 // client always gets JSON).
-require '_pe_apiAuth.php';
+require '_pe_checkSessionApi.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $db = new SQLite3(__DIR__ . '/../../db/MarvimDB.sqlite', SQLITE3_OPEN_READONLY);

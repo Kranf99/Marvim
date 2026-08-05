@@ -1,5 +1,5 @@
 <?php
-require '_pe_apiAuth.php';
+require '_pe_checkSessionApi.php';
 
 $q = isset($_REQUEST['q']) ? trim($_REQUEST['q']) : '';
 if ($q === '') {

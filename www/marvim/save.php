@@ -1,5 +1,5 @@
 <?php
-require '_pe_apiAuth.php';
+require '_pe_checkSessionApi.php';
 
 // ── init ─────────────────────────────────────────────────────────
 

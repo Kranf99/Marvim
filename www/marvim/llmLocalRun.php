@@ -1,5 +1,5 @@
 <?php
-require '_pe_apiAuth.php'; 
+require '_pe_checkSessionApi.php';
 
 $raw = file_get_contents('php://input');
 $req = json_decode($raw, true);
