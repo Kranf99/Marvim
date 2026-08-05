@@ -6,7 +6,13 @@
   <br clear="left" />
 </p>
 
-Data Documentation, Governance & Lineage Solution - **Automated**, Agnostic
+Data Documentation, Governance & Lineage Solution - **Automated**, Agnostic, Standalone
+
+Marvim is an Acronym that stands for: **M**aster, **A**utomated, **R**epository for **V**isual **I**ntelligent **M**etadata management
+
+Marvim is Self-documenting, when used in combination with Anatella/TIMi (this is a totally optional combination).
+
+Marvim is Standalone: it does not rely on any third-party component or technology.
 
 Demo on Youtube here (in French):
 https://www.youtube.com/watch?v=r2OHaXUbltQ
