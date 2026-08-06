@@ -9,6 +9,9 @@
  * 2=anatellaRun). workflowIO is relationship-only; LineageIO carries the
  * extractor's per-node detail (nodeID, actionTag, isDbQuery, source,
  * extractedAt) and can have several rows per workflowIO relationship.
+ *
+ * This endpoint is read-only, so the database is opened directly through the
+ * SQLite3 class in SQLITE3_OPEN_READONLY mode (no PDO, no write access).
  */
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
@@ -16,11 +19,84 @@ header('Access-Control-Allow-Origin: *');
 require_once __DIR__ . '/lineage_store.php';
 
 try {
-    $pdo = lin_marvimPdo();
+    $db = new SQLite3(lin_marvimDbPath(), SQLITE3_OPEN_READONLY);
+    $db->busyTimeout(5000);
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode(array('error' => 'Cannot open database: ' . $e->getMessage()));
     exit;
+}
+
+// ─── SQLite3 helpers (mirror the PDO prepare/execute/fetch* shapes we used) ──
+
+/** Bind a 0-indexed params array onto a prepared SQLite3Stmt (1-based positions). */
+function lapi_bind($stmt, $params) {
+    $i = 1;
+    foreach ($params as $p) {
+        if (is_int($p))            $type = SQLITE3_INTEGER;
+        elseif (is_float($p))      $type = SQLITE3_FLOAT;
+        elseif ($p === null)       $type = SQLITE3_NULL;
+        else                       $type = SQLITE3_TEXT;
+        $stmt->bindValue($i, $p, $type);
+        $i++;
+    }
+}
+
+/** Prepare a statement once (for reuse across a loop of executions). */
+function lapi_prep($db, $sql) {
+    $stmt = $db->prepare($sql);
+    if ($stmt === false) throw new Exception('Prepare failed: ' . $db->lastErrorMsg());
+    return $stmt;
+}
+
+/** Run a one-off parameterized query, returning the SQLite3Result. */
+function lapi_exec($db, $sql, $params = array()) {
+    $stmt = lapi_prep($db, $sql);
+    lapi_bind($stmt, $params);
+    $result = $stmt->execute();
+    if ($result === false) throw new Exception('Query failed: ' . $db->lastErrorMsg());
+    return $result;
+}
+
+/** Re-execute an already-prepared statement with fresh params; all rows, first column only. */
+function lapi_execCol($stmt, $params) {
+    $stmt->reset();
+    lapi_bind($stmt, $params);
+    $result = $stmt->execute();
+    if ($result === false) throw new Exception('Query failed');
+    $out = array();
+    while (($row = $result->fetchArray(SQLITE3_NUM)) !== false) $out[] = $row[0];
+    return $out;
+}
+
+/** All rows of a one-off query, as associative arrays. */
+function lapi_all($db, $sql, $params = array()) {
+    $result = lapi_exec($db, $sql, $params);
+    $rows = array();
+    while (($row = $result->fetchArray(SQLITE3_ASSOC)) !== false) $rows[] = $row;
+    return $rows;
+}
+
+/** First row of a one-off query, as an associative array, or null. */
+function lapi_row($db, $sql, $params = array()) {
+    $result = lapi_exec($db, $sql, $params);
+    $row = $result->fetchArray(SQLITE3_ASSOC);
+    return $row === false ? null : $row;
+}
+
+/** All values of the first column of a one-off query. */
+function lapi_col($db, $sql, $params = array()) {
+    $result = lapi_exec($db, $sql, $params);
+    $out = array();
+    while (($row = $result->fetchArray(SQLITE3_NUM)) !== false) $out[] = $row[0];
+    return $out;
+}
+
+/** First value of the first column of a one-off query, or false if no row. */
+function lapi_scalar($db, $sql, $params = array()) {
+    $result = lapi_exec($db, $sql, $params);
+    $row = $result->fetchArray(SQLITE3_NUM);
+    return $row === false ? false : $row[0];
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -40,53 +116,43 @@ function lapi_display($row) {
 }
 
 /** Fetch one asset row (id → display fields). */
-function lapi_asset($pdo, $id) {
+function lapi_asset($db, $id) {
     static $cache = array();
     if (isset($cache[$id])) return $cache[$id];
-    $stmt = $pdo->prepare('SELECT id, category, subCategory, "schema", name FROM Assets WHERE id=? LIMIT 1');
-    $stmt->execute(array($id));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $row = lapi_row($db, 'SELECT id, category, subCategory, "schema", name FROM Assets WHERE id=? LIMIT 1', array((int)$id));
     $cache[$id] = $row ? $row : null;
     return $cache[$id];
 }
 
-function lapi_displayOfId($pdo, $id) {
-    $row = lapi_asset($pdo, $id);
+function lapi_displayOfId($db, $id) {
+    $row = lapi_asset($db, $id);
     return $row ? lapi_display($row) : ('#' . $id);
 }
 
 /** Resolve a path string to a script asset (category >= 200). Returns [id, display] or [null, path]. */
-function lapi_resolveScript($pdo, $script) {
+function lapi_resolveScript($db, $script) {
     $fwd = collapseDots(str_replace('\\', '/', $script));
     list($dir, $file) = lin_splitPath($fwd);
-    $stmt = $pdo->prepare('SELECT id, category, subCategory, "schema", name FROM Assets
+    $row = lapi_row($db, 'SELECT id, category, subCategory, "schema", name FROM Assets
                            WHERE schema=? COLLATE NOCASE AND name=? COLLATE NOCASE
-                             AND category>=200 AND isCurrentValue=1 LIMIT 1');
-    $stmt->execute(array($dir, $file));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                             AND category>=200 AND isCurrentValue=1 LIMIT 1', array($dir, $file));
     if (!$row) {
-        $stmt = $pdo->prepare('SELECT id, category, subCategory, "schema", name FROM Assets
-                               WHERE name=? COLLATE NOCASE AND category>=200 AND isCurrentValue=1 LIMIT 1');
-        $stmt->execute(array($file));
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = lapi_row($db, 'SELECT id, category, subCategory, "schema", name FROM Assets
+                               WHERE name=? COLLATE NOCASE AND category>=200 AND isCurrentValue=1 LIMIT 1', array($file));
     }
     if (!$row) return array(null, $fwd);
     return array((int)$row['id'], lapi_display($row));
 }
 
 /** Resolve a path string to any asset. Returns [id, display] or [null, path]. */
-function lapi_resolveFile($pdo, $file) {
+function lapi_resolveFile($db, $file) {
     $fwd = collapseDots(str_replace('\\', '/', $file));
     list($dir, $nm) = lin_splitPath($fwd);
-    $stmt = $pdo->prepare('SELECT id, category, subCategory, "schema", name FROM Assets
-                           WHERE schema=? COLLATE NOCASE AND name=? COLLATE NOCASE AND isCurrentValue=1 LIMIT 1');
-    $stmt->execute(array($dir, $nm));
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $row = lapi_row($db, 'SELECT id, category, subCategory, "schema", name FROM Assets
+                           WHERE schema=? COLLATE NOCASE AND name=? COLLATE NOCASE AND isCurrentValue=1 LIMIT 1', array($dir, $nm));
     if (!$row) {
-        $stmt = $pdo->prepare('SELECT id, category, subCategory, "schema", name FROM Assets
-                               WHERE name=? COLLATE NOCASE AND isCurrentValue=1 LIMIT 1');
-        $stmt->execute(array($nm));
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = lapi_row($db, 'SELECT id, category, subCategory, "schema", name FROM Assets
+                               WHERE name=? COLLATE NOCASE AND isCurrentValue=1 LIMIT 1', array($nm));
     }
     if (!$row) return array(null, $fwd);
     return array((int)$row['id'], lapi_display($row));
@@ -108,16 +174,14 @@ function lapi_dbQueryExists($wfIdCol, $want) {
 }
 
 /** IO asset lists of one workflow: array of [idIO, display] per direction. */
-function lapi_ioOf($pdo, $wfId, $isInput, $dbQuery = null) {
+function lapi_ioOf($db, $wfId, $isInput, $dbQuery = null) {
     $sql = 'SELECT DISTINCT a.id, a.category, a.subCategory, a."schema", a.name
             FROM workflowIO wf JOIN Assets a ON a.id = wf.idIO
             WHERE wf.idWorkflow=? AND wf.isInput=?';
     if ($dbQuery !== null) $sql .= ' AND ' . lapi_dbQueryExists('wf.id', $dbQuery);
     $sql .= ' ORDER BY a."schema", a.name';
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array($wfId, $isInput));
     $out = array();
-    foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $r) {
+    foreach (lapi_all($db, $sql, array((int)$wfId, (int)$isInput)) as $r) {
         $out[] = array('id' => (int)$r['id'], 'display' => lapi_display($r));
     }
     return $out;
@@ -128,11 +192,10 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
 try {
 switch ($action) {
     case 'datamarts':
-        $stmt = $pdo->query(
+        echo json_encode(lapi_all($db,
             'SELECT id, company, client, project, datamart, root_dir, repo_name
              FROM DatamartProjects ORDER BY company, client, project, datamart'
-        );
-        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+        ));
         break;
 
     case 'destinations':
@@ -150,20 +213,19 @@ switch ($action) {
             $params[] = $root;
             $params[] = $root . '/%';
         }
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute($params);
         $rows = array();
-        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $r) $rows[] = lapi_display($r);
+        foreach (lapi_all($db, $sql, $params) as $r) $rows[] = lapi_display($r);
         sort($rows, SORT_FLAG_CASE | SORT_STRING);
         echo json_encode(array_values(array_unique($rows)));
         break;
 
     case 'scripts':
         $rows = array();
-        $q = $pdo->query('SELECT a.id, a.category, a.subCategory, a."schema", a.name
-                          FROM Assets a JOIN WorkflowMeta w ON w.idAsset=a.id
-                          WHERE a.isCurrentValue=1 ORDER BY a."schema", a.name');
-        foreach ($q->fetchAll(PDO::FETCH_ASSOC) as $r) $rows[] = lapi_display($r);
+        foreach (lapi_all($db, 'SELECT a.id, a.category, a.subCategory, a."schema", a.name
+                                FROM Assets a JOIN WorkflowMeta w ON w.idAsset=a.id
+                                WHERE a.isCurrentValue=1 ORDER BY a."schema", a.name') as $r) {
+            $rows[] = lapi_display($r);
+        }
         echo json_encode($rows);
         break;
 
@@ -174,7 +236,7 @@ switch ($action) {
             echo json_encode(array('error' => 'Missing script parameter'));
             exit;
         }
-        list($fid, $resolved) = lapi_resolveScript($pdo, $script);
+        list($fid, $resolved) = lapi_resolveScript($db, $script);
         $depth = isset($_GET['depth']) ? $_GET['depth'] : 'direct';
 
         $depRows = array(); $rel_before = array(); $rel_after = array();
@@ -182,9 +244,9 @@ switch ($action) {
         $calledScripts = array();
 
         if ($fid !== null) {
-            $inputs  = lapi_ioOf($pdo, $fid, 1, 0);
-            $outputs = lapi_ioOf($pdo, $fid, 0);
-            foreach (lapi_ioOf($pdo, $fid, 1, 1) as $d) $dbIns[] = $d['display'];
+            $inputs  = lapi_ioOf($db, $fid, 1, 0);
+            $outputs = lapi_ioOf($db, $fid, 0);
+            foreach (lapi_ioOf($db, $fid, 1, 1) as $d) $dbIns[] = $d['display'];
 
             $insD = array();  foreach ($inputs as $x)  $insD[]  = $x['display'];
             $outsD = array(); foreach ($outputs as $x) $outsD[] = $x['display'];
@@ -199,49 +261,45 @@ switch ($action) {
             }
 
             if ($depth === 'immediate') {
-                $prodStmt = $pdo->prepare(
+                $prodStmt = lapi_prep($db,
                     'SELECT DISTINCT idWorkflow FROM workflowIO WHERE idIO=? AND isInput=0 AND idWorkflow<>?');
                 foreach ($inputs as $x) {
-                    $prodStmt->execute(array($x['id'], $fid));
-                    foreach ($prodStmt->fetchAll(PDO::FETCH_COLUMN) as $p) {
-                        $up_edges[] = array('source' => lapi_displayOfId($pdo, (int)$p),
+                    foreach (lapi_execCol($prodStmt, array($x['id'], $fid)) as $p) {
+                        $up_edges[] = array('source' => lapi_displayOfId($db, (int)$p),
                                             's0' => $x['display'], 'destination' => $resolved);
                     }
                 }
-                $consStmt = $pdo->prepare(
+                $consStmt = lapi_prep($db,
                     'SELECT DISTINCT idWorkflow FROM workflowIO wf WHERE idIO=? AND isInput=1
                      AND ' . lapi_dbQueryExists('wf.id', 0) . ' AND idWorkflow<>?');
                 foreach ($outputs as $x) {
-                    $consStmt->execute(array($x['id'], $fid));
-                    foreach ($consStmt->fetchAll(PDO::FETCH_COLUMN) as $c) {
+                    foreach (lapi_execCol($consStmt, array($x['id'], $fid)) as $c) {
                         $down_edges[] = array('source' => $resolved, 's0' => $x['display'],
-                                              'destination' => lapi_displayOfId($pdo, (int)$c));
+                                              'destination' => lapi_displayOfId($db, (int)$c));
                     }
                 }
             } elseif ($depth === 'full') {
-                $prodStmt = $pdo->prepare('SELECT DISTINCT idWorkflow FROM workflowIO WHERE idIO=? AND isInput=0');
-                $sInStmt  = $pdo->prepare('SELECT DISTINCT idIO FROM workflowIO wf WHERE idWorkflow=? AND isInput=1 AND ' . lapi_dbQueryExists('wf.id', 0));
-                $consStmt = $pdo->prepare('SELECT DISTINCT idWorkflow FROM workflowIO wf WHERE idIO=? AND isInput=1 AND ' . lapi_dbQueryExists('wf.id', 0));
-                $sOutStmt = $pdo->prepare('SELECT DISTINCT idIO FROM workflowIO WHERE idWorkflow=? AND isInput=0');
+                $prodStmt = lapi_prep($db, 'SELECT DISTINCT idWorkflow FROM workflowIO WHERE idIO=? AND isInput=0');
+                $sInStmt  = lapi_prep($db, 'SELECT DISTINCT idIO FROM workflowIO wf WHERE idWorkflow=? AND isInput=1 AND ' . lapi_dbQueryExists('wf.id', 0));
+                $consStmt = lapi_prep($db, 'SELECT DISTINCT idWorkflow FROM workflowIO wf WHERE idIO=? AND isInput=1 AND ' . lapi_dbQueryExists('wf.id', 0));
+                $sOutStmt = lapi_prep($db, 'SELECT DISTINCT idIO FROM workflowIO WHERE idWorkflow=? AND isInput=0');
 
                 $seenU = array(); $queueU = array();
                 foreach ($inputs as $x) if (!isset($seenU[$x['id']])) { $seenU[$x['id']] = true; $queueU[] = $x['id']; }
                 while (!empty($queueU)) {
                     $K = array_shift($queueU);
-                    $D = lapi_displayOfId($pdo, $K);
-                    $prodStmt->execute(array($K));
-                    foreach ($prodStmt->fetchAll(PDO::FETCH_COLUMN) as $p) {
+                    $D = lapi_displayOfId($db, $K);
+                    foreach (lapi_execCol($prodStmt, array($K)) as $p) {
                         $p = (int)$p;
                         if ($p === $fid) continue;
-                        $pD = lapi_displayOfId($pdo, $p);
-                        $sInStmt->execute(array($p));
-                        $pIns = $sInStmt->fetchAll(PDO::FETCH_COLUMN);
+                        $pD = lapi_displayOfId($db, $p);
+                        $pIns = lapi_execCol($sInStmt, array($p));
                         if (empty($pIns)) {
                             $up_edges[] = array('source' => $pD, 'destination' => $D);
                         } else {
                             foreach ($pIns as $pk) {
                                 $pk = (int)$pk;
-                                $up_edges[] = array('source' => lapi_displayOfId($pdo, $pk), 's0' => $pD, 'destination' => $D);
+                                $up_edges[] = array('source' => lapi_displayOfId($db, $pk), 's0' => $pD, 'destination' => $D);
                                 if (!isset($seenU[$pk])) { $seenU[$pk] = true; $queueU[] = $pk; }
                             }
                         }
@@ -252,20 +310,18 @@ switch ($action) {
                 foreach ($outputs as $x) if (!isset($seenD[$x['id']])) { $seenD[$x['id']] = true; $queueD[] = $x['id']; }
                 while (!empty($queueD)) {
                     $K = array_shift($queueD);
-                    $D = lapi_displayOfId($pdo, $K);
-                    $consStmt->execute(array($K));
-                    foreach ($consStmt->fetchAll(PDO::FETCH_COLUMN) as $c) {
+                    $D = lapi_displayOfId($db, $K);
+                    foreach (lapi_execCol($consStmt, array($K)) as $c) {
                         $c = (int)$c;
                         if ($c === $fid) continue;
-                        $cD = lapi_displayOfId($pdo, $c);
-                        $sOutStmt->execute(array($c));
-                        $cOuts = $sOutStmt->fetchAll(PDO::FETCH_COLUMN);
+                        $cD = lapi_displayOfId($db, $c);
+                        $cOuts = lapi_execCol($sOutStmt, array($c));
                         if (empty($cOuts)) {
                             $down_edges[] = array('source' => $D, 'destination' => $cD);
                         } else {
                             foreach ($cOuts as $ck) {
                                 $ck = (int)$ck;
-                                $down_edges[] = array('source' => $D, 's0' => $cD, 'destination' => lapi_displayOfId($pdo, $ck));
+                                $down_edges[] = array('source' => $D, 's0' => $cD, 'destination' => lapi_displayOfId($db, $ck));
                                 if (!isset($seenD[$ck])) { $seenD[$ck] = true; $queueD[] = $ck; }
                             }
                         }
@@ -274,18 +330,14 @@ switch ($action) {
             }
 
             // callers (scripts that anatellaRun this one) / callees
-            $callerStmt = $pdo->prepare('SELECT DISTINCT idWorkflow FROM workflowIO WHERE idIO=? AND isInput=2');
-            $callerStmt->execute(array($fid));
-            foreach ($callerStmt->fetchAll(PDO::FETCH_COLUMN) as $p) {
+            foreach (lapi_col($db, 'SELECT DISTINCT idWorkflow FROM workflowIO WHERE idIO=? AND isInput=2', array($fid)) as $p) {
                 if ((int)$p === $fid) continue;
-                $rel_before[] = lapi_displayOfId($pdo, (int)$p);
+                $rel_before[] = lapi_displayOfId($db, (int)$p);
             }
-            $calleeStmt = $pdo->prepare('SELECT DISTINCT idIO FROM workflowIO WHERE idWorkflow=? AND isInput=2');
-            $calleeStmt->execute(array($fid));
-            foreach ($calleeStmt->fetchAll(PDO::FETCH_COLUMN) as $p) {
+            foreach (lapi_col($db, 'SELECT DISTINCT idIO FROM workflowIO WHERE idWorkflow=? AND isInput=2', array($fid)) as $p) {
                 if ((int)$p === $fid) continue;
-                $rel_after[] = lapi_displayOfId($pdo, (int)$p);
-                $calledScripts[] = lapi_displayOfId($pdo, (int)$p);
+                $rel_after[] = lapi_displayOfId($db, (int)$p);
+                $calledScripts[] = lapi_displayOfId($db, (int)$p);
             }
         }
 
@@ -306,28 +358,26 @@ switch ($action) {
             echo json_encode(array('error' => 'Missing file parameter'));
             exit;
         }
-        list($fileId, ) = lapi_resolveFile($pdo, $file);
+        list($fileId, ) = lapi_resolveFile($db, $file);
         $upstream = array(); $downstream = array();
         $scriptsSeen = array();   // asset id => true (scripts appearing as s0)
 
         if ($fileId !== null) {
-            $inScrStmt   = $pdo->prepare('SELECT DISTINCT idWorkflow FROM workflowIO WHERE idIO=? AND isInput=0');
-            $outScrStmt  = $pdo->prepare('SELECT DISTINCT idWorkflow FROM workflowIO wf WHERE idIO=? AND isInput=1 AND ' . lapi_dbQueryExists('wf.id', 0));
-            $inFilesStmt = $pdo->prepare('SELECT DISTINCT idIO FROM workflowIO wf WHERE idWorkflow=? AND isInput=1 AND ' . lapi_dbQueryExists('wf.id', 0));
-            $outFilesStmt= $pdo->prepare('SELECT DISTINCT idIO FROM workflowIO WHERE idWorkflow=? AND isInput=0');
+            $inScrStmt   = lapi_prep($db, 'SELECT DISTINCT idWorkflow FROM workflowIO WHERE idIO=? AND isInput=0');
+            $outScrStmt  = lapi_prep($db, 'SELECT DISTINCT idWorkflow FROM workflowIO wf WHERE idIO=? AND isInput=1 AND ' . lapi_dbQueryExists('wf.id', 0));
+            $inFilesStmt = lapi_prep($db, 'SELECT DISTINCT idIO FROM workflowIO wf WHERE idWorkflow=? AND isInput=1 AND ' . lapi_dbQueryExists('wf.id', 0));
+            $outFilesStmt= lapi_prep($db, 'SELECT DISTINCT idIO FROM workflowIO WHERE idWorkflow=? AND isInput=0');
 
             $seenUp = array($fileId => true); $queueUp = array($fileId);
             while (!empty($queueUp)) {
                 $cur = array_shift($queueUp);
-                $curD = lapi_displayOfId($pdo, $cur);
-                $inScrStmt->execute(array($cur));
-                foreach ($inScrStmt->fetchAll(PDO::FETCH_COLUMN) as $scr) {
+                $curD = lapi_displayOfId($db, $cur);
+                foreach (lapi_execCol($inScrStmt, array($cur)) as $scr) {
                     $scr = (int)$scr; $scriptsSeen[$scr] = true;
-                    $scrD = lapi_displayOfId($pdo, $scr);
-                    $inFilesStmt->execute(array($scr));
-                    foreach ($inFilesStmt->fetchAll(PDO::FETCH_COLUMN) as $k) {
+                    $scrD = lapi_displayOfId($db, $scr);
+                    foreach (lapi_execCol($inFilesStmt, array($scr)) as $k) {
                         $k = (int)$k;
-                        $upstream[] = array('source' => lapi_displayOfId($pdo, $k), 's0' => $scrD, 'destination' => $curD);
+                        $upstream[] = array('source' => lapi_displayOfId($db, $k), 's0' => $scrD, 'destination' => $curD);
                         if (!isset($seenUp[$k])) { $seenUp[$k] = true; $queueUp[] = $k; }
                     }
                 }
@@ -336,15 +386,13 @@ switch ($action) {
             $seenDown = array($fileId => true); $queueDown = array($fileId);
             while (!empty($queueDown)) {
                 $cur = array_shift($queueDown);
-                $curD = lapi_displayOfId($pdo, $cur);
-                $outScrStmt->execute(array($cur));
-                foreach ($outScrStmt->fetchAll(PDO::FETCH_COLUMN) as $scr) {
+                $curD = lapi_displayOfId($db, $cur);
+                foreach (lapi_execCol($outScrStmt, array($cur)) as $scr) {
                     $scr = (int)$scr; $scriptsSeen[$scr] = true;
-                    $scrD = lapi_displayOfId($pdo, $scr);
-                    $outFilesStmt->execute(array($scr));
-                    foreach ($outFilesStmt->fetchAll(PDO::FETCH_COLUMN) as $k) {
+                    $scrD = lapi_displayOfId($db, $scr);
+                    foreach (lapi_execCol($outFilesStmt, array($scr)) as $k) {
                         $k = (int)$k;
-                        $downstream[] = array('source' => $curD, 's0' => $scrD, 'destination' => lapi_displayOfId($pdo, $k));
+                        $downstream[] = array('source' => $curD, 's0' => $scrD, 'destination' => lapi_displayOfId($db, $k));
                         if (!isset($seenDown[$k])) { $seenDown[$k] = true; $queueDown[] = $k; }
                     }
                 }
@@ -354,12 +402,11 @@ switch ($action) {
         // call edges among scripts in the BFS graph
         $callEdges = array();
         if (!empty($scriptsSeen)) {
-            $q = $pdo->query('SELECT idWorkflow, idIO FROM workflowIO WHERE isInput=2');
-            foreach ($q->fetchAll(PDO::FETCH_ASSOC) as $r) {
+            foreach (lapi_all($db, 'SELECT idWorkflow, idIO FROM workflowIO WHERE isInput=2') as $r) {
                 $a = (int)$r['idWorkflow']; $b = (int)$r['idIO'];
                 if (isset($scriptsSeen[$a]) && isset($scriptsSeen[$b])) {
-                    $callEdges[] = array('caller' => lapi_displayOfId($pdo, $a),
-                                         'callee' => lapi_displayOfId($pdo, $b));
+                    $callEdges[] = array('caller' => lapi_displayOfId($db, $a),
+                                         'callee' => lapi_displayOfId($db, $b));
                 }
             }
         }
@@ -370,9 +417,9 @@ switch ($action) {
     case 'project_graph':
         $project = isset($_GET['project']) ? $_GET['project'] : '';
 
-        $allProjects = $pdo->query(
+        $allProjects = lapi_col($db,
             "SELECT DISTINCT project FROM DatamartProjects WHERE project IS NOT NULL AND project != '' ORDER BY project"
-        )->fetchAll(PDO::FETCH_COLUMN);
+        );
 
         if ($project === '' || !in_array($project, $allProjects)) {
             $project = count($allProjects) > 0 ? $allProjects[0] : '';
@@ -383,35 +430,29 @@ switch ($action) {
         $groupLabels = array();
 
         if ($project !== '') {
-            $dmStmt = $pdo->prepare('SELECT id, datamart FROM DatamartProjects WHERE project=? ORDER BY id');
-            $dmStmt->execute(array($project));
-            foreach ($dmStmt->fetchAll(PDO::FETCH_ASSOC) as $dm) {
+            foreach (lapi_all($db, 'SELECT id, datamart FROM DatamartProjects WHERE project=? ORDER BY id', array($project)) as $dm) {
                 $grpNum = (int)$dm['id'];
                 $groupLabels[(string)$grpNum] = $dm['datamart'];
 
                 // call edges within this datamart
-                $callStmt = $pdo->prepare(
+                foreach (lapi_all($db,
                     'SELECT wf.idWorkflow AS A, wf.idIO AS B FROM workflowIO wf
                      JOIN Assets s ON s.id = wf.idWorkflow
-                     WHERE wf.isInput=2 AND s.idProject=?');
-                $callStmt->execute(array($grpNum));
-                foreach ($callStmt->fetchAll(PDO::FETCH_ASSOC) as $r) {
-                    $a = lapi_displayOfId($pdo, (int)$r['A']);
-                    $b = lapi_displayOfId($pdo, (int)$r['B']);
+                     WHERE wf.isInput=2 AND s.idProject=?', array($grpNum)) as $r) {
+                    $a = lapi_displayOfId($db, (int)$r['A']);
+                    $b = lapi_displayOfId($db, (int)$r['B']);
                     $edges[] = array('A' => $a, 'B' => $b, 'grp' => (string)$grpNum);
                     $edgeNodes[$a] = true; $edgeNodes[$b] = true;
                     $edgeKeys[$a . "\x1f" . $b] = true;
                 }
 
                 // every script of the datamart (isolated nodes included)
-                $smStmt = $pdo->prepare(
+                foreach (lapi_col($db,
                     'SELECT a.id FROM Assets a JOIN WorkflowMeta w ON w.idAsset=a.id
-                     WHERE a.idProject=? AND a.isCurrentValue=1 ORDER BY a."schema", a.name');
-                $smStmt->execute(array($grpNum));
-                foreach ($smStmt->fetchAll(PDO::FETCH_COLUMN) as $sid) {
+                     WHERE a.idProject=? AND a.isCurrentValue=1 ORDER BY a."schema", a.name', array($grpNum)) as $sid) {
                     $sid = (int)$sid;
                     if (!isset($scriptGroup[$sid])) $scriptGroup[$sid] = (string)$grpNum;
-                    $d = lapi_displayOfId($pdo, $sid);
+                    $d = lapi_displayOfId($db, $sid);
                     if (!isset($edgeNodes[$d])) {
                         $edges[] = array('A' => $d, 'B' => '', 'grp' => (string)$grpNum);
                         $edgeNodes[$d] = true;
@@ -421,17 +462,16 @@ switch ($action) {
 
             // file-flow edges: producer -> consumer through a shared asset
             if (!empty($scriptGroup)) {
-                $flowStmt = $pdo->query(
+                foreach (lapi_all($db,
                     'SELECT DISTINCT o.idWorkflow AS producer, i.idWorkflow AS consumer
                      FROM workflowIO o
                      JOIN workflowIO i ON o.idIO = i.idIO
                      WHERE o.isInput=0 AND i.isInput=1 AND ' . lapi_dbQueryExists('i.id', 0) . '
-                       AND o.idWorkflow <> i.idWorkflow');
-                foreach ($flowStmt->fetchAll(PDO::FETCH_ASSOC) as $r) {
+                       AND o.idWorkflow <> i.idWorkflow') as $r) {
                     $pa = (int)$r['producer']; $pb = (int)$r['consumer'];
                     if (!isset($scriptGroup[$pa]) || !isset($scriptGroup[$pb])) continue;
-                    $a = lapi_displayOfId($pdo, $pa);
-                    $b = lapi_displayOfId($pdo, $pb);
+                    $a = lapi_displayOfId($db, $pa);
+                    $b = lapi_displayOfId($db, $pb);
                     $ek = $a . "\x1f" . $b;
                     if (isset($edgeKeys[$ek])) continue;
                     $edgeKeys[$ek] = true;
@@ -448,17 +488,15 @@ switch ($action) {
     case 'actions':
         $script = isset($_GET['script']) ? $_GET['script'] : '';
         if ($script === '') { echo json_encode(array()); break; }
-        list($fid, ) = lapi_resolveScript($pdo, $script);
+        list($fid, ) = lapi_resolveScript($db, $script);
         if ($fid === null) { echo json_encode(array()); break; }
-        $stmt = $pdo->prepare(
+        echo json_encode(lapi_all($db,
             'SELECT ct.nodeID AS "ID", cb.name AS "Before", c.name AS "After", ct.op, ct.expression
              FROM ColumnTransformations ct
              JOIN Columns c ON c.id = ct.idColumn
              LEFT JOIN Columns cb ON cb.id = ct.idColumnBefore
              WHERE c.idasset = ?
-             ORDER BY CAST(ct.nodeID AS INTEGER), c.name');
-        $stmt->execute(array($fid));
-        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+             ORDER BY CAST(ct.nodeID AS INTEGER), c.name', array($fid)));
         break;
 
     case 'script_io':
@@ -467,22 +505,20 @@ switch ($action) {
             echo json_encode(array('inputs' => array(), 'outputs' => array(), 'calls' => array(), 'meta' => null));
             break;
         }
-        list($fid, ) = lapi_resolveScript($pdo, $script);
+        list($fid, ) = lapi_resolveScript($db, $script);
         $result = array('inputs' => array(), 'outputs' => array(), 'calls' => array(), 'meta' => null);
         if ($fid !== null) {
             // One row per LineageIO detail (a script can touch the same file
             // from several pipeline nodes); relationships with no detail at
             // all (pure manual edits) still get one row via the LEFT JOIN.
-            $stmt = $pdo->prepare(
+            foreach (lapi_all($db,
                 'SELECT wf.isInput, li.nodeID AS node_idx, li.actionTag AS action_tag,
                         COALESCE(li.isDbQuery, 0) AS is_db_query,
                         a.id, a.category, a.subCategory, a."schema", a.name
                  FROM workflowIO wf
                  JOIN Assets a ON a.id = wf.idIO
                  LEFT JOIN LineageIO li ON li.idWorkflowIO = wf.id
-                 WHERE wf.idWorkflow=? ORDER BY wf.isInput, a."schema", a.name');
-            $stmt->execute(array($fid));
-            foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $r) {
+                 WHERE wf.idWorkflow=? ORDER BY wf.isInput, a."schema", a.name', array($fid)) as $r) {
                 $row = array(
                     'direction'   => $r['isInput'] == 1 ? 'input' : ($r['isInput'] == 0 ? 'output' : 'call'),
                     'file_path'   => lapi_display($r),
@@ -495,18 +531,14 @@ switch ($action) {
                 elseif ($r['isInput'] == 0)  $result['outputs'][] = $row;
                 else                         $result['calls'][]   = $row;
             }
-            $stmt = $pdo->prepare(
+            $meta = lapi_row($db,
                 'SELECT rtflCount AS rtfl_count, totalNodes AS total_nodes, connectedNodes AS connected_nodes
-                 FROM WorkflowMeta WHERE idAsset=? LIMIT 1');
-            $stmt->execute(array($fid));
-            $meta = $stmt->fetch(PDO::FETCH_ASSOC);
+                 FROM WorkflowMeta WHERE idAsset=? LIMIT 1', array($fid));
             if ($meta) {
                 $meta['input_count']  = count($result['inputs']);
                 $meta['output_count'] = count($result['outputs']);
                 $meta['call_count']   = count($result['calls']);
-                $cnt = $pdo->prepare("SELECT COUNT(*) FROM Columns WHERE idasset=?");
-                $cnt->execute(array($fid));
-                $meta['var_count'] = (int)$cnt->fetchColumn();
+                $meta['var_count'] = (int)lapi_scalar($db, "SELECT COUNT(*) FROM Columns WHERE idasset=?", array($fid));
                 $result['meta'] = $meta;
             }
         }
@@ -514,26 +546,25 @@ switch ($action) {
         break;
 
     case 'variables':
-        $rows = $pdo->query(
+        echo json_encode(lapi_col($db,
             "SELECT DISTINCT c.name FROM Columns c
              JOIN Assets a ON a.id = c.idasset
              WHERE a.category>=200 AND c.name IS NOT NULL AND c.name != '' AND c.name != '*dynamicRename*'
              ORDER BY c.name"
-        )->fetchAll(PDO::FETCH_COLUMN);
-        echo json_encode($rows);
+        ));
         break;
 
     case 'scripts_for_variable':
         $var = isset($_GET['var']) ? $_GET['var'] : '';
         if ($var === '') { echo json_encode(array()); break; }
-        $stmt = $pdo->prepare(
+        $rows = array();
+        foreach (lapi_all($db,
             'SELECT DISTINCT a.id, a.category, a.subCategory, a."schema", a.name
              FROM Columns c JOIN Assets a ON a.id = c.idasset
              WHERE c.name = ? AND a.category>=200 AND a.isCurrentValue=1
-             ORDER BY a."schema", a.name');
-        $stmt->execute(array($var));
-        $rows = array();
-        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $r) $rows[] = lapi_display($r);
+             ORDER BY a."schema", a.name', array($var)) as $r) {
+            $rows[] = lapi_display($r);
+        }
         echo json_encode($rows);
         break;
 
@@ -544,7 +575,7 @@ switch ($action) {
             echo json_encode(array('error' => 'Missing script parameter'));
             exit;
         }
-        list($fid, $display) = lapi_resolveScript($pdo, $script);
+        list($fid, $display) = lapi_resolveScript($db, $script);
         $fullPath = false;
 
         // 1. original location on disk
@@ -559,9 +590,7 @@ switch ($action) {
         }
         // 3. server-side copy
         if (!$fullPath && $fid !== null) {
-            $stmt = $pdo->prepare('SELECT pipelineXmlSrvPath FROM WorkflowMeta WHERE idAsset=? LIMIT 1');
-            $stmt->execute(array($fid));
-            $rel = $stmt->fetchColumn();
+            $rel = lapi_scalar($db, 'SELECT pipelineXmlSrvPath FROM WorkflowMeta WHERE idAsset=? LIMIT 1', array($fid));
             if ($rel) {
                 $p = lin_srvPathToDisk($rel);
                 if (file_exists($p)) $fullPath = $p;
@@ -582,14 +611,12 @@ switch ($action) {
             echo json_encode(array('error' => 'Missing script parameter'));
             exit;
         }
-        list($fid, ) = lapi_resolveScript($pdo, $script);
+        list($fid, ) = lapi_resolveScript($db, $script);
         if ($fid === null) {
             echo json_encode(array('error' => 'Script not found — run extraction first'));
             break;
         }
-        $stmt = $pdo->prepare('SELECT pipelineXmlSrvPath FROM WorkflowMeta WHERE idAsset=? LIMIT 1');
-        $stmt->execute(array($fid));
-        $rel = $stmt->fetchColumn();
+        $rel = lapi_scalar($db, 'SELECT pipelineXmlSrvPath FROM WorkflowMeta WHERE idAsset=? LIMIT 1', array($fid));
         if (!$rel) {
             echo json_encode(array('error' => 'No pipeline copy on the server — re-run extraction to capture it'));
             break;
@@ -625,10 +652,9 @@ switch ($action) {
         break;
 
     case 'get_marvim_servers':
-        $rows = $pdo->query(
+        echo json_encode(lapi_all($db,
             "SELECT id, name, serverType FROM servers WHERE isCurrentValue=1 AND name IS NOT NULL AND name != '' ORDER BY name"
-        )->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($rows);
+        ));
         break;
 
     case 'register_assets':
