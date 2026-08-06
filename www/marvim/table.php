@@ -168,7 +168,7 @@ echo '<div class="editable" data-columnname2="tags" data-tablename="Assets" data
 <?php
 echo '<div class="status-buttons" data-columnname="status" data-tablename="Assets" data-id="'.
     $idAsset.'">';
-?>            
+?>
                 <input type="radio" name="status" id="status-uncertified" value="uncertified" class="toxradio" onclick="saveContent(0,0,this.parentElement);"
 <?php if ($rowAsset['status']==0) echo 'checked'; ?>
                 >

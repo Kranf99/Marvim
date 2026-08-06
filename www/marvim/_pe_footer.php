@@ -194,14 +194,14 @@ function handleEditableClick(event)
 //	  	    elp.style.marginBottom='0';
 //	  	    elp.style.marginTop='0';
 //	  	  }, 50);
-		    const content = editor.getContent();
+		    var content = editor.getContent();
 		    if (myEditorContent==content)
 		    {
 //	  	     editor.destroy();
 		      return;
 		    }
         var linked = upgradeGlossary(content);
-        if (linked !== content) editor.setContent(linked);
+        if (linked !== content) { editor.setContent(linked); content = linked; }
 		    hugerte.triggerSave();
 		    myEditorContent = content; // Update tracked content
 	  	  var el=editor.getElement();
@@ -212,6 +212,9 @@ function handleEditableClick(event)
 
     init_instance_callback: function (editor) {
       editor.focus();
+      // Baseline must match what getContent() will return later (post-normalization),
+      // not the raw pre-init innerHTML, otherwise the diff check below always trips.
+      myEditorContent = editor.getContent();
       // solve firefox bug:
  //     if (navigator.userAgent.includes('Firefox'))
 //        requestAnimationFrame(() => {
@@ -220,20 +223,8 @@ function handleEditableClick(event)
 //        });
     }
   });
-
-  // Save on page unload (new - handles browser close/back button)
-  window.addEventListener('beforeunload', function (e) {
-  	if (myEditor)
-  	{
-  		const content = myEditor.getContent();
-	    if (myEditorContent!=content)
-	  	{
-		  	hugeRTEbeforeUnload(content,myEditor.getContent({ format: 'text' }),myEditor);
-  			myEditor=null;
-  		}
-  	}
-  });
 }
+
 
 function initHugeRTEEditMain(bgcolor)
 {
@@ -260,29 +251,29 @@ function initHugeRTEEditMain(bgcolor)
   setup: function (editor) {
     editor.on('init', function () {
       var content = editor.getContent();
-      myMainEditorContent=content;
       var linked = upgradeGlossary(content);
-      if (linked !== content) editor.setContent(linked);
+      if (linked !== content) { editor.setContent(linked); content = linked; }
+      myMainEditorContent=content;
     });
 //    editor.on('BeforeSetContent', function (e) {
 //      e.content = upgradeGlossary(e.content);
 //    });
     editor.on('blur', async function () {
-      const content = editor.getContent();
+      var content = editor.getContent();
   	  if (myMainEditorContent==content)
 	      return;
       var linked = upgradeGlossary(content);
-      if (linked !== content) editor.setContent(linked);
+      if (linked !== content) { editor.setContent(linked); content = linked; }
 	    hugerte.triggerSave();
 	    myMainEditorContent = content; // Update tracked content
 	    saveContent(content,editor.getContent({ format: 'text' }),editor.getElement(),editor);
 	  });
     window.addEventListener('beforeunload', function (e) {
-      const content = editor.getContent();
+      var content = editor.getContent();
   	  if (myMainEditorContent==content)
 	      return;
       var linked = upgradeGlossary(content);
-      if (linked !== content) editor.setContent(linked);
+      if (linked !== content) { editor.setContent(linked); content = linked; }
   	  hugeRTEbeforeUnload(content,0,editor);
     });
   }
@@ -313,6 +304,19 @@ function initEditAllCells()
       }
     }
   }, 100);
+  
+  // Save on page unload (new - handles browser close/back button).
+  window.addEventListener('beforeunload', function (e) {
+	if (myEditor)
+	{
+	    const content = myEditor.getContent();
+	    if (myEditorContent!=content)
+	    {
+		  	hugeRTEbeforeUnload(content,myEditor.getContent({ format: 'text' }),myEditor);
+  			myEditor=null;
+  	    }
+  	}
+});
 }
 
 /////////////////
