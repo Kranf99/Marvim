@@ -25,13 +25,10 @@ if ( ! empty( $_POST ) )
 
 		        $db = new SQLite3('../../db/MarvimUsers.sqlite', SQLITE3_OPEN_READWRITE);
 				$db->busyTimeout(5000);
-				$db->exec('PRAGMA journal_mode=WAL');
-				$db->busyTimeout(5000); // Wait up to 5 seconds if database is locked
+			    $db->exec('PRAGMA journal_mode=WAL');
 		        $db->exec("UPDATE users SET LastLoginDate=CurrentLoginDate WHERE id = ".$r['id']);
 		        $db->exec("UPDATE users SET CurrentLoginDate=datetime('now','localtime')  WHERE id = ".$r['id']);
 				$db->close();
-				
-//    			header("Location: http://localhost/license/configSerial.php");
     			header("Location: /marvim/home.php");
     			exit;
     		}

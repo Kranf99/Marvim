@@ -11,11 +11,13 @@
 // mode "create": if the report (Asset) already exists, KPIs no longer listed are deleted.
 // mode "update": if the report already exists, KPIs no longer listed are kept but their
 //                shortDescription is prefixed with "Deleted on yyyyMMdd ".
+// mode "add":    if the report already exists, KPIs no longer listed are kept untouched
+//                and new KPIs are added.
 // A report is considered to already exist when name+idserver both match an existing Asset.
 //
 // Optional fields (left untouched in the DB when absent from the JSON):
-//   data[].shortDescription, data[].longDescription -> Assets table
-//   data[].kpi[].description                        -> KPI.shortDescription
+//   data[].shortDescription, data[].longDescription, data[].schema -> Assets table
+//   data[].kpi[].description                                       -> KPI.shortDescription
 //
 // data[].kpi itself is optional; when absent it is treated as an empty list, so any existing
 // KPIs on the report are removed/soft-deleted per the mode rules above.
@@ -41,7 +43,7 @@ $payload = json_decode(file_get_contents('php://input'), true);
 if (!is_array($payload)) sendError(400, 'Invalid or missing JSON body.');
 
 $mode = isset($payload['mode']) ? $payload['mode'] : '';
-if ($mode !== 'create' && $mode !== 'update') sendError(400, 'mode must be "create" or "update".');
+if ($mode !== 'create' && $mode !== 'update' && $mode !== 'add') sendError(400, 'mode must be "create", "update" or "add".');
 
 $data = (isset($payload['data']) && is_array($payload['data'])) ? $payload['data'] : null;
 if ($data === null) sendError(400, '"data" must be an array.');
@@ -63,6 +65,7 @@ foreach ($data as $i => $entry)
     }
     $cat = (int)$entry['category'];
     if ($cat < 0 || $cat >= 100) sendError(400, 'data['.$i.'].category must be a Report category (0-99).');
+
 }
 
 $db = new SQLite3(__DIR__.'/../../db/MarvimDB.sqlite', SQLITE3_OPEN_READONLY);
@@ -85,10 +88,12 @@ if (!$isSuperAdmin)
         $rightsCache[(int)$row['idDepartment']] = (int)$row['rights'];
 }
 
-// Preload every known server (keyed case-insensitively), then auto-create any server
-// referenced in the payload that's missing.
+// Preload every known "Reporting" server (keyed case-insensitively on name), then
+// auto-create any server referenced in the payload that's missing. Restricted to
+// serverType='Reporting' so a name shared with a server of another type (e.g. a
+// "Files" server) isn't mistaken for the reporting server of the same name.
 $serverCache = array();
-$res = $db->query('SELECT id, name FROM servers');
+$res = $db->query("SELECT id, name FROM servers WHERE serverType='Reporting'");
 while ($row = $res->fetchArray(SQLITE3_ASSOC))
     $serverCache[strtolower($row['name'])] = (int)$row['id'];
 
@@ -158,12 +163,14 @@ foreach ($data as $entry)
         $setSql = 'category=:cat, idDepartment=:dep, dateUpdated=:u';
         if (isset($entry['shortDescription'])) $setSql .= ', shortDescription=:sd';
         if (isset($entry['longDescription'])) $setSql .= ', longDescription=:ld';
+        if (isset($entry['schema'])) $setSql .= ', schema=:sc';
         $stmt = $db->prepare('UPDATE Assets SET '.$setSql.' WHERE id=:id');
         $stmt->bindValue(':cat', $category);
         $stmt->bindValue(':dep', $idDept);
         $stmt->bindValue(':u', $now);
         if (isset($entry['shortDescription'])) $stmt->bindValue(':sd', $entry['shortDescription']);
         if (isset($entry['longDescription'])) $stmt->bindValue(':ld', $entry['longDescription']);
+        if (isset($entry['schema'])) $stmt->bindValue(':sc', $entry['schema']);
         $stmt->bindValue(':id', $idAsset);
         $stmt->execute();
         addEvent($db, $myid, 'Update', 'Assets', $idAsset);
@@ -171,14 +178,15 @@ foreach ($data as $entry)
     }
     else
     {
-        $stmt = $db->prepare('INSERT INTO Assets(idDepartment,category,idserver,name,shortDescription,longDescription,status,popularity,rating,idowner,dateCreated,dateUpdated) '.
-            'VALUES(:dep,:cat,:s,:n,:sd,:ld,0,0,0,:o,:c,:u)');
+        $stmt = $db->prepare('INSERT INTO Assets(idDepartment,category,idserver,name,shortDescription,longDescription,schema,status,popularity,rating,idowner,dateCreated,dateUpdated) '.
+            'VALUES(:dep,:cat,:s,:n,:sd,:ld,:sc,0,0,0,:o,:c,:u)');
         $stmt->bindValue(':dep', $idDept);
         $stmt->bindValue(':cat', $category);
         $stmt->bindValue(':s', $idserver);
         $stmt->bindValue(':n', $name);
         $stmt->bindValue(':sd', isset($entry['shortDescription']) ? $entry['shortDescription'] : null);
         $stmt->bindValue(':ld', isset($entry['longDescription']) ? $entry['longDescription'] : null);
+        $stmt->bindValue(':sc', isset($entry['schema']) ? $entry['schema'] : null);
         $stmt->bindValue(':o', $myid);
         $stmt->bindValue(':c', $now);
         $stmt->bindValue(':u', $now);
@@ -242,7 +250,7 @@ foreach ($data as $entry)
             $stmt->bindValue(':id', $kpiRow['id']);
             $stmt->execute();
         }
-        else // update: soft-delete by tagging the shortDescription, unless already tagged
+        else if ($mode === 'update') // soft-delete by tagging the shortDescription, unless already tagged
         {
             if (strpos((string)$kpiRow['shortDescription'], 'Deleted on ') === 0) continue;
             $newDesc = 'Deleted on '.$today.' '.$kpiRow['shortDescription'];
@@ -252,6 +260,7 @@ foreach ($data as $entry)
             $stmt->bindValue(':id', $kpiRow['id']);
             $stmt->execute();
         }
+        else continue; // add: leave untouched, don't count as removed
         $removed++;
     }
 

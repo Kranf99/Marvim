@@ -332,7 +332,8 @@ for(;;)
     {
         if ($debug) echo "[$now] About to close\n";
         sleep(30);
-        $db = new SQLite3(__DIR__ . '/../../db/MarvimDB.sqlite', SQLITE3_OPEN_READONLY);
+        // open readwrite because we are checkpointing
+        $db = new SQLite3(__DIR__ . '/../../db/MarvimDB.sqlite', SQLITE3_OPEN_READWRITE);
         $db->busyTimeout(5000);
         $v1=$db->querySingle("Select changeId from AssetsChanges where taskId IS NULL limit 1");
         $v2=$db->querySingle("Select changeId from GlossaryChanges where taskId IS NULL limit 1");

@@ -10,6 +10,8 @@
 // mode "create": if the table (Asset) already exists, columns no longer listed are deleted.
 // mode "update": if the table already exists, columns no longer listed are kept but their
 //                shortDescription is prefixed with "Deleted on yyyyMMdd ".
+// mode "add":    if the table already exists, columns no longer listed are kept untouched
+//                and new columns are added.
 // A table is considered to already exist when name+idserver+schema all match an existing Asset.
 //
 // Optional fields (left untouched in the DB when absent from the JSON):
@@ -37,7 +39,7 @@ $payload = json_decode(file_get_contents('php://input'), true);
 if (!is_array($payload)) sendError(400, 'Invalid or missing JSON body.');
 
 $mode = isset($payload['mode']) ? $payload['mode'] : '';
-if ($mode !== 'create' && $mode !== 'update') sendError(400, 'mode must be "create" or "update".');
+if ($mode !== 'create' && $mode !== 'update' && $mode !== 'add') sendError(400, 'mode must be "create", "update" or "add".');
 
 $data = (isset($payload['data']) && is_array($payload['data'])) ? $payload['data'] : null;
 if ($data === null) sendError(400, '"data" must be an array.');
@@ -84,12 +86,13 @@ if (!$isSuperAdmin)
         $rightsCache[(int)$row['idDepartment']] = (int)$row['rights'];
 }
 
-// Preload every known server (keyed case-insensitively), then auto-create any server
+// Preload every known server (keyed case-insensitively on name+serverType, since the same
+// name can be reused across servers of different types), then auto-create any server
 // referenced in the payload that's missing.
 $serverCache = array();
-$res = $db->query('SELECT id, name FROM servers');
+$res = $db->query('SELECT id, name, serverType FROM servers');
 while ($row = $res->fetchArray(SQLITE3_ASSOC))
-    $serverCache[strtolower($row['name'])] = (int)$row['id'];
+    $serverCache[strtolower($row['name']).'|'.strtolower($row['serverType'])] = (int)$row['id'];
 
 $db->close();
 
@@ -132,12 +135,13 @@ $now = date('Ymd H:i:s');
 foreach ($data as $entry)
 {
     $serverName = $entry['server'];
-    $serverKey = strtolower($serverName);
+    $serverType = serverTypeForCategory((int)$entry['category']);
+    $serverKey = strtolower($serverName).'|'.strtolower($serverType);
     if (array_key_exists($serverKey, $serverCache)) continue;
 
     $stmt = $db->prepare('INSERT INTO servers(name,serverType,idowner,dateCreated,dateUpdated) VALUES(:n,:st,:o,:c,:u)');
     $stmt->bindValue(':n', $serverName);
-    $stmt->bindValue(':st', serverTypeForCategory((int)$entry['category']));
+    $stmt->bindValue(':st', $serverType);
     $stmt->bindValue(':o', $myid);
     $stmt->bindValue(':c', $now);
     $stmt->bindValue(':u', $now);
@@ -153,7 +157,7 @@ foreach ($data as $entry)
     $name = $entry['name'];
     $idDept = $deptCache[$entry['department']];
     $columns = $entry['columns'];
-    $idserver = $serverCache[strtolower($entry['server'])];
+    $idserver = $serverCache[strtolower($entry['server']).'|'.strtolower(serverTypeForCategory($category))];
 
     // A table is the "same" table when name+idserver+schema match an existing Asset.
     $stmt = $db->prepare('SELECT id FROM Assets WHERE name=:n AND idserver=:s AND schema=:sc');
@@ -256,7 +260,7 @@ foreach ($data as $entry)
             $stmt->bindValue(':id', $colRow['id']);
             $stmt->execute();
         }
-        else // update: soft-delete by tagging the shortDescription, unless already tagged
+        else if ($mode === 'update') // soft-delete by tagging the shortDescription, unless already tagged
         {
             if (strpos((string)$colRow['shortDescription'], 'Deleted on ') === 0) continue;
             $newDesc = 'Deleted on '.$today.' '.$colRow['shortDescription'];
@@ -266,6 +270,7 @@ foreach ($data as $entry)
             $stmt->bindValue(':id', $colRow['id']);
             $stmt->execute();
         }
+        else continue; // add: leave untouched, don't count as removed
         $removed++;
     }
 

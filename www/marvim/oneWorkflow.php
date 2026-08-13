@@ -227,7 +227,10 @@ function displayIO($sql,$ii)
                 '<a style="text-decoration:none;display:none" class="advdelete" href="oneWorkFlowDelIO.php?idworkflow='.$idAsset.'&idasset='.
                 $row['id'].'&workflowDirection='.$ii.'"><img src="ressources/delete.svg" height="20px" style="vertical-align: middle;"/></a>'.
                 '</td><td><div class="history-title">'.
-                '<a style="text-decoration:none;" href="table.php?idasset='.$row['id'].'">'.($row['name']).
+                '<a style="text-decoration:none;" href="';
+        if ($row['datatype']>100) echo 'table'; 
+        else echo 'oneReport';
+        echo '.php?idasset='.$row['id'].'">'.($row['name']).
                 '</a></td><td><div>'.$row['shortDescription'].' </div></td><td style="text-align: center;"><div>'.
                 getStatusDisplay($row['status']).'</div></td><td style="width: 80px;"><div class="popularity-bar">'.
                 '<div class="popularity-fill" style="width: '.$row['popularity'].

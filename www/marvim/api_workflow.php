@@ -106,12 +106,22 @@ if (!$isSuperAdmin)
         $rightsCache[(int)$row['idDepartment']] = (int)$row['rights'];
 }
 
-// Preload every known server (keyed case-insensitively). Only the workflow's own server is
-// auto-created if missing; servers referenced by inputs/outputs must already exist.
+// Preload every known server (keyed case-insensitively), used to resolve the servers referenced
+// by inputs/outputs. Those may be of any serverType, since IO Assets can live on Storage servers
+// of any kind - so this cache is intentionally not restricted by serverType.
+
+// Also Preload only "Workflow" servers (keyed case-insensitively on name), used to resolve/auto-create
+// the workflow's own server. Restricted to serverType='Workflow' so a name shared with a server
+// of another type (e.g. a "Files" server) isn't mistaken for the workflow server of the same name.
 $serverCache = array();
-$res = $db->query('SELECT id, name FROM servers');
+$workflowServerCache = array();
+$res = $db->query('SELECT id, name, serverType FROM servers');
 while ($row = $res->fetchArray(SQLITE3_ASSOC))
+{
     $serverCache[strtolower($row['name'])] = (int)$row['id'];
+    if ($row['serverType']=='Workflow')
+        $workflowServerCache[strtolower($row['name'])] = (int)$row['id'];
+}
 
 // Resolve every input/output reference to an existing Asset id, and check department rights,
 // so nothing is written to the DB on a rejected request.
@@ -172,7 +182,7 @@ foreach ($data as $entry)
 {
     $serverName = $entry['server'];
     $serverKey = strtolower($serverName);
-    if (array_key_exists($serverKey, $serverCache)) continue;
+    if (array_key_exists($serverKey, $workflowServerCache)) continue;
 
     $stmt = $db->prepare('INSERT INTO servers(name,serverType,idowner,dateCreated,dateUpdated) VALUES(:n,:st,:o,:c,:u)');
     $stmt->bindValue(':n', $serverName);
@@ -181,8 +191,8 @@ foreach ($data as $entry)
     $stmt->bindValue(':c', $now);
     $stmt->bindValue(':u', $now);
     $stmt->execute();
-    $serverCache[$serverKey] = (int)$db->lastInsertRowID();
-    addEvent($db, $myid, 'Add', 'servers', $serverCache[$serverKey]);
+    $workflowServerCache[$serverKey] = (int)$db->lastInsertRowID();
+    addEvent($db, $myid, 'Add', 'servers', $workflowServerCache[$serverKey]);
 }
 
 foreach ($data as $i => $entry)
@@ -191,7 +201,7 @@ foreach ($data as $i => $entry)
     $schema = $entry['schema'];
     $name = $entry['name'];
     $idDept = $deptCache[$entry['department']];
-    $idserver = $serverCache[strtolower($entry['server'])];
+    $idserver = $workflowServerCache[strtolower($entry['server'])];
 
     // A workflow is the "same" Asset when name+idserver+schema match an existing row.
     $stmt = $db->prepare('SELECT id FROM Assets WHERE name=:n AND idserver=:s AND schema=:sc');

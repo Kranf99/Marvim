@@ -80,6 +80,7 @@ function getIconHome($table,$at)
 $db = new SQLite3('../../db/MarvimDB.sqlite', SQLITE3_OPEN_READONLY);
 $db->busyTimeout(5000);
 $db->exec("attach database '" . __DIR__ . "/../../db/MarvimUsers.sqlite' as dbu;");
+//$db->close(); exit;
 $results = $db->query('SELECT a.*, u.name as username, u.imagefile as ifile'.
     ' from Activities a LEFT JOIN dbu.Users u ON u.id=a.userid '.
     'where userid='.$myid.' ORDER BY timestamp DESC LIMIT 100');
@@ -98,6 +99,7 @@ for($i=0;$i<100;$i++)
         getHumanElapsedTime($row['timestamp']).
         '</div></div>'."\n";
 }
+
 $results->finalize();
 ?>                        
                     </div>
@@ -137,6 +139,7 @@ $results->finalize();
 </div>
 
 <?php 
+
 require_once '_pe_recentActivity.php';
 $db->close();
 ?>
