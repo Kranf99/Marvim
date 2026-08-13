@@ -1,23 +1,23 @@
 Todo:
 =====
-* Finalize the Anatella API to populate Marvin Automatically.
-  Currently, you can already use Anatella's reflection boxes to write directly
-  the required data inside MarvinDB.sqlite but we intend to provide a more
-  "streamlined" experience (i.e.one-click push button to get all governance data
-  injected into Marvin).
-  This API includes two distinct parts:
-   # Server part: the code in php that receives data from Anatella and store it
-                  inside "MarvinDB.sqlite"
-   # Client part: the code inside Anatella that sends data to Marvin.
 * Add Azure/Microsoft Domain SSO to:
    # check login
-   # populate the Marvin user database (MarvinUsers.sqlite) that contains more
+   # populate the Marvim user database (MarvimUsers.sqlite) that contains more
      details on which asset is accessible to which user.
 * Use a dedicated tag editor to Edit tags (in storage, reports, worklflows) 
 * allow to add some attachments (pdf,png,etc) to a task
 
 Done:
 =====
+* Finalize the Anatella API to populate Marvim Automatically.
+  Currently, you can already use Anatella's reflection boxes to write directly
+  the required data inside MarvimDB.sqlite but we intend to provide a more
+  "streamlined" experience (i.e.one-click push button to get all governance data
+  injected into Marvim).
+  This API includes two distinct parts:
+   # Server part: the code in php that receives data from Anatella and store it
+                  inside "MarvimDB.sqlite"
+   # Client part: the code inside Anatella that sends data to Marvim.
 * Global search bar to search simultaneously inside reports, storage,
   workflows, Glossary (and Tasks).
 * update activity table with all the changes
