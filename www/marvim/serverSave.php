@@ -235,29 +235,39 @@ if ($col=='shortcutToServerID')
         // Walk this server's chain to the real server at its end. A broken chain -- a
         // dangling id, or a loop left by a direct DB edit -- resolves to 0 rather than
         // spinning, by falling back to $sid so the test below yields 0.
-        $fsFinal=0;
+        $fsSeen=array($sid=>true);
+        $fsPrev1=$fsCur=$sid; $fsPrev2=-1;
+        // loop unrolled 2 times to do path-halving for better speed
+        while(1)
         {
-            $fsSeen=array($sid=>true);
-            $fsCur=$sid;
-            while(1)
-            {
-                if (!isset($fsShortcut[$fsCur])) { $fsCur=$sid; break; }   // dangling
-                $fsNext=$fsShortcut[$fsCur];
-                if ($fsNext==0) break;                                     // real server
-                if (isset($fsSeen[$fsNext])) { $fsCur=$sid; break; }       // loop
-                $fsSeen[$fsNext]=true;
-                $fsCur=$fsNext;
-            }
-            $fsFinal=($fsCur==$sid) ? 0 : $fsCur;
+            if (!isset($fsShortcut[$fsCur])) { $fsCur=$sid; break; }   // dangling
+            $fsNext=$fsShortcut[$fsCur];
+            if ($fsNext==0) break;                                     // real server
+            if (isset($fsSeen[$fsNext])) { $fsCur=$sid; break; }       // loop
+            $fsSeen[$fsNext]=true;
+            // path-halving: $fsPrev2 lags two hops behind $fsNext, so this skips a node.
+            if ($fsPrev2>0) $fsShortcut[$fsPrev2]=$fsNext;
+            $fsPrev2=$fsCur=$fsNext;
+
+            if (!isset($fsShortcut[$fsCur])) { $fsCur=$sid; break; }   // dangling
+            $fsNext=$fsShortcut[$fsCur];
+            if ($fsNext==0) break;                                     // real server
+            if (isset($fsSeen[$fsNext])) { $fsCur=$sid; break; }       // loop
+            $fsSeen[$fsNext]=true;
+            //  path-halving:
+            $fsShortcut[$fsPrev1]=$fsNext;
+            $fsPrev1=$fsCur=$fsNext;
         }
+        $fsFinal=($fsCur==$sid) ? 0 : $fsCur;
 
-        // Already right? leave the row alone.
-        if (($fsFinal===$fsStored[$sid])&&(!$fsIsNull[$sid])) continue;
-
-        $stmt->bindValue(':f',$fsFinal);
-        $stmt->bindValue(':sid',$sid);
-        $stmt->execute();
-        $stmt->reset();
+        // only run SQL update if the row has changed
+        if (($fsFinal!=$fsStored[$sid])||($fsIsNull[$sid])) 
+        {
+            $stmt->bindValue(':f',$fsFinal);
+            $stmt->bindValue(':sid',$sid);
+            $stmt->execute();
+            $stmt->reset();
+        }
     }
 }
 //$db->exec('COMMIT');
