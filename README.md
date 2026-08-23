@@ -6,18 +6,19 @@
   <br clear="left" />
 </p>
 
-Data Documentation, Governance & Lineage Solution - **Automated**, Agnostic, Standalone
+Data Governance, Documentation & Lineage Solution - **Automated**, Agnostic, Standalone
 
 Marvim is an Acronym that stands for: **M**aster, **A**utomated, **R**epository for **V**isual **I**ntelligent **M**etadata management
 
-Marvim is Self-documenting, when used in combination with Anatella/TIMi (this is a totally optional combination).
+Marvim is Standalone: it only uses the standard Apache+PHP+Sqlite stack (free & open source): i.e. it does not rely on any third-party component or technology. It's 100% free to use.
 
-Marvim is Standalone: it only uses the standard Apache+PHP+Sqlite stack (free & open source): i.e. it does not rely on any third-party component or technology. 
+However, when Marvim is used in combination with Anatella/TIMi, Marvim becomes Self-documenting (this is a totally optional combination): i.e. No need anymore to spend days or months encoding stuffs inside your data governance tool: It's now done for you, automatically. The content of the documentation stored in Marvim is filed-in automatically by Anatella/TIMi and always match closely with the "real thing" that is really going on with your data (no "unsynchronized" documentation anymore!).
 
 Demo on Youtube here (in French):
 https://www.youtube.com/watch?v=r2OHaXUbltQ
 
-Marvim is a tool created by https://TIMi.eu
+Marvim is a tool created by Frank Vanden Berghen.<br>
+More information about Anatella/TIMi here: https://TIMi.eu
 
 -- **work in progress**
 
