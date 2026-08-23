@@ -17,7 +17,7 @@ Marvim is Standalone: it only uses the standard Apache+PHP+Sqlite stack (free & 
 Demo on Youtube here (in French):
 https://www.youtube.com/watch?v=r2OHaXUbltQ
 
-Marvim is a tool created by https://TIMi.eu
+Marvim is a tool created by Frank Vanden Berghen for https://TIMi.eu
 
 -- **work in progress**
 
