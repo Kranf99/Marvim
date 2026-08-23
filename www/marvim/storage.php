@@ -11,12 +11,13 @@
 <body>
 <?php 
 require "_pe_starter.php";
+require "_pe_serverIcons.php";   // serverIconSrc() / serverDefaultIcon() / serverIconHtml()
 
 $dt='';
 $idserver=0;
 $filter='';
 if (isset($_REQUEST['datatype'])) $dt=$_REQUEST['datatype'];
-if (isset($_REQUEST['idserver'])) $idserver=$_REQUEST['idserver'];
+if (isset($_REQUEST['idserver'])) $idserver=(int)$_REQUEST['idserver'];
 
 if ($dt=='Files') $filter="AND a.category>=100 and a.category<120";
 else if ($dt=='Data Bases') $filter="AND a.category>=120 and a.category<140";
@@ -24,7 +25,13 @@ else if ($dt=='Applications') $filter="AND a.category>=140 and a.category<160";
 else if ($dt=='API\'s') $filter="AND a.category>=160 and a.category<199";
 else $filter="AND a.category>=100 and a.category<199";
 
-if ($idserver!=0) $filter.=" and a.idserver=".(int)$idserver;
+// An alias is just another name for a real server, and only real servers get a card --
+// so a real server's page must also show the assets attached to its aliases, otherwise
+// those assets would be unreachable from anywhere. Needs the "LEFT JOIN servers s" that
+// both $sql branches below carry.
+if ($idserver!=0)
+    $filter.=' and (a.idserver='.(int)$idserver.
+             ' or s.finalShortcutToServerID='.(int)$idserver.')';
 ?>
 <!-- Content -->
 <div class="content">
@@ -58,7 +65,13 @@ if ($dt!="")
 	{
 		echo '</div></div><div class="server-section" id="serverSection"><div class="server-cards-grid">';
 		
-		$sql='SELECT id, name from servers where servertype=:st';
+		// Only real, physical servers get a card: an alias is just another name for one of
+		// these. COALESCE because a row never processed by serverSave.php holds NULL, and
+		// a plain "=0" would silently hide it. Tested on finalShortcutToServerID and not on
+		// shortcutToServerID: the latter stores a mix of '', NULL and 0, and '' defeats
+		// both "=0" and COALESCE.
+		$sql='SELECT id, name, icon from servers where servertype=:st'.
+		     ' and COALESCE(finalShortcutToServerID,0)=0';
 		$stmt = $db->prepare($sql);
 		$stmt->bindValue(':st',$dt);
 		$results=$stmt->execute();
@@ -67,22 +80,28 @@ if ($dt!="")
 	        $row=$results->fetchArray(SQLITE3_ASSOC);
 	        if (!$row) break;
 //        for($i=0;$i<21;$i++)
+            // servers.icon holds just a filename picked on servers.php, e.g. 'Oracle.svg'.
+            // Empty (or naming a file no longer on disk) falls back to this serverType's
+            // default, which for some types is an emoji rather than an image -- so let
+            // serverIconHtml() decide between <img> and <span>.
+            $ic=serverIconSrc($dt,$row['icon']);
+            if ($ic=='') $ic=serverDefaultIcon($dt);
             echo '<div class="server-card">'.
-                 '<a style="text-decoration:none;" href="editServer.php?idserver='.$row['id'].'">'.
+                 '<a style="text-decoration:none;" href="servers.php?idserver='.$row['id'].'">'.
                  '<div class="server-card-edit">✏️</div></a>'.
                  '<a style="text-decoration:none;" href="?datatype='.$dt.'&idserver='.$row['id'].'">'.
-                 '<div class="server-card-icon">🖥️</div>'.
+                 '<div class="server-card-icon">'.serverIconHtml($ic).'</div>'.
                  '<div class="server-card-name">'.$row['name'].'</div></a></div>';
 	    }
 	} else
 	{
-        $sql='SELECT name, idasset from servers where id=:ids';
+        $sql='SELECT name from servers where id=:ids';
 		$stmt = $db->prepare($sql);
 		$stmt->bindValue(':ids',$idserver);
 		$results=$stmt->execute();
         $row=$results->fetchArray(SQLITE3_ASSOC);
         echo ' / <a href="?datatype='.$dt.'&idserver='.$idserver.'">'.$row['name'].'</a>';
-        $idAsset=$row['idasset'];
+        $idAsset=1;
 	}
     echo '</div></div>';
 } else
@@ -122,12 +141,14 @@ if($isSuperAdmin==1)
         ',a.shortDescription as shortDescription_new,a.status as status_new'.
         ' from Assets a'.
         ' LEFT JOIN likesAssets la ON a.id=la.idassetorcolumn and la.iduser='.$myid.
+        ' LEFT JOIN servers s ON a.idserver=s.id'.
         ' where 1=1 '.$filter;
 else
     $sql='SELECT a.*, la.liketype, ud.rights as rights'.
         ',COALESCE(ac.idserver,a.idserver) as idserver_new,COALESCE(ac.name,a.name) as name_new,COALESCE(ac.shortDescription,a.shortDescription) as shortDescription_new,COALESCE(ac.longDescription,a.longDescription) as longDescription_new,COALESCE(ac.status,a.status) as status_new,COALESCE(ac.tags,a.tags) as tags_new'.
         ' from Assets a'.
         ' LEFT JOIN likesAssets la ON a.id=la.idassetorcolumn and la.iduser='.$myid.
+        ' LEFT JOIN servers s ON a.idserver=s.id'.
         ' LEFT JOIN AssetsChanges ac ON ac.rowId=a.id AND ac.changedByUserId='.$myid.
         ' INNER JOIN userDepartmentRights ud ON a.idDepartment=ud.idDepartment'.
         ' where ud.idUser='.$myid.' '.$filter;

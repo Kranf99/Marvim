@@ -11,12 +11,19 @@
 <body>
 <?php 
 require "_pe_starter.php";
+require "_pe_serverIcons.php";   // serverIconSrc() / serverDefaultIcon() / serverIconHtml()
 
 $idserver=0;
 $filter='';
-if (isset($_REQUEST['idserver'])) $idserver=$_REQUEST['idserver'];
+if (isset($_REQUEST['idserver'])) $idserver=(int)$_REQUEST['idserver'];
 
-if ($idserver!=0) $filter.=" and a.idserver=".(int)$idserver;
+// An alias is just another name for a real server, and only real servers get a card --
+// so a real server's page must also show the assets attached to its aliases, otherwise
+// those assets would be unreachable from anywhere. Needs the "LEFT JOIN servers s" that
+// both $sql branches below carry.
+if ($idserver!=0)
+    $filter.=' and (a.idserver='.(int)$idserver.
+             ' or s.finalShortcutToServerID='.(int)$idserver.')';
 ?>
 <!-- Content -->
 <div class="content">
@@ -25,6 +32,12 @@ if ($idserver!=0) $filter.=" and a.idserver=".(int)$idserver;
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
 <h1 style="font-size: 34px; color: #333">Workflows</h1>
 <div><a class="server-hide-btn deleteicon" style="display:none; text-decoration:none;" href="workflowAdd.php">Add Workflow</a>
+<?php
+// Only worth showing when the server grid is actually on the page: same $idserver==0
+// condition that renders #serverSection below.
+if ($idserver==0)
+    echo '<button class="server-hide-btn" onclick="document.getElementById(\'serverSection\').classList.toggle(\'hidden\')">Hide/Show Server List</button> ';
+?>
 <button id="enableDisableButton" class="server-hide-btn" onclick="enableDisableEdit(this)">Enable Edit</button>
 <button class="server-hide-btn" onclick="toggleCardView()">Toogle Card/Table View</button></div>
 </div>
@@ -38,7 +51,13 @@ if ($idserver==0)
     $idAsset=0;
     echo '</div></div><div class="server-section" id="serverSection"><div class="server-cards-grid">';
     
-    $sql='SELECT id, name from servers where servertype=\'Workflow\'';
+    // Only real, physical servers get a card: an alias is just another name for one of
+    // these. COALESCE because a row never processed by serverSave.php holds NULL, and
+    // a plain "=0" would silently hide it. Tested on finalShortcutToServerID and not on
+    // shortcutToServerID: the latter stores a mix of '', NULL and 0, and '' defeats
+    // both "=0" and COALESCE.
+    $sql='SELECT id, name, icon, serverType from servers where servertype=\'Workflow\''.
+         ' and COALESCE(finalShortcutToServerID,0)=0';
     $stmt = $db->prepare($sql);
     $results=$stmt->execute();
     while(1)
@@ -46,22 +65,28 @@ if ($idserver==0)
         $row=$results->fetchArray(SQLITE3_ASSOC);
         if (!$row) break;
 //        for($i=0;$i<21;$i++)
+        // servers.icon holds just a filename picked on servers.php, e.g. 'Python.svg'.
+        // Empty (or naming a file no longer on disk) falls back to this serverType's
+        // default, which for some types is an emoji rather than an image -- so let
+        // serverIconHtml() decide between <img> and <span>.
+        $ic=serverIconSrc($row['serverType'],$row['icon']);
+        if ($ic=='') $ic=serverDefaultIcon($row['serverType']);
         echo '<div class="server-card">'.
-                '<a style="text-decoration:none;" href="editServer.php?idserver='.$row['id'].'">'.
+                '<a style="text-decoration:none;" href="servers.php?idserver='.$row['id'].'">'.
                 '<div class="server-card-edit">✏️</div></a>'.
                 '<a style="text-decoration:none;" href="?idserver='.$row['id'].'">'.
-                '<div class="server-card-icon">🖥️</div>'.
+                '<div class="server-card-icon">'.serverIconHtml($ic).'</div>'.
                 '<div class="server-card-name">'.$row['name'].'</div></a></div>';
     }
 } else
 {
-    $sql='SELECT name, idasset from servers where id=:ids';
+    $sql='SELECT name from servers where id=:ids';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':ids',$idserver);
     $results=$stmt->execute();
     $row=$results->fetchArray(SQLITE3_ASSOC);
     echo ' / <a href="?idserver='.$idserver.'">'.$row['name'].'</a>';
-    $idAsset=$row['idasset'];
+    $idAsset=1;
 }
 ?>
 </div></div>
@@ -77,6 +102,7 @@ if($isSuperAdmin==1)
     ' from Assets a'.
     ' LEFT JOIN likesAssets la ON a.id=la.idassetorcolumn and la.iduser='.$myid.
     ' LEFT JOIN departments d ON a.idDepartment=d.id'.
+    ' LEFT JOIN servers s ON a.idserver=s.id'.
     ' where a.category>=200 '.$filter;
 else
 {
@@ -85,6 +111,7 @@ else
     ' from Assets a'.
     ' LEFT JOIN likesAssets la ON a.id=la.idassetorcolumn and la.iduser='.$myid.
     ' LEFT JOIN departments d ON a.idDepartment=d.id'.
+    ' LEFT JOIN servers s ON a.idserver=s.id'.
     ' LEFT JOIN AssetsChanges ac ON ac.rowId=a.id AND ac.changedByUserId='.$myid.
     ' INNER JOIN userDepartmentRights ud ON a.idDepartment=ud.idDepartment and ud.idUser='.$myid.
     ' where a.category>=200 '.$filter;

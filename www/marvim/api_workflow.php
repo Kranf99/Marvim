@@ -184,7 +184,13 @@ foreach ($data as $entry)
     $serverKey = strtolower($serverName);
     if (array_key_exists($serverKey, $workflowServerCache)) continue;
 
-    $stmt = $db->prepare('INSERT INTO servers(name,serverType,idowner,dateCreated,dateUpdated) VALUES(:n,:st,:o,:c,:u)');
+    // A server auto-created here is always a real, physical one: it is nobody's alias
+    // (shortcutToServerID=0) and so it resolves to no other server (finalShortcutToServerID=0).
+    // Both are set explicitly: left out they would be NULL, leaving the column a mix of
+    // NULL and 0 that nothing then repairs.
+    $stmt = $db->prepare('INSERT INTO servers(name,serverType,idowner,'.
+                         'shortcutToServerID,finalShortcutToServerID,dateCreated,dateUpdated)'.
+                         ' VALUES(:n,:st,:o,0,0,:c,:u)');
     $stmt->bindValue(':n', $serverName);
     $stmt->bindValue(':st', 'Workflow');
     $stmt->bindValue(':o', $myid);

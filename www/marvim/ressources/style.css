@@ -1626,6 +1626,17 @@ input[type="text"], textarea{
     margin-bottom: 10px;
 }
 
+/* The card icon comes from servers.icon and may be an image or an emoji: the font-size
+   above sizes the emoji, this caps the image. max-* rather than a fixed size, because
+   these logos are not all square -- Oracle and Mariadb are about 3:1 and 4:1 -- so a
+   fixed box would letterbox them into a sliver. This scales each one down until it fits
+   inside 48x48, keeping its own proportions. */
+.server-card-icon img {
+    max-height: 48px;
+    max-width: 48px;
+    vertical-align: middle;
+}
+
 .server-card-name {
     font-size: 14px;
     font-weight: 500;
