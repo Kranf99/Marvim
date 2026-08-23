@@ -17,7 +17,7 @@ However, when Marvim is used in combination with Anatella/TIMi, Marvim becomes S
 Demo on Youtube here (in French):
 https://www.youtube.com/watch?v=r2OHaXUbltQ
 
-Marvim is a tool created by Frank Vanden Berghen.
+Marvim is a tool created by Frank Vanden Berghen.<br>
 More information about Anatella/TIMi here: https://TIMi.eu
 
 -- **work in progress**
