@@ -1,16 +1,20 @@
-// ── Lineage iframe navigation (click on a .anatella node in the pipeline/graph) ──
+// ── Lineage iframe navigation (click a node in the pipeline / graph view) ──
+// Keeps the whole-process graph on screen and opens the clicked object's own
+// page: a workflow (Assets.category >= 200) -> oneWorkflow.php, anything else
+// (file / table / DB) -> table.php.
 window.addEventListener('message', async function(ev) {
   if (!ev.data || ev.data.type !== 'lineage-navigate' || !ev.data.path) return;
   try {
     var r = await fetch('lineage/find_asset.php?path=' + encodeURIComponent(ev.data.path), {cache:'no-store'});
     var d = await r.json();
     if (d && d.id) {
-      window.location.href = 'oneWorkflow.php?idasset=' + d.id;
+      var page = (d.category !== undefined && d.category < 200) ? 'table.php' : 'oneWorkflow.php';
+      window.location.href = page + '?idasset=' + d.id;
     } else {
-      alert('This script is not registered as a Marvim asset yet: ' + ev.data.path);
+      alert('Not registered as a Marvim asset yet: ' + ev.data.path);
     }
   } catch (e) {
-    alert('Could not navigate to script: ' + e.message);
+    alert('Could not open: ' + e.message);
   }
 });
 

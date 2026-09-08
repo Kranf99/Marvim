@@ -106,21 +106,21 @@ if (!$isSuperAdmin)
         $rightsCache[(int)$row['idDepartment']] = (int)$row['rights'];
 }
 
-// Preload every known server (keyed case-insensitively), used to resolve the servers referenced
-// by inputs/outputs. Those may be of any serverType, since IO Assets can live on Storage servers
-// of any kind - so this cache is intentionally not restricted by serverType.
-
-// Also Preload only "Workflow" servers (keyed case-insensitively on name), used to resolve/auto-create
-// the workflow's own server. Restricted to serverType='Workflow' so a name shared with a server
-// of another type (e.g. a "Files" server) isn't mistaken for the workflow server of the same name.
+// Preload every known Storage server (keyed case-insensitively on name), used to resolve the
+// servers referenced by inputs/outputs. A name is not unique across serverType (the same physical
+// server can have one row per role, e.g. "THUNDERBOLT" as both a "Files" and a "Data Bases" server),
+// so each name maps to the *list* of matching server ids and every candidate is tried when
+// resolving an IO Asset below. "Workflow" servers are excluded here since Storage Assets never
+// live on one - this also keeps them from shadowing a Storage server that shares their name.
 $serverCache = array();
 $workflowServerCache = array();
 $res = $db->query('SELECT id, name, serverType FROM servers');
 while ($row = $res->fetchArray(SQLITE3_ASSOC))
 {
-    $serverCache[strtolower($row['name'])] = (int)$row['id'];
     if ($row['serverType']=='Workflow')
         $workflowServerCache[strtolower($row['name'])] = (int)$row['id'];
+    else
+        $serverCache[strtolower($row['name'])][] = (int)$row['id'];
 }
 
 // Resolve every input/output reference to an existing Asset id, and check department rights,
@@ -154,11 +154,18 @@ foreach ($data as $i => $entry)
             sendError(400, 'Unknown server "'.$io['server'].'" referenced by data['.$i.'].IO['.$j.'].');
         }
 
-        $stmt = $db->prepare('SELECT id FROM Assets WHERE name=:n AND idserver=:s AND schema=:sc');
-        $stmt->bindValue(':n', $io['name']);
-        $stmt->bindValue(':s', $serverCache[$serverKey]);
-        $stmt->bindValue(':sc', $io['schema']);
-        $row = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+        // A server name can map to several server ids (e.g. "THUNDERBOLT" as both a "Files" and
+        // a "Data Bases" server) - try every candidate until one has a matching Asset.
+        $row = null;
+        foreach ($serverCache[$serverKey] as $sid)
+        {
+            $stmt = $db->prepare('SELECT id FROM Assets WHERE name=:n AND idserver=:s AND schema=:sc');
+            $stmt->bindValue(':n', $io['name']);
+            $stmt->bindValue(':s', $sid);
+            $stmt->bindValue(':sc', $io['schema']);
+            $row = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+            if ($row) break;
+        }
         if (!$row)
         {
             $db->close();

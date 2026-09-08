@@ -265,15 +265,26 @@ if ($scriptFull !== '' && $rowAsset['name'] !== ''
 
 <!-- Lineage graph embed ──────────────────────────────────────────────── -->
 <div class="history-section" id="lineage-embed-section">
-<h2>Lineage Graph</h2>
-<div style="border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
+<h2 style="display:flex;align-items:center;gap:12px;">
+  <span>Lineage Graph</span>
+  <button type="button" id="lineage-toggle-btn" class="clear-btn" onclick="toggleLineageSection()">Show</button>
+</h2>
+<div id="lineage-embed-content" style="display:none;margin-top:20px;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;">
   <iframe id="lineage-iframe"
-    src="lineage/lineage_viewer.html?context=workflow&script=<?php echo urlencode($scriptFull); ?>"
+    src="lineage/lineage_viewer.html?context=workflow&idasset=<?php echo (int)$idAsset; ?>&script=<?php echo urlencode($scriptFull); ?>"
     style="width:100%;height:600px;border:none;display:block;"
     allow="same-origin">
   </iframe>
 </div>
 </div>
+<script>
+function toggleLineageSection() {
+    var content = document.getElementById('lineage-embed-content');
+    var isHidden = content.style.display === 'none';
+    content.style.display = isHidden ? 'block' : 'none';
+    document.getElementById('lineage-toggle-btn').textContent = isHidden ? 'Hide' : 'Show';
+}
+</script>
 </div>
 </div>
 

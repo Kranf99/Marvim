@@ -144,6 +144,57 @@ function lapi_resolveScript($db, $script) {
     return array((int)$row['id'], lapi_display($row));
 }
 
+/**
+ * Locate the WorkflowMeta.pipelineXmlSrvPath for a script even when
+ * lapi_resolveScript() could not pin the asset down. Legacy / imported rows
+ * (NULL isCurrentValue, a trailing slash on schema, a non-200 category) fail
+ * the strict resolve but still have a usable server-side snapshot. Returns the
+ * stored relative path, or false.
+ */
+function lapi_metaSrvPath($db, $fid, $script) {
+    if ($fid !== null) {
+        $rel = lapi_scalar($db, 'SELECT pipelineXmlSrvPath FROM WorkflowMeta WHERE idAsset=? LIMIT 1', array((int)$fid));
+        if ($rel) return $rel;
+    }
+    $fwd = collapseDots(str_replace('\\', '/', $script));
+    list($dir, $file) = lin_splitPath($fwd);
+    $rel = lapi_scalar($db,
+        'SELECT w.pipelineXmlSrvPath FROM WorkflowMeta w JOIN Assets a ON a.id = w.idAsset
+          WHERE w.pipelineXmlSrvPath IS NOT NULL
+            AND (a."schema"=? OR a."schema"=? || \'/\') COLLATE NOCASE AND a.name=? COLLATE NOCASE
+          ORDER BY a.isCurrentValue DESC LIMIT 1', array($dir, $dir, $file));
+    if ($rel) return $rel;
+    $rel = lapi_scalar($db,
+        'SELECT w.pipelineXmlSrvPath FROM WorkflowMeta w JOIN Assets a ON a.id = w.idAsset
+          WHERE w.pipelineXmlSrvPath IS NOT NULL AND a.name=? COLLATE NOCASE
+          ORDER BY a.isCurrentValue DESC LIMIT 1', array($file));
+    return $rel ? $rel : false;
+}
+
+/**
+ * Focal asset id for the script-scoped endpoints. Prefers an explicit
+ * &idasset= (oneWorkflow.php knows it), then the strict path resolve, then a
+ * loose schema/name match for legacy rows the strict resolve rejects (NULL
+ * isCurrentValue, a trailing slash on schema, a non-script category). int|null.
+ */
+function lapi_focalId($db, $script, $idasset = 0) {
+    $idasset = (int)$idasset;
+    if ($idasset > 0 && lapi_scalar($db, 'SELECT 1 FROM Assets WHERE id=? LIMIT 1', array($idasset)) !== false) {
+        return $idasset;
+    }
+    list($fid, ) = lapi_resolveScript($db, $script);
+    if ($fid !== null) return (int)$fid;
+    if ($script === '') return null;
+    $fwd = collapseDots(str_replace('\\', '/', $script));
+    list($dir, $file) = lin_splitPath($fwd);
+    $id = lapi_scalar($db,
+        'SELECT id FROM Assets WHERE (("schema"=? OR "schema"=? || \'/\') COLLATE NOCASE)
+           AND name=? COLLATE NOCASE ORDER BY isCurrentValue DESC LIMIT 1', array($dir, $dir, $file));
+    if ($id === false) $id = lapi_scalar($db,
+        'SELECT id FROM Assets WHERE name=? COLLATE NOCASE ORDER BY isCurrentValue DESC LIMIT 1', array($file));
+    return $id === false ? null : (int)$id;
+}
+
 /** Resolve a path string to any asset. Returns [id, display] or [null, path]. */
 function lapi_resolveFile($db, $file) {
     $fwd = collapseDots(str_replace('\\', '/', $file));
@@ -156,6 +207,30 @@ function lapi_resolveFile($db, $file) {
     }
     if (!$row) return array(null, $fwd);
     return array((int)$row['id'], lapi_display($row));
+}
+
+/**
+ * Like lapi_focalId but for any asset (file / table / script). Prefers an
+ * explicit &idasset=, then the strict resolve, then a loose schema/name match
+ * for legacy rows with a NULL isCurrentValue or a trailing slash on schema.
+ * int|null.
+ */
+function lapi_fileId($db, $file, $idasset = 0) {
+    $idasset = (int)$idasset;
+    if ($idasset > 0 && lapi_scalar($db, 'SELECT 1 FROM Assets WHERE id=? LIMIT 1', array($idasset)) !== false) {
+        return $idasset;
+    }
+    list($fid, ) = lapi_resolveFile($db, $file);
+    if ($fid !== null) return (int)$fid;
+    if ($file === '') return null;
+    $fwd = collapseDots(str_replace('\\', '/', $file));
+    list($dir, $nm) = lin_splitPath($fwd);
+    $id = lapi_scalar($db,
+        'SELECT id FROM Assets WHERE (("schema"=? OR "schema"=? || \'/\') COLLATE NOCASE)
+           AND name=? COLLATE NOCASE ORDER BY isCurrentValue DESC LIMIT 1', array($dir, $dir, $nm));
+    if ($id === false) $id = lapi_scalar($db,
+        'SELECT id FROM Assets WHERE name=? COLLATE NOCASE ORDER BY isCurrentValue DESC LIMIT 1', array($nm));
+    return $id === false ? null : (int)$id;
 }
 
 /**
@@ -237,6 +312,12 @@ switch ($action) {
             exit;
         }
         list($fid, $resolved) = lapi_resolveScript($db, $script);
+        if ($fid === null) {
+            // legacy / mangled rows (NULL isCurrentValue, trailing-slash schema,
+            // category != 200) still have real workflowIO — resolve them so the
+            // graph shows the workflow's inputs and outputs.
+            $fid = lapi_focalId($db, $script, isset($_GET['idasset']) ? $_GET['idasset'] : 0);
+        }
         $depth = isset($_GET['depth']) ? $_GET['depth'] : 'direct';
 
         $depRows = array(); $rel_before = array(); $rel_after = array();
@@ -358,7 +439,8 @@ switch ($action) {
             echo json_encode(array('error' => 'Missing file parameter'));
             exit;
         }
-        list($fileId, ) = lapi_resolveFile($db, $file);
+        $fileId = lapi_fileId($db, $file, isset($_GET['idasset']) ? $_GET['idasset'] : 0);
+        $focalDisplay = $fileId !== null ? lapi_displayOfId($db, $fileId) : $file;
         $upstream = array(); $downstream = array();
         $scriptsSeen = array();   // asset id => true (scripts appearing as s0)
 
@@ -411,16 +493,37 @@ switch ($action) {
             }
         }
 
-        echo json_encode(array('upstream' => $upstream, 'downstream' => $downstream, 'call_edges' => $callEdges));
+        echo json_encode(array('focal' => $focalDisplay, 'upstream' => $upstream,
+                               'downstream' => $downstream, 'call_edges' => $callEdges));
         break;
 
     case 'project_graph':
         $project = isset($_GET['project']) ? $_GET['project'] : '';
+        $focal   = isset($_GET['focal'])   ? $_GET['focal']   : '';
 
         $allProjects = lapi_col($db,
             "SELECT DISTINCT project FROM DatamartProjects WHERE project IS NOT NULL AND project != '' ORDER BY project"
         );
 
+        // Which project (if any) does the focal script actually belong to?
+        // Answered from Assets.idProject -> DatamartProjects, NOT from name
+        // matching — a workflow with no idProject is reported as unassigned.
+        $focalProject = null;
+        if ($focal !== '') {
+            $ffid = lapi_focalId($db, $focal, isset($_GET['idasset']) ? $_GET['idasset'] : 0);
+            if ($ffid !== null) {
+                $focalProject = lapi_scalar($db,
+                    'SELECT dp.project FROM Assets a JOIN DatamartProjects dp ON dp.id = a.idProject
+                      WHERE a.id = ? LIMIT 1', array((int)$ffid));
+                if ($focalProject === false) $focalProject = null;
+            }
+        }
+
+        // With a focal given and no explicit project asked for, show the
+        // focal's own project rather than defaulting to the first one.
+        if ($project === '' && $focal !== '' && $focalProject !== null) {
+            $project = $focalProject;
+        }
         if ($project === '' || !in_array($project, $allProjects)) {
             $project = count($allProjects) > 0 ? $allProjects[0] : '';
         }
@@ -482,13 +585,15 @@ switch ($action) {
         }
 
         echo json_encode(array('edges' => $edges, 'projects' => $allProjects,
-                               'project' => $project, 'groupLabels' => $groupLabels));
+                               'project' => $project, 'groupLabels' => $groupLabels,
+                               'focalProject'  => $focalProject,
+                               'focalAssigned' => ($focal !== '' ? ($focalProject !== null) : null)));
         break;
 
     case 'actions':
         $script = isset($_GET['script']) ? $_GET['script'] : '';
         if ($script === '') { echo json_encode(array()); break; }
-        list($fid, ) = lapi_resolveScript($db, $script);
+        $fid = lapi_focalId($db, $script, isset($_GET['idasset']) ? $_GET['idasset'] : 0);
         if ($fid === null) { echo json_encode(array()); break; }
         echo json_encode(lapi_all($db,
             'SELECT ct.nodeID AS "ID", cb.name AS "Before", c.name AS "After", ct.op, ct.expression
@@ -505,7 +610,7 @@ switch ($action) {
             echo json_encode(array('inputs' => array(), 'outputs' => array(), 'calls' => array(), 'meta' => null));
             break;
         }
-        list($fid, ) = lapi_resolveScript($db, $script);
+        $fid = lapi_focalId($db, $script, isset($_GET['idasset']) ? $_GET['idasset'] : 0);
         $result = array('inputs' => array(), 'outputs' => array(), 'calls' => array(), 'meta' => null);
         if ($fid !== null) {
             // One row per LineageIO detail (a script can touch the same file
@@ -588,9 +693,10 @@ switch ($action) {
             $rawNorm = str_replace('/', DIRECTORY_SEPARATOR, $script);
             if (preg_match('/^[A-Za-z]:/', $script) && file_exists($rawNorm)) $fullPath = $rawNorm;
         }
-        // 3. server-side copy
-        if (!$fullPath && $fid !== null) {
-            $rel = lapi_scalar($db, 'SELECT pipelineXmlSrvPath FROM WorkflowMeta WHERE idAsset=? LIMIT 1', array($fid));
+        // 3. server-side copy (still resolvable when lapi_resolveScript could
+        //    not pin the asset id down — see lapi_metaSrvPath)
+        if (!$fullPath) {
+            $rel = lapi_metaSrvPath($db, $fid, $script);
             if ($rel) {
                 $p = lin_srvPathToDisk($rel);
                 if (file_exists($p)) $fullPath = $p;
@@ -600,7 +706,19 @@ switch ($action) {
             echo json_encode(array('error' => 'Script not found', 'basename' => basename($display)));
             exit;
         }
-        $xml = file_get_contents($fullPath);
+        if (lin_anatellaIsEncrypted($fullPath)) {
+            echo json_encode(array(
+                'error'     => 'Script is encrypted and can only be viewed in anatella with the proper login',
+                'encrypted' => true,
+                'path'      => str_replace('\\', '/', $fullPath),
+            ));
+            exit;
+        }
+        $xml = lin_readXmlAsUtf8($fullPath);   // handles UTF-16 / BOM so json_encode won't choke
+        if ($xml === false) {
+            echo json_encode(array('error' => 'Could not read script file', 'path' => str_replace('\\', '/', $fullPath)));
+            exit;
+        }
         echo json_encode(array('xml' => $xml, 'path' => str_replace('\\', '/', $fullPath)));
         break;
 
@@ -612,11 +730,7 @@ switch ($action) {
             exit;
         }
         list($fid, ) = lapi_resolveScript($db, $script);
-        if ($fid === null) {
-            echo json_encode(array('error' => 'Script not found — run extraction first'));
-            break;
-        }
-        $rel = lapi_scalar($db, 'SELECT pipelineXmlSrvPath FROM WorkflowMeta WHERE idAsset=? LIMIT 1', array($fid));
+        $rel = lapi_metaSrvPath($db, $fid, $script);
         if (!$rel) {
             echo json_encode(array('error' => 'No pipeline copy on the server — re-run extraction to capture it'));
             break;
@@ -626,7 +740,19 @@ switch ($action) {
             echo json_encode(array('error' => 'Pipeline copy missing on disk: ' . $rel));
             break;
         }
-        echo json_encode(array('pipeline_xml' => file_get_contents($p)));
+        if (lin_anatellaIsEncrypted($p)) {
+            echo json_encode(array(
+                'error'     => 'Script is encrypted and can only be viewed in anatella with the proper login',
+                'encrypted' => true,
+            ));
+            break;
+        }
+        $pxml = lin_readXmlAsUtf8($p);   // handles UTF-16 / BOM so json_encode won't choke
+        if ($pxml === false) {
+            echo json_encode(array('error' => 'Pipeline copy could not be read: ' . $rel));
+            break;
+        }
+        echo json_encode(array('pipeline_xml' => $pxml));
         break;
 
     case 'open_script':

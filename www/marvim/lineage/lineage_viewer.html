@@ -928,6 +928,13 @@ const COL_GAP  = 80,  ROW_GAP = 14;
 const _params  = new URLSearchParams(window.location.search);
 const _script  = _params.get('script')  || '';
 const _context = _params.get('context') || 'lineage';
+const _idasset = _params.get('idasset') || '';   // set by oneWorkflow.php; lets the API resolve legacy rows the path can't
+
+// &idasset= to append to a script-scoped API call, but only for the page's own
+// workflow — never when the user has drilled into a different node.
+function idAssetQS(scriptPath) {
+  return (_idasset && scriptPath === _script) ? `&idasset=${encodeURIComponent(_idasset)}` : '';
+}
 // 'script' (default, .anatella) or 'file' (data file / DB table — embedded from table.php)
 const _kind    = _params.get('kind') || 'script';
 
@@ -1025,7 +1032,7 @@ async function viewerSelectScript(path) {
 }
 
 async function selectScript(script) {
-  const res  = await fetch(`${API}?action=graph_for_script&depth=${_depth}&script=${encodeURIComponent(script)}`);
+  const res  = await fetch(`${API}?action=graph_for_script&depth=${_depth}&script=${encodeURIComponent(script)}${idAssetQS(script)}`);
   const data = await res.json();
   const focal = data.focal || script;
 
@@ -1062,14 +1069,15 @@ async function selectFileNode(file) {
   // only applies to script focals (graph_for_script); hide it for files/tables.
   const dt = document.getElementById('depth-toggle');
   if (dt) dt.style.display = 'none';
-  const res  = await fetch(`${API}?action=full_graph&file=${encodeURIComponent(file)}`);
+  const res  = await fetch(`${API}?action=full_graph&file=${encodeURIComponent(file)}${idAssetQS(file)}`);
   const data = await res.json();
+  const focal      = data.focal || file;   // API display form so it lines up with the chain endpoints
   const upChains   = parseChains(data.upstream);
   const downChains = parseChains(data.downstream);
-  const graph = buildFullGraph(upChains, downChains, file);
+  const graph = buildFullGraph(upChains, downChains, focal);
   layoutGraph(graph);
-  renderGraph(graph, file);
-  renderPaths(upChains, downChains, file);
+  renderGraph(graph, focal);
+  renderPaths(upChains, downChains, focal);
 }
 
 // ── Parse / build / layout graph ─────────────────────────────────────────────
@@ -1247,22 +1255,19 @@ function renderGraph(graph, focal) {
     .on('mouseleave', hideTip)
     .on('click', (e, d) => {
       highlightPaths(d.id, root, nodes, edges);
-      const isScript = d.type === 'script' || (d.type === 'focal' && d.path.endsWith('.anatella'));
-      if (isScript) {
-        if (_context === 'workflow') {
-          // Navigate parent to the workflow page for this script
-          window.parent.postMessage({ type: 'lineage-navigate', path: d.path }, '*');
-        } else {
-          viewerSelectScript(d.path);
-        }
-      } else if (_context === 'workflow') {
-        // Embedded: re-root the graph on this file/table without leaving the page.
-        selectedFocal = d.path;
-        setDagTitle(d.path, 'dest');
-        selectFileNode(d.path);
-      } else {
-        selectFileNode(d.path);
+      if (d.type === 'focal') return;   // already on this object's page
+      if (_context === 'workflow') {
+        // Embedded in oneWorkflow.php / table.php: keep this whole-process graph
+        // on screen and open the clicked object's own page in the parent. The
+        // parent (llmCommon.js) resolves the path to an asset and routes to
+        // oneWorkflow.php (workflow) or table.php (file / table).
+        window.parent.postMessage({ type: 'lineage-navigate', path: d.path }, '*');
+        return;
       }
+      // Standalone viewer: re-root the graph in place.
+      const isScript = d.type === 'script' || /\.anatella$/i.test(d.path || '');
+      if (isScript) viewerSelectScript(d.path);
+      else          selectFileNode(d.path);
     });
 
   nodeGroups.each(function(d) {
@@ -1373,24 +1378,66 @@ document.querySelectorAll('.view-tab').forEach(btn => {
 });
 
 // Depth toggle: Immediate (1 hop) vs Complete (full BFS through shared files).
+// Only meaningful for script focals — full_graph (file focals) is always complete.
 document.querySelectorAll('.depth-btn').forEach(btn => {
   btn.addEventListener('click', async () => {
     if (btn.dataset.depth === _depth) return;
     _depth = btn.dataset.depth;
     document.querySelectorAll('.depth-btn').forEach(b => b.classList.toggle('active', b === btn));
-    if (selectedFocal && selectedFocal.endsWith('.anatella')) await selectScript(selectedFocal);
+    // _focalIsScript, not a ".anatella" suffix — legacy rows (sql3, select_rows)
+    // are script focals whose name carries no extension.
+    if (selectedFocal && _focalIsScript) await selectScript(selectedFocal);
   });
 });
 
 // ── Project overview ──────────────────────────────────────────────────────────
+// Empty state for a focal workflow that has no idProject / datamart: show
+// nothing rather than another project's graph (which reads as membership).
+function showOverviewUnassigned(scriptName) {
+  if (ovSimulation) { ovSimulation.stop(); ovSimulation = null; }
+  ovRefs = null;
+  const root = document.getElementById('ov-root');        if (root) root.innerHTML = '';
+  const gl   = document.getElementById('ov-group-list');  if (gl) gl.innerHTML = '';
+  const gc   = document.getElementById('ov-group-count'); if (gc) gc.textContent = '';
+  const nm   = document.getElementById('ov-project-name'); if (nm) nm.textContent = '(not in a project)';
+  const sel  = document.getElementById('ov-project-select'); if (sel) sel.style.display = 'none';
+  const canvas = document.getElementById('ov-canvas');
+  let msg = document.getElementById('ov-empty-msg');
+  if (!msg && canvas) {
+    msg = document.createElement('div');
+    msg.id = 'ov-empty-msg';
+    msg.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;'
+      + 'text-align:center;padding:30px;color:#64748b;font-size:.95rem;line-height:1.6';
+    canvas.appendChild(msg);
+  }
+  if (msg) {
+    msg.innerHTML = '<div><div style="font-size:1.7rem;margin-bottom:8px">&#128451;</div>'
+      + '<b>' + escHtml(scriptName) + '</b> is not assigned to a datamart.<br>'
+      + 'It has no project link (<code>idProject</code>), so there is no project overview for it.</div>';
+    msg.style.display = 'flex';
+  }
+}
+
 async function loadOverview(project) {
-  const res  = await fetch(`${API}?action=project_graph&project=${encodeURIComponent(project)}`);
+  const focalQS = (typeof selectedFocal === 'string' && selectedFocal)
+    ? `&focal=${encodeURIComponent(selectedFocal)}${idAssetQS(selectedFocal)}` : '';
+  const res  = await fetch(`${API}?action=project_graph&project=${encodeURIComponent(project)}${focalQS}`);
   const data = await res.json();
   const sel  = document.getElementById('ov-project-select');
   sel.innerHTML = (data.projects || []).map(p =>
     `<option value="${escHtml(p)}"${p === data.project ? ' selected' : ''}>${escHtml(p)}</option>`
   ).join('');
   sel.onchange = () => { ovLoaded = false; loadOverview(sel.value); };
+  sel.style.display = '';   // showOverviewUnassigned() hides it again if needed
+
+  // Auto-load only: if the focal script has no project link, don't fall back
+  // to some other project's graph. An explicit selector pick still browses.
+  if (!project && data.focalAssigned === false) {
+    showOverviewUnassigned(selectedFocal ? basename(selectedFocal) : 'This script');
+    ovLoaded = true;
+    return;
+  }
+  const em = document.getElementById('ov-empty-msg'); if (em) em.style.display = 'none';
   document.getElementById('ov-project-name').textContent = data.project || '';
   renderForceGraph(data.edges || [], data.groupLabels || {});
   ovLoaded = true;
@@ -1620,17 +1667,41 @@ function searchOverview(q) {
   link.classed('dimmed', true).classed('active', false);
 }
 
+// Normalize a script path for comparison: forward slashes, no doubled or
+// trailing slash, lower-case. Overview node ids and selectedFocal both come
+// from the same server-side display helper, so an exact match here is reliable.
+function ovNormPath(s) {
+  return String(s || '').replace(/\\/g, '/').replace(/\/+/g, '/').replace(/\/$/, '').toLowerCase();
+}
+
 function highlightFocalInOverview() {
   if (!ovRefs) return;
   const { node, rOf, nodes, zoom, svgEl, W, H } = ovRefs;
-  const fbn = selectedFocal ? basename(selectedFocal) : null;
   node.classed('focal', false);
   node.select('circle').attr('r', rOf);
-  if (!fbn) { clearOvSelection(); return; }
-  const focalNode = nodes.find(d => basename(d.id) === fbn);
-  if (!focalNode) return;
-  node.classed('focal', d => basename(d.id) === fbn);
-  node.select('circle').attr('r', d => basename(d.id) === fbn ? rOf(d) + 5 : rOf(d));
+  const ovNote = msg => { const s = document.getElementById('ov-status'); if (s) s.textContent = msg; };
+  if (!selectedFocal) { clearOvSelection(); return; }
+
+  // Match on the full path first; fall back to basename only when it is unique
+  // (guards against path-format drift, without cross-project name collisions).
+  const fN = ovNormPath(selectedFocal), fbn = basename(selectedFocal).toLowerCase();
+  let focalNode = nodes.find(d => ovNormPath(d.id) === fN);
+  if (!focalNode) {
+    const sameName = nodes.filter(d => basename(d.id).toLowerCase() === fbn);
+    if (sameName.length === 1) focalNode = sameName[0];
+  }
+  if (!focalNode) {
+    // The focal script is not in this project's graph — e.g. it has no
+    // idProject / datamart assignment. Say so instead of silently latching
+    // onto a same-named script that IS in the project.
+    clearOvSelection();
+    ovNote('⚠ ' + basename(selectedFocal) + ' is not assigned to a datamart (no project link) — showing "'
+           + (document.getElementById('ov-project-name').textContent || 'project') + '" for reference.');
+    return;
+  }
+  const isFocal = d => d === focalNode;
+  node.classed('focal', isFocal);
+  node.select('circle').attr('r', d => isFocal(d) ? rOf(d) + 5 : rOf(d));
   ovClickedNode = focalNode.id;
   highlightNodeNeighbors(focalNode.id);
   if (isNaN(focalNode.x) || isNaN(focalNode.y) || focalNode.x == null || focalNode.y == null) return;
@@ -1715,8 +1786,8 @@ async function loadVarsForScript(scriptPath, highlightVar) {
   ioDiv.innerHTML   = '';
 
   const [varRes, ioRes] = await Promise.all([
-    fetch(`${API}?action=actions&script=${encodeURIComponent(scriptPath)}`),
-    fetch(`${API}?action=script_io&script=${encodeURIComponent(scriptPath)}`)
+    fetch(`${API}?action=actions&script=${encodeURIComponent(scriptPath)}${idAssetQS(scriptPath)}`),
+    fetch(`${API}?action=script_io&script=${encodeURIComponent(scriptPath)}${idAssetQS(scriptPath)}`)
   ]);
   currentVarRows = await varRes.json();
   const ioData   = await ioRes.json();

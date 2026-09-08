@@ -2460,19 +2460,58 @@ let ovRefs = null; // { node, link, nodes, links, colorOf, rOf }
 // ── View toggle (header buttons now delegate to switchView) ──────────────
 
 // ── Load & render overview ────────────────────────────────────────────────
+// Empty state for a focal workflow that has no idProject / datamart: show
+// nothing rather than another project's graph (which reads as membership).
+function showOverviewUnassigned(scriptName) {
+  if (ovSimulation) { ovSimulation.stop(); ovSimulation = null; }
+  ovRefs = null;
+  const root = document.getElementById('ov-root');        if (root) root.innerHTML = '';
+  const gl   = document.getElementById('ov-group-list');  if (gl) gl.innerHTML = '';
+  const gc   = document.getElementById('ov-group-count'); if (gc) gc.textContent = '';
+  const nm   = document.getElementById('ov-project-name'); if (nm) nm.textContent = '(not in a project)';
+  const sel  = document.getElementById('ov-project-select'); if (sel) sel.style.display = 'none';
+  const canvas = document.getElementById('ov-canvas');
+  let msg = document.getElementById('ov-empty-msg');
+  if (!msg && canvas) {
+    msg = document.createElement('div');
+    msg.id = 'ov-empty-msg';
+    msg.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;'
+      + 'text-align:center;padding:30px;color:#64748b;font-size:.95rem;line-height:1.6';
+    canvas.appendChild(msg);
+  }
+  if (msg) {
+    msg.innerHTML = '<div><div style="font-size:1.7rem;margin-bottom:8px">&#128451;</div>'
+      + '<b>' + escHtml(scriptName) + '</b> is not assigned to a datamart.<br>'
+      + 'It has no project link (<code>idProject</code>), so there is no project overview for it.</div>';
+    msg.style.display = 'flex';
+  }
+}
+
 async function loadOverview(project) {
-  const res  = await fetch(`${API}?action=project_graph&project=${encodeURIComponent(project)}`);
+  const focalQS = (typeof selectedFocal === 'string' && selectedFocal)
+    ? `&focal=${encodeURIComponent(selectedFocal)}` : '';
+  const res  = await fetch(`${API}?action=project_graph&project=${encodeURIComponent(project)}${focalQS}`);
   const data = await res.json();
 
   // Populate project selector
   const sel = document.getElementById('ov-project-select');
-  sel.innerHTML = data.projects.map(p =>
+  sel.innerHTML = (data.projects || []).map(p =>
     `<option value="${escHtml(p)}"${p === data.project ? ' selected' : ''}>${escHtml(p)}</option>`
   ).join('');
   sel.onchange = () => { ovLoaded = false; loadOverview(sel.value); };
-  document.getElementById('ov-project-name').textContent = data.project;
+  sel.style.display = '';   // showOverviewUnassigned() hides it again if needed
 
-  renderForceGraph(data.edges, data.groupLabels || {});
+  // Auto-load only: if the focal script has no project link, don't fall back
+  // to some other project's graph. An explicit selector pick still browses.
+  if (!project && data.focalAssigned === false) {
+    showOverviewUnassigned(selectedFocal ? basename(selectedFocal) : 'This script');
+    ovLoaded = true;
+    return;
+  }
+  const em = document.getElementById('ov-empty-msg'); if (em) em.style.display = 'none';
+  document.getElementById('ov-project-name').textContent = data.project || '';
+
+  renderForceGraph(data.edges || [], data.groupLabels || {});
   ovLoaded = true;
 }
 
@@ -2812,24 +2851,46 @@ function searchOverview(q) {
 }
 
 // ── Highlight focal (currently selected script) ───────────────────────────
+// Normalize a script path for comparison: forward slashes, no doubled or
+// trailing slash, lower-case. Overview node ids and selectedFocal both come
+// from the same server-side display helper, so an exact match here is reliable.
+function ovNormPath(s) {
+  return String(s || '').replace(/\\/g, '/').replace(/\/+/g, '/').replace(/\/$/, '').toLowerCase();
+}
+
 function highlightFocalInOverview() {
   if (!ovRefs) return;
   const { node, rOf, nodes, zoom, svgEl, W, H } = ovRefs;
-  const fbn = selectedFocal ? basename(selectedFocal) : null;
 
   // Clear previous focal styling
   node.classed('focal', false);
   node.select('circle').attr('r', rOf);
 
-  if (!fbn) { clearOvSelection(); return; }
+  const ovNote = msg => { const s = document.getElementById('ov-status'); if (s) s.textContent = msg; };
+  if (!selectedFocal) { clearOvSelection(); return; }
 
-  // Find the matching node object
-  const focalNode = nodes.find(d => basename(d.id) === fbn);
-  if (!focalNode) return;
+  // Match on the full path first; fall back to basename only when it is unique
+  // (guards against path-format drift, without cross-project name collisions).
+  const fN = ovNormPath(selectedFocal), fbn = basename(selectedFocal).toLowerCase();
+  let focalNode = nodes.find(d => ovNormPath(d.id) === fN);
+  if (!focalNode) {
+    const sameName = nodes.filter(d => basename(d.id).toLowerCase() === fbn);
+    if (sameName.length === 1) focalNode = sameName[0];
+  }
+  if (!focalNode) {
+    // The focal script is not in this project's graph — e.g. it has no
+    // idProject / datamart assignment. Say so instead of silently latching
+    // onto a same-named script that IS in the project.
+    clearOvSelection();
+    ovNote('⚠ ' + basename(selectedFocal) + ' is not assigned to a datamart (no project link) — showing "'
+           + (document.getElementById('ov-project-name').textContent || 'project') + '" for reference.');
+    return;
+  }
 
   // Apply focal class + larger radius
-  node.classed('focal', d => basename(d.id) === fbn);
-  node.select('circle').attr('r', d => basename(d.id) === fbn ? rOf(d) + 5 : rOf(d));
+  const isFocal = d => d === focalNode;
+  node.classed('focal', isFocal);
+  node.select('circle').attr('r', d => isFocal(d) ? rOf(d) + 5 : rOf(d));
 
   // Highlight neighbors (dims everything else)
   ovClickedNode = focalNode.id;
