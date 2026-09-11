@@ -35,7 +35,7 @@
     </div>
     <div class="header-actions">
         <button class="btn">↗️ SHARE</button>
-        <span>❓</span>
+        <span><a href="ressources/MarvimQuickGuide.pdf" target="marvimQuickGuide" style="text-decoration:none;">❓</a></span>
         <span>🔔</span>
         <div class="user-profile-wrapper">
             <input type="checkbox" id="menu-toggle">

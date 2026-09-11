@@ -7,6 +7,12 @@ Todo:
 * Use a dedicated tag editor to Edit tags (in storage, reports, worklflows) 
 * allow to add some attachments (pdf,png,etc) to a task
 
+Nice to have:
+=============
+* add logos from cloud API vendors
+* Create tasks directly from chat
+* add accept/reject changes in WorkflowIO
+
 Done:
 =====
 * Finalize the Anatella API to populate Marvim Automatically.
@@ -30,12 +36,6 @@ Done:
 * see transient changes inside list dataset page
 * Add new Task
 * redo main logos
-
-Nice to have:
-=============
 * manage servers (workflow servers - reporting servers - file server - 
   database server)
 * add servers logos from all Databases/Datalake Vendors
-* add logos from cloud API vendors
-* Create tasks directly from chat
-* add accept/reject changes in WorkflowIO
