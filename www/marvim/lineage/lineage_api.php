@@ -706,14 +706,15 @@ switch ($action) {
             echo json_encode(array('error' => 'Script not found', 'basename' => basename($display)));
             exit;
         }
-        if (lin_anatellaIsEncrypted($fullPath)) {
+        
+/*        if (lin_anatellaIsEncrypted($fullPath)) {
             echo json_encode(array(
                 'error'     => 'Script is encrypted and can only be viewed in anatella with the proper login',
                 'encrypted' => true,
                 'path'      => str_replace('\\', '/', $fullPath),
             ));
             exit;
-        }
+        }*/
         $xml = lin_readXmlAsUtf8($fullPath);   // handles UTF-16 / BOM so json_encode won't choke
         if ($xml === false) {
             echo json_encode(array('error' => 'Could not read script file', 'path' => str_replace('\\', '/', $fullPath)));
@@ -740,6 +741,7 @@ switch ($action) {
             echo json_encode(array('error' => 'Pipeline copy missing on disk: ' . $rel));
             break;
         }
+/*        
         if (lin_anatellaIsEncrypted($p)) {
             echo json_encode(array(
                 'error'     => 'Script is encrypted and can only be viewed in anatella with the proper login',
@@ -747,6 +749,7 @@ switch ($action) {
             ));
             break;
         }
+*/
         $pxml = lin_readXmlAsUtf8($p);   // handles UTF-16 / BOM so json_encode won't choke
         if ($pxml === false) {
             echo json_encode(array('error' => 'Pipeline copy could not be read: ' . $rel));

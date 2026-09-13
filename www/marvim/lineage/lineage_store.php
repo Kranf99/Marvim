@@ -515,3 +515,57 @@ function lin_srvPathToDisk($relPath) {
     // stored as 'lineage/anatella/<idserver>/<id>.anatella', relative to marvim/
     return __DIR__ . '/../' . $relPath;
 }
+
+/**
+ * Read an XML file from disk and return its contents as a valid UTF-8 string,
+ * safe to embed in json_encode() output. Anatella scripts are commonly saved
+ * as UTF-16 (with or without a BOM) or UTF-8-with-BOM; json_encode() silently
+ * fails (returns false) on anything that isn't clean UTF-8, so we normalize
+ * here rather than at every call site. Returns false if the file can't be
+ * read.
+ */
+function lin_readXmlAsUtf8($path) {
+    $raw = @file_get_contents($path);
+    if ($raw === false) return false;
+    if ($raw === '') return '';
+
+    $encoding = null;
+
+    // BOM sniffing takes priority over the XML declaration.
+    if (substr($raw, 0, 3) === "\xEF\xBB\xBF") {
+        $raw = substr($raw, 3);
+        $encoding = 'UTF-8';
+    } elseif (substr($raw, 0, 2) === "\xFF\xFE") {
+        $raw = substr($raw, 2);
+        $encoding = 'UTF-16LE';
+    } elseif (substr($raw, 0, 2) === "\xFE\xFF") {
+        $raw = substr($raw, 2);
+        $encoding = 'UTF-16BE';
+    } elseif (strncmp($raw, "\x00", 1) === "\x00" && strlen($raw) > 1 && $raw[1] !== "\x00") {
+        // No BOM but looks like big-endian UTF-16 (ASCII-range XML starts with
+        // a NUL byte before every '<'/'?' character).
+        $encoding = 'UTF-16BE';
+    } elseif (strlen($raw) > 1 && $raw[1] === "\x00") {
+        // No BOM but looks like little-endian UTF-16.
+        $encoding = 'UTF-16LE';
+    }
+
+    if ($encoding !== null && $encoding !== 'UTF-8') {
+        $converted = @iconv($encoding, 'UTF-8//IGNORE', $raw);
+        if ($converted !== false) $raw = $converted;
+    }
+
+    // Whatever we ended up with, make sure it's valid UTF-8 before handing it
+    // to json_encode() — fall back to declared/detected source encoding.
+    if (!mb_check_encoding($raw, 'UTF-8')) {
+        if (preg_match('/encoding=["\']([^"\']+)["\']/', $raw, $m)) {
+            $converted = @iconv($m[1], 'UTF-8//IGNORE', $raw);
+            if ($converted !== false) $raw = $converted;
+        }
+        if (!mb_check_encoding($raw, 'UTF-8')) {
+            $raw = @mb_convert_encoding($raw, 'UTF-8', 'UTF-8, ISO-8859-1, Windows-1252');
+        }
+    }
+
+    return $raw;
+}
